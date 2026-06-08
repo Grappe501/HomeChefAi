@@ -1,0 +1,13 @@
+node_modules/
+.npm-cache/
+.npm-global/
+dist/
+.netlify/
+.env
+.env.local
+*.log
+.DS_Store
+Thumbs.db
+*.local
+dev-data/
+.vite/

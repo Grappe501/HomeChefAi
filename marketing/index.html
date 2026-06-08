@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="HomeChef AI — Your personal kitchen sous chef. Track pantry inventory, scan receipts, plan meals with AI. Start free." />
+  <meta property="og:title" content="HomeChef AI — Your Kitchen Sous Chef" />
+  <meta property="og:description" content="Scan receipts. Plan meals. Never waste food again. AI-powered pantry management for busy families." />
+  <title>HomeChef AI — Your Kitchen Sous Chef</title>
+  <link rel="icon" href="/favicon.svg" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --chef: #ee7712;
+      --chef-dark: #b94409;
+      --sage: #527856;
+      --sage-light: #f4f7f4;
+      --text: #253328;
+    }
+    body { font-family: system-ui, -apple-system, sans-serif; color: var(--text); line-height: 1.6; }
+    .hero {
+      background: linear-gradient(135deg, #fef7ee 0%, #f4f7f4 50%, #fff 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem; max-width: 1100px; margin: 0 auto; width: 100%;
+    }
+    .logo { font-family: Georgia, serif; font-size: 1.4rem; color: var(--chef-dark); font-weight: bold; }
+    .nav-cta {
+      background: var(--chef); color: white; padding: 0.6rem 1.4rem;
+      border-radius: 999px; text-decoration: none; font-weight: 600;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--chef-dark); }
+    .hero-content {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center; padding: 2rem;
+      max-width: 800px; margin: 0 auto;
+    }
+    .hero-emoji { font-size: 4rem; margin-bottom: 1rem; }
+    h1 { font-family: Georgia, serif; font-size: clamp(2rem, 5vw, 3.2rem); color: var(--chef-dark); margin-bottom: 1rem; }
+    .subtitle { font-size: 1.2rem; color: var(--sage); margin-bottom: 2rem; max-width: 600px; }
+    .cta-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      background: var(--chef); color: white; padding: 1rem 2rem;
+      border-radius: 1rem; text-decoration: none; font-weight: 700; font-size: 1.1rem;
+      box-shadow: 0 4px 14px rgba(238,119,18,0.4); transition: transform 0.2s, background 0.2s;
+    }
+    .btn-primary:hover { background: var(--chef-dark); transform: translateY(-2px); }
+    .btn-secondary {
+      background: white; color: var(--sage); padding: 1rem 2rem;
+      border-radius: 1rem; text-decoration: none; font-weight: 600; font-size: 1.1rem;
+      border: 2px solid #c8d7c9;
+    }
+    .features {
+      padding: 4rem 2rem; max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;
+    }
+    .feature {
+      background: white; border-radius: 1.2rem; padding: 2rem;
+      border: 1px solid #e3ebe3; text-align: center;
+    }
+    .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .feature h3 { font-family: Georgia, serif; color: var(--chef-dark); margin-bottom: 0.5rem; }
+    .pricing {
+      background: var(--sage-light); padding: 4rem 2rem; text-align: center;
+    }
+    .pricing h2 { font-family: Georgia, serif; font-size: 2rem; color: var(--chef-dark); margin-bottom: 2rem; }
+    .price-cards {
+      display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; max-width: 900px; margin: 0 auto;
+    }
+    .price-card {
+      background: white; border-radius: 1.2rem; padding: 2rem; flex: 1; min-width: 250px; max-width: 300px;
+      border: 2px solid #e3ebe3;
+    }
+    .price-card.featured { border-color: var(--chef); box-shadow: 0 8px 30px rgba(238,119,18,0.15); }
+    .price { font-size: 2.5rem; font-weight: 800; color: var(--chef); }
+    .price span { font-size: 1rem; color: #739576; font-weight: 400; }
+    .price-card ul { list-style: none; margin: 1.5rem 0; text-align: left; }
+    .price-card li { padding: 0.4rem 0; }
+    .price-card li::before { content: "✓ "; color: var(--chef); font-weight: bold; }
+    footer { text-align: center; padding: 2rem; color: #739576; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <nav>
+      <div class="logo">👨‍🍳 HomeChef AI</div>
+      <a href="https://app.homechef.ai" class="nav-cta">Start Free</a>
+    </nav>
+    <div class="hero-content">
+      <div class="hero-emoji">👨‍🍳</div>
+      <h1>Your Personal Kitchen Sous Chef</h1>
+      <p class="subtitle">
+        Scan grocery receipts. Track your pantry. Plan meals with AI.
+        Talk to your phone while you cook. Never waste food — or money — again.
+      </p>
+      <div class="cta-group">
+        <a href="https://app.homechef.ai" class="btn-primary">Start Free — Scan Your First Receipt</a>
+        <a href="#pricing" class="btn-secondary">See Pricing</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="features">
+    <div class="feature">
+      <div class="feature-icon">📸</div>
+      <h3>Receipt Scanning</h3>
+      <p>Snap a photo of your grocery receipt. AI adds everything to your pantry automatically. No manual entry.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🗣️</div>
+      <h3>Voice-First Kitchen</h3>
+      <p>Talk to your sous chef while you cook. "I made grilled cheese" — inventory updates with one tap.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📅</div>
+      <h3>AI Meal Planning</h3>
+      <p>Plan 1 to 14 days of meals using what you have. Get shopping lists with estimated costs.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🎮</div>
+      <h3>Gamified & Fun</h3>
+      <p>Level up from "First Meal" to "Master Chef." Earn XP for planning, cooking, and scanning.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🧠</div>
+      <h3>Memory That Pays Off</h3>
+      <p>"You haven't had BBQ in two months — you've got chicken and sauce. Let's do that tonight."</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">👆</div>
+      <h3>One-Thumb Easy</h3>
+      <p>Tap icons instead of typing. Half gallon or full? Two sticks of butter? Just tap.</p>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <h2>Simple Pricing. Real Value.</h2>
+    <div class="price-cards">
+      <div class="price-card">
+        <h3>Starter</h3>
+        <div class="price">$0<span>/mo</span></div>
+        <ul>
+          <li>5 receipt scans/month</li>
+          <li>Basic pantry tracking</li>
+          <li>3 meal plans/month</li>
+          <li>Voice assistant</li>
+        </ul>
+        <a href="https://app.homechef.ai" class="btn-secondary" style="display:inline-block;margin-top:1rem;">Get Started</a>
+      </div>
+      <div class="price-card featured">
+        <h3>Pro</h3>
+        <div class="price">$9.99<span>/mo</span></div>
+        <ul>
+          <li>Unlimited receipt scans</li>
+          <li>Full pantry + expiration alerts</li>
+          <li>Unlimited AI meal plans</li>
+          <li>Shopping lists with prices</li>
+          <li>Meal memory & suggestions</li>
+        </ul>
+        <a href="https://app.homechef.ai" class="btn-primary" style="display:inline-block;margin-top:1rem;">Start Pro Trial</a>
+      </div>
+      <div class="price-card">
+        <h3>Family</h3>
+        <div class="price">$14.99<span>/mo</span></div>
+        <ul>
+          <li>Everything in Pro</li>
+          <li>Up to 6 household members</li>
+          <li>Shared pantry & meal plans</li>
+          <li>Priority AI responses</li>
+        </ul>
+        <a href="https://app.homechef.ai" class="btn-secondary" style="display:inline-block;margin-top:1rem;">Start Family Trial</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 HomeChef AI. Built for families who love to eat well and waste less.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# Publish directory for marketing branch Netlify deploy
+publish = "marketing"
+
+[build.environment]
+  NODE_VERSION = "20"
