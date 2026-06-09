@@ -1,13 +1,15 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Send, Volume2 } from 'lucide-react';
-import { assistantApi, billingApi, ApiError } from '@/lib/api';
+import { assistantApi, billingApi, learningApi, ApiError } from '@/lib/api';
 import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
 import { assistantFirstName } from '@/lib/assistant';
 import VoiceButton from '@/components/VoiceButton';
 import SousChefMark from '@/components/SousChefMark';
 import { ClaraEvidenceChips } from '@/components/ClaraEvidenceChips';
+import { PreferenceConfirmCard } from '@/components/TasteLearningCards';
+import type { PendingPreference } from '@/types/tasteLearning';
 
 import type { MealDirection } from '@/types/mealDirections';
 
@@ -21,6 +23,8 @@ interface Message {
   credit_cost?: number;
   credits_remaining?: number;
   tools_used?: string[];
+  pending_preference?: PendingPreference;
+  action?: string;
 }
 
 const TOOL_LABELS: Record<string, string> = {
@@ -31,7 +35,8 @@ const TOOL_LABELS: Record<string, string> = {
   suggest_directions: 'Building directions',
   get_brain_context: 'Reading kitchen memory',
   skill_coach: 'Coaching technique',
-  local_sourcing: 'Looking up local food sources',
+  get_taste_profile: 'Reading taste profile',
+  remember_preference: 'Staging preference',
 };
 
 function shouldUseAgentStream(message: string): boolean {
@@ -63,6 +68,7 @@ export default function Assistant() {
   const [toolProgress, setToolProgress] = useState<string[]>([]);
   const [synthesisDraft, setSynthesisDraft] = useState('');
   const [voiceError, setVoiceError] = useState<string | null>(null);
+  const [savingPreference, setSavingPreference] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -134,6 +140,8 @@ export default function Assistant() {
         credit_cost: result.credit_cost,
         credits_remaining: result.credits_remaining,
         tools_used: result.tools_used,
+        pending_preference: result.pending_preference,
+        action: result.action,
       };
       if (result.credits_remaining !== undefined) setCreditsRemaining(result.credits_remaining);
       setMessages((m) => [...m, assistantMsg]);
@@ -150,6 +158,32 @@ export default function Assistant() {
       setLoading(false);
       setToolProgress([]);
       setSynthesisDraft('');
+    }
+  };
+
+  const confirmPreference = async (pref: PendingPreference, msgIndex: number) => {
+    setSavingPreference(true);
+    try {
+      await learningApi.savePreference(pref);
+      setMessages((m) =>
+        m.map((msg, i) =>
+          i === msgIndex
+            ? {
+                ...msg,
+                pending_preference: undefined,
+                action: undefined,
+                content: `${msg.content}\n\nSaved — I'll remember ${pref.kind === 'avoid' ? 'to avoid' : pref.kind === 'prefer' ? 'that you prefer' : pref.kind}: ${pref.subject}.`,
+              }
+            : msg,
+        ),
+      );
+    } catch {
+      setMessages((m) => [
+        ...m,
+        { role: 'assistant', content: 'Could not save that preference. Try again from Settings or tell me again.' },
+      ]);
+    } finally {
+      setSavingPreference(false);
     }
   };
 
@@ -213,6 +247,20 @@ export default function Assistant() {
                       </button>
                     ))}
                   </div>
+                )}
+                {msg.role === 'assistant' && msg.pending_preference && msg.action === 'confirm_preference' && (
+                  <PreferenceConfirmCard
+                    preference={msg.pending_preference}
+                    saving={savingPreference}
+                    onConfirm={() => confirmPreference(msg.pending_preference!, i)}
+                    onDismiss={() =>
+                      setMessages((m) =>
+                        m.map((row, idx) =>
+                          idx === i ? { ...row, pending_preference: undefined, action: undefined } : row,
+                        ),
+                      )
+                    }
+                  />
                 )}
                 {msg.role === 'assistant' && (
                   <>

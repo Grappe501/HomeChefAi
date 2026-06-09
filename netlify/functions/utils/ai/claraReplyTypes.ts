@@ -4,11 +4,13 @@
 
 import type { MealDirection } from '../../../../src/types/mealDirections.js';
 import type { ExpertOutput } from './expertSynthesis.js';
+import type { PendingPreference } from '../../../../src/types/tasteLearning.js';
 
 export interface ClaraRoutedReply {
   reply: string;
   suggested_items?: { name: string; quantity: number; unit: string }[];
   action?: string;
+  pending_preference?: PendingPreference;
   directions?: MealDirection[];
   intent?: string;
   evidence?: string[];

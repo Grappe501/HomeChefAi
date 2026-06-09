@@ -13,11 +13,14 @@ import { processLedgerOutcomes, formatRejectHistoryForAssistant } from './outcom
 import { detectHouseholdPatterns } from '../brain/patternDetectors.js';
 import { buildHouseholdGraph } from './graphWriter.js';
 import type { DecisionLedgerEntry } from './decisionLedger.js';
+import { formatTasteProfileForPrompt } from '../learning/tasteProfileEngine.js';
+import { getTasteProfileSummary } from '../learning/tasteStore.js';
 
 export interface KitchenBrainContext {
   memory_lines: string[];
   ledger_lines: string[];
   pattern_lines: string[];
+  taste_lines: string[];
   prefers_tags: string[];
   avoids_tags: string[];
   evidence: string[];
@@ -96,7 +99,14 @@ export async function buildKitchenBrainContext(
 ): Promise<KitchenBrainContext> {
   const memories = await loadSurfacedMemories(userId, token);
   const ledgerEntries = await getRecentLedger(userId, token, 'meal_plan', 20);
-  const outcomes = processLedgerOutcomes(ledgerEntries, 'meal_plan');
+  const prefLedger = await getRecentLedger(userId, token, 'preference', 15);
+  const allLedger = [...ledgerEntries, ...prefLedger];
+  const outcomes = processLedgerOutcomes(allLedger, 'meal_plan');
+  const prefOutcomes = processLedgerOutcomes(prefLedger, 'preference');
+
+  const tasteProfile = await getTasteProfileSummary(userId, token);
+  const tasteBlock = formatTasteProfileForPrompt(tasteProfile);
+  const taste_lines = tasteBlock ? [tasteBlock] : [];
 
   const memory_lines = memories.map(
     (m) => `Memory (${m.memory_type}): ${m.headline ?? m.content?.slice(0, 120) ?? m.id}`,
@@ -118,20 +128,28 @@ export async function buildKitchenBrainContext(
   if (outcomes.avoids_tags.length) {
     ledger_lines.push(`Avoid meal styles: ${outcomes.avoids_tags.join(', ')}.`);
   }
+  if (prefOutcomes.prefers_tags.length) {
+    ledger_lines.push(`Household prefers: ${prefOutcomes.prefers_tags.slice(0, 6).join(', ')}.`);
+  }
+  if (prefOutcomes.avoids_tags.length) {
+    ledger_lines.push(`Household avoids: ${prefOutcomes.avoids_tags.slice(0, 6).join(', ')}.`);
+  }
 
-  const pattern_lines = await loadPatternHighlights(userId, profile, inventory, ledgerEntries);
+  const pattern_lines = await loadPatternHighlights(userId, profile, inventory, allLedger);
 
   const evidence = [
     ...memories.slice(0, 3).map((m) => `memory:${m.id}`),
     ...outcomes.ledger_evidence.slice(0, 4),
+    ...(taste_lines.length ? ['taste_profile:v7'] : []),
   ];
 
   return {
     memory_lines,
     ledger_lines,
     pattern_lines,
-    prefers_tags: outcomes.prefers_tags,
-    avoids_tags: outcomes.avoids_tags,
+    taste_lines,
+    prefers_tags: [...new Set([...outcomes.prefers_tags, ...prefOutcomes.prefers_tags])],
+    avoids_tags: [...new Set([...outcomes.avoids_tags, ...prefOutcomes.avoids_tags])],
     evidence,
   };
 }
@@ -139,6 +157,7 @@ export async function buildKitchenBrainContext(
 export function formatKitchenBrainContextForPrompt(ctx: KitchenBrainContext): string {
   const lines = [
     ...ctx.memory_lines,
+    ...ctx.taste_lines,
     ...ctx.ledger_lines,
     ...ctx.pattern_lines,
   ].filter(Boolean);

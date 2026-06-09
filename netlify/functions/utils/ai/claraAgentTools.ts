@@ -14,6 +14,10 @@ import { buildSkillCoaching } from './skills.js';
 import { buildLocalFoodContext, lookupSourcingFromMessage } from './localFoodContext.js';
 import { searchKnowledge, getKnowledgeNode, formatIngredientDepth } from './knowledgeLoader.js';
 import { getDeepByKnowledgeId, searchDeep } from './deepLoader.js';
+import { getTasteProfileSummary } from '../learning/tasteStore.js';
+import { formatTasteProfileForPrompt } from '../learning/tasteProfileEngine.js';
+import { ensureSearchPack } from './dishSearchPack.js';
+import type { PendingPreference, PreferenceKind } from '../../../../src/types/tasteLearning.js';
 
 export type AgentToolName =
   | 'lookup_pantry'
@@ -23,7 +27,9 @@ export type AgentToolName =
   | 'suggest_directions'
   | 'get_brain_context'
   | 'skill_coach'
-  | 'local_sourcing';
+  | 'local_sourcing'
+  | 'get_taste_profile'
+  | 'remember_preference';
 
 export interface AgentToolContext {
   userId: string;
@@ -38,6 +44,7 @@ export interface AgentToolResult {
   output: string;
   evidence: string[];
   search_mode?: 'hybrid' | 'bm25' | 'pantry';
+  pending_preference?: PendingPreference;
 }
 
 export const CLARA_AGENT_TOOLS = [
@@ -121,6 +128,33 @@ export const CLARA_AGENT_TOOLS = [
       name: 'local_sourcing',
       description: 'Grocery chain and farmers market sourcing tips from profile and message.',
       parameters: { type: 'object', properties: {}, additionalProperties: false },
+    },
+  },
+  {
+    type: 'function' as const,
+    function: {
+      name: 'get_taste_profile',
+      description: 'Read learned household taste profile — flavor axes, prefers, avoids, drift notes.',
+      parameters: { type: 'object', properties: {}, additionalProperties: false },
+    },
+  },
+  {
+    type: 'function' as const,
+    function: {
+      name: 'remember_preference',
+      description:
+        'Stage a household food preference for user confirmation — avoid, prefer, allergy, or household member note. Does not save until user confirms.',
+      parameters: {
+        type: 'object',
+        properties: {
+          subject: { type: 'string', description: 'Ingredient, dish, or cuisine — e.g. cilantro, mushrooms' },
+          kind: { type: 'string', enum: ['avoid', 'prefer', 'allergy', 'household'] },
+          reason: { type: 'string', description: 'Optional short reason from user message' },
+          member_label: { type: 'string', description: 'Optional household member — e.g. kids, partner' },
+        },
+        required: ['subject', 'kind'],
+        additionalProperties: false,
+      },
     },
   },
 ];
@@ -249,13 +283,54 @@ export async function executeAgentTool(
       return { tool: name, output: parts.join('\n') || 'Set preferred store in profile for sourcing tips.', evidence };
     }
 
+    case 'get_taste_profile': {
+      const profile = await getTasteProfileSummary(ctx.userId, ctx.token);
+      const block = formatTasteProfileForPrompt(profile);
+      evidence.push('taste_profile:v7');
+      if (profile.preferences[0]) evidence.push(`pref:${profile.preferences[0].id}`);
+      return {
+        tool: name,
+        output: block || 'No taste profile yet — ratings and preferences will build it over time.',
+        evidence,
+      };
+    }
+
+    case 'remember_preference': {
+      const subject = String(args.subject ?? '').trim();
+      const kind = String(args.kind ?? 'avoid') as PreferenceKind;
+      if (!subject) {
+        return { tool: name, output: 'Need a subject (ingredient, dish, or cuisine) to remember.', evidence: [] };
+      }
+      const pending: PendingPreference = {
+        subject,
+        kind,
+        reason: args.reason ? String(args.reason).slice(0, 240) : undefined,
+        member_label: args.member_label ? String(args.member_label).slice(0, 60) : undefined,
+      };
+      const label =
+        kind === 'avoid'
+          ? `avoid ${subject}`
+          : kind === 'prefer'
+            ? `prefer ${subject}`
+            : kind === 'allergy'
+              ? `allergy: ${subject}`
+              : `household note: ${subject}`;
+      return {
+        tool: name,
+        output: `Staged preference — ask Chef to confirm saving "${label}" for future plans.`,
+        evidence: [`pending_pref:${kind}:${subject}`],
+        pending_preference: pending,
+      };
+    }
+
     default:
       return { tool: 'lookup_pantry', output: 'Unknown tool.', evidence: [] };
   }
 }
 
 /** Pantry-only match for agent fallback */
-export function matchDishesPantryOnly(ctx: AgentToolContext, limit = 6): AgentToolResult {
+export async function matchDishesPantryOnly(ctx: AgentToolContext, limit = 6): Promise<AgentToolResult> {
+  await ensureSearchPack();
   const hits = matchDishesForPantry(ctx.inventory, ctx.profile, { limit });
   const lines = hits.map((m) => `${m.title} (${m.pantry_match}% pantry · ${m.id})`);
   return {

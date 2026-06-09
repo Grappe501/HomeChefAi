@@ -1,5 +1,5 @@
 /**
- * Agent Suite v6 Phase 4 — compact dish search pack (BM25 without full corpus in bundle).
+ * Agent Suite v6 Phase 4 — compact dish search pack (served from static CDN in production).
  */
 
 import { readFileSync, existsSync } from 'fs';
@@ -30,17 +30,54 @@ interface SearchPack {
 let cachedPack: SearchPack | null = null;
 let cachedDf: Map<string, number> | null = null;
 let cachedAvgLen = 0;
+let loadPromise: Promise<DishSearchDoc[]> | null = null;
+
+function staticAssetBase(): string {
+  return (
+    process.env.CORPUS_STATIC_URL?.replace(/\/$/, '')
+    || process.env.URL
+    || process.env.DEPLOY_PRIME_URL
+    || 'https://home-chef-ai.netlify.app'
+  );
+}
 
 function packPath(): string {
   return join(resolveKnowledgeRoot(), 'search', 'dish-bm25-pack.json');
 }
 
-export function loadSearchPack(): DishSearchDoc[] {
-  if (cachedPack) return cachedPack.docs;
+function loadFromDisk(): DishSearchDoc[] | null {
   const path = packPath();
-  if (!existsSync(path)) return [];
+  if (!existsSync(path)) return null;
   cachedPack = JSON.parse(readFileSync(path, 'utf8')) as SearchPack;
   return cachedPack.docs;
+}
+
+async function loadFromStatic(): Promise<DishSearchDoc[]> {
+  const url = `${staticAssetBase()}/data/ai/search/dish-bm25-pack.json`;
+  const res = await fetch(url);
+  if (!res.ok) return [];
+  cachedPack = (await res.json()) as SearchPack;
+  return cachedPack.docs;
+}
+
+/** Load search pack once — local disk in dev, static CDN in production. */
+export async function ensureSearchPack(): Promise<DishSearchDoc[]> {
+  if (cachedPack?.docs.length) return cachedPack.docs;
+  if (!loadPromise) {
+    loadPromise = (async () => {
+      const local = loadFromDisk();
+      if (local?.length) return local;
+      const remote = await loadFromStatic();
+      return remote;
+    })();
+  }
+  return loadPromise;
+}
+
+export function loadSearchPack(): DishSearchDoc[] {
+  if (cachedPack) return cachedPack.docs;
+  const local = loadFromDisk();
+  return local ?? [];
 }
 
 export function getSearchPackStats(): { total: number; loaded: number } {
@@ -73,4 +110,5 @@ export function clearSearchPackCache(): void {
   cachedPack = null;
   cachedDf = null;
   cachedAvgLen = 0;
+  loadPromise = null;
 }

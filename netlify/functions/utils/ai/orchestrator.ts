@@ -101,6 +101,7 @@ export function mealTagsForPlanContext(options: {
   planning_goal?: string;
   cooking_style?: string;
   experience_type?: string;
+  menu_style?: string;
 }): string[] {
   const tags = new Set<string>(['weeknight']);
 
@@ -115,6 +116,12 @@ export function mealTagsForPlanContext(options: {
   }
   if (options.cooking_style === 'meal_prep') tags.add('freezer_friendly');
   if (options.planning_goal === 'healthy_light') tags.add('30_minutes');
+
+  if (options.menu_style === 'fewest_ingredients') tags.add('pantry_stretch');
+  if (options.menu_style === 'budget') tags.add('budget_friendly');
+  if (options.menu_style === 'gourmet' || options.menu_style === 'sophisticated') tags.add('dinner_party');
+  if (options.menu_style === 'quick') tags.add('30_minutes');
+  if (options.menu_style === 'comfort') tags.add('crowd_favorite');
 
   return [...tags];
 }

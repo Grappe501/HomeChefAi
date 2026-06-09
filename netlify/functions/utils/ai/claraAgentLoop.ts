@@ -75,6 +75,7 @@ export async function runClaraAgentLoop(
   const toolOutputs: string[] = [];
   let agent_steps = 0;
   let search_mode: ClaraRoutedReply['search_mode'];
+  let pending_preference: ClaraRoutedReply['pending_preference'];
 
   const emit = (event: AgentStreamEvent) => onProgress?.(event);
 
@@ -103,7 +104,8 @@ export async function runClaraAgentLoop(
       content: `You are ${profile.assistant_name}, Sous Chef Clara (Agent Suite v6 ${phaseLabel}).
 Use tools to gather evidence before answering. Call tools when you need pantry, dish search, knowledge, or brain context.
 User dietary: ${profile.dietary_restrictions.join(', ') || 'none'}. Allergies: ${profile.allergies.join(', ') || 'none'}.
-After tools, respond with JSON only: {"reply":"string","suggested_items":[{"name":"string","quantity":number,"unit":"string"}],"action":"confirm_usage|suggest_meal|pick_direction|general"}
+After tools, respond with JSON only: {"reply":"string","suggested_items":[{"name":"string","quantity":number,"unit":"string"}],"action":"confirm_usage|confirm_preference|suggest_meal|pick_direction|general"}
+When remember_preference was used, set action to confirm_preference and ask Chef to confirm saving the preference.
 Never invent cook history. Prefer dish library IDs when recommending recipes.`,
     },
     ...history.slice(-4),
@@ -151,6 +153,7 @@ Never invent cook history. Prefer dish library IDs when recommending recipes.`,
         emit({ type: 'tool_start', tool: toolName, step: agent_steps });
         const result = await executeAgentTool(toolName, args, toolCtx);
         if (result.search_mode) search_mode = result.search_mode;
+        if (result.pending_preference) pending_preference = result.pending_preference;
 
         tools_used.push(toolName);
         toolOutputs.push(`[${toolName}]\n${result.output}`);
@@ -208,6 +211,8 @@ Never invent cook history. Prefer dish library IDs when recommending recipes.`,
         synthesis: true,
         agent_steps,
         search_mode,
+        pending_preference,
+        action: pending_preference ? 'confirm_preference' : merged.action,
       };
       emit({ type: 'reply', reply });
       return reply;
@@ -216,7 +221,8 @@ Never invent cook history. Prefer dish library IDs when recommending recipes.`,
     const reply: ClaraRoutedReply = {
       reply: parsed.reply,
       suggested_items: parsed.suggested_items,
-      action: parsed.action,
+      action: pending_preference ? 'confirm_preference' : parsed.action,
+      pending_preference,
       intent,
       evidence: [...new Set(evidence)].slice(0, 14),
       expert_ids: [],

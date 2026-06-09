@@ -13,6 +13,7 @@ const JSONB_FIELDS = new Set([
   'assistant_persona',
   'food_priorities',
   'favorite_meals',
+  'taste_profile',
 ]);
 
 function sanitizeUpdates(body: Record<string, unknown>): Record<string, unknown> {
@@ -21,14 +22,16 @@ function sanitizeUpdates(body: Record<string, unknown>): Record<string, unknown>
     'preferred_store', 'onboarding_complete', 'assistant_name', 'last_meal_memory',
     'gamification_level', 'gamification_xp', 'name', 'zip_code',
     'household_id', 'household_display_name', 'kitchen_identity', 'culinary_profile', 'assistant_persona',
-    'food_priorities',
+    'food_priorities', 'taste_profile',
   ];
   const updates: Record<string, unknown> = { updated_at: new Date().toISOString() };
   for (const key of allowed) {
     if (body[key] === undefined) continue;
     let val = body[key];
     if (JSONB_FIELDS.has(key) && val === null) {
-      val = key === 'last_meal_memory' ? {} : [];
+      if (key === 'last_meal_memory') val = {};
+      else if (key === 'taste_profile' || key === 'kitchen_identity' || key === 'culinary_profile') val = null;
+      else val = [];
     }
     updates[key] = val;
   }

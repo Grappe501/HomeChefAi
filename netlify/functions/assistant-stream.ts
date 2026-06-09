@@ -136,6 +136,7 @@ export const handler = stream(async (event) => {
           reply: routed.reply,
           suggested_items: routed.suggested_items,
           action: routed.action,
+          pending_preference: routed.pending_preference,
           directions: routed.directions,
           intent: routed.intent,
           evidence: routed.evidence,

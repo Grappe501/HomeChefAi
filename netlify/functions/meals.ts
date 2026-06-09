@@ -24,9 +24,11 @@ import { syncSupplyFromPlan } from './utils/supplyStore.js';
 import {
   courseDepthPrompt,
   DEFAULT_COURSE_DEPTH,
+  menuStylePrompt,
   normalizeCourse,
   slotId,
   type MealCourseDepthConfig,
+  type CourseMenuStyleId,
 } from '../../src/types/mealCourses.js';
 
 type MealCounts = { breakfasts: number; lunches: number; dinners: number; snacks: number };
@@ -355,6 +357,7 @@ async function generateMealPlanChunk(
     ledgerFeedback?: string;
     directionPrompt?: string;
     courseDepth?: MealCourseDepthConfig;
+    menuStyle?: CourseMenuStyleId;
   },
 ): Promise<MealPlanData> {
   const inventoryList = formatInventoryList(inventory);
@@ -376,12 +379,21 @@ async function generateMealPlanChunk(
   const enforcedTags = mealTagsForPlanContext({
     planning_goal: params.planningGoal,
     cooking_style: params.cookingStyle,
+    menu_style: params.menuStyle,
   });
 
   const dishLibraryPrompt = formatDishesForPlannerPrompt(inventory, profile, 24, params.cookingStyle);
   const courseLine = params.courseDepth
     ? courseDepthPrompt(params.courseDepth, params.fullPlanCounts ?? params.mealCounts)
     : '';
+  const menuStyleLine = menuStylePrompt(
+    params.menuStyle,
+    params.courseDepth ?? DEFAULT_COURSE_DEPTH,
+    {
+      dinners: (params.fullPlanCounts ?? params.mealCounts).dinners,
+      lunches: (params.fullPlanCounts ?? params.mealCounts).lunches,
+    },
+  );
 
   const userContent = `${mealScope}
 Household: Plan all portions for exactly ${people} people.
@@ -394,6 +406,7 @@ ${styleLine}
 ${realismLine}
 ${cookLine}
 ${courseLine ? `\n${courseLine}` : ''}
+${menuStyleLine ? `\n${menuStyleLine}` : ''}
 Inventory:
 ${inventoryList}
 (${formatInventorySummary(inventory)})
@@ -425,6 +438,7 @@ async function generateHeavyMealPlan(
     direction_id?: string;
     directionPrompt?: string;
     courseDepth?: MealCourseDepthConfig;
+    menuStyle?: CourseMenuStyleId;
   },
 ): Promise<MealPlanData> {
   const { days, mealCounts } = params;
@@ -448,6 +462,7 @@ async function generateHeavyMealPlan(
     ledgerFeedback: params.ledgerFeedback,
     directionPrompt,
     courseDepth: params.courseDepth,
+    menuStyle: params.menuStyle,
   };
 
   if (mealCounts.breakfasts > 0) {
@@ -526,6 +541,7 @@ async function generateMealPlan(
     direction_id?: string;
     directionPrompt?: string;
     courseDepth?: MealCourseDepthConfig;
+    menu_style?: CourseMenuStyleId;
   },
 ): Promise<MealPlanData> {
   const days = Math.min(Math.max(params.days, 1), 14);
@@ -540,7 +556,14 @@ async function generateMealPlan(
   );
 
   if (totalMeals(mealCounts) > 12) {
-    const heavy = await generateHeavyMealPlan(inventory, profile, { ...params, days, mealCounts, directionPrompt, courseDepth: params.courseDepth });
+    const heavy = await generateHeavyMealPlan(inventory, profile, {
+      ...params,
+      days,
+      mealCounts,
+      directionPrompt,
+      courseDepth: params.courseDepth,
+      menuStyle: params.menu_style,
+    });
     return validateAndRepairMealPlan(heavy, inventory, profile).plan;
   }
 
@@ -565,6 +588,7 @@ async function generateMealPlan(
       ledgerFeedback: params.ledgerFeedback,
       directionPrompt,
       courseDepth: params.courseDepth,
+      menuStyle: params.menu_style,
     }));
   }
 
@@ -867,6 +891,7 @@ export const handler: Handler = withCors(async (event) => {
         lunch: courseDepth.lunch,
         include_breakfast: courseDepth.includeBreakfast,
       },
+      menu_style: (body.menu_style as CourseMenuStyleId | undefined) ?? undefined,
     };
     const enrichedPlanData = enrichMealsWithIntelligence(planData, inventory, profile, recentLedger);
     const planId = uuidv4();

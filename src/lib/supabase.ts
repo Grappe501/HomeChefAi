@@ -1,9 +1,10 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { appEnv, hasSupabaseConfig } from './env';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = appEnv.supabaseUrl;
+const supabaseAnonKey = appEnv.supabaseAnonKey;
 
-if (!supabaseUrl || !supabaseAnonKey) {
+if (!hasSupabaseConfig()) {
   console.warn('Supabase env vars missing — auth will not work until VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set.');
 }
 

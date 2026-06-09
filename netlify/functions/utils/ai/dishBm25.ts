@@ -6,7 +6,7 @@ import type { InventoryItem, Profile } from '../../../../src/types/index.js';
 import type { DishMatch } from '../../../../src/types/dish.js';
 import { getKnowledgeNode } from './knowledgeLoader.js';
 import { matchDishesForPantry, scoreDishNode, scoreDishFromDoc } from './dishMatcher.js';
-import { loadSearchPack, buildPackIndex, type DishSearchDoc } from './dishSearchPack.js';
+import { ensureSearchPack, buildPackIndex, type DishSearchDoc } from './dishSearchPack.js';
 import { getDishFromCatalog, hydrateDishNodes } from './dishCatalog.js';
 import { listAvailableKnowledgeIds } from '../inventoryContext.js';
 
@@ -65,7 +65,7 @@ export async function searchDishesBm25(
     return matchDishesForPantry(inventory, profile, { limit, meal_type: options.meal_type, course: options.course });
   }
 
-  const docs = loadSearchPack();
+  const docs = await ensureSearchPack();
   if (!docs.length) {
     return matchDishesForPantry(inventory, profile, { limit, meal_type: options.meal_type, course: options.course });
   }

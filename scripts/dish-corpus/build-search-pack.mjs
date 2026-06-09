@@ -73,9 +73,11 @@ function main() {
   console.log(`Wrote dish-bm25-pack.json — ${docs.length} docs, ${(JSON.stringify(pack).length / 1024 / 1024).toFixed(1)} MB`);
 
   mkdirSync(join(PUBLIC, 'dishes', 'corpus'), { recursive: true });
+  mkdirSync(join(PUBLIC, 'search'), { recursive: true });
   cpSync(CORPUS, join(PUBLIC, 'dishes', 'corpus'), { recursive: true });
+  cpSync(join(OUT, 'dish-bm25-pack.json'), join(PUBLIC, 'search', 'dish-bm25-pack.json'));
   cpSync(join(AI, 'dish-manifest.json'), join(PUBLIC, 'dish-manifest.json'));
-  console.log('Copied corpus to public/data/ai for static serving');
+  console.log('Copied corpus + search pack to public/data/ai for static serving');
 }
 
 main();

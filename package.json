@@ -1,8 +1,8 @@
 {
   "name": "homechef-ai",
-  "version": "5.2.0",
+  "version": "7.0.0",
   "private": true,
-  "description": "SousChef v5.2 — Agent Suite v6 Phase 4, Kitchen Academy tracks, 280k recipe library.",
+  "description": "SousChef v7.0 — Kitchen Learning Engine Pillar 1: Taste & Preference Learner.",
   "type": "module",
   "scripts": {
     "dev": "vite",

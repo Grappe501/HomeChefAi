@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Check, Share2 } from 'lucide-react';
-import { usageApi, cookInferApi, assistantApi, skillsApi } from '@/lib/api';
+import { usageApi, cookInferApi, assistantApi, skillsApi, learningApi } from '@/lib/api';
 import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
 import { useToast } from '@/hooks/useToast';
 import { VoiceInput } from '@/components/VoiceButton';
 import { CookTogetherCoach } from '@/components/CookTogetherCoach';
+import { MealOutcomePicker } from '@/components/TasteLearningCards';
+import type { MealOutcomeRating } from '@/types/tasteLearning';
 import type { TechniqueCoachTip } from '@/types/journey';
 
 interface SuggestedItem {
@@ -25,6 +27,9 @@ export default function CookLog() {
   const [confirmed, setConfirmed] = useState(false);
   const [shared, setShared] = useState(false);
   const [coachTips, setCoachTips] = useState<TechniqueCoachTip[]>([]);
+  const [ratingPhase, setRatingPhase] = useState(false);
+  const [lastLogId, setLastLogId] = useState<string | null>(null);
+  const [ratingSaving, setRatingSaving] = useState(false);
 
   const loadCoaching = async (meal: string, ingredients: string[]) => {
     try {
@@ -84,20 +89,43 @@ export default function CookLog() {
       toast.success(`Pantry updated · +${xp} XP`);
       speak('Got it! Inventory updated.');
       setShared(!!result.recipe);
+      setLastLogId(result.log?.id ?? null);
+      setRatingPhase(true);
       setConfirmed(true);
-      setTimeout(() => {
-        setInput('');
-        setSuggested(null);
-        setMealName('');
-        setConfirmed(false);
-        setShared(false);
-        setCoachTips([]);
-      }, 2500);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Failed to update pantry');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleMealRating = async (rating: MealOutcomeRating) => {
+    if (!mealName) return;
+    setRatingSaving(true);
+    try {
+      await learningApi.rateMeal({
+        meal_name: mealName,
+        rating,
+        usage_log_id: lastLogId ?? undefined,
+      });
+      toast.success('Thanks — Clara learned from that meal.');
+    } catch {
+      toast.error('Could not save rating');
+    } finally {
+      setRatingSaving(false);
+      resetForm();
+    }
+  };
+
+  const resetForm = () => {
+    setInput('');
+    setSuggested(null);
+    setMealName('');
+    setConfirmed(false);
+    setShared(false);
+    setCoachTips([]);
+    setRatingPhase(false);
+    setLastLogId(null);
   };
 
   const adjustItem = (idx: number, delta: number) => {
@@ -115,10 +143,24 @@ export default function CookLog() {
       <p className="text-chef-subtle text-sm">Tell me what you cooked — I'll update your pantry and optionally share the recipe.</p>
 
       {confirmed ? (
-        <div className="text-center py-12">
-          <div className="text-5xl mb-4">✅</div>
+        <div className="text-center py-8 space-y-4">
+          <div className="text-5xl mb-2">✅</div>
           <p className="font-semibold text-chef">Inventory Updated!</p>
-          {shared && <p className="text-sm text-chef-subtle mt-2 flex items-center justify-center gap-1"><Share2 size={16} /> Recipe shared with community</p>}
+          {shared && (
+            <p className="text-sm text-chef-subtle flex items-center justify-center gap-1">
+              <Share2 size={16} /> Recipe shared with community
+            </p>
+          )}
+          {ratingPhase && mealName && (
+            <div className="card mt-4 text-left">
+              <MealOutcomePicker
+                mealName={mealName}
+                saving={ratingSaving}
+                onRate={handleMealRating}
+                onSkip={resetForm}
+              />
+            </div>
+          )}
         </div>
       ) : suggested ? (
         <div className="space-y-4">

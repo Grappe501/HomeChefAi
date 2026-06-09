@@ -7,6 +7,8 @@ import type { DishMatch } from '../../../../src/types/dish.js';
 import { searchDishesBm25 } from './dishBm25.js';
 import { isHybridSearchEnabled, isPhase4ShardHybrid, searchDishesHybrid } from './dishHybridSearch.js';
 
+import { ensureSearchPack } from './dishSearchPack.js';
+
 export type DishSearchMode = 'shard_hybrid' | 'hybrid' | 'bm25' | 'pantry';
 
 export async function searchDishes(
@@ -21,6 +23,7 @@ export async function searchDishes(
     mode?: DishSearchMode;
   } = {},
 ): Promise<{ matches: DishMatch[]; mode: DishSearchMode }> {
+  await ensureSearchPack();
   if (options.mode === 'bm25' || options.mode === 'pantry') {
     const matches = await searchDishesBm25(query, inventory, profile, options);
     return { matches, mode: 'bm25' };

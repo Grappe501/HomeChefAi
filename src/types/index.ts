@@ -27,6 +27,8 @@ export interface Profile {
   assistant_persona?: { name?: string; communication_style?: string };
   food_priorities?: string[];
   is_founder?: boolean;
+  /** KLE v7 — inferred taste vector + explicit preferences */
+  taste_profile?: import('./tasteLearning').TasteProfile;
 }
 
 export interface InventoryItem {
@@ -112,6 +114,7 @@ export interface MealPlanData {
       lunch: import('./mealCourses').LunchCourseDepth;
       include_breakfast: boolean;
     };
+    menu_style?: import('./mealCourses').CourseMenuStyleId;
   };
   metrics?: {
     inventory_utilization_score: number;

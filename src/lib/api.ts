@@ -260,8 +260,36 @@ export const usageApi = {
     recipe_public?: boolean;
     technique_ids?: string[];
   }) =>
-    api<{ log: unknown; inventory_updated?: boolean; recipe?: unknown }>('usage', { method: 'POST', body: JSON.stringify(data) }),
+    api<{ log: { id: string; meal_name?: string }; inventory_updated?: boolean; recipe?: unknown; xp_gained?: number }>(
+      'usage',
+      { method: 'POST', body: JSON.stringify(data) },
+    ),
   list: () => api<{ logs: import('@/types').UsageLog[] }>('usage'),
+};
+
+export const learningApi = {
+  profile: () =>
+    api<{ taste_profile: import('@/types/tasteLearning').TasteProfile; summary: string }>('learning?action=profile'),
+  savePreference: (data: import('@/types/tasteLearning').PendingPreference) =>
+    api<{ preference: import('@/types/tasteLearning').TastePreferenceEntry; taste_profile: import('@/types/tasteLearning').TasteProfile }>(
+      'learning',
+      { method: 'POST', body: JSON.stringify({ action: 'save-preference', ...data }) },
+    ),
+  rateMeal: (data: {
+    meal_name: string;
+    rating: import('@/types/tasteLearning').MealOutcomeRating;
+    usage_log_id?: string;
+    notes?: string;
+  }) =>
+    api<{ outcome: import('@/types/tasteLearning').MealOutcome; taste_profile: import('@/types/tasteLearning').TasteProfile }>(
+      'learning',
+      { method: 'POST', body: JSON.stringify({ action: 'rate-meal', ...data }) },
+    ),
+  refreshProfile: () =>
+    api<{ taste_profile: import('@/types/tasteLearning').TasteProfile; summary: string }>(
+      'learning',
+      { method: 'POST', body: JSON.stringify({ action: 'refresh-profile' }) },
+    ),
 };
 
 export const experienceApi = {
@@ -320,6 +348,7 @@ export type AssistantChatResult = {
   reply: string;
   suggested_items?: { name: string; quantity: number; unit: string }[];
   action?: string;
+  pending_preference?: import('@/types/tasteLearning').PendingPreference;
   directions?: import('@/types/mealDirections').MealDirection[];
   intent?: string;
   evidence?: string[];

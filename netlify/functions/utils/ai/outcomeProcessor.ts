@@ -14,7 +14,30 @@ export interface ProcessedOutcomes {
 }
 
 export function processLedgerOutcomes(entries: DecisionLedgerEntry[], domain = 'meal_plan'): ProcessedOutcomes {
-  const mealEntries = entries.filter((e) => e.domain === domain);
+  const domainEntries = entries.filter((e) => e.domain === domain);
+
+  if (domain === 'preference') {
+    const prefers_tags = new Set<string>();
+    const avoids_tags = new Set<string>();
+    for (const e of domainEntries) {
+      const kind = e.metadata?.kind as string | undefined;
+      const subject =
+        (e.metadata?.subject as string | undefined) ??
+        e.recommendation.replace(/^(avoid|prefer|allergy|household):\s*/i, '');
+      if (kind === 'prefer') prefers_tags.add(subject);
+      if (kind === 'avoid' || kind === 'allergy') avoids_tags.add(subject);
+    }
+    return {
+      kept_meals: [],
+      replaced_meals: [],
+      prefers_tags: [...prefers_tags],
+      avoids_tags: [...avoids_tags],
+      ledger_evidence: domainEntries.slice(0, 8).map((e) => `ledger:${e.id}`),
+      confidence_boost: Math.min(0.1, domainEntries.length * 0.02),
+    };
+  }
+
+  const mealEntries = domainEntries;
   /** Only explicit user Keep/Replace actions — never pending generation rows */
   const reviewed = mealEntries.filter(
     (e) => e.outcome_at && (e.metadata?.action === 'keep' || e.metadata?.action === 'replace'),

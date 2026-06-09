@@ -34,9 +34,13 @@ import {
   DEFAULT_COURSE_DEPTH,
   DINNER_COURSE_DEPTH_OPTIONS,
   LUNCH_COURSE_DEPTH_OPTIONS,
+  COURSE_MENU_STYLES,
+  DEFAULT_MENU_STYLE,
+  menuStyleLabel,
   type DinnerCourseDepth,
   type LunchCourseDepth,
   type MealCourseDepthConfig,
+  type CourseMenuStyleId,
 } from '@/types/mealCourses';
 import {
   groupMealsIntoSlots,
@@ -124,6 +128,7 @@ export default function MealPlanner() {
   const [whyLoadingKey, setWhyLoadingKey] = useState<string | null>(null);
   const [intelligenceCache, setIntelligenceCache] = useState<Record<string, MealIntelligence>>({});
   const [courseDepth, setCourseDepth] = useState<MealCourseDepthConfig>(DEFAULT_COURSE_DEPTH);
+  const [menuStyle, setMenuStyle] = useState<CourseMenuStyleId>(DEFAULT_MENU_STYLE);
 
   const planSlots = useMemo(
     () => (activePlan?.plan_data?.meals ? groupMealsIntoSlots(activePlan.plan_data.meals) : []),
@@ -212,6 +217,7 @@ export default function MealPlanner() {
         dinner_courses: courseDepth.dinner,
         lunch_courses: courseDepth.lunch,
         include_breakfast: courseDepth.includeBreakfast,
+        menu_style: menuStyle,
       });
       setActivePlan(res.plan);
       setPlans([res.plan, ...plans]);
@@ -466,6 +472,28 @@ export default function MealPlanner() {
           )}
         </div>
 
+        {(courseDepth.dinner > 1 || courseDepth.lunch > 1) && (
+          <div>
+            <label className="text-sm text-chef-subtle">Course menu style</label>
+            <p className="text-xs text-chef-subtle mt-0.5 mb-2">
+              How should each full-course dinner or lunch be composed?
+            </p>
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {COURSE_MENU_STYLES.map((opt) => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => setMenuStyle(opt.id)}
+                  className={`tap-item py-2 text-left !items-start ${menuStyle === opt.id ? 'tap-item-selected' : ''}`}
+                >
+                  <span className="font-medium text-sm block">{opt.label}</span>
+                  <span className="text-[10px] text-chef-subtle block mt-0.5">{opt.hint}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="flex items-center justify-between rounded-lg border border-steel bg-white px-3 py-3 min-h-[52px]">
           <div>
             <p className="text-sm font-medium text-chef">Include breakfast</p>
@@ -513,6 +541,9 @@ export default function MealPlanner() {
           <p className="text-xs text-chef-subtle mt-1">
             {formatPlannedFor(people)} · Dinner {courseDepth.dinner === 1 ? 'main only' : `${courseDepth.dinner} courses`}
             {courseDepth.lunch > 0 ? ` · Lunch ${courseDepth.lunch} courses` : ''}
+            {(courseDepth.dinner > 1 || courseDepth.lunch > 1) && menuStyle !== 'balanced'
+              ? ` · ${menuStyleLabel(menuStyle)}`
+              : ''}
           </p>
           {showAddMealsHint && (
             <div className="mt-2 flex flex-wrap gap-2">
@@ -652,6 +683,10 @@ export default function MealPlanner() {
             {activePlan.plan_data?.coverage && (
               <p className="text-xs text-chef-subtle mt-1">
                 {formatCoverageSummary(activePlan.plan_data.coverage)}
+                {activePlan.plan_data.coverage.menu_style &&
+                  activePlan.plan_data.coverage.menu_style !== 'balanced' && (
+                    <> · {menuStyleLabel(activePlan.plan_data.coverage.menu_style)} menus</>
+                  )}
               </p>
             )}
             {planMetrics && (

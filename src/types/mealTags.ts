@@ -13,7 +13,9 @@ export type MealTagId =
   | 'leftovers_friendly'
   | 'freezer_friendly'
   | 'easy_night'
-  | 'pantry_challenge';
+  | 'pantry_challenge'
+  | 'pantry_stretch'
+  | 'budget_friendly';
 
 export const MEAL_TAGS: { id: MealTagId; label: string }[] = [
   { id: 'weeknight', label: 'Weeknight' },
@@ -26,6 +28,8 @@ export const MEAL_TAGS: { id: MealTagId; label: string }[] = [
   { id: 'freezer_friendly', label: 'Freezer Friendly' },
   { id: 'easy_night', label: 'Easy Night' },
   { id: 'pantry_challenge', label: 'Pantry Challenge' },
+  { id: 'pantry_stretch', label: 'Pantry Stretch' },
+  { id: 'budget_friendly', label: 'Budget Friendly' },
 ];
 
 export function mealTagLabel(id: MealTagId): string {

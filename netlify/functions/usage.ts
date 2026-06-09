@@ -108,7 +108,7 @@ export const handler: Handler = withCors(async (event) => {
       await recordSkillPractice(userId, undefined, inferredTechniques);
       incrementRecipeServeCountDevStore(store, userId, body.meal_name);
       saveStore(store);
-      return jsonResponse({ log, inventory_updated: true }, 201);
+      return jsonResponse({ log, inventory_updated: true, xp_gained: XP_AWARDS.cook_log }, 201);
     }
 
     if (!user.token) return errorResponse('Missing token', 401);

@@ -11,7 +11,8 @@ export type DecisionDomain =
   | 'chat'
   | 'suggestion'
   | 'substitution'
-  | 'hosting';
+  | 'hosting'
+  | 'preference';
 
 export type DecisionOutcome = 'accepted' | 'rejected' | 'replaced' | 'pending';
 

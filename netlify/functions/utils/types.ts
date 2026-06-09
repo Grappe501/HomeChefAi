@@ -41,6 +41,15 @@ export interface DevStore {
   household_graph_edges?: HouseholdGraphEdgeRow[];
   skill_journey_progress?: SkillProgressRow[];
   running_supply_lists?: RunningSupplyListRow[];
+  meal_outcomes?: {
+    id: string;
+    user_id: string;
+    usage_log_id?: string;
+    meal_name: string;
+    rating: string;
+    notes?: string;
+    created_at: string;
+  }[];
   agent_telemetry?: {
     user_id: string;
     intent?: string;
