@@ -1,7 +1,7 @@
 # Pantry Wizard Depth System 1.0
 
-**Status:** Architecture — Level 1 shipped; L2–L4 future  
-**Related:** `PANTRY_WIZARD_UNITS_1_0.md`, `HOUSEHOLD_FOOD_GRAPH_1_0.md`
+**Status:** Architecture — Quick Start shipped; deeper modes future  
+**Related:** `PANTRY_WIZARD_UNITS_1_0.md`, `FOOD_TAXONOMY_1_0.md`, `HOUSEHOLD_FOOD_GRAPH_1_0.md`
 
 ---
 
@@ -9,14 +9,16 @@
 
 > **Never force detail. Always allow detail.**
 
-Three user types, one wizard:
+Three user types, one wizard — SousChef naming:
 
-| Level | User | Experience |
-|-------|------|------------|
-| **1** | Quick Start Chef (~80%) | Generic item + sensible size tap |
-| **2** | Organized Chef | Optional subtype (Sharp Cheddar, Whole Milk) |
-| **3** | Kitchen Nerd | Optional brand |
-| **4** | Expert | Package precision, store, frequency |
+| Mode | Former | User | Experience |
+|------|--------|------|------------|
+| **Quick Start** | Level 1 | ~80% of Chefs | Generic item + sensible size tap |
+| **Home Kitchen** | Level 2 | Normal families | Optional form/subtype (Sharp Cheddar, Whole Milk) |
+| **Enthusiast Kitchen** | Level 3 | Brand-aware cooks | Optional brand |
+| **Chef Mode** | Level 4 | Power users | Package precision, store, frequency |
+
+See `FOOD_TAXONOMY_1_0.md` for the hierarchy (Category → Family → Variant → Instance) that these modes populate.
 
 ---
 
@@ -41,9 +43,21 @@ Inventory confidence ~75–80%. Onboarding takes minutes.
 
 ---
 
-## Level 2 — Type / subtype (future)
+## Home Kitchen — Form / subtype (future)
 
-After Level 1 selection:
+For form-first families (Cheese, Tomatoes, Potatoes, Beans), ask **form before size**:
+
+```
+Cheddar
+
+○ Shredded
+○ Block
+○ Sliced
+
+Then: [Small]  [Medium]  [Large]
+```
+
+For other families, optional subtype after Quick Start:
 
 ```
 Would you like to be more specific?
@@ -52,17 +66,16 @@ Would you like to be more specific?
 ○ Mild Cheddar
 ○ Sharp Cheddar
 ○ Extra Sharp
-○ Shredded
-○ Block
 ```
 
 One extra tap. Optional always.
 
-**Already reserved in config:** `subtypes` on Cheese, Milk items in `pantryWizard.ts`.
+**Already reserved in config:** `subtypes` on Cheese, Milk items in `pantryWizard.ts`.  
+**Taxonomy trees:** `FOOD_TAXONOMY_1_0.md`.
 
 ---
 
-## Level 3 — Brand (future)
+## Enthusiast Kitchen — Brand (future)
 
 ```
 Brand?
@@ -80,7 +93,7 @@ Brain learns:
 
 ---
 
-## Level 4 — Expert detail (future)
+## Chef Mode — Full detail (future)
 
 ```
 Approximate amount?
@@ -128,10 +141,10 @@ That's **household identity** — not "14 oz left."
 ```
 Kitchen Detail Level
 
-○ Simple      — Level 1 only
-○ Standard    — Level 1 + occasional L2 prompts
-○ Detailed    — L2 default, L3 offered
-○ Chef Mode   — Full depth available
+○ Quick Start         — family + size only
+○ Home Kitchen        — occasional form/subtype prompts
+○ Enthusiast Kitchen  — subtype + brand default
+○ Chef Mode           — full depth available
 ```
 
 Homesteaders and serious cooks opt in. Casual users never see it.

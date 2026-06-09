@@ -111,7 +111,8 @@ Every wizard item now has:
 
 ## Future
 
-See `PANTRY_WIZARD_DEPTH_1_0.md` for Level 2–4 progressive disclosure (subtype, brand, detail level setting).
+See `PANTRY_WIZARD_DEPTH_1_0.md` for progressive disclosure (Quick Start → Chef Mode).  
+See `FOOD_TAXONOMY_1_0.md` for the food hierarchy backbone (Category → Family → Variant → Instance).
 
 ---
 
