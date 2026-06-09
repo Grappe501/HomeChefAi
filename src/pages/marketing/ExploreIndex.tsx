@@ -6,11 +6,17 @@ import {
   StatusBadge,
 } from '@/components/marketing/MarketingLayout';
 import { StackDiagram, SiteStatsStrip } from '@/components/marketing/MarketingBlocks';
+import { PageMeta } from '@/components/marketing/PageMeta';
 import { PLATFORM_LAYERS } from '@/content/siteContent';
 
 export default function ExploreIndex() {
   return (
     <MarketingLayout crumbs={[{ label: 'Platform' }]}>
+      <PageMeta
+        title="Platform"
+        description="Five layers of SousChef — inventory, memory, intelligence, growth, and legacy. Every live feature mapped with honest status badges."
+        path="/explore"
+      />
       <PageHeader
         eyebrow="The platform"
         title="Five layers. One kitchen that gets smarter."

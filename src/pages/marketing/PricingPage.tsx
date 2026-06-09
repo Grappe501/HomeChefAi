@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { MarketingLayout, PageHeader } from '@/components/marketing/MarketingLayout';
+import { PageMeta } from '@/components/marketing/PageMeta';
+import { MarketingFAQ } from '@/components/marketing/MarketingFAQ';
+import { StickyMobileCTA } from '@/components/marketing/StickyMobileCTA';
 import { PRICING_COMPARISON } from '@/content/siteContent';
+import { MARKETING_FAQ } from '@/content/marketingContent';
 import { useApp } from '@/hooks/useApp';
 
 const TIERS = [
@@ -31,8 +35,8 @@ const TIERS = [
 ];
 
 function CellValue({ v }: { v: boolean | string }) {
-  if (v === true) return <span className="text-emerald-600 font-medium">✓</span>;
-  if (v === false) return <span className="text-chef-subtle">—</span>;
+  if (v === true) return <span className="text-emerald-600 font-medium" aria-label="Included">✓</span>;
+  if (v === false) return <span className="text-chef-subtle" aria-label="Not included">—</span>;
   return <span className="text-sm">{v}</span>;
 }
 
@@ -43,6 +47,13 @@ export default function PricingPage() {
 
   return (
     <MarketingLayout crumbs={[{ label: 'Pricing' }]}>
+      <PageMeta
+        title="Pricing"
+        description="SousChef Free, Plus $9, and Family $18 — clean prices, no surprise AI bills. Pantry always works even at zero credits."
+        path="/pricing"
+      />
+      <StickyMobileCTA label={user ? 'Open app' : 'Start free'} />
+
       <PageHeader
         eyebrow="Pricing"
         title="Clean prices. No surprise AI bills."
@@ -66,14 +77,14 @@ export default function PricingPage() {
             <ul className={`mt-6 space-y-2 text-sm ${tier.highlight ? 'text-white/85' : 'text-chef-muted'}`}>
               {tier.items.map((item) => (
                 <li key={item} className="flex gap-2">
-                  <span className={tier.highlight ? 'text-copper-400' : 'text-copper-500'}>·</span>
+                  <span className={tier.highlight ? 'text-copper-400' : 'text-copper-500'} aria-hidden>·</span>
                   {item}
                 </li>
               ))}
             </ul>
             <button
               onClick={cta}
-              className={`mt-6 w-full rounded-xl py-3 text-sm font-semibold transition ${
+              className={`mt-6 w-full rounded-xl py-3 text-sm font-semibold transition min-h-[52px] ${
                 tier.highlight ? 'bg-white text-chef hover:bg-stainless-100' : 'bg-chef text-white hover:bg-chef-muted'
               }`}
             >
@@ -86,18 +97,19 @@ export default function PricingPage() {
       <div className="mx-auto max-w-5xl px-5 pb-16 overflow-x-auto">
         <h2 className="text-xs font-semibold uppercase tracking-wider text-chef-subtle mb-4">Full comparison</h2>
         <table className="w-full text-sm border-collapse min-w-[520px]">
+          <caption className="sr-only">Feature comparison across Free, Plus, and Family plans</caption>
           <thead>
             <tr className="border-b border-steel">
-              <th className="text-left py-3 pr-4 font-medium text-chef-subtle">Feature</th>
-              <th className="text-center py-3 px-2 font-medium">Free</th>
-              <th className="text-center py-3 px-2 font-medium">Plus</th>
-              <th className="text-center py-3 px-2 font-medium">Family</th>
+              <th scope="col" className="text-left py-3 pr-4 font-medium text-chef-subtle">Feature</th>
+              <th scope="col" className="text-center py-3 px-2 font-medium">Free</th>
+              <th scope="col" className="text-center py-3 px-2 font-medium">Plus</th>
+              <th scope="col" className="text-center py-3 px-2 font-medium">Family</th>
             </tr>
           </thead>
           <tbody>
             {PRICING_COMPARISON.map((row) => (
               <tr key={row.feature} className="border-b border-steel/60">
-                <td className="py-3 pr-4 text-chef">{row.feature}</td>
+                <th scope="row" className="py-3 pr-4 text-chef font-normal text-left">{row.feature}</th>
                 <td className="text-center py-3"><CellValue v={row.free} /></td>
                 <td className="text-center py-3"><CellValue v={row.plus} /></td>
                 <td className="text-center py-3"><CellValue v={row.family} /></td>
@@ -107,9 +119,11 @@ export default function PricingPage() {
         </table>
       </div>
 
-      <div className="mx-auto max-w-2xl px-5 pb-16 text-center text-sm text-chef-subtle">
+      <MarketingFAQ items={MARKETING_FAQ.filter((f) => ['ai-credits', 'household', 'beta'].includes(f.id))} title="Pricing FAQ" />
+
+      <div className="mx-auto max-w-2xl px-5 pb-24 md:pb-16 text-center text-sm text-chef-subtle">
         <p>Full access during beta. Billing via Stripe at launch.</p>
-        <a href="/legal/ai-usage.html" className="underline hover:text-chef mt-2 inline-block">AI fair-use policy</a>
+        <a href="/legal/ai-usage.html" className="underline hover:text-chef mt-2 inline-block min-h-[44px] leading-[44px]">AI fair-use policy</a>
       </div>
     </MarketingLayout>
   );

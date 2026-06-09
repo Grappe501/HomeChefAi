@@ -6,6 +6,7 @@ import {
   StatusBadge,
 } from '@/components/marketing/MarketingLayout';
 import { ProductMock, LayerNav, FEATURE_MOCKS } from '@/components/marketing/MarketingBlocks';
+import { PageMeta } from '@/components/marketing/PageMeta';
 import { getLayer, LAYER_HERO_CLASS } from '@/content/siteContent';
 
 const LAYER_MOCK: Record<string, 'pantry' | 'brain' | 'planner' | 'skills' | 'hosting'> = {
@@ -29,6 +30,7 @@ export default function ExploreLayer() {
 
   return (
     <MarketingLayout crumbs={[{ label: 'Platform', href: '/explore' }, { label: layer.title }]}>
+      <PageMeta title={layer.title} description={layer.intro} path={`/explore/${layer.id}`} />
       <div className={`${heroClass} border-b border-steel/40`}>
         <div className="mx-auto max-w-5xl px-5 py-10 md:py-14 grid gap-8 md:grid-cols-2 items-center">
           <div>

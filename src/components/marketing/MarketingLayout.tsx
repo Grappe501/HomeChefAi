@@ -3,6 +3,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
 import { PLATFORM_LAYERS } from '@/content/siteContent';
+import { SUPPORT_EMAIL } from '@/content/marketingContent';
 import { appEntryPath } from '@/lib/siteNav';
 import '@/styles/marketing.css';
 
@@ -46,6 +47,12 @@ export function MarketingLayout({ children, crumbs = [], dark = false }: Marketi
 
   return (
     <div className={`${dark ? 'bg-chef text-white' : 'bg-stainless-50 text-chef'} min-h-dvh marketing-grain`}>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-3 focus:left-3 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-chef focus:text-sm focus:font-semibold"
+      >
+        Skip to content
+      </a>
       <header
         className={`sticky top-0 z-50 transition-all ${
           scrolled
@@ -94,15 +101,17 @@ export function MarketingLayout({ children, crumbs = [], dark = false }: Marketi
             <button
               type="button"
               onClick={() => setMenuOpen(!menuOpen)}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav"
               className={`md:hidden p-2 rounded-lg ${dark ? 'text-white' : 'text-chef'}`}
-              aria-label="Menu"
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             >
               {menuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
         {menuOpen && (
-          <div className={`md:hidden border-t px-5 py-4 space-y-3 ${dark ? 'border-white/10 bg-chef' : 'border-steel bg-white'}`}>
+          <div id="mobile-nav" className={`md:hidden border-t px-5 py-4 space-y-3 ${dark ? 'border-white/10 bg-chef' : 'border-steel bg-white'}`}>
             {navItems.map((n) => (
               <Link key={n.label} to={n.to} className={`block text-sm font-medium ${dark ? 'text-white/80' : 'text-chef'}`}>
                 {n.label}
@@ -131,7 +140,7 @@ export function MarketingLayout({ children, crumbs = [], dark = false }: Marketi
         </div>
       )}
 
-      <main>{children}</main>
+      <main id="main-content">{children}</main>
 
       <footer className={`mt-16 border-t px-5 py-12 ${dark ? 'border-white/10' : 'border-steel/60'}`}>
         <div className="mx-auto max-w-5xl">
@@ -172,11 +181,13 @@ export function MarketingLayout({ children, crumbs = [], dark = false }: Marketi
                 </Link>
                 <a href="/legal/privacy.html" className="block hover:underline">Privacy</a>
                 <a href="/legal/terms.html" className="block hover:underline">Terms</a>
+                <a href="/legal/ai-usage.html" className="block hover:underline">AI Usage</a>
+                <a href={`mailto:${SUPPORT_EMAIL}`} className="block hover:underline">{SUPPORT_EMAIL}</a>
               </div>
             </div>
           </div>
           <p className={`mt-10 text-[11px] ${dark ? 'text-white/30' : 'text-chef-subtle/80'}`}>
-            Legal documents are draft frameworks — attorney review before first charge.
+            © {new Date().getFullYear()} HomeChef AI · SousChef. Legal documents are draft frameworks — attorney review before first charge.
           </p>
         </div>
       </footer>
@@ -220,7 +231,10 @@ export function StatusBadge({ status }: { status: 'live' | 'beta' | 'vision' }) 
   };
   const labels = { live: 'Live', beta: 'Beta', vision: 'Roadmap' };
   return (
-    <span className={`inline-block rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${styles[status]}`}>
+    <span
+      className={`inline-block rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${styles[status]}`}
+      aria-label={`Status: ${labels[status]}`}
+    >
       {labels[status]}
     </span>
   );

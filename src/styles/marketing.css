@@ -38,3 +38,26 @@
 .marketing-animate-in-delay-1 { animation-delay: 0.08s; }
 .marketing-animate-in-delay-2 { animation-delay: 0.16s; }
 .marketing-animate-in-delay-3 { animation-delay: 0.24s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-animate-in,
+  .marketing-animate-in-delay-1,
+  .marketing-animate-in-delay-2,
+  .marketing-animate-in-delay-3 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

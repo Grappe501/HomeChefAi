@@ -29,6 +29,7 @@ import { VisionIndex, VisionTopicPage } from './pages/marketing/VisionPages';
 import ErrorBoundary from './components/ErrorBoundary';
 import Learn from './pages/Learn';
 import LearnDetail from './pages/LearnDetail';
+import MarketingNotFound from './pages/marketing/NotFound';
 
 /** Marketing site — always reachable (logged-in users can browse pricing, learn, etc.) */
 function MarketingSiteRoutes() {
@@ -98,7 +99,7 @@ export default function App() {
         {!user ? (
           <>
             <Route path="/login" element={<Login />} />
-            <Route path="*" element={<Navigate to="/landing" replace />} />
+            <Route path="*" element={<MarketingNotFound />} />
           </>
         ) : !profile?.onboarding_complete ? (
           <>

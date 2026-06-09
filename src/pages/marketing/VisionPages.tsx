@@ -1,10 +1,16 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { MarketingLayout, PageHeader, DrillCard, GoDeeperCTA, StatusBadge } from '@/components/marketing/MarketingLayout';
+import { PageMeta } from '@/components/marketing/PageMeta';
 import { VISION_TOPICS, getVisionTopic, ROADMAP_PHASES } from '@/content/siteContent';
 
 export function VisionIndex() {
   return (
     <MarketingLayout crumbs={[{ label: 'Vision' }]}>
+      <PageMeta
+        title="Vision & Roadmap"
+        description="SousChef future vision — smart kitchen, social cookbook, knowledge graph expansion, and honest phase timeline."
+        path="/vision"
+      />
       <PageHeader
         eyebrow="Go deeper"
         title="The rabbit hole."
@@ -77,6 +83,7 @@ export function VisionTopicPage() {
 
   return (
     <MarketingLayout crumbs={[{ label: 'Vision', href: '/vision' }, { label: topic.title }]}>
+      <PageMeta title={topic.title} description={topic.summary} path={`/vision/${topic.id}`} />
       <PageHeader title={topic.title} lead={topic.summary} />
 
       <div className="mx-auto max-w-5xl px-5 flex flex-wrap items-center gap-3 -mt-4 mb-8 text-sm text-chef-subtle">

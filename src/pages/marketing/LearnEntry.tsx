@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { Clock, GraduationCap, MapPin } from 'lucide-react';
 import { MarketingLayout, GoDeeperCTA } from '@/components/marketing/MarketingLayout';
+import { PageMeta } from '@/components/marketing/PageMeta';
 import { getDeepById, DEEP_KIND_LABEL } from '@/lib/deepCatalog';
 
 export default function LearnEntryPage() {
@@ -17,6 +18,7 @@ export default function LearnEntryPage() {
         { label: entry.title },
       ]}
     >
+      <PageMeta title={entry.title} description={entry.summary || entry.origins} path={`/learn/${entry.id}`} />
       <article className="mx-auto max-w-3xl px-5 py-10">
         <p className="text-xs font-semibold uppercase tracking-wide text-copper-300">
           {DEEP_KIND_LABEL[entry.kind]}

@@ -1,9 +1,14 @@
-import { Link } from 'react-router-dom';
 import { MarketingLayout, PageHeader, DrillCard, GoDeeperCTA } from '@/components/marketing/MarketingLayout';
+import { PageMeta } from '@/components/marketing/PageMeta';
 
 export default function StoryPage() {
   return (
     <MarketingLayout crumbs={[{ label: 'Story' }]}>
+      <PageMeta
+        title="Our Story"
+        description="Why SousChef exists — a Household Food Operating System that builds kitchen memory, not another recipe feed."
+        path="/story"
+      />
       <PageHeader
         eyebrow="Why we exist"
         title="Your Kitchen Has A Memory."
@@ -40,9 +45,9 @@ export default function StoryPage() {
           <p className="text-chef-subtle">
             SousChef learns your kitchen — not to sell you, but to serve you. We do not sell household food data, shopping habits, or family traditions.
           </p>
-          <Link to="/legal/privacy.html" className="inline-block mt-3 text-sm font-semibold text-sage-700 hover:underline">
+          <a href="/legal/privacy.html" className="inline-block mt-3 text-sm font-semibold text-sage-700 hover:underline">
             Privacy policy →
-          </Link>
+          </a>
         </section>
       </div>
 

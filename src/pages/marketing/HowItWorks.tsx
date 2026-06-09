@@ -1,11 +1,17 @@
 import { Link } from 'react-router-dom';
 import { MarketingLayout, PageHeader, DrillCard } from '@/components/marketing/MarketingLayout';
 import { StackDiagram } from '@/components/marketing/MarketingBlocks';
+import { PageMeta } from '@/components/marketing/PageMeta';
 import { HOW_IT_WORKS, PLATFORM_LAYERS } from '@/content/siteContent';
 
 export default function HowItWorks() {
   return (
     <MarketingLayout crumbs={[{ label: 'How it works' }]}>
+      <PageMeta
+        title="How it works"
+        description="Capture, remember, act — three moves that power SousChef's Household Food Operating System."
+        path="/how"
+      />
       <PageHeader
         eyebrow="Our approach"
         title="Capture. Remember. Act."

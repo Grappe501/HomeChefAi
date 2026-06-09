@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BookOpen, Search } from 'lucide-react';
 import { MarketingLayout, PageHeader } from '@/components/marketing/MarketingLayout';
+import { PageMeta } from '@/components/marketing/PageMeta';
 import { DEEP_CATALOG, DEEP_KIND_LABEL, listDeepCatalog, searchDeepCatalog } from '@/lib/deepCatalog';
 import type { DeepEntryKind } from '@/types/knowledgeDeep';
 
@@ -23,8 +24,14 @@ export default function LearnIndexPage() {
       crumbs={[{ label: 'Learn', href: '/learn' }]}
       dark
     >
+      <PageMeta
+        title="Kitchen Academy"
+        description="Deep dives on ingredients, techniques, and dishes — origins, history, timelines, and what Clara can teach while you cook."
+        path="/learn"
+      />
       <div className="mx-auto max-w-5xl px-5 py-10">
         <PageHeader
+          dark
           title="Kitchen Academy"
           lead={`${DEEP_CATALOG.length}+ deep dives — where ingredients came from, how long dishes have been around, and what Clara can teach you while you cook.`}
         />

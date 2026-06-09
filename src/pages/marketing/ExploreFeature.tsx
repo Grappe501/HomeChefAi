@@ -6,6 +6,7 @@ import {
   GoDeeperCTA,
 } from '@/components/marketing/MarketingLayout';
 import { ProductMock, FEATURE_MOCKS } from '@/components/marketing/MarketingBlocks';
+import { PageMeta } from '@/components/marketing/PageMeta';
 import { getFeature, getAdjacentFeatures, FEATURE_IN_APP } from '@/content/siteContent';
 import { useApp } from '@/hooks/useApp';
 
@@ -31,6 +32,7 @@ export default function ExploreFeature() {
         { label: feature.title },
       ]}
     >
+      <PageMeta title={feature.title} description={feature.summary} path={`/explore/${layer.id}/${feature.id}`} />
       <div className="mx-auto max-w-5xl px-5 py-8 grid gap-10 lg:grid-cols-5">
         <div className="lg:col-span-3">
           <PageHeader title={feature.title} lead={feature.summary} />
