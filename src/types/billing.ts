@@ -38,6 +38,18 @@ export interface Recipe {
   author_name?: string;
   saved?: boolean;
   liked?: boolean;
+  // Cookbook Social hooks (reserved)
+  creator_first_name?: string;
+  creator_last_name?: string;
+  display_name?: string;
+  household_name?: string;
+  source_type?: string;
+  recipe_story?: string;
+  shares_count?: number;
+  tries_count?: number;
+  variations_count?: number;
+  plate_score?: number;
+  ranking_enabled?: boolean;
 }
 
 export const FREE_LIMITS = {

@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Home, Package, Camera, CalendarDays, ChefHat, MessageCircle, BookOpen, Settings } from 'lucide-react';
+import { Home, Package, Camera, CalendarDays, ChefHat, MessageCircle, Users, Settings } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
 
 const navItems = [

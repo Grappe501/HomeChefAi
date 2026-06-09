@@ -6,6 +6,7 @@ import { inventoryApi, mealsApi, suggestionsApi } from '@/lib/api';
 import { getLevelInfo } from '@/lib/utils';
 import { GAMIFICATION_LEVELS } from '@/types';
 import type { InventoryItem, MealPlan } from '@/types';
+import CookTogetherCard from '@/components/CookTogetherCard';
 
 export default function Dashboard() {
   const { profile, user } = useApp();
@@ -58,6 +59,8 @@ export default function Dashboard() {
           ))}
         </section>
       )}
+
+      <CookTogetherCard />
 
       <section className="grid grid-cols-2 gap-3">
         <Link to="/receipt" className="card flex flex-col items-center gap-2 hover:border-chef-300 transition-colors py-4">

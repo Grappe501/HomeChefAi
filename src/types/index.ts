@@ -7,6 +7,7 @@ export interface User {
 
 export interface Profile {
   user_id: string;
+  name?: string;
   dietary_restrictions: string[];
   cuisine_preferences: string[];
   allergies: string[];
@@ -18,6 +19,12 @@ export interface Profile {
   assistant_name: string;
   last_meal_memory: Record<string, unknown>;
   zip_code?: string;
+  household_id?: string;
+  household_display_name?: string;
+  kitchen_identity?: import('./platform').KitchenIdentity;
+  culinary_profile?: import('./platform').CulinaryProfile;
+  assistant_persona?: { name?: string; communication_style?: string };
+  food_priorities?: string[];
 }
 
 export interface InventoryItem {

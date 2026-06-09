@@ -26,7 +26,9 @@ export const handler: Handler = withCors(async (event) => {
     const allowed = [
       'dietary_restrictions', 'cuisine_preferences', 'allergies', 'household_size',
       'preferred_store', 'onboarding_complete', 'assistant_name', 'last_meal_memory',
-      'gamification_level', 'gamification_xp', 'name',
+      'gamification_level', 'gamification_xp', 'name', 'zip_code',
+      'household_id', 'household_display_name', 'kitchen_identity', 'culinary_profile', 'assistant_persona',
+      'food_priorities',
     ];
     const updates: Record<string, unknown> = { updated_at: new Date().toISOString() };
     for (const key of allowed) {

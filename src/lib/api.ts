@@ -145,3 +145,20 @@ export const recipesApi = {
   save: (id: string) =>
     api<{ saved: boolean }>('recipes', { method: 'POST', body: JSON.stringify({ action: 'save', id }) }),
 };
+
+export const householdApi = {
+  get: () =>
+    api<{ household: import('@/types/platform').Household | null; members: import('@/types/platform').HouseholdMember[] }>('household'),
+  create: (displayName: string) =>
+    api<{ household: import('@/types/platform').Household; invite_code: string }>('household', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'create', display_name: displayName }),
+    }),
+  join: (inviteCode: string) =>
+    api<{ household: import('@/types/platform').Household; members: import('@/types/platform').HouseholdMember[] }>('household', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'join', invite_code: inviteCode }),
+    }),
+  invite: () =>
+    api<{ invite_code: string }>('household', { method: 'POST', body: JSON.stringify({ action: 'invite' }) }),
+};

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Mic, MicOff } from 'lucide-react';
 import { useSpeechRecognition } from '@/hooks/useSpeech';
 

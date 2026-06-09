@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { LogOut } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
+import CookTogetherSection from '@/components/CookTogetherSection';
 
 export default function Settings() {
   const { profile, user, signOut, updateProfile } = useApp();
@@ -20,9 +21,11 @@ export default function Settings() {
         <p className="text-sm text-sage-600">{profile?.assistant_name} · Household of {profile?.household_size}</p>
       </section>
 
+      <CookTogetherSection />
+
       <section className="card space-y-2">
         <h3 className="font-semibold">Location</h3>
-        <p className="text-xs text-sage-500">For neighbor swap — your zip only, never shared publicly beyond posts you make.</p>
+        <p className="text-xs text-sage-500">For local grocery estimates, neighbor swap, and future store recommendations.</p>
         <div className="flex gap-2">
           <input value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))} placeholder="Zip code" className="input-field flex-1" maxLength={5} />
           <button onClick={saveZip} className="btn-secondary px-4">Save</button>

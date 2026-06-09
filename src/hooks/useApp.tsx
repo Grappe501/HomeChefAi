@@ -45,7 +45,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
     try {
       const { user: u, profile: p } = await authApi.bootstrap();
-      setUser({ id: session.user.id, email: session.user.email, name: (p as Profile)?.name || u.name });
+      setUser({ id: session.user.id, email: session.user.email, name: (p as unknown as Profile)?.name || u.name });
       setProfile(p as unknown as Profile);
       await refreshBilling();
     } catch {

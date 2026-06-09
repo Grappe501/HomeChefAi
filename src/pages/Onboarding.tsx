@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { useApp } from '@/hooks/useApp';
 import { DIETARY_OPTIONS, CUISINE_OPTIONS } from '@/types';
 import { speak } from '@/lib/utils';
+import { COOKS_WITH_OPTIONS, COOKING_SELF_ASSESSMENT, ONBOARDING_PRIORITIES, LOCAL_FOOD_OPTIONS } from '@/types/platform';
+import type { CulinaryProfile, FoodPriority, LocalFoodPreference } from '@/types/platform';
 
 interface OnboardingProps {
   mode: 'dietary';
 }
 
-export default function Onboarding({ mode }: OnboardingProps) {
+export default function Onboarding(_props: OnboardingProps) {
   const { updateProfile } = useApp();
   const [step, setStep] = useState(0);
   const [dietary, setDietary] = useState<string[]>([]);
@@ -15,6 +17,11 @@ export default function Onboarding({ mode }: OnboardingProps) {
   const [household, setHousehold] = useState(2);
   const [allergies, setAllergies] = useState('');
   const [zip, setZip] = useState('');
+  const [cooksWith, setCooksWith] = useState<string[]>([]);
+  const [cookingAssessment, setCookingAssessment] = useState('');
+  const [kitchenName, setKitchenName] = useState('');
+  const [priorities, setPriorities] = useState<string[]>([]);
+  const [localFood, setLocalFood] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
   const toggle = (arr: string[], item: string, setter: (v: string[]) => void) => {
@@ -26,15 +33,25 @@ export default function Onboarding({ mode }: OnboardingProps) {
 
   const handleComplete = async () => {
     setLoading(true);
+    const culinaryProfile: CulinaryProfile = {
+      cooks_with: cooksWith as CulinaryProfile['cooks_with'],
+      cooking_self_assessment: cookingAssessment || undefined,
+      priorities: priorities as FoodPriority[],
+      local_food: localFood as LocalFoodPreference[],
+    };
     await updateProfile({
       dietary_restrictions: dietary,
       cuisine_preferences: cuisines,
       allergies: allergies ? allergies.split(',').map((a) => a.trim()) : [],
       household_size: household,
       zip_code: zip || undefined,
+      household_display_name: kitchenName || undefined,
+      culinary_profile: culinaryProfile,
+      food_priorities: priorities,
       onboarding_complete: true,
-    });
-    speak("Perfect! Your kitchen is ready. Scan a receipt or tap through the pantry wizard to get started.");
+    } as never);
+    const localHint = localFood.length > 0 ? ' We will help you buy and grow local when it fits.' : '';
+    speak(`Perfect! Your kitchen is ready.${localHint} Invite family from Settings to cook together.`);
     setLoading(false);
   };
 
@@ -72,6 +89,44 @@ export default function Onboarding({ mode }: OnboardingProps) {
       ),
     },
     {
+      title: 'Why are you here?',
+      content: (
+        <div>
+          <p className="text-sm text-sage-600 mb-3">Pick your top priorities — SousChef will tailor recommendations.</p>
+          <div className="flex flex-wrap gap-2">
+            {ONBOARDING_PRIORITIES.map(({ id, label, emoji }) => (
+              <button
+                key={id}
+                onClick={() => toggle(priorities, id, setPriorities)}
+                className={`tap-item ${priorities.includes(id) ? 'tap-item-selected' : ''}`}
+              >
+                {emoji} {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: 'Buy & grow local?',
+      content: (
+        <div>
+          <p className="text-sm text-sage-600 mb-3">We will gently encourage local food when it fits — farmers markets, home gardens, seasonal produce. Optional.</p>
+          <div className="flex flex-wrap gap-2">
+            {LOCAL_FOOD_OPTIONS.map(({ id, label, emoji }) => (
+              <button
+                key={id}
+                onClick={() => toggle(localFood, id, setLocalFood)}
+                className={`tap-item ${localFood.includes(id) ? 'tap-item-selected' : ''}`}
+              >
+                {emoji} {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      ),
+    },
+    {
       title: 'Household size?',
       content: (
         <div className="flex gap-3 justify-center">
@@ -88,10 +143,61 @@ export default function Onboarding({ mode }: OnboardingProps) {
       ),
     },
     {
+      title: 'Who do you cook with?',
+      content: (
+        <div>
+          <p className="text-sm text-sage-600 mb-3">SousChef works best when families cook together. Tap all that apply.</p>
+          <div className="flex flex-wrap gap-2">
+            {COOKS_WITH_OPTIONS.map(({ id, label, emoji }) => (
+              <button
+                key={id}
+                onClick={() => toggle(cooksWith, id, setCooksWith)}
+                className={`tap-item ${cooksWith.includes(id) ? 'tap-item-selected' : ''}`}
+              >
+                {emoji} {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: 'Tell us about your cooking',
+      content: (
+        <div className="space-y-3">
+          <p className="text-sm text-sage-600">Which sounds most like you? We'll help you grow from here.</p>
+          {COOKING_SELF_ASSESSMENT.map((option) => (
+            <button
+              key={option}
+              onClick={() => setCookingAssessment(option)}
+              className={`tap-item w-full text-left ${cookingAssessment === option ? 'tap-item-selected' : ''}`}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      ),
+    },
+    {
+      title: 'Name your kitchen (optional)',
+      content: (
+        <div>
+          <p className="text-sm text-sage-600 mb-3">Family and friends can join this kitchen later.</p>
+          <input
+            type="text"
+            value={kitchenName}
+            onChange={(e) => setKitchenName(e.target.value)}
+            placeholder="The Grappe Family Kitchen"
+            className="input-field"
+          />
+        </div>
+      ),
+    },
+    {
       title: 'Your zip code?',
       content: (
         <div>
-          <p className="text-sm text-sage-600 mb-3">For neighbor food swap — optional, 5 digits only.</p>
+          <p className="text-sm text-sage-600 mb-3">For local grocery estimates and neighbor swap — optional.</p>
           <input
             type="text"
             value={zip}

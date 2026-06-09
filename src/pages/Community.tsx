@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { HandHeart, Plus } from 'lucide-react';
 import { swapApi } from '@/lib/api';
 import { useApp } from '@/hooks/useApp';
-import { profileApi } from '@/lib/api';
 
 interface SwapPost {
   id: string;
