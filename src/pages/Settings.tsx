@@ -1,11 +1,21 @@
-import { useState } from 'react';
-import { LogOut } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { LogOut, BookOpen } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
+import { productJournalApi } from '@/lib/api';
 import CookTogetherSection from '@/components/CookTogetherSection';
 
 export default function Settings() {
   const { profile, user, signOut, updateProfile } = useApp();
   const [zip, setZip] = useState((profile as { zip_code?: string })?.zip_code || '');
+  const [isFounder, setIsFounder] = useState(!!profile?.is_founder);
+
+  useEffect(() => {
+    setIsFounder(!!profile?.is_founder);
+    if (!profile?.is_founder) {
+      productJournalApi.isFounder().then(setIsFounder).catch(() => setIsFounder(false));
+    }
+  }, [profile?.is_founder]);
 
   const saveZip = async () => {
     await updateProfile({ zip_code: zip } as never);
@@ -20,6 +30,16 @@ export default function Settings() {
         <p className="text-sm text-sage-600">{user?.email}</p>
         <p className="text-sm text-sage-600">{profile?.assistant_name} · Household of {profile?.household_size}</p>
       </section>
+
+      {isFounder && (
+        <Link to="/admin/journal" className="card flex items-center gap-3 hover:border-chef-300 transition-colors">
+          <BookOpen className="text-chef-600" size={24} />
+          <div>
+            <p className="font-semibold text-chef-800">Product Journal</p>
+            <p className="text-xs text-sage-500">Founder observations · voice capture</p>
+          </div>
+        </Link>
+      )}
 
       <CookTogetherSection />
 

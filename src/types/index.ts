@@ -25,6 +25,7 @@ export interface Profile {
   culinary_profile?: import('./platform').CulinaryProfile;
   assistant_persona?: { name?: string; communication_style?: string };
   food_priorities?: string[];
+  is_founder?: boolean;
 }
 
 export interface InventoryItem {

@@ -171,3 +171,43 @@ export const brainApi = {
   sync: () =>
     api<{ synced: boolean; insights_count: number }>('brain', { method: 'POST', body: JSON.stringify({}) }),
 };
+
+export const productJournalApi = {
+  list: (params?: { q?: string; note_type?: string; status?: string; tag?: string; related_area?: string }) => {
+    const qs = new URLSearchParams();
+    if (params?.q) qs.set('q', params.q);
+    if (params?.note_type) qs.set('note_type', params.note_type);
+    if (params?.status) qs.set('status', params.status);
+    if (params?.tag) qs.set('tag', params.tag);
+    if (params?.related_area) qs.set('related_area', params.related_area);
+    const query = qs.toString();
+    return api<{ notes: import('@/types/productJournal').ProductNote[] }>(`product-journal${query ? `?${query}` : ''}`);
+  },
+  create: (data: {
+    note_type: string;
+    title: string;
+    body?: string;
+    priority?: string;
+    related_area?: string;
+    tags?: string[];
+    brain_version?: string;
+  }) =>
+    api<{ note: import('@/types/productJournal').ProductNote }>('product-journal', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'create', ...data }),
+    }),
+  update: (note_id: string, data: Record<string, unknown>) =>
+    api<{ note: import('@/types/productJournal').ProductNote }>('product-journal', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'update', note_id, ...data }),
+    }),
+  convert: (note_id: string) =>
+    api<{ feature: unknown; note: import('@/types/productJournal').ProductNote }>('product-journal', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'convert', note_id }),
+    }),
+  exportMarkdown: () =>
+    api<{ markdown: string }>('product-journal?action=export'),
+  isFounder: () =>
+    api<{ notes: import('@/types/productJournal').ProductNote[] }>('product-journal').then(() => true).catch((e: ApiError) => (e.status === 403 ? false : Promise.reject(e))),
+};
