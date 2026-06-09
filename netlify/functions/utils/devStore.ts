@@ -4,29 +4,42 @@ import { fileURLToPath } from 'url';
 import type { DevStore } from './types.js';
 import { emptyStore } from './types.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = path.resolve(__dirname, '../../../dev-data');
-const STORE_FILE = path.join(DATA_DIR, 'store.json');
+function resolveDataPaths(): { dataDir: string; storeFile: string } {
+  try {
+    const metaUrl = typeof import.meta !== 'undefined' ? import.meta.url : undefined;
+    if (metaUrl) {
+      const dir = path.dirname(fileURLToPath(metaUrl));
+      const dataDir = path.resolve(dir, '../../../dev-data');
+      return { dataDir, storeFile: path.join(dataDir, 'store.json') };
+    }
+  } catch {
+    // Netlify CJS bundle — import.meta.url unavailable at runtime
+  }
+  const dataDir = path.join(process.cwd(), 'dev-data');
+  return { dataDir, storeFile: path.join(dataDir, 'store.json') };
+}
 
-function ensureDir() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+function ensureDir(dataDir: string) {
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
   }
 }
 
 export function loadStore(): DevStore {
-  ensureDir();
-  if (!fs.existsSync(STORE_FILE)) {
+  const { dataDir, storeFile } = resolveDataPaths();
+  ensureDir(dataDir);
+  if (!fs.existsSync(storeFile)) {
     const store = emptyStore();
-    fs.writeFileSync(STORE_FILE, JSON.stringify(store, null, 2));
+    fs.writeFileSync(storeFile, JSON.stringify(store, null, 2));
     return store;
   }
-  return JSON.parse(fs.readFileSync(STORE_FILE, 'utf-8')) as DevStore;
+  return JSON.parse(fs.readFileSync(storeFile, 'utf-8')) as DevStore;
 }
 
 export function saveStore(store: DevStore): void {
-  ensureDir();
-  fs.writeFileSync(STORE_FILE, JSON.stringify(store, null, 2));
+  const { dataDir, storeFile } = resolveDataPaths();
+  ensureDir(dataDir);
+  fs.writeFileSync(storeFile, JSON.stringify(store, null, 2));
 }
 
 export function useDevStore(): boolean {
