@@ -9,7 +9,10 @@
 
 [functions]
   node_bundler = "esbuild"
-  included_files = ["data/ai/**"]
+  included_files = ["data/ai/**", "data/marketing/**"]
+
+[functions."site-search"]
+  timeout = 20
 
 [functions."meals"]
   timeout = 26

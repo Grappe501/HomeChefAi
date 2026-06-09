@@ -1,0 +1,252 @@
+{
+  "ingredient.chicken.breast": {
+    "reference_serving": "4 oz cooked (113g)",
+    "serving_grams": 113,
+    "calories": 187,
+    "protein_g": 35,
+    "carbs_g": 0,
+    "fat_g": 4,
+    "fiber_g": 0,
+    "sodium_mg": 74
+  },
+  "ingredient.rice.white": {
+    "reference_serving": "1 cup cooked (158g)",
+    "serving_grams": 158,
+    "calories": 206,
+    "protein_g": 4,
+    "carbs_g": 45,
+    "fat_g": 0.4,
+    "fiber_g": 0.6,
+    "sodium_mg": 2
+  },
+  "ingredient.quinoa": {
+    "reference_serving": "1 cup cooked (185g)",
+    "serving_grams": 185,
+    "calories": 222,
+    "protein_g": 8,
+    "carbs_g": 39,
+    "fat_g": 4,
+    "fiber_g": 5,
+    "sodium_mg": 13
+  },
+  "ingredient.beans.black": {
+    "reference_serving": "½ cup canned, drained (130g)",
+    "serving_grams": 130,
+    "calories": 114,
+    "protein_g": 8,
+    "carbs_g": 20,
+    "fat_g": 0.5,
+    "fiber_g": 7.5,
+    "sodium_mg": 460
+  },
+  "ingredient.ground_beef": {
+    "reference_serving": "4 oz cooked 90% lean (113g)",
+    "serving_grams": 113,
+    "calories": 235,
+    "protein_g": 24,
+    "carbs_g": 0,
+    "fat_g": 15,
+    "fiber_g": 0,
+    "sodium_mg": 75
+  },
+  "ingredient.bbq_sauce": {
+    "reference_serving": "2 tbsp (30g)",
+    "serving_grams": 30,
+    "calories": 52,
+    "protein_g": 0.3,
+    "carbs_g": 13,
+    "fat_g": 0.1,
+    "fiber_g": 0.2,
+    "sodium_mg": 280
+  },
+  "ingredient.garlic": {
+    "reference_serving": "1 clove (3g)",
+    "serving_grams": 3,
+    "calories": 4,
+    "protein_g": 0.2,
+    "carbs_g": 1,
+    "fat_g": 0,
+    "fiber_g": 0.1,
+    "sodium_mg": 1
+  },
+  "ingredient.olive_oil": {
+    "reference_serving": "1 tbsp (14g)",
+    "serving_grams": 14,
+    "calories": 119,
+    "protein_g": 0,
+    "carbs_g": 0,
+    "fat_g": 14,
+    "fiber_g": 0,
+    "sodium_mg": 0
+  },
+  "ingredient.butter": {
+    "reference_serving": "1 tbsp (14g)",
+    "serving_grams": 14,
+    "calories": 102,
+    "protein_g": 0.1,
+    "carbs_g": 0,
+    "fat_g": 12,
+    "fiber_g": 0,
+    "sodium_mg": 91
+  },
+  "ingredient.cheese.cheddar": {
+    "reference_serving": "1 oz (28g)",
+    "serving_grams": 28,
+    "calories": 114,
+    "protein_g": 7,
+    "carbs_g": 0.4,
+    "fat_g": 9,
+    "fiber_g": 0,
+    "sodium_mg": 176
+  },
+  "ingredient.egg": {
+    "reference_serving": "1 large (50g)",
+    "serving_grams": 50,
+    "calories": 72,
+    "protein_g": 6,
+    "carbs_g": 0.4,
+    "fat_g": 5,
+    "fiber_g": 0,
+    "sodium_mg": 71
+  },
+  "ingredient.tomato": {
+    "reference_serving": "1 medium (123g)",
+    "serving_grams": 123,
+    "calories": 22,
+    "protein_g": 1,
+    "carbs_g": 5,
+    "fat_g": 0.2,
+    "fiber_g": 1.5,
+    "sodium_mg": 6
+  },
+  "ingredient.onion": {
+    "reference_serving": "½ cup chopped (80g)",
+    "serving_grams": 80,
+    "calories": 32,
+    "protein_g": 0.9,
+    "carbs_g": 7.5,
+    "fat_g": 0.1,
+    "fiber_g": 1.4,
+    "sodium_mg": 3
+  },
+  "ingredient.bell_pepper": {
+    "reference_serving": "1 cup chopped (149g)",
+    "serving_grams": 149,
+    "calories": 39,
+    "protein_g": 1.5,
+    "carbs_g": 9,
+    "fat_g": 0.4,
+    "fiber_g": 3,
+    "sodium_mg": 6
+  },
+  "ingredient.spinach": {
+    "reference_serving": "2 cups raw (60g)",
+    "serving_grams": 60,
+    "calories": 14,
+    "protein_g": 1.7,
+    "carbs_g": 2.2,
+    "fat_g": 0.2,
+    "fiber_g": 1.3,
+    "sodium_mg": 47
+  },
+  "ingredient.pasta": {
+    "reference_serving": "1 cup cooked (140g)",
+    "serving_grams": 140,
+    "calories": 221,
+    "protein_g": 8,
+    "carbs_g": 43,
+    "fat_g": 1.3,
+    "fiber_g": 2.5,
+    "sodium_mg": 1
+  },
+  "ingredient.bread": {
+    "reference_serving": "1 slice (28g)",
+    "serving_grams": 28,
+    "calories": 79,
+    "protein_g": 3,
+    "carbs_g": 15,
+    "fat_g": 1,
+    "fiber_g": 1,
+    "sodium_mg": 147
+  },
+  "ingredient.salmon": {
+    "reference_serving": "4 oz cooked (113g)",
+    "serving_grams": 113,
+    "calories": 233,
+    "protein_g": 25,
+    "carbs_g": 0,
+    "fat_g": 14,
+    "fiber_g": 0,
+    "sodium_mg": 59
+  },
+  "ingredient.tofu": {
+    "reference_serving": "½ cup firm (126g)",
+    "serving_grams": 126,
+    "calories": 94,
+    "protein_g": 10,
+    "carbs_g": 2,
+    "fat_g": 6,
+    "fiber_g": 0.5,
+    "sodium_mg": 9
+  },
+  "ingredient.avocado": {
+    "reference_serving": "½ avocado (100g)",
+    "serving_grams": 100,
+    "calories": 160,
+    "protein_g": 2,
+    "carbs_g": 9,
+    "fat_g": 15,
+    "fiber_g": 7,
+    "sodium_mg": 7
+  },
+  "ingredient.greek_yogurt": {
+    "reference_serving": "¾ cup plain (170g)",
+    "serving_grams": 170,
+    "calories": 100,
+    "protein_g": 17,
+    "carbs_g": 6,
+    "fat_g": 0.7,
+    "fiber_g": 0,
+    "sodium_mg": 61
+  },
+  "ingredient.milk": {
+    "reference_serving": "1 cup 2% (244g)",
+    "serving_grams": 244,
+    "calories": 122,
+    "protein_g": 8,
+    "carbs_g": 12,
+    "fat_g": 5,
+    "fiber_g": 0,
+    "sodium_mg": 115
+  },
+  "ingredient.potato": {
+    "reference_serving": "1 medium baked (173g)",
+    "serving_grams": 173,
+    "calories": 161,
+    "protein_g": 4,
+    "carbs_g": 37,
+    "fat_g": 0.2,
+    "fiber_g": 3.8,
+    "sodium_mg": 17
+  },
+  "ingredient.broccoli": {
+    "reference_serving": "1 cup chopped (91g)",
+    "serving_grams": 91,
+    "calories": 31,
+    "protein_g": 2.5,
+    "carbs_g": 6,
+    "fat_g": 0.3,
+    "fiber_g": 2.4,
+    "sodium_mg": 30
+  },
+  "ingredient.corn": {
+    "reference_serving": "½ cup kernels (82g)",
+    "serving_grams": 82,
+    "calories": 66,
+    "protein_g": 2,
+    "carbs_g": 15,
+    "fat_g": 0.7,
+    "fiber_g": 1.8,
+    "sodium_mg": 1
+  }
+}

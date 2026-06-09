@@ -3,6 +3,7 @@
  */
 
 import type { DishContext, IngredientDeepDive } from './knowledgeDeep';
+import type { MealNutritionEstimate } from './mealNutrition';
 
 export type MealRecommendationType =
   | 'inventory_match'
@@ -70,4 +71,6 @@ export interface MealIntelligence {
   dish_context?: DishContext;
   /** Actionable teaching moments Clara can walk you through */
   teaching_moments?: string[];
+  /** Estimated macros per serving — drill-down per ingredient */
+  nutrition?: MealNutritionEstimate;
 }

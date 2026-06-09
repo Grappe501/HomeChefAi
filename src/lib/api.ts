@@ -303,6 +303,33 @@ export const knowledgeApi = {
   stats: () => api<{ node_count: number; types: Record<string, number> }>('knowledge?action=stats'),
 };
 
+export const siteSearchApi = {
+  search: (q: string, limit = 12) =>
+    fetch(`${API_BASE}/site-search?q=${encodeURIComponent(q)}&limit=${limit}`)
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) throw new ApiError((data.error as string) || 'Search failed', res.status);
+        return data as { results: import('@/types/siteSearch').SiteSearchResult[]; query: string; count: number };
+      }),
+  index: () =>
+    fetch(`${API_BASE}/site-search?action=index`)
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) throw new ApiError((data.error as string) || 'Index failed', res.status);
+        return data as { entries: import('@/types/siteSearch').SiteSearchEntry[]; count: number };
+      }),
+  ask: (question: string, history: { role: string; content: string }[] = []) =>
+    fetch(`${API_BASE}/site-search`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question, history }),
+    }).then(async (res) => {
+      const data = await res.json();
+      if (!res.ok) throw new ApiError((data.error as string) || 'Ask failed', res.status);
+      return data as import('@/types/siteSearch').SiteAskResponse;
+    }),
+};
+
 export const productJournalApi = {
   list: (params?: { q?: string; note_type?: string; status?: string; tag?: string; related_area?: string }) => {
     const qs = new URLSearchParams();

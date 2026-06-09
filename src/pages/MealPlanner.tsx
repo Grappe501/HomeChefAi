@@ -6,6 +6,7 @@ import { useApp } from '@/hooks/useApp';
 import { useToast } from '@/hooks/useToast';
 import { VoiceInput } from '@/components/VoiceButton';
 import { MealWhyPanel } from '@/components/MealWhyPanel';
+import { MealNutritionPanel } from '@/components/MealNutritionPanel';
 import type { MealPlan, MealPlanData, PlannedMeal } from '@/types';
 import type { MealDirection } from '@/types/mealDirections';
 import type { MealIntelligence } from '@/types/mealIntelligence';
@@ -606,6 +607,12 @@ export default function MealPlanner() {
                       <p className="text-[10px] leading-snug text-chef-subtle/70 italic mt-1.5 pr-2">
                         {m.intelligence?.ingredient_trivia ?? intelligenceCache[key]?.ingredient_trivia}
                       </p>
+                    )}
+                    {(m.intelligence?.nutrition ?? intelligenceCache[key]?.nutrition) && (
+                      <MealNutritionPanel
+                        compact
+                        nutrition={(m.intelligence?.nutrition ?? intelligenceCache[key]?.nutrition)!}
+                      />
                     )}
                   </div>
                 </div>

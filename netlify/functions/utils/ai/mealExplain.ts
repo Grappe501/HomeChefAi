@@ -20,6 +20,7 @@ import type { DecisionLedgerEntry } from './decisionLedger.js';
 import { processLedgerOutcomes, ledgerContextForMeal } from './outcomeProcessor.js';
 import { buildIngredientTrivia } from './ingredientTrivia.js';
 import { buildMealDeepContext } from './ingredientDeepDive.js';
+import { buildMealNutrition, formatNutritionSummary } from './nutritionEstimator.js';
 
 export interface MealExplainContext {
   meal: PlannedMeal;
@@ -226,11 +227,18 @@ function buildSpecialOccasion(ctx: MealExplainContext): MealSpecialOccasion {
   };
 }
 
-function buildNutritionFit(ctx: MealExplainContext): string {
+function buildNutritionFit(ctx: MealExplainContext, nutrition?: ReturnType<typeof buildMealNutrition>): string {
   const { meal, profile, coverage } = ctx;
   const restrictions = profile.dietary_restrictions.filter((r) => r.toLowerCase() !== 'none');
   const goal = coverage?.planning_goal;
   const parts: string[] = [];
+
+  if (nutrition) {
+    parts.push(formatNutritionSummary(nutrition));
+    if (nutrition.unknown_ingredients.length) {
+      parts.push(`Could not estimate: ${nutrition.unknown_ingredients.slice(0, 3).join(', ')}${nutrition.unknown_ingredients.length > 3 ? '…' : ''}.`);
+    }
+  }
 
   if (goal === 'healthy_light') {
     parts.push('This plan asked for lighter meals — reasonable portions, not diet-clinic strict.');
@@ -405,13 +413,18 @@ export function buildMealIntelligence(ctx: MealExplainContext): MealIntelligence
   const outcomes = ctx.ledgerEntries?.length ? processLedgerOutcomes(ctx.ledgerEntries) : null;
   const baseConfidence = substitutions.length ? 0.82 : 0.75;
   const deep = buildMealDeepContext(ctx.meal, ctx.inventory);
+  const nutrition = buildMealNutrition(
+    ctx.meal,
+    ctx.inventory,
+    ctx.profile.household_size ?? ctx.coverage?.people ?? 2,
+  );
 
   return {
     recommendation_type: type,
     recommendation_label: recommendationLabel(type),
     headline: `${ctx.meal.name} — ${recommendationLabel(type)}`,
     why_chosen: buildWhyChosen(ctx),
-    nutrition_fit: buildNutritionFit(ctx),
+    nutrition_fit: buildNutritionFit(ctx, nutrition),
     likeability: buildLikeability(ctx),
     inventory_story:
       inPantryCount > 0
@@ -428,6 +441,7 @@ export function buildMealIntelligence(ctx: MealExplainContext): MealIntelligence
     deep_dives: deep.deep_dives.length ? deep.deep_dives : undefined,
     dish_context: deep.dish_context,
     teaching_moments: deep.teaching_moments.length ? deep.teaching_moments : undefined,
+    nutrition,
   };
 }
 

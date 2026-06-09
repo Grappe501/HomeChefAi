@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState, type ReactNode } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, Search, X } from 'lucide-react';
+import { SiteSearch, useSiteSearchShortcut } from '@/components/marketing/SiteSearch';
 import { useApp } from '@/hooks/useApp';
 import { PLATFORM_LAYERS } from '@/content/siteContent';
 import { SUPPORT_EMAIL } from '@/content/marketingContent';
@@ -31,6 +32,9 @@ export function MarketingLayout({ children, crumbs = [], dark = false }: Marketi
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  useSiteSearchShortcut(() => setSearchOpen(true));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -91,6 +95,30 @@ export function MarketingLayout({ children, crumbs = [], dark = false }: Marketi
           </nav>
           <div className="flex items-center gap-2">
             <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              className={`hidden sm:inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition ${
+                dark
+                  ? 'border-white/20 text-white/70 hover:border-white/40 hover:text-white'
+                  : 'border-steel/80 text-chef-subtle hover:border-copper-500/40 hover:text-chef'
+              }`}
+              aria-label="Search site"
+            >
+              <Search size={14} />
+              <span>Search</span>
+              <kbd className={`hidden lg:inline font-mono text-[10px] ${dark ? 'text-white/35' : 'text-chef-subtle/70'}`}>
+                ⌘K
+              </kbd>
+            </button>
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              className={`sm:hidden p-2 rounded-lg ${dark ? 'text-white/70' : 'text-chef-muted'}`}
+              aria-label="Search site"
+            >
+              <Search size={20} />
+            </button>
+            <button
               onClick={cta}
               className={`hidden sm:inline-flex rounded-full px-4 py-2 text-sm font-semibold transition ${
                 dark ? 'bg-white text-chef hover:bg-stainless-100' : 'bg-chef text-white hover:bg-chef-muted'
@@ -139,6 +167,8 @@ export function MarketingLayout({ children, crumbs = [], dark = false }: Marketi
           </nav>
         </div>
       )}
+
+      <SiteSearch open={searchOpen} onClose={() => setSearchOpen(false)} dark={dark} />
 
       <main id="main-content">{children}</main>
 

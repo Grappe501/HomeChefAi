@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npx tsx scripts/build-search-index.ts && vite build",
+    "search:index": "npx tsx scripts/build-search-index.ts",
     "preview": "vite preview",
     "netlify:dev": "netlify dev",
     "typecheck": "tsc --noEmit",

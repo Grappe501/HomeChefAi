@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp, Wine, UtensilsCrossed, ShoppingBag, Package, BookOpen, GraduationCap, Clock } from 'lucide-react';
 import type { PlannedMeal } from '@/types';
 import type { MealIntelligence } from '@/types/mealIntelligence';
+import { MealNutritionPanel } from '@/components/MealNutritionPanel';
 
 interface MealWhyPanelProps {
   meal: PlannedMeal;
@@ -49,6 +50,7 @@ export function MealWhyPanel({ meal, intelligence, loading, onClose }: MealWhyPa
 
       <Section title="Why Clara chose this">{intel.why_chosen}</Section>
       <Section title="Nutrition & plan fit">{intel.nutrition_fit}</Section>
+      {intel.nutrition && <MealNutritionPanel nutrition={intel.nutrition} />}
       <Section title="Will your household like it?">{intel.likeability}</Section>
       <Section title="Pantry">{intel.inventory_story}</Section>
 

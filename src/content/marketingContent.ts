@@ -1,6 +1,6 @@
 /** Production marketing content — FAQ, trust, site config */
 
-export const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://home-chef-ai.netlify.app';
+export const SITE_URL = import.meta.env?.VITE_SITE_URL || 'https://home-chef-ai.netlify.app';
 export const SITE_NAME = 'SousChef';
 export const SITE_TAGLINE = 'Your kitchen has a memory.';
 export const SUPPORT_EMAIL = 'hello@homechef.ai';
