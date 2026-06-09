@@ -2,10 +2,14 @@ import { useEffect, useState } from 'react';
 import { Sparkles, ShoppingCart } from 'lucide-react';
 import { mealsApi } from '@/lib/api';
 import { speak } from '@/lib/utils';
+import { useApp } from '@/hooks/useApp';
+import { useToast } from '@/hooks/useToast';
 import { VoiceInput } from '@/components/VoiceButton';
 import type { MealPlan, MealPlanData } from '@/types';
 
 export default function MealPlanner() {
+  const { refreshProfile } = useApp();
+  const toast = useToast();
   const [plans, setPlans] = useState<MealPlan[]>([]);
   const [planning, setPlanning] = useState(false);
   const [days, setDays] = useState(7);
@@ -24,16 +28,18 @@ export default function MealPlanner() {
   const handlePlan = async () => {
     setPlanning(true);
     try {
-      const { plan } = await mealsApi.plan({
+      const res = await mealsApi.plan({
         days,
         budget: budget ? parseFloat(budget) : undefined,
         message: message || undefined,
       });
-      setActivePlan(plan);
-      setPlans([plan, ...plans]);
+      setActivePlan(res.plan);
+      setPlans([res.plan, ...plans]);
+      await refreshProfile();
+      toast.success(`Meal plan ready · +${res.xp_gained ?? 50} XP`);
       speak(`Your ${days}-day meal plan is ready!`);
     } catch (err) {
-      alert(err instanceof Error ? err.message : 'Planning failed');
+      toast.error(err instanceof Error ? err.message : 'Planning failed');
     } finally {
       setPlanning(false);
     }
@@ -46,7 +52,7 @@ export default function MealPlanner() {
       setSuggestions(s);
       speak(`I found ${s.meals?.length || 0} meals you can make right now!`);
     } catch (err) {
-      alert(err instanceof Error ? err.message : 'Failed');
+      toast.error(err instanceof Error ? err.message : 'Failed');
     } finally {
       setPlanning(false);
     }

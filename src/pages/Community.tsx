@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { HandHeart, Plus } from 'lucide-react';
 import { swapApi } from '@/lib/api';
 import { useApp } from '@/hooks/useApp';
+import { useToast } from '@/hooks/useToast';
 
 interface SwapPost {
   id: string;
@@ -16,6 +17,7 @@ interface SwapPost {
 
 export default function Community() {
   const { profile, updateProfile } = useApp();
+  const toast = useToast();
   const [posts, setPosts] = useState<SwapPost[]>([]);
   const [zip, setZip] = useState((profile as { zip_code?: string })?.zip_code || '');
   const [showForm, setShowForm] = useState(false);
@@ -45,7 +47,7 @@ export default function Community() {
 
   const respond = async (postId: string) => {
     await swapApi.respond(postId, "I'm interested — let's swap!");
-    alert('Response sent!');
+    toast.success('Response sent!');
   };
 
   return (

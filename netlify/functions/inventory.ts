@@ -3,6 +3,7 @@ import type { Handler } from '@netlify/functions';
 import { withCors, jsonResponse, errorResponse, parseBody, requireAuth } from './utils/response.js';
 import { useDevStore, loadStore, saveStore } from './utils/db.js';
 import { getSupabaseUserClient } from './utils/supabase.js';
+import { awardXpDevStore, awardXpSupabase, XP_AWARDS } from './utils/gamification.js';
 import type { InventoryItem } from '../../src/types/index';
 
 export const handler: Handler = withCors(async (event) => {
@@ -36,6 +37,9 @@ export const handler: Handler = withCors(async (event) => {
       const created = itemsToAdd.map((item) => buildItem(userId, item));
       const store = loadStore();
       store.inventory_items.push(...created);
+      if (itemsToAdd.some((i) => i.added_via === 'wizard')) {
+        awardXpDevStore(store, userId, XP_AWARDS.pantry_wizard);
+      }
       saveStore(store);
       return jsonResponse({ items: created }, 201);
     }
@@ -57,7 +61,12 @@ export const handler: Handler = withCors(async (event) => {
     }));
     const { data, error } = await db.from('inventory_items').insert(rows).select();
     if (error) return errorResponse(error.message, 500);
-    return jsonResponse({ items: data }, 201);
+    let xp_gained: number | undefined;
+    if (itemsToAdd.some((i) => i.added_via === 'wizard')) {
+      const xp = await awardXpSupabase(db, userId, XP_AWARDS.pantry_wizard);
+      xp_gained = xp.gained;
+    }
+    return jsonResponse({ items: data, xp_gained }, 201);
   }
 
   if (event.httpMethod === 'PUT') {

@@ -3,8 +3,12 @@ import { ChevronRight, Check } from 'lucide-react';
 import { PANTRY_CATEGORIES, QUICK_QUANTITIES } from '@/types';
 import { inventoryApi } from '@/lib/api';
 import { parseQuantityOption, speak } from '@/lib/utils';
+import { useApp } from '@/hooks/useApp';
+import { useToast } from '@/hooks/useToast';
 
 export default function PantryWizard() {
+  const { refreshProfile } = useApp();
+  const toast = useToast();
   const categories = Object.entries(PANTRY_CATEGORIES);
   const [catIdx, setCatIdx] = useState(0);
   const [selected, setSelected] = useState<Record<string, { quantity: number; unit: string }>>({});
@@ -46,11 +50,14 @@ export default function PantryWizard() {
       added_via: 'wizard',
     }));
     try {
-      await inventoryApi.add(items);
+      const result = await inventoryApi.add(items);
+      await refreshProfile();
+      const xp = (result as { xp_gained?: number }).xp_gained ?? 15;
+      toast.success(`Added ${items.length} items · +${xp} XP`);
       speak(`Added ${items.length} items to your pantry!`);
       setDone(true);
     } catch (err) {
-      alert(err instanceof Error ? err.message : 'Save failed');
+      toast.error(err instanceof Error ? err.message : 'Save failed');
     } finally {
       setSaving(false);
     }

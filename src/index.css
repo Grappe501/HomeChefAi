@@ -14,24 +14,24 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-chef-500 hover:bg-chef-600 active:bg-chef-700 text-white font-semibold py-3 px-6 rounded-2xl transition-colors shadow-md min-h-[48px] flex items-center justify-center gap-2;
+    @apply bg-chef-500 hover:bg-chef-600 active:bg-chef-700 text-white font-semibold py-3.5 px-6 rounded-2xl transition-colors shadow-md min-h-[52px] flex items-center justify-center gap-2 text-base;
   }
   .btn-secondary {
-    @apply bg-white hover:bg-sage-50 active:bg-sage-100 text-sage-800 font-semibold py-3 px-6 rounded-2xl border-2 border-sage-200 transition-colors min-h-[48px] flex items-center justify-center gap-2;
+    @apply bg-white hover:bg-sage-50 active:bg-sage-100 text-sage-800 font-semibold py-3.5 px-6 rounded-2xl border-2 border-sage-200 transition-colors min-h-[52px] flex items-center justify-center gap-2 text-base;
   }
   .btn-icon {
-    @apply w-12 h-12 rounded-full flex items-center justify-center transition-colors;
+    @apply w-12 h-12 rounded-full flex items-center justify-center transition-colors min-w-[48px] min-h-[48px];
   }
   .card {
     @apply bg-white rounded-2xl shadow-sm border border-sage-100 p-4;
   }
   .tap-item {
-    @apply px-4 py-3 rounded-xl border-2 border-sage-200 bg-white active:scale-95 transition-transform text-center font-medium min-h-[48px] flex items-center justify-center;
+    @apply px-4 py-3.5 rounded-xl border-2 border-sage-200 bg-white active:scale-95 transition-transform text-center font-medium min-h-[52px] flex items-center justify-center;
   }
   .tap-item-selected {
     @apply border-chef-500 bg-chef-50 text-chef-700;
   }
   .input-field {
-    @apply w-full px-4 py-3 rounded-xl border-2 border-sage-200 focus:border-chef-500 focus:outline-none text-lg;
+    @apply w-full px-4 py-3.5 rounded-xl border-2 border-sage-200 focus:border-chef-500 focus:outline-none text-lg min-h-[52px];
   }
 }

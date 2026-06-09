@@ -3,6 +3,7 @@ import type { Handler } from '@netlify/functions';
 import { withCors, jsonResponse, errorResponse, parseBody, requireAuth } from './utils/response.js';
 import { useDevStore, loadStore, saveStore } from './utils/db.js';
 import { getSupabaseUserClient } from './utils/supabase.js';
+import { awardXpDevStore, awardXpSupabase, XP_AWARDS } from './utils/gamification.js';
 
 export const handler: Handler = withCors(async (event) => {
   const user = await requireAuth(event);
@@ -42,12 +43,13 @@ export const handler: Handler = withCors(async (event) => {
       }
       const pIdx = store.profiles.findIndex((p) => p.user_id === userId);
       if (pIdx >= 0) {
-        store.profiles[pIdx].gamification_xp += 25;
-        store.profiles[pIdx].last_meal_memory = {
-          meal: body.meal_name,
-          date: new Date().toISOString(),
-          items: body.items_used.map((i) => i.name),
-        };
+        awardXpDevStore(store, userId, XP_AWARDS.cook_log, {
+          last_meal_memory: {
+            meal: body.meal_name,
+            date: new Date().toISOString(),
+            items: body.items_used.map((i) => i.name),
+          },
+        });
       }
       saveStore(store);
       return jsonResponse({ log, inventory_updated: true }, 201);
@@ -84,11 +86,13 @@ export const handler: Handler = withCors(async (event) => {
       }
     }
 
-    await db.from('profiles').update({
-      last_meal_memory: { meal: body.meal_name, date: new Date().toISOString(), items: body.items_used.map((i) => i.name) },
-      gamification_xp: db.rpc ? undefined : undefined,
-      updated_at: new Date().toISOString(),
-    }).eq('user_id', userId);
+    const xp = await awardXpSupabase(db, userId, XP_AWARDS.cook_log, {
+      last_meal_memory: {
+        meal: body.meal_name,
+        date: new Date().toISOString(),
+        items: body.items_used.map((i) => i.name),
+      },
+    });
 
     let recipe = null;
     if (body.share_recipe && body.meal_name) {
@@ -102,7 +106,7 @@ export const handler: Handler = withCors(async (event) => {
       recipe = data;
     }
 
-    return jsonResponse({ log, inventory_updated: true, recipe }, 201);
+    return jsonResponse({ log, inventory_updated: true, recipe, xp_gained: xp.gained }, 201);
   }
 
   if (event.httpMethod === 'GET') {

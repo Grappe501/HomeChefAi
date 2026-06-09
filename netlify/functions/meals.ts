@@ -2,8 +2,9 @@ import { v4 as uuidv4 } from 'uuid';
 import type { Handler } from '@netlify/functions';
 import { withCors, jsonResponse, errorResponse, parseBody, requireAuth } from './utils/response.js';
 import { useDevStore, loadStore, saveStore } from './utils/db.js';
-import { getSupabaseUserClient, useDevStore } from './utils/supabase.js';
+import { getSupabaseUserClient } from './utils/supabase.js';
 import { checkAndIncrementQuota, quotaErrorResponse } from './utils/quotas.js';
+import { awardXpDevStore, awardXpSupabase, XP_AWARDS } from './utils/gamification.js';
 import type { MealPlanData, InventoryItem, Profile } from '../../src/types/index';
 
 async function generateMealPlan(
@@ -146,15 +147,7 @@ export const handler: Handler = withCors(async (event) => {
       const store = loadStore();
       store.meal_plans.push(plan);
       const pIdx = store.profiles.findIndex((p) => p.user_id === userId);
-      if (pIdx >= 0) {
-        store.profiles[pIdx].gamification_xp += 50;
-        if (store.profiles[pIdx].gamification_xp >= 100 && store.profiles[pIdx].gamification_level < 2) {
-          store.profiles[pIdx].gamification_level = 2;
-        }
-        if (store.profiles[pIdx].gamification_xp >= 300 && store.profiles[pIdx].gamification_level < 3) {
-          store.profiles[pIdx].gamification_level = 3;
-        }
-      }
+      if (pIdx >= 0) awardXpDevStore(store, userId, XP_AWARDS.meal_plan);
       saveStore(store);
       return jsonResponse({ plan }, 201);
     }
@@ -172,7 +165,8 @@ export const handler: Handler = withCors(async (event) => {
       status: 'active',
       plan_data: planData,
     });
-    return jsonResponse({ plan }, 201);
+    const xp = await awardXpSupabase(db, userId, XP_AWARDS.meal_plan);
+    return jsonResponse({ plan, xp_gained: xp.gained }, 201);
   }
 
   return errorResponse('Method not allowed', 405);

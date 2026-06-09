@@ -2,8 +2,9 @@ import { v4 as uuidv4 } from 'uuid';
 import type { Handler } from '@netlify/functions';
 import { withCors, jsonResponse, errorResponse, parseBody, requireAuth } from './utils/response.js';
 import { useDevStore, loadStore, saveStore } from './utils/db.js';
-import { getSupabaseUserClient, useDevStore } from './utils/supabase.js';
+import { getSupabaseUserClient } from './utils/supabase.js';
 import { checkAndIncrementQuota, quotaErrorResponse } from './utils/quotas.js';
+import { awardXpDevStore, awardXpSupabase, XP_AWARDS } from './utils/gamification.js';
 import type { ReceiptParseResult, InventoryItem } from '../../src/types/index';
 
 async function parseReceiptWithOpenAI(imageBase64: string): Promise<ReceiptParseResult> {
@@ -74,7 +75,7 @@ export const handler: Handler = withCors(async (event) => {
   }
 
   if (event.httpMethod === 'POST') {
-    const body = parseBody<{ image: string; action?: string; receipt_id?: string }>(event);
+    const body = parseBody<{ image: string; action?: string; receipt_id?: string; items?: ReceiptParseResult['items'] }>(event);
     if (!body) return errorResponse('Invalid body');
 
     if (body.action === 'verify' && body.receipt_id) {
@@ -83,7 +84,8 @@ export const handler: Handler = withCors(async (event) => {
         const receipt = store.receipts.find((r) => r.id === body.receipt_id && r.user_id === userId);
         if (!receipt) return errorResponse('Receipt not found', 404);
         receipt.verified = true;
-        const items = (receipt.raw_parse?.items || []).map((item) => ({
+        const sourceItems = body.items ?? receipt.raw_parse?.items ?? [];
+        const items = sourceItems.map((item) => ({
           id: uuidv4(),
           user_id: userId,
           name: item.name,
@@ -93,20 +95,28 @@ export const handler: Handler = withCors(async (event) => {
           expiration_date: item.suggested_expiration,
           location: (item.location || 'pantry') as InventoryItem['location'],
           added_via: 'receipt',
+          estimated_unit_price: item.price ? Number(item.price) / Math.max(1, Number(item.quantity || 1)) : 0,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
         }));
         store.inventory_items.push(...items);
+        if (body.items) receipt.raw_parse = { ...receipt.raw_parse, items: body.items } as ReceiptParseResult;
+        const xp = awardXpDevStore(store, userId, XP_AWARDS.receipt_verify);
         saveStore(store);
-        return jsonResponse({ receipt, items_added: items.length });
+        return jsonResponse({ receipt, items_added: items.length, xp_gained: xp?.gained ?? XP_AWARDS.receipt_verify });
       }
       if (!user.token) return errorResponse('Missing token', 401);
-    const db = getSupabaseUserClient(user.token);
+      const db = getSupabaseUserClient(user.token);
       const { data: receipt } = await db.from('receipts').select('*').eq('id', body.receipt_id).eq('user_id', userId).single();
       if (!receipt) return errorResponse('Receipt not found', 404);
-      await db.from('receipts').update({ verified: true }).eq('id', body.receipt_id);
       const parsed = receipt.raw_parse as ReceiptParseResult;
-      const items = (parsed?.items || []).map((item) => ({
+      const sourceItems = body.items ?? parsed?.items ?? [];
+      if (body.items) {
+        await db.from('receipts').update({ verified: true, raw_parse: { ...parsed, items: body.items } }).eq('id', body.receipt_id);
+      } else {
+        await db.from('receipts').update({ verified: true }).eq('id', body.receipt_id);
+      }
+      const rows = sourceItems.map((item) => ({
         user_id: userId,
         name: item.name,
         category: item.category || 'other',
@@ -117,8 +127,13 @@ export const handler: Handler = withCors(async (event) => {
         added_via: 'receipt',
         estimated_unit_price: item.price ? Number(item.price) / Math.max(1, Number(item.quantity || 1)) : 0,
       }));
-      if (items.length) await db.from('inventory_items').insert(items);
-      return jsonResponse({ receipt: { ...receipt, verified: true }, items_added: items.length });
+      if (rows.length) await db.from('inventory_items').insert(rows);
+      const xp = await awardXpSupabase(db, userId, XP_AWARDS.receipt_verify);
+      return jsonResponse({
+        receipt: { ...receipt, verified: true },
+        items_added: rows.length,
+        xp_gained: xp.gained,
+      });
     }
 
     if (!body.image) return errorResponse('Missing image');

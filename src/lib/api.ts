@@ -76,17 +76,17 @@ export const receiptsApi = {
       method: 'POST',
       body: JSON.stringify({ image }),
     }),
-  verify: (receipt_id: string) =>
-    api<{ receipt: import('@/types').Receipt; items_added: number }>('receipts', {
+  verify: (receipt_id: string, items?: import('@/types').ReceiptItem[]) =>
+    api<{ receipt: import('@/types').Receipt; items_added: number; xp_gained?: number }>('receipts', {
       method: 'POST',
-      body: JSON.stringify({ action: 'verify', receipt_id }),
+      body: JSON.stringify({ action: 'verify', receipt_id, items }),
     }),
 };
 
 export const mealsApi = {
   list: () => api<{ plans: import('@/types').MealPlan[] }>('meals'),
   plan: (data: Record<string, unknown>) =>
-    api<{ plan: import('@/types').MealPlan }>('meals', { method: 'POST', body: JSON.stringify(data) }),
+    api<{ plan: import('@/types').MealPlan; xp_gained?: number }>('meals', { method: 'POST', body: JSON.stringify(data) }),
   whatCanIMake: () =>
     api<{ suggestions: import('@/types').MealPlanData }>('meals', {
       method: 'POST',
