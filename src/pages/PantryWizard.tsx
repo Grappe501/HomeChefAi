@@ -2,6 +2,17 @@ import { useState } from 'react';
 import { ChevronRight, Check } from 'lucide-react';
 import { PANTRY_CATEGORIES } from '@/types';
 import { getWizardItemConfig, type WizardQuantityOption } from '@/types/pantryWizard';
+import {
+  buildTaxonomySelection,
+  encodeTaxonomyNotes,
+  formatSelectedLabel,
+  getFormOptions,
+  getTaxonomyFamilyByWizardItem,
+  isFormFirstWizardItem,
+  resolveInventoryLocation,
+  resolveInventoryName,
+  type TaxonomyFormOption,
+} from '@/types/foodTaxonomy';
 import { inventoryApi } from '@/lib/api';
 import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
@@ -11,7 +22,16 @@ interface SelectedItem {
   quantity: number;
   unit: string;
   label: string;
+  /** Key in selected map — wizard tile or resolved inventory name */
+  inventoryName: string;
+  location?: 'pantry' | 'fridge' | 'freezer';
+  notes?: string;
 }
+
+type WizardPickerStep =
+  | { kind: 'form'; item: string }
+  | { kind: 'quantity'; item: string; formOption: TaxonomyFormOption }
+  | { kind: 'quantity_simple'; item: string };
 
 export default function PantryWizard() {
   const { refreshProfile } = useApp();
@@ -19,33 +39,101 @@ export default function PantryWizard() {
   const categories = Object.entries(PANTRY_CATEGORIES);
   const [catIdx, setCatIdx] = useState(0);
   const [selected, setSelected] = useState<Record<string, SelectedItem>>({});
-  const [quantityItem, setQuantityItem] = useState<string | null>(null);
+  const [pickerStep, setPickerStep] = useState<WizardPickerStep | null>(null);
   const [saving, setSaving] = useState(false);
   const [done, setDone] = useState(false);
 
   const [catName, catData] = categories[catIdx];
 
-  const toggleItem = (item: string) => {
-    if (selected[item]) {
-      const next = { ...selected };
-      delete next[item];
-      setSelected(next);
-    } else {
-      setQuantityItem(item);
+  const isItemSelected = (item: string) => {
+    if (selected[item]) return true;
+    if (isFormFirstWizardItem(item)) {
+      return Object.values(selected).some((s) =>
+        getFormOptions(item).some((f) => resolveInventoryName(item, f) === s.inventoryName),
+      );
     }
+    return false;
+  };
+
+  const findSelectedForWizardItem = (item: string): SelectedItem | undefined => {
+    if (selected[item]) return selected[item];
+    if (isFormFirstWizardItem(item)) {
+      const formNames = getFormOptions(item).map((f) => resolveInventoryName(item, f));
+      const entry = Object.entries(selected).find(([, v]) => formNames.includes(v.inventoryName));
+      return entry?.[1];
+    }
+    return undefined;
+  };
+
+  const toggleItem = (item: string) => {
+    if (isItemSelected(item)) {
+      const next = { ...selected };
+      if (next[item]) {
+        delete next[item];
+      } else if (isFormFirstWizardItem(item)) {
+        for (const form of getFormOptions(item)) {
+          const name = resolveInventoryName(item, form);
+          for (const key of Object.keys(next)) {
+            if (next[key]?.inventoryName === name) delete next[key];
+          }
+        }
+      }
+      setSelected(next);
+      return;
+    }
+
+    if (isFormFirstWizardItem(item)) {
+      setPickerStep({ kind: 'form', item });
+      return;
+    }
+    setPickerStep({ kind: 'quantity_simple', item });
   };
 
   const setQuantity = (option: WizardQuantityOption) => {
-    if (!quantityItem) return;
+    if (!pickerStep) return;
+
+    if (pickerStep.kind === 'quantity_simple') {
+      const { item } = pickerStep;
+      setSelected({
+        ...selected,
+        [item]: {
+          quantity: option.quantity,
+          unit: option.unit,
+          label: option.label,
+          inventoryName: item,
+        },
+      });
+      setPickerStep(null);
+      return;
+    }
+
+    if (pickerStep.kind !== 'quantity') return;
+
+    const { item, formOption } = pickerStep;
+    const family = getTaxonomyFamilyByWizardItem(item);
+    if (!family) return;
+
+    const inventoryName = resolveInventoryName(item, formOption);
+    const selection = buildTaxonomySelection(family, formOption);
+    const key = item === inventoryName ? item : `${item}::${formOption.id}`;
+
     setSelected({
       ...selected,
-      [quantityItem]: {
+      [key]: {
         quantity: option.quantity,
         unit: option.unit,
-        label: option.label,
+        label: formatSelectedLabel(formOption, option.label),
+        inventoryName,
+        location: resolveInventoryLocation(catData.location as 'pantry' | 'fridge' | 'freezer', formOption),
+        notes: encodeTaxonomyNotes(selection),
       },
     });
-    setQuantityItem(null);
+    setPickerStep(null);
+  };
+
+  const handleFormPick = (formOption: TaxonomyFormOption) => {
+    if (pickerStep?.kind !== 'form') return;
+    setPickerStep({ kind: 'quantity', item: pickerStep.item, formOption });
   };
 
   const handleNext = async () => {
@@ -54,13 +142,14 @@ export default function PantryWizard() {
       return;
     }
     setSaving(true);
-    const items = Object.entries(selected).map(([name, { quantity, unit }]) => ({
-      name,
+    const items = Object.values(selected).map(({ inventoryName, quantity, unit, location, notes }) => ({
+      name: inventoryName,
       quantity,
       unit,
       category: catName.toLowerCase().replace(/[^a-z]/g, '_'),
-      location: catData.location as 'pantry' | 'fridge' | 'freezer',
+      location: location ?? (catData.location as 'pantry' | 'fridge' | 'freezer'),
       added_via: 'wizard',
+      notes,
     }));
     try {
       const result = await inventoryApi.add(items);
@@ -86,7 +175,10 @@ export default function PantryWizard() {
     );
   }
 
-  const itemConfig = quantityItem ? getWizardItemConfig(quantityItem) : null;
+  const simpleConfig =
+    pickerStep?.kind === 'quantity_simple' ? getWizardItemConfig(pickerStep.item) : null;
+  const formQuantityOptions =
+    pickerStep?.kind === 'quantity' ? pickerStep.formOption.quantityOptions : null;
 
   return (
     <div className="space-y-4">
@@ -101,37 +193,73 @@ export default function PantryWizard() {
         <p className="text-xs text-chef-subtle mt-1">{catData.location}</p>
       </div>
 
-      {quantityItem && itemConfig ? (
+      {pickerStep?.kind === 'form' ? (
         <div className="space-y-3">
           <p className="font-medium text-chef">
-            How much <span className="text-chef-muted">{quantityItem}</span>?
+            What kind of <span className="text-chef-muted">{pickerStep.item}</span>?
+          </p>
+          <div className="grid grid-cols-2 gap-2">
+            {getFormOptions(pickerStep.item).map((opt) => (
+              <button key={opt.id} onClick={() => handleFormPick(opt)} className="tap-item">
+                {opt.label}
+              </button>
+            ))}
+          </div>
+          <button onClick={() => setPickerStep(null)} className="text-sm text-chef-subtle min-h-[52px]">
+            Cancel
+          </button>
+        </div>
+      ) : pickerStep?.kind === 'quantity' || pickerStep?.kind === 'quantity_simple' ? (
+        <div className="space-y-3">
+          <p className="font-medium text-chef">
+            How much{' '}
+            <span className="text-chef-muted">
+              {pickerStep.kind === 'quantity'
+                ? resolveInventoryName(pickerStep.item, pickerStep.formOption)
+                : pickerStep.item}
+            </span>
+            ?
           </p>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-            {itemConfig.level1Options.map((opt) => (
+            {(formQuantityOptions ?? simpleConfig?.level1Options ?? []).map((opt) => (
               <button key={opt.label} onClick={() => setQuantity(opt)} className="tap-item">
                 {opt.label}
               </button>
             ))}
           </div>
-          <button onClick={() => setQuantityItem(null)} className="text-sm text-chef-subtle min-h-[52px]">
-            Cancel
+          <button
+            onClick={() =>
+              setPickerStep(
+                pickerStep.kind === 'quantity'
+                  ? { kind: 'form', item: pickerStep.item }
+                  : null,
+              )
+            }
+            className="text-sm text-chef-subtle min-h-[52px]"
+          >
+            Back
           </button>
         </div>
       ) : (
         <div className="grid grid-cols-2 gap-2">
-          {catData.items.map((item) => (
-            <button
-              key={item}
-              onClick={() => toggleItem(item)}
-              className={`tap-item relative ${selected[item] ? 'tap-item-selected' : ''}`}
-            >
-              {selected[item] && <Check size={14} className="absolute top-2 right-2 text-chef-muted" />}
-              <span className="font-medium">{item}</span>
-              {selected[item] && (
-                <span className="block text-xs text-chef-subtle mt-1">{selected[item].label}</span>
-              )}
-            </button>
-          ))}
+          {catData.items.map((item) => {
+            const sel = findSelectedForWizardItem(item);
+            return (
+              <button
+                key={item}
+                onClick={() => toggleItem(item)}
+                className={`tap-item relative ${isItemSelected(item) ? 'tap-item-selected' : ''}`}
+              >
+                {isItemSelected(item) && (
+                  <Check size={14} className="absolute top-2 right-2 text-chef-muted" />
+                )}
+                <span className="font-medium">{item}</span>
+                {sel && (
+                  <span className="block text-xs text-chef-subtle mt-1">{sel.label}</span>
+                )}
+              </button>
+            );
+          })}
         </div>
       )}
 
@@ -139,7 +267,7 @@ export default function PantryWizard() {
         {catIdx > 0 && (
           <button onClick={() => setCatIdx(catIdx - 1)} className="btn-secondary flex-1">Back</button>
         )}
-        <button onClick={handleNext} disabled={saving || !!quantityItem} className="btn-primary flex-1">
+        <button onClick={handleNext} disabled={saving || !!pickerStep} className="btn-primary flex-1">
           {saving ? 'Saving...' : catIdx < categories.length - 1 ? (
             <>Next <ChevronRight size={18} /></>
           ) : (
