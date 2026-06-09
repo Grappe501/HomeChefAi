@@ -13,12 +13,13 @@
     "db:init": "node scripts/init-db.mjs"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^0.10.4",
+    "@supabase/supabase-js": "^2.108.0",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.469.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.1.1",
+    "stripe": "^17.7.0",
     "uuid": "^11.0.5"
   },
   "devDependencies": {

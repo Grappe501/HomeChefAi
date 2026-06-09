@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useApp } from './hooks/useApp';
 import Layout from './components/Layout';
+import Login from './pages/Login';
 import Onboarding from './pages/Onboarding';
 import Dashboard from './pages/Dashboard';
 import Inventory from './pages/Inventory';
@@ -9,6 +10,10 @@ import PantryWizard from './pages/PantryWizard';
 import MealPlanner from './pages/MealPlanner';
 import CookLog from './pages/CookLog';
 import Assistant from './pages/Assistant';
+import Settings from './pages/Settings';
+import Recipes from './pages/Recipes';
+import Calendar from './pages/Calendar';
+import Community from './pages/Community';
 import LoadingScreen from './components/LoadingScreen';
 
 export default function App() {
@@ -16,9 +21,7 @@ export default function App() {
 
   if (loading) return <LoadingScreen />;
 
-  if (!user) {
-    return <Onboarding mode="welcome" />;
-  }
+  if (!user) return <Login />;
 
   if (!profile?.onboarding_complete) {
     return <Onboarding mode="dietary" />;
@@ -32,8 +35,12 @@ export default function App() {
         <Route path="/receipt" element={<ReceiptScan />} />
         <Route path="/wizard" element={<PantryWizard />} />
         <Route path="/meals" element={<MealPlanner />} />
+        <Route path="/calendar" element={<Calendar />} />
         <Route path="/cook" element={<CookLog />} />
         <Route path="/assistant" element={<Assistant />} />
+        <Route path="/recipes" element={<Recipes />} />
+        <Route path="/community" element={<Community />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Layout>

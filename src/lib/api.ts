@@ -1,31 +1,46 @@
 const API_BASE = import.meta.env.VITE_API_BASE || '/.netlify/functions';
 
-function getUserId(): string | null {
-  return localStorage.getItem('homechef_user_id');
+import { getAccessToken } from './supabase';
+
+export class ApiError extends Error {
+  constructor(
+    message: string,
+    public status: number,
+    public upgradeRequired?: boolean,
+    public limits?: Record<string, number>,
+    public usage?: Record<string, number>
+  ) {
+    super(message);
+  }
 }
 
-async function api<T>(
-  endpoint: string,
-  options: RequestInit = {}
-): Promise<T> {
-  const userId = getUserId();
+async function api<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+  const token = await getAccessToken();
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     ...(options.headers as Record<string, string>),
   };
-  if (userId) headers['X-User-Id'] = userId;
+  if (token) headers['Authorization'] = `Bearer ${token}`;
 
   const res = await fetch(`${API_BASE}/${endpoint}`, { ...options, headers });
   const data = await res.json();
-  if (!res.ok) throw new Error(data.error || 'Request failed');
+  if (!res.ok) {
+    throw new ApiError(
+      data.error || 'Request failed',
+      res.status,
+      data.upgrade_required,
+      data.limits,
+      data.usage
+    );
+  }
   return data as T;
 }
 
 export const authApi = {
-  login: (data: { email?: string; name?: string; user_id?: string }) =>
+  bootstrap: () =>
     api<{ user: { id: string; email?: string; name?: string }; profile: Record<string, unknown> }>('auth', {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: JSON.stringify({}),
     }),
 };
 
@@ -33,6 +48,14 @@ export const profileApi = {
   get: () => api<{ user: unknown; profile: Record<string, unknown> }>('profile'),
   update: (data: Record<string, unknown>) =>
     api<{ profile: Record<string, unknown> }>('profile', { method: 'PUT', body: JSON.stringify(data) }),
+};
+
+export const billingApi = {
+  status: () => api<import('@/types/billing').UsageQuota & { subscription: unknown }>('billing-status'),
+  checkout: (tier: 'pro' | 'family' = 'pro') =>
+    api<{ url: string }>('billing-status', { method: 'POST', body: JSON.stringify({ tier }) }),
+  portal: () =>
+    api<{ url: string }>('billing-status', { method: 'POST', body: JSON.stringify({ action: 'portal' }) }),
 };
 
 export const inventoryApi = {
@@ -71,9 +94,36 @@ export const mealsApi = {
     }),
 };
 
+export const calendarApi = {
+  list: (from?: string) => api<{ events: CalEvent[] }>(`calendar${from ? `?from=${from}` : ''}`),
+  complete: (id: string) => api<{ success: boolean }>('calendar', { method: 'POST', body: JSON.stringify({ action: 'complete', id }) }),
+  syncMeals: () => api<{ synced: number }>('calendar', { method: 'POST', body: JSON.stringify({ action: 'sync-meals' }) }),
+};
+
+export const swapApi = {
+  list: (zip: string) => api<{ posts: unknown[] }>(`swap?zip=${zip}`),
+  create: (data: { item_name: string; zip_code: string; post_type?: string; message?: string; quantity?: number; unit?: string }) =>
+    api<{ post: unknown }>('swap', { method: 'POST', body: JSON.stringify(data) }),
+  respond: (post_id: string, message: string) =>
+    api<{ response: unknown }>('swap', { method: 'POST', body: JSON.stringify({ action: 'respond', post_id, message }) }),
+};
+
+export const suggestionsApi = {
+  list: () => api<{ suggestions: { type: string; title: string; message: string; priority: number }[] }>('suggestions'),
+};
+
+interface CalEvent {
+  id?: string;
+  event_date: string;
+  event_type: string;
+  title: string;
+  description?: string;
+  completed?: boolean;
+}
+
 export const usageApi = {
-  log: (data: { description?: string; meal_name?: string; items_used: { name: string; quantity: number; unit: string; item_id?: string }[] }) =>
-    api<{ log: unknown; inventory_updated?: boolean }>('usage', { method: 'POST', body: JSON.stringify(data) }),
+  log: (data: { description?: string; meal_name?: string; items_used: { name: string; quantity: number; unit: string; item_id?: string }[]; share_recipe?: boolean; recipe_public?: boolean }) =>
+    api<{ log: unknown; inventory_updated?: boolean; recipe?: unknown }>('usage', { method: 'POST', body: JSON.stringify(data) }),
   list: () => api<{ logs: import('@/types').UsageLog[] }>('usage'),
 };
 
@@ -85,14 +135,13 @@ export const assistantApi = {
     }),
 };
 
-export function setUserId(id: string) {
-  localStorage.setItem('homechef_user_id', id);
-}
-
-export function clearUserId() {
-  localStorage.removeItem('homechef_user_id');
-}
-
-export function getStoredUserId() {
-  return getUserId();
-}
+export const recipesApi = {
+  list: (feed?: boolean) =>
+    api<{ recipes: import('@/types/billing').Recipe[] }>(`recipes${feed ? '?feed=public' : ''}`),
+  create: (data: Partial<import('@/types/billing').Recipe>) =>
+    api<{ recipe: import('@/types/billing').Recipe }>('recipes', { method: 'POST', body: JSON.stringify(data) }),
+  like: (id: string) =>
+    api<{ liked: boolean }>('recipes', { method: 'POST', body: JSON.stringify({ action: 'like', id }) }),
+  save: (id: string) =>
+    api<{ saved: boolean }>('recipes', { method: 'POST', body: JSON.stringify({ action: 'save', id }) }),
+};

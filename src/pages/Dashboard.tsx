@@ -1,29 +1,29 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Camera, Wand2, CalendarDays, Package, Sparkles } from 'lucide-react';
+import { Camera, Wand2, CalendarDays, Package, Sparkles, Brain } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
-import { inventoryApi, mealsApi } from '@/lib/api';
-import { getLevelInfo, speak } from '@/lib/utils';
+import { inventoryApi, mealsApi, suggestionsApi } from '@/lib/api';
+import { getLevelInfo } from '@/lib/utils';
 import { GAMIFICATION_LEVELS } from '@/types';
 import type { InventoryItem, MealPlan } from '@/types';
 
 export default function Dashboard() {
   const { profile, user } = useApp();
   const [items, setItems] = useState<InventoryItem[]>([]);
+  const [totalValue, setTotalValue] = useState(0);
   const [plans, setPlans] = useState<MealPlan[]>([]);
+  const [suggestions, setSuggestions] = useState<{ title: string; message: string }[]>([]);
   const levelInfo = profile ? getLevelInfo(profile.gamification_xp, profile.gamification_level) : null;
   const currentQuest = GAMIFICATION_LEVELS.find((l) => l.level === (profile?.gamification_level || 1));
 
   useEffect(() => {
-    inventoryApi.list().then((r) => setItems(r.items)).catch(() => {});
+    inventoryApi.list().then((r) => {
+      setItems(r.items);
+      setTotalValue((r as { total_value?: number }).total_value ?? 0);
+    }).catch(() => {});
     mealsApi.list().then((r) => setPlans(r.plans)).catch(() => {});
+    suggestionsApi.list().then((r) => setSuggestions(r.suggestions)).catch(() => {});
   }, []);
-
-  useEffect(() => {
-    if (profile && items.length === 0) {
-      speak(`Welcome back! Start by scanning your first grocery receipt, or tap through the pantry wizard.`);
-    }
-  }, [profile, items.length]);
 
   const expiring = items.filter((i) => {
     if (!i.expiration_date) return false;
@@ -31,13 +31,14 @@ export default function Dashboard() {
     return days >= 0 && days <= 3;
   });
 
-  const memory = profile?.last_meal_memory as { meal?: string; date?: string } | undefined;
-
   return (
     <div className="space-y-5">
       <section className="card bg-gradient-to-br from-chef-500 to-chef-600 text-white">
         <p className="text-chef-100 text-sm">Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 17 ? 'afternoon' : 'evening'}, {user?.name || 'Chef'}!</p>
         <h2 className="font-display text-xl mt-1">What's cooking today?</h2>
+        {items.length > 0 && (
+          <p className="text-chef-100 text-sm mt-2">Pantry value: ${totalValue.toFixed(2)} · {items.length} items</p>
+        )}
         {currentQuest && (
           <div className="mt-3 bg-white/20 rounded-xl p-3">
             <p className="text-xs text-chef-100 flex items-center gap-1"><Sparkles size={12} /> Level {profile?.gamification_level} Quest</p>
@@ -46,30 +47,34 @@ export default function Dashboard() {
         )}
       </section>
 
-      {memory?.meal && (
-        <section className="card border-l-4 border-chef-400">
-          <p className="text-sm text-sage-500">Memory</p>
-          <p className="font-medium">Last cooked: {memory.meal}</p>
-          <p className="text-xs text-sage-400 mt-1">I'll suggest similar meals you haven't had in a while.</p>
+      {suggestions.length > 0 && (
+        <section className="space-y-2">
+          <h3 className="font-semibold text-sm text-sage-600 flex items-center gap-1"><Brain size={16} /> Sous Chef says</h3>
+          {suggestions.slice(0, 3).map((s, i) => (
+            <div key={i} className="card border-l-4 border-chef-400 py-3">
+              <p className="font-medium text-chef-800">{s.title}</p>
+              <p className="text-sm text-sage-600 mt-1">{s.message}</p>
+            </div>
+          ))}
         </section>
       )}
 
       <section className="grid grid-cols-2 gap-3">
-        <Link to="/receipt" className="card flex flex-col items-center gap-2 hover:border-chef-300 transition-colors">
+        <Link to="/receipt" className="card flex flex-col items-center gap-2 hover:border-chef-300 transition-colors py-4">
           <Camera className="text-chef-500" size={28} />
           <span className="font-medium text-sm">Scan Receipt</span>
         </Link>
-        <Link to="/wizard" className="card flex flex-col items-center gap-2 hover:border-chef-300 transition-colors">
+        <Link to="/wizard" className="card flex flex-col items-center gap-2 hover:border-chef-300 transition-colors py-4">
           <Wand2 className="text-chef-500" size={28} />
           <span className="font-medium text-sm">Pantry Wizard</span>
         </Link>
-        <Link to="/meals" className="card flex flex-col items-center gap-2 hover:border-chef-300 transition-colors">
+        <Link to="/meals" className="card flex flex-col items-center gap-2 hover:border-chef-300 transition-colors py-4">
           <CalendarDays className="text-chef-500" size={28} />
           <span className="font-medium text-sm">Plan Meals</span>
         </Link>
-        <Link to="/inventory" className="card flex flex-col items-center gap-2 hover:border-chef-300 transition-colors">
+        <Link to="/inventory" className="card flex flex-col items-center gap-2 hover:border-chef-300 transition-colors py-4">
           <Package className="text-chef-500" size={28} />
-          <span className="font-medium text-sm">View Pantry ({items.length})</span>
+          <span className="font-medium text-sm">Pantry ({items.length})</span>
         </Link>
       </section>
 
@@ -81,6 +86,7 @@ export default function Dashboard() {
               <li key={i.id} className="text-sm text-amber-700">{i.name} — expires {i.expiration_date}</li>
             ))}
           </ul>
+          <Link to="/calendar" className="text-sm text-amber-800 font-medium mt-2 inline-block">View calendar →</Link>
         </section>
       )}
 
@@ -88,15 +94,7 @@ export default function Dashboard() {
         <section className="card">
           <h3 className="font-semibold">Active Meal Plan</h3>
           <p className="text-sm text-sage-500 mt-1">{plans[0].title}</p>
-          <div className="mt-3 space-y-2">
-            {plans[0].plan_data?.meals?.slice(0, 3).map((m, idx) => (
-              <div key={idx} className="flex justify-between text-sm">
-                <span>Day {m.day} — {m.meal_type}</span>
-                <span className="font-medium">{m.name}</span>
-              </div>
-            ))}
-          </div>
-          <Link to="/meals" className="text-chef-600 text-sm font-medium mt-2 inline-block">View full plan →</Link>
+          <Link to="/calendar" className="text-chef-600 text-sm font-medium mt-2 inline-block">Open kitchen calendar →</Link>
         </section>
       )}
 

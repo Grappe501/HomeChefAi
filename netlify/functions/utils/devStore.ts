@@ -30,5 +30,8 @@ export function saveStore(store: DevStore): void {
 }
 
 export function useDevStore(): boolean {
-  return process.env.USE_DEV_STORE === 'true' || !process.env.DATABASE_URL;
+  if (process.env.USE_DEV_STORE === 'true') return true;
+  if (process.env.USE_DEV_STORE === 'false') return false;
+  const hasSupabase = !!(process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL);
+  return !hasSupabase;
 }

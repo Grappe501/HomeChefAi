@@ -1,6 +1,8 @@
 import type { Handler } from '@netlify/functions';
-import { withCors, jsonResponse, errorResponse, parseBody, getUserId } from './utils/response.js';
-import { useDevStore, loadStore, saveStore, query, queryOne } from './utils/db.js';
+import { withCors, jsonResponse, errorResponse, parseBody, requireAuth } from './utils/response.js';
+import { useDevStore, loadStore, saveStore } from './utils/db.js';
+import { getSupabaseUserClient, useDevStore } from './utils/supabase.js';
+import { checkAndIncrementQuota, quotaErrorResponse } from './utils/quotas.js';
 import type { InventoryItem, Profile } from '../../src/types/index';
 
 async function assistantReply(
@@ -56,12 +58,16 @@ Be concise, warm, one-thumb friendly. Reference memory: last meals from context.
 }
 
 export const handler: Handler = withCors(async (event) => {
-  const userId = getUserId(event);
-  if (!userId) return errorResponse('Missing user ID', 401);
+  const user = await requireAuth(event);
+  if (!user) return errorResponse('Unauthorized', 401);
+  const userId = user.id;
 
   if (event.httpMethod === 'POST') {
     const body = parseBody<{ message: string; history?: { role: string; content: string }[] }>(event);
     if (!body?.message) return errorResponse('Missing message');
+
+    const quota = await checkAndIncrementQuota(userId, 'assistant_messages');
+    if (!quota.allowed) return quotaErrorResponse(quota.limits, quota.usage);
 
     let inventory: InventoryItem[] = [];
     let profile: Profile;
@@ -70,9 +76,12 @@ export const handler: Handler = withCors(async (event) => {
       const store = loadStore();
       inventory = store.inventory_items.filter((i) => i.user_id === userId);
       profile = store.profiles.find((p) => p.user_id === userId)!;
-    } else {
-      inventory = await query('SELECT * FROM inventory_items WHERE user_id = $1', [userId]) as InventoryItem[];
-      profile = (await queryOne('SELECT * FROM profiles WHERE user_id = $1', [userId])) as Profile;
+    } else if (user.token) {
+      const db = getSupabaseUserClient(user.token);
+      const { data: items } = await db.from('inventory_items').select('*').eq('user_id', userId);
+      inventory = (items ?? []) as InventoryItem[];
+      const { data: prof } = await db.from('profiles').select('*').eq('user_id', userId).single();
+      profile = prof as Profile;
     }
 
     const result = await assistantReply(body.message, inventory, profile, body.history || []);

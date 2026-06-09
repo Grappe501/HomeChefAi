@@ -4,17 +4,17 @@ import { DIETARY_OPTIONS, CUISINE_OPTIONS } from '@/types';
 import { speak } from '@/lib/utils';
 
 interface OnboardingProps {
-  mode: 'welcome' | 'dietary';
+  mode: 'dietary';
 }
 
 export default function Onboarding({ mode }: OnboardingProps) {
-  const { initAuth, updateProfile } = useApp();
+  const { updateProfile } = useApp();
   const [step, setStep] = useState(0);
-  const [name, setName] = useState('');
   const [dietary, setDietary] = useState<string[]>([]);
   const [cuisines, setCuisines] = useState<string[]>([]);
   const [household, setHousehold] = useState(2);
   const [allergies, setAllergies] = useState('');
+  const [zip, setZip] = useState('');
   const [loading, setLoading] = useState(false);
 
   const toggle = (arr: string[], item: string, setter: (v: string[]) => void) => {
@@ -24,13 +24,6 @@ export default function Onboarding({ mode }: OnboardingProps) {
     setter(next.includes(item) ? next.filter((x) => x !== item) : [...next, item]);
   };
 
-  const handleWelcome = async () => {
-    setLoading(true);
-    await initAuth(name || 'Chef');
-    speak(`Nice to meet you${name ? `, ${name}` : ''}! I'm your Sous Chef. Let's set up your kitchen.`);
-    setLoading(false);
-  };
-
   const handleComplete = async () => {
     setLoading(true);
     await updateProfile({
@@ -38,33 +31,12 @@ export default function Onboarding({ mode }: OnboardingProps) {
       cuisine_preferences: cuisines,
       allergies: allergies ? allergies.split(',').map((a) => a.trim()) : [],
       household_size: household,
+      zip_code: zip || undefined,
       onboarding_complete: true,
     });
     speak("Perfect! Your kitchen is ready. Scan a receipt or tap through the pantry wizard to get started.");
     setLoading(false);
   };
-
-  if (mode === 'welcome') {
-    return (
-      <div className="min-h-dvh flex flex-col items-center justify-center px-6 bg-gradient-to-b from-chef-50 via-white to-sage-50">
-        <div className="text-7xl mb-6">👨‍🍳</div>
-        <h1 className="font-display text-3xl text-chef-800 text-center mb-2">Meet Your Sous Chef</h1>
-        <p className="text-sage-600 text-center mb-8 max-w-sm">
-          I'm your personal kitchen assistant. I'll track your pantry, scan receipts, plan meals, and help you cook — all by voice or tap.
-        </p>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="What should I call you?"
-          className="input-field max-w-sm mb-4"
-        />
-        <button onClick={handleWelcome} disabled={loading} className="btn-primary w-full max-w-sm">
-          {loading ? 'Setting up...' : "Let's Go"}
-        </button>
-      </div>
-    );
-  }
 
   const steps = [
     {
@@ -116,6 +88,22 @@ export default function Onboarding({ mode }: OnboardingProps) {
       ),
     },
     {
+      title: 'Your zip code?',
+      content: (
+        <div>
+          <p className="text-sm text-sage-600 mb-3">For neighbor food swap — optional, 5 digits only.</p>
+          <input
+            type="text"
+            value={zip}
+            onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))}
+            placeholder="72701"
+            className="input-field"
+            maxLength={5}
+          />
+        </div>
+      ),
+    },
+    {
       title: 'Any allergies? (optional)',
       content: (
         <input
@@ -131,6 +119,7 @@ export default function Onboarding({ mode }: OnboardingProps) {
 
   return (
     <div className="min-h-dvh flex flex-col px-6 py-8 bg-gradient-to-b from-chef-50 to-white">
+      <p className="text-sm text-chef-600 font-medium mb-2">Welcome — full access during beta</p>
       <div className="flex gap-1 mb-8">
         {steps.map((_, i) => (
           <div key={i} className={`h-1 flex-1 rounded-full ${i <= step ? 'bg-chef-500' : 'bg-sage-200'}`} />

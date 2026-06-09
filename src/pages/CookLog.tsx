@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Check } from 'lucide-react';
+import { Check, Share2 } from 'lucide-react';
 import { usageApi, assistantApi } from '@/lib/api';
 import { speak } from '@/lib/utils';
 import { VoiceInput } from '@/components/VoiceButton';
@@ -15,7 +15,9 @@ export default function CookLog() {
   const [loading, setLoading] = useState(false);
   const [suggested, setSuggested] = useState<SuggestedItem[] | null>(null);
   const [mealName, setMealName] = useState('');
+  const [shareRecipe, setShareRecipe] = useState(true);
   const [confirmed, setConfirmed] = useState(false);
+  const [shared, setShared] = useState(false);
 
   const handleSubmit = async () => {
     if (!input.trim()) return;
@@ -40,19 +42,23 @@ export default function CookLog() {
     if (!suggested) return;
     setLoading(true);
     try {
-      await usageApi.log({
+      const result = await usageApi.log({
         meal_name: mealName,
         description: mealName,
         items_used: suggested,
+        share_recipe: shareRecipe,
+        recipe_public: true,
       });
       speak('Got it! Inventory updated.');
+      setShared(!!result.recipe);
       setConfirmed(true);
       setTimeout(() => {
         setInput('');
         setSuggested(null);
         setMealName('');
         setConfirmed(false);
-      }, 2000);
+        setShared(false);
+      }, 2500);
     } catch (err) {
       alert(err instanceof Error ? err.message : 'Failed');
     } finally {
@@ -72,12 +78,13 @@ export default function CookLog() {
   return (
     <div className="space-y-4">
       <h2 className="font-display text-xl text-chef-800">Log a Meal</h2>
-      <p className="text-sage-600 text-sm">Tell me what you cooked — I'll update your pantry automatically.</p>
+      <p className="text-sage-600 text-sm">Tell me what you cooked — I'll update your pantry and optionally share the recipe.</p>
 
       {confirmed ? (
         <div className="text-center py-12">
           <div className="text-5xl mb-4">✅</div>
           <p className="font-semibold text-chef-700">Inventory Updated!</p>
+          {shared && <p className="text-sm text-sage-600 mt-2 flex items-center justify-center gap-1"><Share2 size={14} /> Recipe shared with community</p>}
         </div>
       ) : suggested ? (
         <div className="space-y-4">
@@ -95,6 +102,10 @@ export default function CookLog() {
               </div>
             </div>
           ))}
+          <label className="flex items-center gap-2 text-sm text-sage-700">
+            <input type="checkbox" checked={shareRecipe} onChange={(e) => setShareRecipe(e.target.checked)} className="rounded" />
+            Share this meal as a community recipe
+          </label>
           <div className="flex gap-3">
             <button onClick={() => setSuggested(null)} className="btn-secondary flex-1">No, Edit</button>
             <button onClick={handleConfirm} disabled={loading} className="btn-primary flex-1">
@@ -104,12 +115,7 @@ export default function CookLog() {
         </div>
       ) : (
         <>
-          <VoiceInput
-            value={input}
-            onChange={setInput}
-            placeholder="I made grilled cheese..."
-            onSubmit={handleSubmit}
-          />
+          <VoiceInput value={input} onChange={setInput} placeholder="I made grilled cheese..." onSubmit={handleSubmit} />
           <button onClick={handleSubmit} disabled={loading || !input.trim()} className="btn-primary w-full">
             {loading ? 'Thinking...' : 'Log Meal'}
           </button>
@@ -117,9 +123,7 @@ export default function CookLog() {
             <p className="text-xs text-sage-500 mb-2">Quick tap:</p>
             <div className="flex flex-wrap gap-2">
               {quickMeals.map((m) => (
-                <button key={m} onClick={() => { setInput(m); }} className="tap-item text-sm py-2 px-3">
-                  {m}
-                </button>
+                <button key={m} onClick={() => setInput(m)} className="tap-item text-sm py-2 px-3">{m}</button>
               ))}
             </div>
           </div>

@@ -1,7 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import type { Handler } from '@netlify/functions';
-import { withCors, jsonResponse, errorResponse, parseBody, getUserId } from './utils/response.js';
-import { useDevStore, loadStore, saveStore, query, queryOne } from './utils/db.js';
+import { withCors, jsonResponse, errorResponse, parseBody, requireAuth } from './utils/response.js';
+import { useDevStore, loadStore, saveStore } from './utils/db.js';
+import { getSupabaseUserClient, useDevStore } from './utils/supabase.js';
+import { checkAndIncrementQuota, quotaErrorResponse } from './utils/quotas.js';
 import type { MealPlanData, InventoryItem, Profile } from '../../src/types/index';
 
 async function generateMealPlan(
@@ -73,8 +75,9 @@ ${params.message ? `User request: ${params.message}` : ''}`,
 }
 
 export const handler: Handler = withCors(async (event) => {
-  const userId = getUserId(event);
-  if (!userId) return errorResponse('Missing user ID', 401);
+  const user = await requireAuth(event);
+  if (!user) return errorResponse('Unauthorized', 401);
+  const userId = user.id;
 
   if (event.httpMethod === 'GET') {
     if (useDevStore()) {
@@ -82,8 +85,10 @@ export const handler: Handler = withCors(async (event) => {
       const plans = store.meal_plans.filter((p) => p.user_id === userId);
       return jsonResponse({ plans });
     }
-    const plans = await query('SELECT * FROM meal_plans WHERE user_id = $1 ORDER BY created_at DESC', [userId]);
-    return jsonResponse({ plans });
+    if (!user.token) return errorResponse('Missing token', 401);
+    const db = getSupabaseUserClient(user.token);
+    const { data: plans } = await db.from('meal_plans').select('*').eq('user_id', userId).order('created_at', { ascending: false });
+    return jsonResponse({ plans: plans ?? [] });
   }
 
   if (event.httpMethod === 'POST') {
@@ -101,14 +106,21 @@ export const handler: Handler = withCors(async (event) => {
       inventory = store.inventory_items.filter((i) => i.user_id === userId);
       profile = store.profiles.find((p) => p.user_id === userId)!;
     } else {
-      inventory = await query('SELECT * FROM inventory_items WHERE user_id = $1', [userId]) as InventoryItem[];
-      profile = (await queryOne('SELECT * FROM profiles WHERE user_id = $1', [userId])) as Profile;
+      if (!user.token) return errorResponse('Missing token', 401);
+    const db = getSupabaseUserClient(user.token);
+      const { data: items } = await db.from('inventory_items').select('*').eq('user_id', userId);
+      inventory = (items ?? []) as InventoryItem[];
+      const { data: prof } = await db.from('profiles').select('*').eq('user_id', userId).single();
+      profile = prof as Profile;
     }
 
     if (body.action === 'what-can-i-make') {
       const planData = await generateMealPlan(inventory, profile, { days: 1, message: 'Suggest 3 meals using ONLY what we have in inventory. Minimize missing ingredients.' });
       return jsonResponse({ suggestions: planData });
     }
+
+    const quota = await checkAndIncrementQuota(userId, 'meal_plans');
+    if (!quota.allowed) return quotaErrorResponse(quota.limits, quota.usage);
 
     const days = body.days || 7;
     const planData = await generateMealPlan(inventory, profile, body);
@@ -147,11 +159,19 @@ export const handler: Handler = withCors(async (event) => {
       return jsonResponse({ plan }, 201);
     }
 
-    await query(
-      `INSERT INTO meal_plans (id, user_id, title, start_date, end_date, days, budget, status, plan_data)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, 'active', $8)`,
-      [planId, userId, plan.title, plan.start_date, plan.end_date, days, body.budget || null, JSON.stringify(planData)]
-    );
+    if (!user.token) return errorResponse('Missing token', 401);
+    const db = getSupabaseUserClient(user.token);
+    await db.from('meal_plans').insert({
+      id: planId,
+      user_id: userId,
+      title: plan.title,
+      start_date: plan.start_date,
+      end_date: plan.end_date,
+      days,
+      budget: body.budget || null,
+      status: 'active',
+      plan_data: planData,
+    });
     return jsonResponse({ plan }, 201);
   }
 

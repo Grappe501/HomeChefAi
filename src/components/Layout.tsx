@@ -1,19 +1,18 @@
 import { NavLink } from 'react-router-dom';
-import { Home, Package, Camera, Wand2, CalendarDays, ChefHat, MessageCircle } from 'lucide-react';
+import { Home, Package, Camera, CalendarDays, ChefHat, MessageCircle, BookOpen, Settings } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
-import { getLevelInfo } from '@/lib/utils';
 
 const navItems = [
   { to: '/', icon: Home, label: 'Home' },
   { to: '/inventory', icon: Package, label: 'Pantry' },
   { to: '/receipt', icon: Camera, label: 'Receipt' },
-  { to: '/meals', icon: CalendarDays, label: 'Meals' },
+  { to: '/calendar', icon: CalendarDays, label: 'Calendar' },
+  { to: '/community', icon: Users, label: 'Swap' },
   { to: '/assistant', icon: MessageCircle, label: 'Chef' },
 ];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { profile } = useApp();
-  const levelInfo = profile ? getLevelInfo(profile.gamification_xp, profile.gamification_level) : null;
 
   return (
     <div className="min-h-dvh flex flex-col pb-20">
@@ -23,14 +22,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <h1 className="font-display text-lg text-chef-700">HomeChef AI</h1>
             <p className="text-xs text-sage-500">{profile?.assistant_name || 'Sous Chef'}</p>
           </div>
-          {levelInfo && (
-            <div className="text-right">
-              <span className="text-xs font-semibold text-chef-600">Lv.{profile!.gamification_level}</span>
-              <div className="w-20 h-1.5 bg-sage-100 rounded-full mt-1">
-                <div className="h-full bg-chef-400 rounded-full transition-all" style={{ width: `${levelInfo.progress}%` }} />
-              </div>
-            </div>
-          )}
+          <NavLink to="/settings" className="text-sage-400 hover:text-chef-600 p-1">
+            <Settings size={20} />
+          </NavLink>
         </div>
       </header>
 

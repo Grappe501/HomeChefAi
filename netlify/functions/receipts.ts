@@ -1,7 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import type { Handler } from '@netlify/functions';
-import { withCors, jsonResponse, errorResponse, parseBody, getUserId } from './utils/response.js';
-import { useDevStore, loadStore, saveStore, query, queryOne } from './utils/db.js';
+import { withCors, jsonResponse, errorResponse, parseBody, requireAuth } from './utils/response.js';
+import { useDevStore, loadStore, saveStore } from './utils/db.js';
+import { getSupabaseUserClient, useDevStore } from './utils/supabase.js';
+import { checkAndIncrementQuota, quotaErrorResponse } from './utils/quotas.js';
 import type { ReceiptParseResult, InventoryItem } from '../../src/types/index';
 
 async function parseReceiptWithOpenAI(imageBase64: string): Promise<ReceiptParseResult> {
@@ -55,8 +57,9 @@ Infer location: dairy/produce/meat->fridge, frozen->freezer, else pantry. Mark m
 }
 
 export const handler: Handler = withCors(async (event) => {
-  const userId = getUserId(event);
-  if (!userId) return errorResponse('Missing user ID', 401);
+  const user = await requireAuth(event);
+  if (!user) return errorResponse('Unauthorized', 401);
+  const userId = user.id;
 
   if (event.httpMethod === 'GET') {
     if (useDevStore()) {
@@ -64,8 +67,10 @@ export const handler: Handler = withCors(async (event) => {
       const receipts = store.receipts.filter((r) => r.user_id === userId);
       return jsonResponse({ receipts });
     }
-    const receipts = await query('SELECT * FROM receipts WHERE user_id = $1 ORDER BY created_at DESC', [userId]);
-    return jsonResponse({ receipts });
+    if (!user.token) return errorResponse('Missing token', 401);
+    const db = getSupabaseUserClient(user.token);
+    const { data: receipts } = await db.from('receipts').select('*').eq('user_id', userId).order('created_at', { ascending: false });
+    return jsonResponse({ receipts: receipts ?? [] });
   }
 
   if (event.httpMethod === 'POST') {
@@ -95,10 +100,31 @@ export const handler: Handler = withCors(async (event) => {
         saveStore(store);
         return jsonResponse({ receipt, items_added: items.length });
       }
-      return jsonResponse({ message: 'Verify in production DB mode' });
+      if (!user.token) return errorResponse('Missing token', 401);
+    const db = getSupabaseUserClient(user.token);
+      const { data: receipt } = await db.from('receipts').select('*').eq('id', body.receipt_id).eq('user_id', userId).single();
+      if (!receipt) return errorResponse('Receipt not found', 404);
+      await db.from('receipts').update({ verified: true }).eq('id', body.receipt_id);
+      const parsed = receipt.raw_parse as ReceiptParseResult;
+      const items = (parsed?.items || []).map((item) => ({
+        user_id: userId,
+        name: item.name,
+        category: item.category || 'other',
+        quantity: item.quantity || 1,
+        unit: item.unit || 'each',
+        expiration_date: item.suggested_expiration || null,
+        location: item.location || 'pantry',
+        added_via: 'receipt',
+        estimated_unit_price: item.price ? Number(item.price) / Math.max(1, Number(item.quantity || 1)) : 0,
+      }));
+      if (items.length) await db.from('inventory_items').insert(items);
+      return jsonResponse({ receipt: { ...receipt, verified: true }, items_added: items.length });
     }
 
     if (!body.image) return errorResponse('Missing image');
+
+    const quota = await checkAndIncrementQuota(userId, 'receipt_scans');
+    if (!quota.allowed) return quotaErrorResponse(quota.limits, quota.usage);
 
     const parsed = await parseReceiptWithOpenAI(body.image);
     const receiptId = uuidv4();
@@ -121,11 +147,17 @@ export const handler: Handler = withCors(async (event) => {
       return jsonResponse({ receipt, parsed }, 201);
     }
 
-    await query(
-      `INSERT INTO receipts (id, user_id, store_name, total_amount, receipt_date, raw_parse, verified)
-       VALUES ($1, $2, $3, $4, $5, $6, false)`,
-      [receiptId, userId, parsed.store_name, parsed.total, parsed.date, JSON.stringify(parsed)]
-    );
+    if (!user.token) return errorResponse('Missing token', 401);
+    const db = getSupabaseUserClient(user.token);
+    await db.from('receipts').insert({
+      id: receiptId,
+      user_id: userId,
+      store_name: parsed.store_name,
+      total_amount: parsed.total,
+      receipt_date: parsed.date,
+      raw_parse: parsed,
+      verified: false,
+    });
     return jsonResponse({ receipt, parsed }, 201);
   }
 

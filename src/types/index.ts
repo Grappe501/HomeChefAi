@@ -17,6 +17,7 @@ export interface Profile {
   onboarding_complete: boolean;
   assistant_name: string;
   last_meal_memory: Record<string, unknown>;
+  zip_code?: string;
 }
 
 export interface InventoryItem {
