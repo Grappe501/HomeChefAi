@@ -22,7 +22,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <h1 className="font-sans font-semibold text-lg text-chef tracking-tight">SousChef</h1>
             <p className="text-xs text-chef-subtle">{profile?.assistant_name || 'Sous Chef'}</p>
           </div>
-          <NavLink to="/settings" className="text-steel-dark hover:text-copper-600 p-1">
+          <NavLink to="/settings" className="btn-icon text-steel-dark hover:text-chef hover:bg-stainless-100">
             <Settings size={20} />
           </NavLink>
         </div>
@@ -31,14 +31,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <main className="flex-1 max-w-lg mx-auto w-full px-4 py-4">{children}</main>
 
       <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-steel safe-area-pb">
-        <div className="max-w-lg mx-auto flex justify-around py-2">
+        <div className="max-w-lg mx-auto flex justify-around py-2 px-1">
           {navItems.map(({ to, icon: Icon, label }) => (
             <NavLink
               key={to}
               to={to}
               className={({ isActive }) =>
-                `flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg transition-colors ${
-                  isActive ? 'text-copper-600' : 'text-steel-dark'
+                `flex flex-col items-center justify-center gap-1 px-2 py-2 rounded-xl transition-colors min-w-[52px] min-h-[52px] ${
+                  isActive ? 'text-chef font-semibold' : 'text-steel-dark'
                 }`
               }
             >
@@ -51,7 +51,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       <NavLink
         to="/cook"
-        className="fixed bottom-20 right-4 w-14 h-14 bg-chef hover:bg-copper-600 text-white rounded-full shadow-lg flex items-center justify-center z-20"
+        className="fixed bottom-20 right-4 btn-icon bg-chef hover:bg-chef-muted text-white rounded-full shadow-lg z-20"
         title="Log a meal"
       >
         <ChefHat size={24} />

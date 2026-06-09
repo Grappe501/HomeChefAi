@@ -37,7 +37,7 @@ export default function Calendar() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="font-sans font-semibold text-xl text-chef">Kitchen Calendar</h2>
-        <button onClick={() => calendarApi.syncMeals().then(load)} className="text-sm text-copper-600 font-medium">
+        <button onClick={() => calendarApi.syncMeals().then(load)} className="text-sm text-chef-muted font-medium">
           Sync meal plan
         </button>
       </div>
@@ -51,9 +51,9 @@ export default function Calendar() {
             const dayEvents = forDay(d);
             const isToday = format(d, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd');
             return (
-              <div key={d.toISOString()} className={`card ${isToday ? 'border-copper-500 bg-stainless-200/50' : ''}`}>
+              <div key={d.toISOString()} className={`card ${isToday ? 'border-chef bg-stainless-200/50' : ''}`}>
                 <div className="flex items-center gap-2 mb-2">
-                  <CalendarDays size={16} className="text-copper-500" />
+                  <CalendarDays size={16} className="text-chef" />
                   <span className="font-semibold text-sm">{format(d, 'EEE, MMM d')}</span>
                   {isToday && <span className="text-xs bg-chef text-white px-2 py-0.5 rounded-full">Today</span>}
                 </div>

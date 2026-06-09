@@ -47,7 +47,7 @@ export default function BrainPage() {
       <header className="flex items-start justify-between gap-3">
         <div>
           <h2 className="font-semibold text-lg flex items-center gap-2">
-            <Brain size={22} className="text-copper-600" />
+            <Brain size={22} className="text-chef-muted" />
             Kitchen Brain
           </h2>
           <p className="text-sm text-chef-subtle mt-1">Recent learnings about your kitchen</p>

@@ -73,7 +73,7 @@ export default function CookTogetherSection() {
   return (
     <section className="card space-y-4 border-steel">
       <div className="flex items-center gap-2">
-        <Users className="text-copper-500" size={20} />
+        <Users className="text-chef" size={20} />
         <h3 className="font-semibold">Cook Together</h3>
       </div>
       <p className="text-sm text-chef-subtle">

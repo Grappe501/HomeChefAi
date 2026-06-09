@@ -155,7 +155,7 @@ export default function ReceiptScan() {
             {items.map((item) => (
               <div
                 key={item._id}
-                className={`card ${item.ignored ? 'opacity-50 bg-stainless-100' : ''} ${editingId === item._id ? 'ring-2 ring-copper-500' : ''}`}
+                className={`card ${item.ignored ? 'opacity-50 bg-stainless-100' : ''} ${editingId === item._id ? 'ring-2 ring-chef' : ''}`}
               >
                 {editingId === item._id ? (
                   <div className="space-y-3">
@@ -243,7 +243,7 @@ export default function ReceiptScan() {
                       <div className="flex gap-2">
                         <button
                           onClick={() => setEditingId(item._id)}
-                          className="btn-icon bg-stainless-200 text-copper-600 min-w-[44px] min-h-[44px]"
+                          className="btn-icon bg-stainless-200 text-chef-muted min-w-[44px] min-h-[44px]"
                           title="Edit"
                         >
                           <Pencil size={18} />

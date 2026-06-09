@@ -43,7 +43,7 @@ export default function Recipes() {
             {r.description && <p className="text-sm text-chef-subtle mt-1">{r.description}</p>}
             <div className="flex justify-between items-center mt-3">
               <span className="text-xs text-steel-dark">{r.author_name || 'Chef'}</span>
-              <button onClick={() => toggleLike(r.id)} className="flex items-center gap-1 text-sm text-copper-600">
+              <button onClick={() => toggleLike(r.id)} className="flex items-center gap-1 text-sm text-chef-muted">
                 <Heart size={16} /> {r.likes_count}
               </button>
             </div>

@@ -237,12 +237,12 @@ export default function Onboarding(_props: OnboardingProps) {
 
   return (
     <div className="min-h-dvh flex flex-col px-6 py-8 bg-stainless-100 max-w-content mx-auto w-full">
-      <p className="text-xs font-medium text-copper-600 uppercase tracking-wider mb-6">SousChef · Beta</p>
+      <p className="text-xs font-medium text-chef-subtle uppercase tracking-wider mb-6">SousChef · Beta</p>
 
       <div className="mb-8">
         <div className="h-0.5 w-full rounded-full bg-steel overflow-hidden">
           <div
-            className="h-full bg-copper-500 rounded-full transition-all duration-300 ease-out"
+            className="h-full bg-chef rounded-full transition-all duration-300 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>

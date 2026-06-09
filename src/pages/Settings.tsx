@@ -32,8 +32,8 @@ export default function Settings() {
       </section>
 
       {isFounder && (
-        <Link to="/admin/journal" className="card flex items-center gap-3 hover:border-copper-500 transition-colors">
-          <BookOpen className="text-copper-600" size={24} />
+        <Link to="/admin/journal" className="card flex items-center gap-3 hover:border-steel-dark transition-colors">
+          <BookOpen className="text-chef-muted" size={24} />
           <div>
             <p className="font-semibold text-chef">Product Journal</p>
             <p className="text-xs text-chef-subtle">Founder observations · voice capture</p>

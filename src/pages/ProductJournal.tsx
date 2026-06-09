@@ -158,7 +158,7 @@ export default function ProductJournal() {
   if (forbidden) {
     return (
       <div className="space-y-4">
-        <Link to="/settings" className="text-copper-600 text-sm flex items-center gap-1"><ArrowLeft size={16} /> Settings</Link>
+        <Link to="/settings" className="text-chef-muted text-sm flex items-center gap-1"><ArrowLeft size={16} /> Settings</Link>
         <div className="card">
           <p className="text-chef-subtle">Founder access only. Your account is not in FOUNDER_EMAILS.</p>
         </div>
@@ -170,7 +170,7 @@ export default function ProductJournal() {
     <div className="space-y-4 pb-8">
       <div className="flex items-center justify-between gap-2">
         <div>
-          <Link to="/settings" className="text-copper-600 text-sm flex items-center gap-1 mb-1"><ArrowLeft size={16} /> Settings</Link>
+          <Link to="/settings" className="text-chef-muted text-sm flex items-center gap-1 mb-1"><ArrowLeft size={16} /> Settings</Link>
           <h2 className="font-semibold text-lg">Product Journal</h2>
           <p className="text-xs text-chef-subtle">Founder intelligence · voice-first</p>
         </div>
@@ -286,7 +286,7 @@ export default function ProductJournal() {
                   <button type="button" onClick={() => resolveNote(note)} className="text-xs text-chef-subtle font-medium">Resolve</button>
                 )}
                 {!note.linked_feature_id && (
-                  <button type="button" onClick={() => convertNote(note.id)} className="text-xs text-copper-600 font-medium flex items-center gap-0.5">
+                  <button type="button" onClick={() => convertNote(note.id)} className="text-xs text-chef-muted font-medium flex items-center gap-0.5">
                     <GitBranchPlus size={14} /> Build item
                   </button>
                 )}

@@ -159,7 +159,7 @@ export default function MealPlanner() {
         <section className="card">
           <h3 className="font-semibold text-sm text-chef-subtle">Previous Plans</h3>
           {plans.slice(1, 4).map((p) => (
-            <button key={p.id} onClick={() => setActivePlan(p)} className="block w-full text-left py-2 text-sm hover:text-copper-600">
+            <button key={p.id} onClick={() => setActivePlan(p)} className="block w-full text-left py-2 text-sm hover:text-chef-muted">
               {p.title} — {p.start_date}
             </button>
           ))}

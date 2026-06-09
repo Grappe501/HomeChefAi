@@ -30,7 +30,7 @@ export default function Login() {
 
   return (
     <div className="min-h-dvh flex flex-col items-center justify-center px-6 bg-stainless-100">
-      <p className="text-xs font-medium text-copper-600 uppercase tracking-wider mb-6">SousChef</p>
+      <p className="text-xs font-medium text-chef-subtle uppercase tracking-wider mb-6">SousChef</p>
       <h1 className="font-sans font-semibold text-3xl text-chef mb-2 tracking-tight">Your Kitchen Has A Memory</h1>
       <p className="text-chef-subtle text-center mb-8 max-w-sm leading-relaxed">
         {mode === 'signup'
@@ -65,7 +65,7 @@ export default function Login() {
       <button
         type="button"
         onClick={() => setMode(mode === 'signup' ? 'signin' : 'signup')}
-        className="mt-4 text-sm text-copper-600 font-medium"
+        className="mt-4 text-sm text-chef-muted font-medium"
       >
         {mode === 'signup' ? 'Already have an account? Sign in' : 'New here? Create account'}
       </button>

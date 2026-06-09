@@ -25,7 +25,7 @@ export default function UsageMeter({ billing }: { billing: UsageQuota }) {
             </div>
             <div className="h-2 bg-stainless-200 rounded-full">
               <div
-                className={`h-full rounded-full ${pct >= 100 ? 'bg-red-400' : 'bg-copper-500'}`}
+                className={`h-full rounded-full ${pct >= 100 ? 'bg-burgundy-500' : 'bg-chef'}`}
                 style={{ width: `${pct}%` }}
               />
             </div>

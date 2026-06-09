@@ -93,7 +93,7 @@ export default function PantryWizard() {
 
       {quantityItem ? (
         <div className="space-y-3">
-          <p className="font-medium">How much <span className="text-copper-600">{quantityItem}</span>?</p>
+          <p className="font-medium">How much <span className="text-chef-muted">{quantityItem}</span>?</p>
           <div className="grid grid-cols-2 gap-2">
             {qtyOptions.map((opt) => (
               <button key={opt} onClick={() => setQuantity(opt)} className="tap-item">
@@ -111,10 +111,10 @@ export default function PantryWizard() {
               onClick={() => toggleItem(item)}
               className={`tap-item relative ${selected[item] ? 'tap-item-selected' : ''}`}
             >
-              {selected[item] && <Check size={14} className="absolute top-1 right-1 text-copper-600" />}
+              {selected[item] && <Check size={14} className="absolute top-1 right-1 text-chef-muted" />}
               {item}
               {selected[item] && (
-                <span className="block text-xs text-copper-600 mt-0.5">
+                <span className="block text-xs text-chef-muted mt-0.5">
                   {selected[item].quantity} {selected[item].unit}
                 </span>
               )}

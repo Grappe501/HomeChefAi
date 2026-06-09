@@ -14,13 +14,13 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-chef hover:bg-copper-600 active:bg-copper-700 text-white font-semibold py-3.5 px-6 rounded-xl transition-colors shadow-card min-h-[52px] flex items-center justify-center gap-2 text-base;
+    @apply bg-chef hover:bg-chef-muted active:bg-chef text-white font-semibold py-3.5 px-6 rounded-xl transition-colors shadow-card min-h-[52px] flex items-center justify-center gap-3 text-base;
   }
   .btn-secondary {
-    @apply bg-white hover:bg-stainless-50 active:bg-stainless-100 text-chef font-semibold py-3.5 px-6 rounded-xl border border-steel transition-colors min-h-[52px] flex items-center justify-center gap-2 text-base;
+    @apply bg-white hover:bg-stainless-50 active:bg-stainless-100 text-chef font-semibold py-3.5 px-6 rounded-xl border border-steel transition-colors min-h-[52px] flex items-center justify-center gap-3 text-base;
   }
   .btn-icon {
-    @apply w-12 h-12 rounded-xl flex items-center justify-center transition-colors min-w-[48px] min-h-[48px];
+    @apply w-[52px] h-[52px] rounded-xl flex items-center justify-center transition-colors min-w-[52px] min-h-[52px];
   }
   .card {
     @apply bg-white rounded-xl shadow-card border border-steel p-4 md:p-5;
@@ -29,24 +29,33 @@
     @apply card shadow-elevated border-l-[3px] border-l-copper-500;
   }
   .tap-item {
-    @apply px-4 py-3.5 rounded-xl border border-steel bg-white active:scale-[0.98] transition-all text-center font-medium min-h-[52px] flex items-center justify-center text-chef;
+    @apply px-4 py-3.5 rounded-xl border border-steel bg-white active:scale-[0.98] transition-all text-center font-medium min-h-[52px] flex items-center justify-center text-chef gap-3;
   }
   .tap-item-selected {
-    @apply border-copper-500 bg-copper-50 text-chef ring-1 ring-copper-500/30;
+    @apply border-chef bg-stainless-100 text-chef font-semibold;
   }
   .input-field {
-    @apply w-full px-4 py-3.5 rounded-xl border border-steel bg-white focus:border-copper-500 focus:ring-2 focus:ring-copper-500/20 focus:outline-none text-base text-chef placeholder:text-chef-subtle min-h-[52px];
+    @apply w-full px-4 py-3.5 rounded-xl border border-steel bg-white focus:border-chef focus:ring-2 focus:ring-chef/10 focus:outline-none text-base text-chef placeholder:text-chef-subtle min-h-[52px];
   }
   .progress-track {
-    @apply h-0.5 flex-1 rounded-full bg-steel;
+    @apply h-0.5 w-full rounded-full bg-steel overflow-hidden;
   }
   .progress-fill {
-    @apply h-0.5 flex-1 rounded-full bg-copper-500;
+    @apply h-full bg-chef rounded-full transition-all duration-300 ease-out;
   }
   .step-title {
     @apply font-sans text-xl font-semibold text-chef tracking-tight;
   }
   .step-subtitle {
     @apply text-sm text-chef-subtle leading-relaxed;
+  }
+  .section-label {
+    @apply text-xs font-semibold uppercase tracking-wider text-chef-subtle;
+  }
+  .text-link {
+    @apply text-sm font-medium text-chef-muted hover:text-chef underline-offset-2 hover:underline min-h-[52px] inline-flex items-center;
+  }
+  .action-tile {
+    @apply card flex flex-col items-center justify-center gap-3 hover:border-steel-dark transition-colors py-5 min-h-[88px];
   }
 }
