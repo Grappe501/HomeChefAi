@@ -4,6 +4,17 @@ export const SITE_URL = import.meta.env?.VITE_SITE_URL || 'https://home-chef-ai.
 export const SITE_NAME = 'SousChef';
 export const SITE_TAGLINE = 'Your kitchen has a memory.';
 export const SUPPORT_EMAIL = 'hello@homechef.ai';
+export const LEGAL_ENTITY = 'HomeChef AI';
+
+/** Single source of truth for marketing stats — update here only */
+export const SITE_STATS = {
+  knowledgeNodes: '270+',
+  platformLayers: '5',
+  liveFunctions: '20',
+  visionTopics: '8',
+  deepDives: '14+',
+  techniques: '15+',
+} as const;
 
 export interface FaqItem {
   id: string;
@@ -22,31 +33,49 @@ export const MARKETING_FAQ: FaqItem[] = [
     id: 'ai-credits',
     question: 'What happens when AI credits run out?',
     answer:
-      'Your pantry, inventory, brain insights, and deterministic features keep working. AI-heavy actions like meal plan generation pause until credits refresh — you are never locked out of your kitchen data.',
+      'Your pantry, inventory, Brain insights, and deterministic features keep working. AI-heavy actions like meal plan generation pause until credits refresh — you are never locked out of your kitchen data. See our AI Usage Policy for credit costs.',
   },
   {
     id: 'privacy',
     question: 'Do you sell my food or shopping data?',
     answer:
-      'No. SousChef learns your kitchen to serve you, not to sell you. We do not sell household food data, shopping habits, or family traditions. See our privacy policy for full detail.',
+      'No. SousChef learns your kitchen to serve you, not to sell you. We do not sell household food data, shopping habits, or family traditions. See our Privacy Policy for full detail.',
   },
   {
     id: 'household',
     question: 'Can my whole family share one kitchen?',
     answer:
-      'Yes — Family tier supports household members, shared pantry context, and Cook Together sessions. Free and Plus work for solo kitchens today.',
+      'Yes. Free supports up to 2 household members (join-only). Plus and Family support full Cook Together — shared pantry, Brain, and cook logs. Family tier includes priority AI responses.',
   },
   {
-    id: 'beta',
-    question: 'Why is billing listed as beta?',
+    id: 'nutrition',
+    question: 'Are nutrition estimates medical advice?',
     answer:
-      'Core product is live and free during beta. Stripe billing for Plus and Family activates at launch — full access now so you can prove the loop before paying.',
+      'No. Per-serving nutrition on meal cards is an approximate estimate from ingredient references — not medical, dietary, or food safety advice. Always verify allergens, portions, and expiration dates yourself.',
+  },
+  {
+    id: 'data-export',
+    question: 'Can I export or delete my data?',
+    answer:
+      'Yes. Access, export, and delete your kitchen data via Settings or by emailing hello@homechef.ai. Account deletion includes a 7-day grace period before permanent removal.',
+  },
+  {
+    id: 'billing',
+    question: 'When does paid billing start?',
+    answer:
+      'Core product is live and free during beta. Stripe billing for Plus ($9/mo) and Family ($18/mo) activates at launch — full access now so you can prove the loop before paying. No surprise AI overage charges.',
   },
   {
     id: 'clara',
     question: 'Who is Clara?',
     answer:
-      'Clara is your Sous Chef — the intelligence layer that reads your pantry, explains why a meal fits, coaches techniques, and remembers what your household keeps or replaces.',
+      'Clara is your Sous Chef — the intelligence layer that reads your pantry, explains why a meal fits, coaches techniques, and remembers what your household keeps or replaces. Basic pantry Q&A uses zero credits.',
+  },
+  {
+    id: 'site-search',
+    question: 'How do I learn about features before signing up?',
+    answer:
+      'Press ⌘K (or Ctrl+K) on any marketing page to search the site or ask questions about SousChef. For your personal pantry and meal plans, sign in to the app.',
   },
 ];
 
@@ -76,7 +105,7 @@ export const TESTIMONIALS: Testimonial[] = [
 
 export const TRUST_PILLARS = [
   { label: 'Pantry always works', detail: 'Even at zero AI credits' },
+  { label: 'Deterministic Brain', detail: 'Free insights — no black box' },
   { label: 'Evidence-based AI', detail: 'Why this? cites real data' },
   { label: 'Your data stays yours', detail: 'No selling food habits' },
-  { label: '258+ knowledge nodes', detail: 'Culinary graph, not guesses' },
 ];

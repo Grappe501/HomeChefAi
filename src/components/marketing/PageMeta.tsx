@@ -60,11 +60,11 @@ export function PageMeta({ title, description, path, noindex, faq }: PageMetaPro
     upsertMeta('property', 'og:url', url);
     upsertMeta('property', 'og:type', 'website');
     upsertMeta('property', 'og:site_name', SITE_NAME);
-    upsertMeta('property', 'og:image', `${SITE_URL}/og-image.png`);
+    upsertMeta('property', 'og:image', `${SITE_URL}/og-image.svg`);
     upsertMeta('name', 'twitter:card', 'summary_large_image');
     upsertMeta('name', 'twitter:title', fullTitle);
     upsertMeta('name', 'twitter:description', desc);
-    upsertMeta('name', 'twitter:image', `${SITE_URL}/og-image.png`);
+    upsertMeta('name', 'twitter:image', `${SITE_URL}/og-image.svg`);
     upsertLink('canonical', url);
 
     upsertJsonLd('jsonld-org', {

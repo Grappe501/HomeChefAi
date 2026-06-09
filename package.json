@@ -1,13 +1,14 @@
 {
   "name": "homechef-ai",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "private": true,
   "description": "SousChef — Your kitchen has a memory. Pantry inventory, receipt scanning, meal planning.",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npx tsx scripts/build-search-index.ts && vite build",
+    "build": "npx tsx scripts/build-search-index.ts && npx tsx scripts/build-sitemap.ts && vite build",
     "search:index": "npx tsx scripts/build-search-index.ts",
+    "sitemap": "npx tsx scripts/build-sitemap.ts",
     "preview": "vite preview",
     "netlify:dev": "netlify dev",
     "typecheck": "tsc --noEmit",

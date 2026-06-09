@@ -75,6 +75,7 @@ export default function Settings() {
           <a href="/legal/terms.html" className="text-chef-muted hover:text-chef">Terms</a>
           <a href="/legal/privacy.html" className="text-chef-muted hover:text-chef">Privacy</a>
           <a href="/legal/ai-usage.html" className="text-chef-muted hover:text-chef">AI Usage</a>
+          <a href="/legal/community.html" className="text-chef-muted hover:text-chef">Community</a>
         </div>
         <p className="text-xs">SousChef is operated by HomeChef AI.</p>
       </section>

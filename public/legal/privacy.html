@@ -18,20 +18,25 @@
   </style>
 </head>
 <body>
-  <p class="meta"><a href="/landing">← SousChef</a> · Draft · June 2026</p>
+  <p class="meta"><a href="/landing">← SousChef</a> · Effective June 2026 · Version 2.2</p>
   <h1>Privacy Policy</h1>
   <p><strong>SousChef learns your kitchen — not to sell you, but to serve you.</strong> We build a memory of how your household shops, cooks, and eats so you can waste less and preserve what matters.</p>
+  <p>Operated by <strong>HomeChef AI</strong>. Consumer product name: <strong>SousChef</strong>.</p>
 
   <h2>What we collect</h2>
   <table>
     <tr><th>Category</th><th>Examples</th><th>Why</th></tr>
     <tr><td>Account</td><td>Email, password hash</td><td>Login, recovery</td></tr>
-    <tr><td>Profile</td><td>Dietary prefs, allergies, household size, zip</td><td>Personalize Sous Chef</td></tr>
-    <tr><td>Inventory</td><td>Pantry items, quantities, locations</td><td>Core product</td></tr>
-    <tr><td>Receipts</td><td>Store, items, prices</td><td>Pantry automation</td></tr>
+    <tr><td>Profile</td><td>Dietary prefs, allergies, household size, zip (optional)</td><td>Personalize Sous Chef</td></tr>
+    <tr><td>Kitchen identity</td><td>Kitchen name, cooking level, priorities</td><td>Memory + onboarding</td></tr>
+    <tr><td>Inventory</td><td>Pantry items, quantities, locations, expiration</td><td>Core product</td></tr>
+    <tr><td>Receipts</td><td>Store, items, prices, parse results</td><td>Pantry automation</td></tr>
     <tr><td>Cook log</td><td>Meals cooked, ingredients used</td><td>Brain + inventory</td></tr>
-    <tr><td>Brain memories</td><td>Patterns, insights</td><td>Kitchen Memory</td></tr>
-    <tr><td>AI interactions</td><td>Assistant messages, meal plans</td><td>Feature delivery</td></tr>
+    <tr><td>Brain memories</td><td>Patterns, insights, confidence scores</td><td>Kitchen Memory</td></tr>
+    <tr><td>Household</td><td>Members, invites, shared kitchen</td><td>Cook Together</td></tr>
+    <tr><td>AI interactions</td><td>Assistant messages, meal plans, site Ask queries</td><td>Feature delivery</td></tr>
+    <tr><td>Usage</td><td>Feature usage, credit consumption</td><td>Fair use + product improvement</td></tr>
+    <tr><td>Community <em>(future)</em></td><td>Public recipes, forks, stories</td><td>Social features when shipped</td></tr>
     <tr><td>Billing</td><td>Stripe customer ID, tier</td><td>Subscriptions</td></tr>
   </table>
 
@@ -44,17 +49,36 @@
   </ul>
 
   <h2>Processors</h2>
-  <p>Supabase (database &amp; auth), OpenAI (AI features), Stripe (billing), Netlify (hosting). Sub-processor list maintained here as we add vendors.</p>
+  <p>We use trusted sub-processors to operate the service. See our <a href="/legal/sub-processors.html">Sub-processors list</a> for the current vendor table.</p>
 
   <h2>Household data</h2>
-  <p>Invited household members can see shared inventory, Brain insights, and cook logs. Each member has their own account. Leaving a household removes access to shared kitchen data.</p>
+  <p>Invited household members can see shared inventory, Brain insights, and cook logs. Each member has their own account. Household admin can remove members. Leaving a household removes access to shared kitchen data; personal account data is retained.</p>
+  <p>Service is not directed at children under 13. Parental consent required for minors.</p>
+
+  <h2>AI &amp; receipt processing</h2>
+  <ul>
+    <li>Receipt images may be sent to OpenAI for OCR — you may use manual entry instead</li>
+    <li>Assistant prompts include pantry/profile context appropriate to your tier</li>
+    <li>Brain 1.0A insights are computed deterministically on our servers — no OpenAI for core math</li>
+    <li>Marketing site Ask mode uses site content only — not your personal pantry</li>
+  </ul>
+
+  <h2>Retention</h2>
+  <table>
+    <tr><th>Data</th><th>Retention</th></tr>
+    <tr><td>Account &amp; inventory</td><td>Until you delete or request deletion</td></tr>
+    <tr><td>Brain memories</td><td>Tier-based window; deleted on account delete</td></tr>
+    <tr><td>AI operational logs</td><td>~90 days, then auto-purge</td></tr>
+    <tr><td>Billing records</td><td>7 years (legal requirement), then anonymized</td></tr>
+    <tr><td>Backups</td><td>30-day rolling; purged with primary delete</td></tr>
+  </table>
 
   <h2>Your rights</h2>
-  <p>Access, export, and delete your data via Settings or by contacting support. California and EU rights honored as applicable at launch.</p>
+  <p>Access, export, and delete your data via Settings or by contacting <a href="mailto:hello@homechef.ai">hello@homechef.ai</a>. Account deletion includes a 7-day grace period. California (CCPA) and EU (GDPR) rights honored as applicable.</p>
 
   <footer>
-    <p>© 2026 HomeChef AI · <a href="/legal/terms.html">Terms</a> · <a href="/legal/ai-usage.html">AI Usage</a></p>
-    <p><em>Draft framework — requires attorney review before first charge.</em></p>
+    <p>© 2026 HomeChef AI · <a href="/legal/terms.html">Terms</a> · <a href="/legal/ai-usage.html">AI Usage</a> · <a href="/legal/sub-processors.html">Sub-processors</a></p>
+    <p><em>Framework v2.2 — attorney review recommended before first paid charge.</em></p>
   </footer>
 </body>
 </html>

@@ -12,7 +12,7 @@ export function MarketingFAQ({ items, dark, title = 'Questions, answered' }: Mar
   const [openId, setOpenId] = useState<string | null>(items[0]?.id ?? null);
 
   return (
-    <section className="mx-auto max-w-3xl px-5 py-12" aria-labelledby="faq-heading">
+    <section className="mx-auto max-w-3xl px-5 py-12" aria-labelledby="faq-heading" id="faq">
       <h2
         id="faq-heading"
         className={`font-display text-2xl tracking-tight mb-6 ${dark ? 'text-white' : 'text-chef'}`}

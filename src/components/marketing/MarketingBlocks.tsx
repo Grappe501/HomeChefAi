@@ -156,12 +156,14 @@ export const FEATURE_MOCKS: Record<string, MockVariant> = {
   'cook-together': 'household',
 };
 
+import { SITE_STATS } from '@/content/marketingContent';
+
 export function SiteStatsStrip({ dark }: { dark?: boolean }) {
   const stats = [
-    { n: '258+', l: 'Knowledge nodes' },
-    { n: '5', l: 'Platform layers' },
-    { n: '19', l: 'Live functions' },
-    { n: '8', l: 'Vision topics' },
+    { n: SITE_STATS.knowledgeNodes, l: 'Knowledge nodes' },
+    { n: SITE_STATS.platformLayers, l: 'Platform layers' },
+    { n: SITE_STATS.liveFunctions, l: 'Live functions' },
+    { n: SITE_STATS.visionTopics, l: 'Vision topics' },
   ];
   return (
     <div className={`grid grid-cols-2 sm:grid-cols-4 gap-4 ${dark ? 'text-white' : ''}`}>

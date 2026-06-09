@@ -10,7 +10,7 @@
     h1 { font-family: Georgia, serif; color: #b94409; }
     h2 { font-size: 1.1rem; margin-top: 1.75rem; }
     table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 1rem 0; }
-    th, td { border: 1px solid #e3ebe3; padding: 0.5rem 0.65rem; text-align: left; }
+    th, td { border: 1px solid #e3ebe3; padding: 0.5rem 0.65rem; text-align: left; vertical-align: top; }
     th { background: #f4f7f4; }
     a { color: #b94409; }
     .meta { color: #739576; font-size: 0.9rem; margin-bottom: 2rem; }
@@ -18,43 +18,57 @@
   </style>
 </head>
 <body>
-  <p class="meta"><a href="/landing">← SousChef</a> · Draft · June 2026</p>
+  <p class="meta"><a href="/landing">← SousChef</a> · Effective June 2026 · Version 2.2</p>
   <h1>AI Usage Policy</h1>
   <p>AI-assisted features are included with your plan and subject to fair-use limits designed to keep the service reliable for every kitchen.</p>
   <p><strong>Your pantry, recipes, grocery lists, and kitchen data always work</strong> — even when you've reached your AI-assisted limit for the month.</p>
 
   <h2>Monthly credit pools</h2>
   <table>
-    <tr><th>Tier</th><th>Credits/month</th></tr>
-    <tr><td>Free</td><td>30</td></tr>
-    <tr><td>Plus ($9)</td><td>150</td></tr>
-    <tr><td>Family ($18)</td><td>300</td></tr>
+    <tr><th>Tier</th><th>Credits/month</th><th>Resets</th></tr>
+    <tr><td>Free</td><td>30</td><td>Calendar month (UTC)</td></tr>
+    <tr><td>Plus ($9)</td><td>150</td><td>Billing cycle</td></tr>
+    <tr><td>Family ($18)</td><td>300</td><td>Billing cycle</td></tr>
   </table>
-  <p>Unused credits do not roll over. Credits reset each billing cycle (or calendar month for Free).</p>
+  <p>Unused credits do not roll over.</p>
 
-  <h2>What uses credits</h2>
-  <ul>
-    <li>AI meal plans and replacements</li>
-    <li>Receipt scanning (vision parse)</li>
-    <li>Sous Chef assistant messages</li>
-    <li>Hosting &amp; experience plans</li>
-    <li>Meal explanations (Why this?)</li>
-  </ul>
+  <h2>Credit cost table</h2>
+  <table>
+    <tr><th>Action</th><th>Credits</th><th>Notes</th></tr>
+    <tr><td>Receipt parsing (OCR)</td><td>1</td><td>Per receipt image/batch</td></tr>
+    <tr><td>Assistant — basic reply</td><td>0</td><td>Pantry lookup, simple Q&amp;A</td></tr>
+    <tr><td>Assistant — complex reasoning</td><td>1</td><td>Multi-step planning, substitution chains</td></tr>
+    <tr><td>Meal plan — up to 3 days</td><td>1</td><td>All tiers</td></tr>
+    <tr><td>Meal plan — 4–7 days</td><td>2</td><td>All tiers</td></tr>
+    <tr><td>"What can I make tonight?"</td><td>1</td><td>Uses inventory context</td></tr>
+    <tr><td>Why this? / meal explain</td><td>1</td><td>Includes nutrition estimates</td></tr>
+    <tr><td>Brain insight — view / query</td><td>0</td><td>Reading memories is free</td></tr>
+    <tr><td>Brain — deterministic generation</td><td>0</td><td>Brain 1.0A math — no OpenAI</td></tr>
+    <tr><td>Hosting / experience plan</td><td>5</td><td>Family tier when available</td></tr>
+    <tr><td>Marketing site Ask</td><td>0</td><td>Public site Q&amp;A — not your pantry</td></tr>
+  </table>
 
   <h2>What never pauses</h2>
   <ul>
-    <li>Manual pantry edits</li>
+    <li>Manual pantry edits and pantry wizard</li>
     <li>Viewing Brain insights already generated</li>
+    <li>Deterministic Brain sync (0 credits)</li>
     <li>Cook logging and inventory subtraction</li>
-    <li>Household sharing</li>
+    <li>Household sharing and viewing existing meal plans</li>
   </ul>
 
+  <h2>When credits are exhausted</h2>
+  <p>AI generation pauses. You see a clear message with your reset date and upgrade option. No automatic overage billing. Manual entry always available.</p>
+
+  <h2>Rate limits (abuse protection)</h2>
+  <p>Independent of credits: receipt scan 10/hour, assistant 30/hour, meal plan 5/hour per user. Violations may result in temporary suspension per Terms.</p>
+
   <h2>Accuracy &amp; abuse</h2>
-  <p>AI outputs may be wrong. Verify allergens, portions, and food safety. Automated scraping, prompt injection attacks, or circumventing limits may result in suspension.</p>
+  <p>AI outputs may be wrong. Verify allergens, portions, and food safety. Nutrition estimates are approximate. Prohibited: automation bots, scraping, credential sharing across households, prompt flooding, circumventing limits.</p>
 
   <footer>
     <p>© 2026 HomeChef AI · Incorporated by reference in <a href="/legal/terms.html">Terms of Service</a></p>
-    <p><em>Draft framework — requires attorney review before first charge.</em></p>
+    <p><em>Framework v2.2 — attorney review recommended before first paid charge.</em></p>
   </footer>
 </body>
 </html>

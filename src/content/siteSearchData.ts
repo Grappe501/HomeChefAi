@@ -92,8 +92,24 @@ const STATIC_PAGES: SiteSearchEntry[] = [
     title: 'AI usage policy',
     href: '/legal/ai-usage.html',
     category: 'legal',
-    summary: 'Fair-use AI credits, what counts as AI usage, pantry works without credits.',
+    summary: 'Fair-use AI credits, per-action costs, what pauses vs never pauses when credits run out.',
     keywords: 'ai credits fair use openai',
+  },
+  {
+    id: 'legal-community',
+    title: 'Community & cookbook rules',
+    href: '/legal/community.html',
+    category: 'legal',
+    summary: 'Rules for neighbor swap, shared recipes, and future cookbook social features.',
+    keywords: 'community cookbook swap rules',
+  },
+  {
+    id: 'legal-subprocessors',
+    title: 'Sub-processors',
+    href: '/legal/sub-processors.html',
+    category: 'legal',
+    summary: 'Supabase, OpenAI, Stripe, Netlify — vendors that process data for SousChef.',
+    keywords: 'sub-processors vendors gdpr',
   },
 ];
 

@@ -22,7 +22,7 @@ const TIERS = [
     period: '/ month',
     highlight: true,
     blurb: 'The busy family kitchen. Clean price, no tricks.',
-    items: ['150 AI credits / month', 'Full Brain 2.0 intelligence', 'Meal plans & Why this?', 'Hosting experience plans'],
+    items: ['150 AI credits / month', 'Meal plans & Why this? + nutrition', 'Hosting experience plans', 'Deterministic Brain (all tiers)'],
   },
   {
     name: 'Family',
@@ -119,7 +119,7 @@ export default function PricingPage() {
         </table>
       </div>
 
-      <MarketingFAQ items={MARKETING_FAQ.filter((f) => ['ai-credits', 'household', 'beta'].includes(f.id))} title="Pricing FAQ" />
+      <MarketingFAQ items={MARKETING_FAQ.filter((f) => ['ai-credits', 'household', 'billing'].includes(f.id))} title="Pricing FAQ" />
 
       <div className="mx-auto max-w-2xl px-5 pb-24 md:pb-16 text-center text-sm text-chef-subtle">
         <p>Full access during beta. Billing via Stripe at launch.</p>

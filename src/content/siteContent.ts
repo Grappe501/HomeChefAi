@@ -67,7 +67,7 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
     icon: ScanLine,
     status: 'live',
     intro:
-      'The foundation of every smart kitchen — truth about what is in your pantry, fridge, and freezer. Every item can link to a 250+ node culinary knowledge graph.',
+      'The foundation of every smart kitchen — truth about what is in your pantry, fridge, and freezer. Every item can link to a 270+ node culinary knowledge graph.',
     features: [
       {
         id: 'receipt-scan',
@@ -109,7 +109,7 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
         id: 'knowledge-graph',
         title: 'Knowledge-Linked Items',
         status: 'live',
-        summary: '258+ JSON nodes — ingredients, techniques, cuisines, substitutions, hosting, traditions.',
+        summary: '270+ JSON nodes — ingredients, techniques, cuisines, substitutions, hosting, traditions.',
         details: [
           'Variant nodes (paprika.smoked, rice.white, chicken.breast)',
           'Substitution engine with dietary reasons',
@@ -261,6 +261,18 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
         status: 'live',
         summary: 'Pantry-only suggestions — retention hook that always works, even when AI credits exhausted.',
         details: ['Free tier friendly', 'Directions or quick suggestion mode'],
+      },
+      {
+        id: 'nutrition-estimates',
+        title: 'Nutrition Estimates',
+        status: 'live',
+        summary: 'Per-serving macro estimates on meal cards — approximate, evidence-linked, with full drill-down in Why this?.',
+        details: [
+          'USDA-style reference servings in knowledge base',
+          'Household-size per-serving math',
+          'Compact view on planner cards; full panel in Why this?',
+          'Not medical or dietary advice — estimates only',
+        ],
       },
     ],
   },
@@ -553,18 +565,18 @@ export const VISION_TOPICS: VisionTopic[] = [
   {
     id: 'knowledge',
     title: 'Knowledge Graph Expansion',
-    tagline: '258 nodes today — culinary database tomorrow.',
+    tagline: '270+ nodes today — culinary database tomorrow.',
     icon: Brain,
     audience: 'Technical readers, moat believers',
-    summary: 'nutrition/, culture/, equipment/, food_safety/, preservation/, famous_styles/ — the legal KB Clara queries.',
+    summary: 'nutrition/ (partial), culture/, equipment/, food_safety/, preservation/, famous_styles/ — the legal KB Clara queries.',
     sections: [
       {
         heading: 'Live directories',
-        bullets: ['ingredients', 'techniques', 'cuisines', 'substitutions', 'hosting', 'traditions', 'food_science', 'flavor_profiles', 'meal_patterns'],
+        bullets: ['ingredients', 'techniques', 'cuisines', 'substitutions', 'hosting', 'traditions', 'food_science', 'flavor_profiles', 'meal_patterns', 'nutrition (per-serving estimates)'],
       },
       {
         heading: 'Planned directories',
-        bullets: ['nutrition', 'culture', 'equipment', 'food_safety', 'preservation', 'famous_styles', 'gardening'],
+        bullets: ['culture', 'equipment', 'food_safety', 'preservation', 'famous_styles', 'gardening'],
       },
     ],
     relatedExplore: 'inventory',
@@ -629,8 +641,8 @@ export const FEATURE_IN_APP: Record<string, string> = {
 };
 
 export const ROADMAP_PHASES = [
-  { phase: 'Shipped', status: 'live' as const, items: ['Knowledge graph (258 nodes)', 'Brain 2.0 + ledger', 'Reasoning + Why this?', 'Skills + hosting API', 'Legacy schema', 'Marketing site v1'] },
-  { phase: 'Phase 9', status: 'beta' as const, items: ['Hosting UI', 'Recipes restore', 'Clara-first navigation', 'Honest Why this? v2'] },
+  { phase: 'Shipped', status: 'live' as const, items: ['Knowledge graph (270+ nodes)', 'Brain 2.0 + ledger', 'Why this? + deep dives', 'Nutrition estimates', 'Site search (Find + Ask)', 'Marketing site v2.2', 'Skills + hosting API', 'Legacy schema'] },
+  { phase: 'Phase 9', status: 'beta' as const, items: ['Hosting UI polish', 'Recipes restore', 'Clara Brain 3.0 orchestration', 'Stripe billing launch'] },
   { phase: 'Phase 10', status: 'vision' as const, items: ['Famous style layer', 'Kitchen Academy paths', 'Knowledge expansion'] },
   { phase: 'Phase 11', status: 'vision' as const, items: ['Plate Score / challenges', 'Cookbook social', 'Dinner Club'] },
   { phase: 'Future', status: 'vision' as const, items: ['Smart kitchen integrations', 'Brain 1.0B', 'Wine cellar', 'Culture engine'] },

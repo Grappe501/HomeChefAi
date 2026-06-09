@@ -98,6 +98,7 @@ export default function App() {
 
         {!user ? (
           <>
+            <Route path="/" element={<Navigate to="/landing" replace />} />
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<MarketingNotFound />} />
           </>

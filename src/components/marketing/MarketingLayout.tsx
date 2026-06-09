@@ -212,12 +212,14 @@ export function MarketingLayout({ children, crumbs = [], dark = false }: Marketi
                 <a href="/legal/privacy.html" className="block hover:underline">Privacy</a>
                 <a href="/legal/terms.html" className="block hover:underline">Terms</a>
                 <a href="/legal/ai-usage.html" className="block hover:underline">AI Usage</a>
+                <a href="/legal/community.html" className="block hover:underline">Community</a>
+                <a href="/legal/sub-processors.html" className="block hover:underline">Sub-processors</a>
                 <a href={`mailto:${SUPPORT_EMAIL}`} className="block hover:underline">{SUPPORT_EMAIL}</a>
               </div>
             </div>
           </div>
           <p className={`mt-10 text-[11px] ${dark ? 'text-white/30' : 'text-chef-subtle/80'}`}>
-            © {new Date().getFullYear()} HomeChef AI · SousChef. Legal documents are draft frameworks — attorney review before first charge.
+            © {new Date().getFullYear()} HomeChef AI · SousChef v2.2 · Legal frameworks v2.2 — attorney review before first charge.
           </p>
         </div>
       </footer>
