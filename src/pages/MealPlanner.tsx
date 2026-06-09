@@ -7,6 +7,7 @@ import { useToast } from '@/hooks/useToast';
 import { VoiceInput } from '@/components/VoiceButton';
 import { MealWhyPanel } from '@/components/MealWhyPanel';
 import type { MealPlan, MealPlanData, PlannedMeal } from '@/types';
+import type { MealDirection } from '@/types/mealDirections';
 import {
   COOKING_STYLES,
   COVERAGE_PRESETS,
@@ -100,6 +101,9 @@ export default function MealPlanner() {
   const [activePlan, setActivePlan] = useState<MealPlan | null>(null);
   const [expandedWhyKey, setExpandedWhyKey] = useState<string | null>(null);
   const [reviewingKey, setReviewingKey] = useState<string | null>(null);
+  const [directions, setDirections] = useState<MealDirection[] | null>(null);
+  const [directionsNote, setDirectionsNote] = useState('');
+  const [selectedDirectionId, setSelectedDirectionId] = useState<string | null>(null);
 
   useEffect(() => {
     mealsApi.list().then((r) => {
@@ -158,6 +162,7 @@ export default function MealPlanner() {
         coverage_preset: preset,
         budget: budget ? parseFloat(budget) : undefined,
         message: message || undefined,
+        direction_id: selectedDirectionId || undefined,
       });
       setActivePlan(res.plan);
       setPlans([res.plan, ...plans]);
@@ -171,12 +176,37 @@ export default function MealPlanner() {
     }
   };
 
+  const handleGetDirections = async () => {
+    setPlanning(true);
+    try {
+      const result = await mealsApi.getDirections({ cooking_style: cookingStyle });
+      setDirections(result.directions);
+      setDirectionsNote(result.reasoning_note);
+      setSelectedDirectionId(null);
+      speak(`I found ${result.directions.length} cooking directions from your pantry.`);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Failed');
+    } finally {
+      setPlanning(false);
+    }
+  };
+
   const handleWhatCanIMake = async () => {
     setPlanning(true);
     try {
-      const { suggestions: s } = await mealsApi.whatCanIMake();
-      setSuggestions(s);
-      speak(`I found ${s.meals?.length || 0} meals you can make right now!`);
+      const res = await mealsApi.whatCanIMake();
+      if ('directions' in res && res.directions?.length) {
+        setDirections(res.directions);
+        setDirectionsNote(res.reasoning_note ?? '');
+        setSuggestions(null);
+        speak(`I found ${res.directions.length} directions from your pantry.`);
+        return;
+      }
+      if ('suggestions' in res) {
+        setSuggestions(res.suggestions);
+        setDirections(null);
+        speak(`I found ${res.suggestions.meals?.length || 0} meals you can make right now!`);
+      }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Failed');
     } finally {
@@ -233,6 +263,41 @@ export default function MealPlanner() {
       <button onClick={handleWhatCanIMake} disabled={planning} className="btn-secondary w-full">
         <Sparkles size={18} /> What Can I Make Right Now?
       </button>
+
+      <button onClick={handleGetDirections} disabled={planning} className="btn-secondary w-full">
+        <Sparkles size={18} /> Explore 3 Cooking Directions
+      </button>
+
+      {directions && directions.length > 0 && (
+        <section className="card space-y-3">
+          <h3 className="font-semibold">Pick a Direction</h3>
+          {directionsNote && <p className="text-sm text-chef-subtle">{directionsNote}</p>}
+          {directions.map((d) => (
+            <button
+              key={d.id}
+              type="button"
+              onClick={() => setSelectedDirectionId(d.id)}
+              className={`w-full text-left rounded-xl border p-3 transition-colors ${
+                selectedDirectionId === d.id
+                  ? 'border-chef bg-stainless-100'
+                  : 'border-steel bg-white hover:border-chef/40'
+              }`}
+            >
+              <p className="font-medium text-chef">{d.cuisine_label}</p>
+              <p className="text-sm font-semibold mt-0.5">{d.title}</p>
+              <p className="text-xs text-chef-subtle mt-1">{d.tagline}</p>
+              {d.technique_hint && (
+                <p className="text-xs text-chef-subtle mt-1">Technique: {d.technique_hint}</p>
+              )}
+            </button>
+          ))}
+          {selectedDirectionId && (
+            <p className="text-xs text-chef-subtle">
+              Selected direction will guide your next plan below.
+            </p>
+          )}
+        </section>
+      )}
 
       {suggestions && (
         <section className="card space-y-3">

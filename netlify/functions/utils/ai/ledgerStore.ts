@@ -9,7 +9,9 @@ import type { DevStore } from '../types.js';
 import type { MealPlan, PlannedMeal } from '../../../src/types/index.js';
 import {
   mealReviewToLedgerEntry,
+  generationToLedgerEntry,
   type DecisionLedgerEntry,
+  type GenerationLedgerPayload,
   type MealReviewPayload,
 } from './decisionLedger.js';
 
@@ -165,6 +167,27 @@ export function formatLedgerSummaryForPlanner(entries: DecisionLedgerEntry[]): s
 export interface MealReviewResult {
   plan: MealPlan;
   ledger_entry: DecisionLedgerEntry;
+}
+
+export async function logGenerationToLedger(
+  userId: string,
+  token: string | undefined,
+  subjectKey: string,
+  payload: GenerationLedgerPayload,
+  householdId?: string,
+): Promise<DecisionLedgerEntry> {
+  const entry = generationToLedgerEntry(userId, payload, householdId);
+  if (useDevStore()) {
+    const store = loadStore() as DevStore & { decision_ledger?: StoredLedgerRow[] };
+    const row = persistLedgerEntryDevStore(store, entry, subjectKey);
+    saveStore(store);
+    return { ...entry, id: row.id };
+  }
+  if (!token) return entry;
+  const { getSupabaseUserClient } = await import('../supabase.js');
+  const db = getSupabaseUserClient(token);
+  const row = await persistLedgerEntrySupabase(db, entry, subjectKey);
+  return rowToEntry(row);
 }
 
 export async function persistMealPlanReview(

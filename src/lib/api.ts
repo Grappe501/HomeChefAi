@@ -98,8 +98,16 @@ export const mealsApi = {
   list: () => api<{ plans: import('@/types').MealPlan[] }>('meals'),
   plan: (data: Record<string, unknown>) =>
     api<{ plan: import('@/types').MealPlan; xp_gained?: number }>('meals', { method: 'POST', body: JSON.stringify(data) }),
+  getDirections: (data?: { cooking_style?: string }) =>
+    api<import('@/types/mealDirections').MealDirectionsResult>('meals', {
+      method: 'POST',
+      body: JSON.stringify({ mode: 'directions', ...data }),
+    }),
   whatCanIMake: () =>
-    api<{ suggestions: import('@/types').MealPlanData }>('meals', {
+    api<
+      | { directions: import('@/types/mealDirections').MealDirection[]; inventory_summary: string; reasoning_note: string }
+      | { suggestions: import('@/types').MealPlanData }
+    >('meals', {
       method: 'POST',
       body: JSON.stringify({ action: 'what-can-i-make' }),
     }),
@@ -171,7 +179,13 @@ export const usageApi = {
 
 export const assistantApi = {
   chat: (message: string, history?: { role: string; content: string }[]) =>
-    api<{ reply: string; suggested_items?: { name: string; quantity: number; unit: string }[]; action?: string }>('assistant', {
+    api<{
+      reply: string;
+      suggested_items?: { name: string; quantity: number; unit: string }[];
+      action?: string;
+      directions?: import('@/types/mealDirections').MealDirection[];
+      intent?: string;
+    }>('assistant', {
       method: 'POST',
       body: JSON.stringify({ message, history }),
     }),

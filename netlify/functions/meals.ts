@@ -13,8 +13,10 @@ import {
   persistMealPlanReview,
   getRecentLedger,
   formatLedgerSummaryForPlanner,
+  logGenerationToLedger,
 } from './utils/ai/ledgerStore.js';
 import type { MealReviewPayload } from './utils/ai/decisionLedger.js';
+import { buildMealDirections, findDirectionById, formatDirectionsForPrompt } from './utils/ai/reasoning.js';
 
 type MealCounts = { breakfasts: number; lunches: number; dinners: number; snacks: number };
 
@@ -322,6 +324,7 @@ async function generateMealPlanChunk(
     includeShoppingList?: boolean;
     fullPlanCounts?: MealCounts;
     ledgerFeedback?: string;
+    directionPrompt?: string;
   },
 ): Promise<MealPlanData> {
   const inventoryList = formatInventoryList(inventory);
@@ -354,6 +357,7 @@ Inventory:
 ${inventoryList}
 (${formatInventorySummary(inventory)})
 ${params.message ? `Chef request: ${params.message}` : ''}
+${params.directionPrompt ? `\nSelected cooking direction:\n${params.directionPrompt}` : ''}
 ${params.ledgerFeedback ? `\n${params.ledgerFeedback}` : ''}
 ${shoppingNote}
 Use "day" field values ${params.startDay} through ${params.startDay + params.dayCount - 1}.`;
@@ -375,9 +379,19 @@ async function generateHeavyMealPlan(
     cooking_style?: string;
     cook_nights?: number;
     ledgerFeedback?: string;
+    direction_id?: string;
+    directionPrompt?: string;
   },
 ): Promise<MealPlanData> {
   const { days, mealCounts } = params;
+  const directionPrompt = params.directionPrompt ?? (
+    params.direction_id
+      ? (() => {
+          const dir = findDirectionById(inventory, profile, params.direction_id!, params.cooking_style);
+          return dir ? formatDirectionsForPrompt(dir) : undefined;
+        })()
+      : undefined
+  );
   const tasks: Promise<MealPlanData>[] = [];
   const shared = {
     budget: params.budget,
@@ -388,6 +402,7 @@ async function generateHeavyMealPlan(
     cookNights: params.cook_nights,
     fullPlanCounts: mealCounts,
     ledgerFeedback: params.ledgerFeedback,
+    directionPrompt,
   };
 
   if (mealCounts.breakfasts > 0) {
@@ -463,13 +478,23 @@ async function generateMealPlan(
     cooking_style?: string;
     cook_nights?: number;
     ledgerFeedback?: string;
+    direction_id?: string;
+    directionPrompt?: string;
   },
 ): Promise<MealPlanData> {
   const days = Math.min(Math.max(params.days, 1), 14);
   const mealCounts = resolveMealCounts(days, params);
+  const directionPrompt = params.directionPrompt ?? (
+    params.direction_id
+      ? (() => {
+          const dir = findDirectionById(inventory, profile, params.direction_id!, params.cooking_style);
+          return dir ? formatDirectionsForPrompt(dir) : undefined;
+        })()
+      : undefined
+  );
 
   if (totalMeals(mealCounts) > 12) {
-    return generateHeavyMealPlan(inventory, profile, { ...params, days, mealCounts });
+    return generateHeavyMealPlan(inventory, profile, { ...params, days, mealCounts, directionPrompt });
   }
 
   const chunkSize = Math.min(chunkSizeForCoverage(mealCounts, days), days);
@@ -491,6 +516,7 @@ async function generateMealPlan(
       includeShoppingList: start === 1,
       fullPlanCounts: mealCounts,
       ledgerFeedback: params.ledgerFeedback,
+      directionPrompt,
     }));
   }
 
@@ -533,12 +559,44 @@ export const handler: Handler = withCors(async (event) => {
       planning_goal?: string; coverage_preset?: string;
       cooking_style?: string; cook_nights?: number;
       action?: string; plan_id?: string;
+      mode?: string; direction_id?: string;
     }>(event);
     if (!body) return errorResponse('Invalid body');
 
     const { inventory, profile } = await loadKitchenContext(userId, user.token);
 
+    if (body.mode === 'directions' || body.action === 'directions') {
+      const result = buildMealDirections(inventory, profile, {
+        count: 3,
+        cooking_style: body.cooking_style,
+      });
+      await logGenerationToLedger(
+        userId,
+        user.token,
+        `generation:directions:${Date.now()}`,
+        {
+          domain: 'meal_plan',
+          recommendation: result.directions.map((d) => d.title).join(' · ') || 'directions',
+          why: result.reasoning_note,
+          evidence: result.directions.flatMap((d) => d.evidence).slice(0, 12),
+          confidence: result.directions[0]?.confidence ?? 0.7,
+          expert_ids: ['executive_chef', 'flavor_architect'],
+          metadata: { mode: 'directions', direction_count: result.directions.length },
+        },
+        profile.household_id,
+      );
+      return jsonResponse(result);
+    }
+
     if (body.action === 'what-can-i-make') {
+      const directions = buildMealDirections(inventory, profile, { count: 3 });
+      if (directions.directions.length >= 2) {
+        return jsonResponse({
+          directions: directions.directions,
+          inventory_summary: directions.inventory_summary,
+          reasoning_note: directions.reasoning_note,
+        });
+      }
       const planData = await generateMealPlanChunk(inventory, profile, {
         startDay: 1,
         dayCount: 1,
@@ -608,6 +666,9 @@ export const handler: Handler = withCors(async (event) => {
     };
     const enrichedPlanData = enrichMealsWithIntelligence(planData, inventory, profile);
     const planId = uuidv4();
+    const selectedDirection = body.direction_id
+      ? findDirectionById(inventory, profile, body.direction_id, body.cooking_style)
+      : undefined;
     const startDate = new Date();
     const endDate = new Date();
     endDate.setDate(endDate.getDate() + days);
@@ -624,6 +685,32 @@ export const handler: Handler = withCors(async (event) => {
       plan_data: enrichedPlanData,
       created_at: new Date().toISOString(),
     };
+
+    await logGenerationToLedger(
+      userId,
+      user.token,
+      `generation:meal_plan:${planId}`,
+      {
+        domain: 'meal_plan',
+        recommendation: plan.title,
+        why: selectedDirection
+          ? `Plan generated from direction: ${selectedDirection.title} (${selectedDirection.cuisine_label})`
+          : `Generated ${days}-day meal plan from pantry and profile preferences.`,
+        evidence: [
+          ...(selectedDirection?.evidence ?? []),
+          ...enrichedPlanData.meals.slice(0, 5).map((m) => `meal:${m.name}`),
+        ].slice(0, 12),
+        confidence: selectedDirection?.confidence ?? 0.75,
+        expert_ids: ['executive_chef', 'budget_analyst', 'flavor_architect'],
+        metadata: {
+          plan_id: planId,
+          direction_id: body.direction_id,
+          meal_count: enrichedPlanData.meals.length,
+          planning_goal: body.planning_goal,
+        },
+      },
+      profile.household_id,
+    );
 
     if (useDevStore()) {
       const store = loadStore();

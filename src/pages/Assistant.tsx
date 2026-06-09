@@ -7,9 +7,12 @@ import { assistantFirstName } from '@/lib/assistant';
 import VoiceButton from '@/components/VoiceButton';
 import SousChefMark from '@/components/SousChefMark';
 
+import type { MealDirection } from '@/types/mealDirections';
+
 interface Message {
   role: 'user' | 'assistant';
   content: string;
+  directions?: MealDirection[];
 }
 
 export default function Assistant() {
@@ -38,9 +41,13 @@ export default function Assistant() {
     try {
       const history = messages.map((m) => ({ role: m.role, content: m.content }));
       const result = await assistantApi.chat(text, history);
-      const assistantMsg: Message = { role: 'assistant', content: result.reply };
+      const assistantMsg: Message = {
+        role: 'assistant',
+        content: result.reply.replace(/\*\*/g, ''),
+        directions: result.directions,
+      };
       setMessages((m) => [...m, assistantMsg]);
-      speak(result.reply);
+      speak(result.reply.replace(/\*\*/g, ''));
     } catch {
       setMessages((m) => [...m, { role: 'assistant', content: 'Sorry, I had trouble with that. Try again?' }]);
     } finally {
@@ -76,7 +83,23 @@ export default function Assistant() {
                     : 'bg-white border border-steel rounded-bl-sm'
                 }`}
               >
-                <p className="text-sm leading-relaxed">{msg.content}</p>
+                <p className="text-sm leading-relaxed whitespace-pre-line">{msg.content}</p>
+                {msg.directions && msg.directions.length > 0 && (
+                  <div className="mt-3 space-y-2">
+                    {msg.directions.map((d) => (
+                      <button
+                        key={d.id}
+                        type="button"
+                        onClick={() => send(`Build a plan around the ${d.cuisine_label} direction: ${d.title}`)}
+                        className="w-full text-left rounded-lg border border-steel bg-stainless-50 px-3 py-2 hover:border-chef/40"
+                      >
+                        <p className="text-xs font-semibold text-chef">{d.cuisine_label}</p>
+                        <p className="text-sm font-medium">{d.title}</p>
+                        <p className="text-xs text-chef-subtle mt-0.5">{d.tagline}</p>
+                      </button>
+                    ))}
+                  </div>
+                )}
                 {msg.role === 'assistant' && (
                   <button
                     onClick={() => speak(msg.content)}

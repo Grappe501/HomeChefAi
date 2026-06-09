@@ -48,6 +48,37 @@ export function mealReviewSubjectKey(planId: string, mealKey: string): string {
 }
 
 /** Build ledger entry from meal plan review with intelligence evidence */
+export interface GenerationLedgerPayload {
+  domain: DecisionDomain;
+  recommendation: string;
+  why: string;
+  evidence: string[];
+  confidence?: number;
+  expert_ids?: string[];
+  metadata?: Record<string, unknown>;
+}
+
+export function generationToLedgerEntry(
+  userId: string,
+  payload: GenerationLedgerPayload,
+  householdId?: string,
+): DecisionLedgerEntry {
+  return {
+    id: `dl_gen_${Date.now()}`,
+    user_id: userId,
+    household_id: householdId,
+    timestamp: new Date().toISOString(),
+    domain: payload.domain,
+    recommendation: payload.recommendation,
+    why: payload.why,
+    evidence: payload.evidence,
+    confidence: payload.confidence ?? 0.7,
+    expert_ids: payload.expert_ids ?? [],
+    outcome: 'pending',
+    metadata: payload.metadata,
+  };
+}
+
 export function mealReviewToLedgerEntry(
   userId: string,
   review: MealReviewPayload,
