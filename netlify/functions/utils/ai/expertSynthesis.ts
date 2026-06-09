@@ -5,6 +5,7 @@
 import type { Profile } from '../../../../src/types/index.js';
 import type { ExpertDefinition, ExpertId } from './brainRegistry.js';
 import { EXPERT_REGISTRY } from './brainRegistry.js';
+import { buildAllExpertKnowledgeContexts, buildExpertKnowledgeContext } from './expertKnowledge.js';
 
 export interface ExpertOutput {
   expert_id: ExpertId;
@@ -17,11 +18,16 @@ export interface ExpertOutput {
 
 export function needsExpertSynthesis(message: string, intent: string): boolean {
   if (intent === 'meal_plan') return true;
-  if (intent === 'hosting' || intent === 'substitution' || intent === 'suggestion') return false;
-  if (message.length > 120) return true;
-  return /\b(budget|healthy|nutrition|allerg|under \$|\$\d|cheap|constraint|balanced|macro|low.?carb|high.?protein)\b/i.test(
+  if (intent === 'hosting' || intent === 'substitution' || intent === 'suggestion' || intent === 'skill') {
+    return false;
+  }
+  if (/\b(budget|healthy|nutrition|allerg|under \$|\$\d|cheap|constraint|balanced|macro|low.?carb|high.?protein)\b/i.test(
     message,
-  );
+  )) {
+    return true;
+  }
+  if (message.length > 180) return true;
+  return false;
 }
 
 export function formatExpertOutputsForPrompt(outputs: ExpertOutput[]): string {
@@ -34,7 +40,120 @@ export function formatExpertOutputsForPrompt(outputs: ExpertOutput[]): string {
     .join('\n\n');
 }
 
+export async function runSingleExpert(
+  message: string,
+  expert: ExpertDefinition,
+  toolContext: string,
+  inventoryBlock: string,
+  profile: Profile,
+  priorOutputs: ExpertOutput[],
+): Promise<ExpertOutput> {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    return {
+      expert_id: expert.id,
+      display_name: expert.displayName,
+      recommendation: expert.role,
+      why: 'Offline mode.',
+      evidence: [],
+      confidence: 0.5,
+    };
+  }
+
+  const sliceContext = buildExpertKnowledgeContext(expert, message, 5);
+  const priorBlock = priorOutputs.length
+    ? `\nPrior expert opinions (build on or respectfully refine):\n${formatExpertOutputsForPrompt(priorOutputs)}`
+    : '';
+
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'gpt-4o-mini',
+      messages: [
+        {
+          role: 'system',
+          content: `${expert.systemPromptPrefix}
+You are ${expert.displayName}. Give ONE structured opinion only.
+Dietary: ${profile.dietary_restrictions.join(', ') || 'none'}. Allergies: ${profile.allergies.join(', ') || 'none'}.
+Pantry:
+${inventoryBlock}
+${toolContext ? `\nTool context:\n${toolContext}` : ''}
+${sliceContext ? `\nKnowledge:\n${sliceContext}` : ''}
+${priorBlock}
+Return JSON: {"recommendation":"string","why":"string","evidence":["string"],"confidence":0.0-1.0}
+Be concise. Never invent cook history.`,
+        },
+        { role: 'user', content: message },
+      ],
+      max_tokens: 350,
+      response_format: { type: 'json_object' },
+    }),
+  });
+
+  if (!response.ok) {
+    return {
+      expert_id: expert.id,
+      display_name: expert.displayName,
+      recommendation: expert.role,
+      why: 'Expert call failed.',
+      evidence: [],
+      confidence: 0.4,
+    };
+  }
+
+  const data = (await response.json()) as { choices: { message: { content: string } }[] };
+  const parsed = JSON.parse(data.choices[0].message.content) as {
+    recommendation: string;
+    why: string;
+    evidence?: string[];
+    confidence?: number;
+  };
+
+  return {
+    expert_id: expert.id,
+    display_name: expert.displayName,
+    recommendation: parsed.recommendation,
+    why: parsed.why,
+    evidence: parsed.evidence ?? [],
+    confidence: parsed.confidence ?? 0.7,
+  };
+}
+
+/** Phase 2 — experts run one at a time; each sees prior recommendations. */
+export async function runSequentialExpertChain(
+  message: string,
+  experts: ExpertDefinition[],
+  toolContext: string,
+  inventoryBlock: string,
+  profile: Profile,
+): Promise<ExpertOutput[]> {
+  const active = experts.filter((e) => e.id !== 'sous_chef').slice(0, 3);
+  const outputs: ExpertOutput[] = [];
+  for (const expert of active) {
+    const out = await runSingleExpert(message, expert, toolContext, inventoryBlock, profile, outputs);
+    outputs.push(out);
+  }
+  return outputs;
+}
+
 export async function runExpertSynthesis(
+  message: string,
+  experts: ExpertDefinition[],
+  toolContext: string,
+  inventoryBlock: string,
+  profile: Profile,
+): Promise<ExpertOutput[]> {
+  if (process.env.AGENT_V6_EXPERT_MODE === 'council') {
+    return runExpertCouncil(message, experts, toolContext, inventoryBlock, profile);
+  }
+  return runSequentialExpertChain(message, experts, toolContext, inventoryBlock, profile);
+}
+
+async function runExpertCouncil(
   message: string,
   experts: ExpertDefinition[],
   toolContext: string,
@@ -58,6 +177,8 @@ export async function runExpertSynthesis(
     .map((e) => `- ${e.id}: ${e.displayName} — ${e.systemPromptPrefix}`)
     .join('\n');
 
+  const sliceContext = buildAllExpertKnowledgeContexts(active, message);
+
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -74,6 +195,7 @@ Dietary: ${profile.dietary_restrictions.join(', ') || 'none'}. Allergies: ${prof
 Pantry:
 ${inventoryBlock}
 ${toolContext ? `\nTool context:\n${toolContext}` : ''}
+${sliceContext ? `\nFiltered knowledge per expert:\n${sliceContext}` : ''}
 
 Experts:
 ${expertList}

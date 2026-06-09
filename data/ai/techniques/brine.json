@@ -1,0 +1,25 @@
+{
+  "id": "technique.brine",
+  "type": "technique",
+  "display_name": "Brine",
+  "description": "Saltwater penetrates — juicy turkey and chicken; 5–6% salt for wet brine.",
+  "attributes": {
+    "micro_lesson": "Saltwater penetrates — juicy turkey and chicken; 5–6% salt for wet brine.",
+    "steps": [
+      "Dissolve salt completely",
+      "Submerge or inject",
+      "Rinse and dry for crisp skin",
+      "Time by weight"
+    ],
+    "difficulty": "intermediate",
+    "category": "prep",
+    "cuisine_tags": [
+      "american",
+      "southern"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

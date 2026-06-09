@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.american",
+  "type": "cuisine",
+  "display_name": "Classic American",
+  "description": "Classic American home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "american",
+      "american"
+    ],
+    "region": "american",
+    "signature_spice": "salt and pepper",
+    "signature_starch": "potatoes"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

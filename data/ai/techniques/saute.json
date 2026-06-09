@@ -2,15 +2,24 @@
   "id": "technique.saute",
   "type": "technique",
   "display_name": "Sauté",
+  "description": "Medium-high heat, small uniform cuts, keep food moving.",
   "attributes": {
+    "micro_lesson": "Medium-high heat, small uniform cuts, keep food moving.",
+    "steps": [
+      "Heat fat",
+      "Add aromatics",
+      "Add main ingredient",
+      "Toss frequently"
+    ],
+    "difficulty": "beginner",
+    "category": "heat",
     "cuisine_tags": [
       "french",
       "italian"
     ],
-    "micro_lesson": "Cook until onions turn translucent — that sweetness is your flavor base."
+    "flavor_links": []
   },
   "sources": [
-    "generate-pantry-knowledge"
-  ],
-  "description": "Quick cooking in a small amount of fat over medium-high heat."
+    "training-kitchen"
+  ]
 }

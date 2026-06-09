@@ -1,0 +1,20 @@
+{
+  "id": "technique.mirepoix",
+  "kind": "technique",
+  "title": "Mirepoix / Sofrito",
+  "knowledge_id": "technique.mirepoix",
+  "match_keywords": [
+    "mirepoix",
+    "mirepoix / sofrito"
+  ],
+  "summary": "Aromatic base — onion, carrot, celery (or pepper, garlic, tomato) builds flavor layers.",
+  "origins": "Mirepoix / Sofrito is a core foundation technique used across french, italian, mexican cooking.",
+  "history": "Home cooks and professionals rely on mirepoix / sofrito for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Uniform dice",
+    "Sweat in fat",
+    "Do not brown unless specified",
+    "Build sauce on top"
+  ],
+  "related_ids": []
+}

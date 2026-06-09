@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.middle_eastern",
+  "type": "cuisine",
+  "display_name": "Middle Eastern",
+  "description": "Middle Eastern home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "middle_eastern",
+      "middle_east"
+    ],
+    "region": "middle_east",
+    "signature_spice": "baharat",
+    "signature_starch": "rice"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

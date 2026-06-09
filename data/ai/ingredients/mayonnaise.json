@@ -9,10 +9,50 @@
       "vegetarian": true,
       "contains_eggs": true
     },
-    "cuisine_tags": []
+    "cuisine_tags": [],
+    "unit_category": "volume",
+    "default_unit": "jar",
+    "package_label": "jar",
+    "packaging_options": [
+      {
+        "label": "1 jar",
+        "quantity": 1,
+        "unit": "jar"
+      },
+      {
+        "label": "2 jars",
+        "quantity": 2,
+        "unit": "jar"
+      }
+    ],
+    "retail_aisle": "Condiments & Sauces",
+    "storage_location": "pantry",
+    "brand_examples": [
+      {
+        "id": "hellmanns",
+        "label": "Hellmann's",
+        "tier": "national"
+      },
+      {
+        "id": "dukes",
+        "label": "Duke's",
+        "tier": "regional"
+      },
+      {
+        "id": "kraft",
+        "label": "Kraft",
+        "tier": "national"
+      },
+      {
+        "id": "just",
+        "label": "Just Mayo",
+        "tier": "premium"
+      }
+    ]
   },
   "sources": [
     "generate-pantry-knowledge",
-    "pantry_wizard_1_0"
+    "pantry_wizard_1_0",
+    "ingredient_depth_v1"
   ]
 }

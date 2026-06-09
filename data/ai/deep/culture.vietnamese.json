@@ -1,0 +1,22 @@
+{
+  "id": "culture.vietnamese",
+  "kind": "culture",
+  "title": "Vietnamese Culinary Culture",
+  "knowledge_id": "culture.vietnamese",
+  "match_keywords": [
+    "vietnamese",
+    "vietnamese",
+    "asia"
+  ],
+  "summary": "Vietnamese: fish sauce and lime, rice noodles, oil.",
+  "origins": "Vietnamese cuisine reflects asia geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Balance of sweet, sour, salty, spicy, and umami in every bite.",
+  "teaching": [
+    "High heat for wok hei, fish sauce or soy for umami, fresh herbs at the very end.",
+    "Soy, ginger, garlic, rice, and a hot wok or large skillet.",
+    "Signature pairing: fish sauce and lime + rice noodles + oil."
+  ],
+  "related_ids": [
+    "cuisine.vietnamese"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "technique.smoke",
+  "kind": "technique",
+  "title": "Smoke",
+  "knowledge_id": "technique.smoke",
+  "match_keywords": [
+    "smoke",
+    "smoke"
+  ],
+  "summary": "Low and slow — smoke ring is chemistry, patience is flavor.",
+  "origins": "Smoke is a core heat technique used across bbq, southern cooking.",
+  "history": "Home cooks and professionals rely on smoke for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Maintain 225–275°F",
+    "Wood choice matters",
+    "Wrap when bark sets",
+    "Rest and hold"
+  ],
+  "related_ids": []
+}

@@ -1,0 +1,25 @@
+{
+  "id": "technique.render_fat",
+  "type": "technique",
+  "display_name": "Render Fat",
+  "description": "Low heat melts bacon or chicken fat out — cracklings and liquid gold for cooking.",
+  "attributes": {
+    "micro_lesson": "Low heat melts bacon or chicken fat out — cracklings and liquid gold for cooking.",
+    "steps": [
+      "Cold pan, diced fat",
+      "Low heat slowly",
+      "Strain liquid fat",
+      "Store refrigerated"
+    ],
+    "difficulty": "intermediate",
+    "category": "fat",
+    "cuisine_tags": [
+      "southern",
+      "comfort"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

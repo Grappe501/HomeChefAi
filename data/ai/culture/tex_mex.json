@@ -1,0 +1,32 @@
+{
+  "id": "culture.tex_mex",
+  "type": "culture",
+  "display_name": "Tex-Mex Culinary Culture",
+  "description": "Tex-Mex cooking centers on chili powder, flour tortillas, and cheese. Regional pride — smoke, cast iron, and generous portions with table-side adjustment.",
+  "attributes": {
+    "cuisine_id": "cuisine.tex_mex",
+    "cuisine_key": "tex_mex",
+    "region": "american",
+    "signature_spice": "chili powder",
+    "signature_starch": "flour tortillas",
+    "signature_fat": "cheese",
+    "micro_lesson": "Smoke and spice rubs, fond from cast iron, vinegar or hot sauce at the table for balance.",
+    "shopping_tip": "Cast iron, BBQ sauce, chili powder, and good black pepper.",
+    "flavor_building": [
+      "Start with cheese as your cooking medium.",
+      "Season with chili powder — toast or bloom in fat when using ground spices.",
+      "Build the plate around flour tortillas as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Tex-Mex food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "tex_mex",
+      "american"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

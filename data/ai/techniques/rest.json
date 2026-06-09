@@ -1,15 +1,25 @@
 {
   "id": "technique.rest",
   "type": "technique",
-  "display_name": "Rest (meat)",
+  "display_name": "Rest (Meat)",
+  "description": "Juices redistribute — 5 min for steaks, 20+ for roasts; tent loosely with foil.",
   "attributes": {
+    "micro_lesson": "Juices redistribute — 5 min for steaks, 20+ for roasts; tent loosely with foil.",
+    "steps": [
+      "Transfer off heat",
+      "Tent foil loosely",
+      "Wait before slicing",
+      "Slice against grain"
+    ],
+    "difficulty": "beginner",
+    "category": "finishing",
     "cuisine_tags": [
       "bbq",
       "american"
     ],
-    "micro_lesson": "Rest meat 5–10 minutes after cooking — juices redistribute instead of running out."
+    "flavor_links": []
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

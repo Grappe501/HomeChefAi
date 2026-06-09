@@ -1,0 +1,21 @@
+{
+  "id": "food_source.walmart",
+  "kind": "food_source",
+  "title": "Walmart",
+  "knowledge_id": "food_source.walmart",
+  "match_keywords": [
+    "walmart",
+    "walmart",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Great for staples and pantry basics",
+  "origins": "Walmart is a chain retailer — knowing layout and house brands saves time and money.",
+  "history": "Seasonal displays at front — holiday baking, summer grilling.",
+  "teaching": [
+    "Great for staples and pantry basics",
+    "Check Great Value and Marketside for value",
+    "Use grocery pickup for meal-plan efficiency"
+  ]
+}

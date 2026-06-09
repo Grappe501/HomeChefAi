@@ -1,11 +1,18 @@
 {
   "id": "cuisine.southern",
   "type": "cuisine",
-  "display_name": "Southern",
+  "display_name": "Southern US",
+  "description": "Southern US home cooking — full course library with mains, appetizers, desserts, and more.",
   "attributes": {
-    "staples": ["ingredient.flour", "ingredient.butter", "ingredient.chicken", "ingredient.garlic"],
-    "regional_uses": ["Biscuits and gravy", "Fried chicken", "Collard greens", "Cornbread"],
-    "cuisine_tags": ["southern", "comfort", "american"]
+    "cuisine_tags": [
+      "southern",
+      "american"
+    ],
+    "region": "american",
+    "signature_spice": "black pepper",
+    "signature_starch": "cornbread"
   },
-  "sources": ["curated"]
+  "sources": [
+    "corpus_v3"
+  ]
 }

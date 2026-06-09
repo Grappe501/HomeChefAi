@@ -1,0 +1,22 @@
+{
+  "id": "culture.japanese",
+  "kind": "culture",
+  "title": "Japanese Culinary Culture",
+  "knowledge_id": "culture.japanese",
+  "match_keywords": [
+    "japanese",
+    "japanese",
+    "asia"
+  ],
+  "summary": "Japanese: miso and ginger, rice, sesame oil.",
+  "origins": "Japanese cuisine reflects asia geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Balance of sweet, sour, salty, spicy, and umami in every bite.",
+  "teaching": [
+    "High heat for wok hei, fish sauce or soy for umami, fresh herbs at the very end.",
+    "Soy, ginger, garlic, rice, and a hot wok or large skillet.",
+    "Signature pairing: miso and ginger + rice + sesame oil."
+  ],
+  "related_ids": [
+    "cuisine.japanese"
+  ]
+}

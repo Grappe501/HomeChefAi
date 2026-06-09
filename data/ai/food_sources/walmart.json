@@ -1,0 +1,32 @@
+{
+  "id": "food_source.walmart",
+  "type": "food_source",
+  "display_name": "Walmart",
+  "description": "Great for staples and pantry basics",
+  "attributes": {
+    "source_type": "chain",
+    "store_type": "chain",
+    "local_food_pref": null,
+    "shopping_tips": [
+      "Great for staples and pantry basics",
+      "Check Great Value and Marketside for value",
+      "Use grocery pickup for meal-plan efficiency"
+    ],
+    "seasonal_notes": "Seasonal displays at front — holiday baking, summer grilling.",
+    "cuisine_tags": [
+      "national",
+      "budget"
+    ],
+    "aisles": [
+      "Produce",
+      "Meat",
+      "Dairy",
+      "Frozen",
+      "Pantry",
+      "Bakery"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.turkish",
+  "type": "cuisine",
+  "display_name": "Turkish",
+  "description": "Turkish home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "turkish",
+      "middle_east"
+    ],
+    "region": "middle_east",
+    "signature_spice": "cumin and mint",
+    "signature_starch": "bulgur"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

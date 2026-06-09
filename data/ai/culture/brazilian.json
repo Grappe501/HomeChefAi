@@ -1,0 +1,32 @@
+{
+  "id": "culture.brazilian",
+  "type": "culture",
+  "display_name": "Brazilian Culinary Culture",
+  "description": "Brazilian cooking centers on lime and garlic, rice, and oil. Fresh lime, chili heat, and masa or rice — brightness against rich proteins.",
+  "attributes": {
+    "cuisine_id": "cuisine.brazilian",
+    "cuisine_key": "brazilian",
+    "region": "latin",
+    "signature_spice": "lime and garlic",
+    "signature_starch": "rice",
+    "signature_fat": "oil",
+    "micro_lesson": "Char chilies and tomatoes, bloom cumin in fat, finish with cilantro and lime never cooked long.",
+    "shopping_tip": "Dried chilies, cumin, corn products, and fresh lime are non-negotiable.",
+    "flavor_building": [
+      "Start with oil as your cooking medium.",
+      "Season with lime and garlic — toast or bloom in fat when using ground spices.",
+      "Build the plate around rice as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Brazilian food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "brazilian",
+      "latin"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

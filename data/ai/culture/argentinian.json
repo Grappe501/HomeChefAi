@@ -1,0 +1,32 @@
+{
+  "id": "culture.argentinian",
+  "type": "culture",
+  "display_name": "Argentinian Culinary Culture",
+  "description": "Argentinian cooking centers on chimichurri, potatoes, and olive oil. Fresh lime, chili heat, and masa or rice — brightness against rich proteins.",
+  "attributes": {
+    "cuisine_id": "cuisine.argentinian",
+    "cuisine_key": "argentinian",
+    "region": "latin",
+    "signature_spice": "chimichurri",
+    "signature_starch": "potatoes",
+    "signature_fat": "olive oil",
+    "micro_lesson": "Char chilies and tomatoes, bloom cumin in fat, finish with cilantro and lime never cooked long.",
+    "shopping_tip": "Dried chilies, cumin, corn products, and fresh lime are non-negotiable.",
+    "flavor_building": [
+      "Start with olive oil as your cooking medium.",
+      "Season with chimichurri — toast or bloom in fat when using ground spices.",
+      "Build the plate around potatoes as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Argentinian food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "argentinian",
+      "latin"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

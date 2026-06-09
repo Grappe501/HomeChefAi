@@ -1,0 +1,27 @@
+{
+  "id": "flavor_profile.bitter_bright",
+  "type": "flavor_profile",
+  "display_name": "Bitter-Bright",
+  "description": "Radicchio, arugula, coffee, dark chocolate in savory — bitterness needs salt and fat.",
+  "attributes": {
+    "micro_lesson": "Radicchio, arugula, coffee, dark chocolate in savory — bitterness needs salt and fat.",
+    "flavor_pillars": [
+      "bitter_green",
+      "acid",
+      "olive_oil"
+    ],
+    "build_depth": [
+      "Char bitter greens lightly",
+      "Balance with sweet fruit or balsamic",
+      "Use olive oil generously"
+    ],
+    "balance_tip": "Sweet and acid turn bitterness into complexity, not harshness.",
+    "cuisine_tags": [
+      "italian",
+      "mediterranean"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

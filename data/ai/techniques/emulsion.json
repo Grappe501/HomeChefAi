@@ -2,10 +2,23 @@
   "id": "technique.emulsion",
   "type": "technique",
   "display_name": "Emulsion",
-  "description": "Combining fat and water-based liquids into a stable sauce.",
+  "description": "Slow oil into egg yolk/lemon while whisking — mayo, hollandaise, vinaigrette.",
   "attributes": {
-    "micro_lesson": "Add oil slowly while whisking — one broken emulsion usually means you rushed.",
-    "cuisine_tags": ["french", "italian"]
+    "micro_lesson": "Slow oil into egg yolk/lemon while whisking — mayo, hollandaise, vinaigrette.",
+    "steps": [
+      "Room temp ingredients",
+      "Whisk base",
+      "Drizzle oil slowly",
+      "Fix broken with water drop"
+    ],
+    "difficulty": "advanced",
+    "category": "finishing",
+    "cuisine_tags": [
+      "french"
+    ],
+    "flavor_links": []
   },
-  "sources": ["curated"]
+  "sources": [
+    "training-kitchen"
+  ]
 }

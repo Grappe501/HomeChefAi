@@ -1,0 +1,22 @@
+{
+  "id": "culture.malaysian",
+  "kind": "culture",
+  "title": "Malaysian Culinary Culture",
+  "knowledge_id": "culture.malaysian",
+  "match_keywords": [
+    "malaysian",
+    "malaysian",
+    "asia"
+  ],
+  "summary": "Malaysian: curry paste, rice, coconut milk.",
+  "origins": "Malaysian cuisine reflects asia geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Balance of sweet, sour, salty, spicy, and umami in every bite.",
+  "teaching": [
+    "High heat for wok hei, fish sauce or soy for umami, fresh herbs at the very end.",
+    "Soy, ginger, garlic, rice, and a hot wok or large skillet.",
+    "Signature pairing: curry paste + rice + coconut milk."
+  ],
+  "related_ids": [
+    "cuisine.malaysian"
+  ]
+}

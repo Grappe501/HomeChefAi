@@ -46,9 +46,54 @@
     "dietary": {
       "vegetarian": true,
       "contains_dairy": true
-    }
+    },
+    "unit_category": "weight",
+    "default_unit": "stick",
+    "package_label": "stick",
+    "packaging_options": [
+      {
+        "label": "1 stick",
+        "quantity": 1,
+        "unit": "stick"
+      },
+      {
+        "label": "2 sticks",
+        "quantity": 2,
+        "unit": "sticks"
+      },
+      {
+        "label": "1 lb box",
+        "quantity": 1,
+        "unit": "lb"
+      }
+    ],
+    "retail_aisle": "Dairy & Eggs",
+    "storage_location": "fridge",
+    "brand_examples": [
+      {
+        "id": "kerrygold",
+        "label": "Kerrygold",
+        "tier": "premium"
+      },
+      {
+        "id": "land_o_lakes",
+        "label": "Land O Lakes",
+        "tier": "national"
+      },
+      {
+        "id": "challenge",
+        "label": "Challenge",
+        "tier": "national"
+      },
+      {
+        "id": "plugra",
+        "label": "Plugrá",
+        "tier": "premium"
+      }
+    ]
   },
   "sources": [
-    "curated"
+    "curated",
+    "ingredient_depth_v1"
   ]
 }

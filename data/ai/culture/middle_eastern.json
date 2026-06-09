@@ -1,0 +1,32 @@
+{
+  "id": "culture.middle_eastern",
+  "type": "culture",
+  "display_name": "Middle Eastern Culinary Culture",
+  "description": "Middle Eastern cooking centers on baharat, rice, and tahini. Shared plates, warm spices, and balance of grain, legume, and herb.",
+  "attributes": {
+    "cuisine_id": "cuisine.middle_eastern",
+    "cuisine_key": "middle_eastern",
+    "region": "middle_east",
+    "signature_spice": "baharat",
+    "signature_starch": "rice",
+    "signature_fat": "tahini",
+    "micro_lesson": "Toast spices, use yogurt and tahini for richness, finish with fresh herb and pomegranate acid.",
+    "shopping_tip": "Sumac, zaatar, bulgur, chickpeas, and flatbread are pantry anchors.",
+    "flavor_building": [
+      "Start with tahini as your cooking medium.",
+      "Season with baharat — toast or bloom in fat when using ground spices.",
+      "Build the plate around rice as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Middle Eastern food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "middle_eastern",
+      "middle_east"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

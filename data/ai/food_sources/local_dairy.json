@@ -1,0 +1,25 @@
+{
+  "id": "food_source.local_dairy",
+  "type": "food_source",
+  "display_name": "Local Dairy & Creamery",
+  "description": "Fresh cheese and milk often beat supermarket on flavor.",
+  "attributes": {
+    "source_type": "local",
+    "store_type": "local",
+    "local_food_pref": "local_dairy",
+    "shopping_tips": [
+      "Fresh cheese and milk often beat supermarket on flavor.",
+      "Farm stores may sell eggs and meat too.",
+      "Check sell-by dates — local often shorter shelf life, better taste."
+    ],
+    "seasonal_notes": "Combine with farmers market run when both are same-day.",
+    "cuisine_tags": [
+      "dairy",
+      "regional"
+    ],
+    "aisles": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

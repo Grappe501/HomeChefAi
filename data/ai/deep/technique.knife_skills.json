@@ -1,0 +1,19 @@
+{
+  "id": "technique.knife_skills",
+  "kind": "technique",
+  "title": "Knife Skills",
+  "knowledge_id": "technique.knife_skills",
+  "match_keywords": [
+    "knife skills",
+    "knife skills"
+  ],
+  "summary": "Claw grip, sharp knife, uniform cuts cook evenly — dull knives are dangerous.",
+  "origins": "Knife Skills is a core prep technique used across global cooking.",
+  "history": "Home cooks and professionals rely on knife skills for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Pinch grip on blade",
+    "Guide with knuckles tucked",
+    "Match cut to cook method"
+  ],
+  "related_ids": []
+}

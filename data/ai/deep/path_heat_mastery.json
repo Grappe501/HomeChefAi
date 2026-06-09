@@ -1,0 +1,20 @@
+{
+  "id": "path.heat_mastery",
+  "kind": "path",
+  "title": "Heat Mastery",
+  "summary": "From sear to braise — control temperature and timing.",
+  "origins": "Kitchen Academy structured paths — learn techniques and concepts in intentional order.",
+  "history": "From sear to braise — control temperature and timing.",
+  "teaching": [
+    "Dry surface + hot pan = Maillard crust.",
+    "Low moist heat transforms tough cuts over time.",
+    "Resting meat is not optional — juices need to settle."
+  ],
+  "related_ids": [
+    "technique.sear",
+    "technique.saute",
+    "technique.roast",
+    "technique.braise",
+    "technique.rest"
+  ]
+}

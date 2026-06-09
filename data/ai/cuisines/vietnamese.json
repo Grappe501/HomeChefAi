@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.vietnamese",
+  "type": "cuisine",
+  "display_name": "Vietnamese",
+  "description": "Vietnamese home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "vietnamese",
+      "asia"
+    ],
+    "region": "asia",
+    "signature_spice": "fish sauce and lime",
+    "signature_starch": "rice noodles"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "food_source.local_dairy",
+  "kind": "food_source",
+  "title": "Local Dairy & Creamery",
+  "knowledge_id": "food_source.local_dairy",
+  "match_keywords": [
+    "local dairy",
+    "local dairy & creamery",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Fresh cheese and milk often beat supermarket on flavor.",
+  "origins": "Local food sourcing connects cooks to seasonality, community, and often better flavor per dollar when buying peak produce.",
+  "history": "Combine with farmers market run when both are same-day.",
+  "teaching": [
+    "Fresh cheese and milk often beat supermarket on flavor.",
+    "Farm stores may sell eggs and meat too.",
+    "Check sell-by dates — local often shorter shelf life, better taste."
+  ]
+}

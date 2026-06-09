@@ -1,0 +1,20 @@
+{
+  "id": "technique.ferment",
+  "kind": "technique",
+  "title": "Ferment",
+  "knowledge_id": "technique.ferment",
+  "match_keywords": [
+    "ferment",
+    "ferment"
+  ],
+  "summary": "Salt inhibits bad bacteria — kimchi, sauerkraut, miso are controlled fermentation.",
+  "origins": "Ferment is a core prep technique used across preservation, korean cooking.",
+  "history": "Home cooks and professionals rely on ferment for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Salt vegetables",
+    "Submerge under brine",
+    "Room temp then fridge",
+    "Taste as it develops"
+  ],
+  "related_ids": []
+}

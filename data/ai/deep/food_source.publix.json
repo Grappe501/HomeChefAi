@@ -1,0 +1,21 @@
+{
+  "id": "food_source.publix",
+  "kind": "food_source",
+  "title": "Publix",
+  "knowledge_id": "food_source.publix",
+  "match_keywords": [
+    "publix",
+    "publix",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "BOGO sales on staples",
+  "origins": "Publix is a regional retailer — knowing layout and house brands saves time and money.",
+  "history": "Florida citrus and regional produce highlighted.",
+  "teaching": [
+    "BOGO sales on staples",
+    "Sub sandwiches while you shop",
+    "Aprons meal kits and recipes in store"
+  ]
+}

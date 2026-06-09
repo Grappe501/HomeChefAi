@@ -1,0 +1,32 @@
+{
+  "id": "culture.south_african",
+  "type": "culture",
+  "display_name": "South African Culinary Culture",
+  "description": "South African cooking centers on curry powder, pap, and oil. Bold spice blends, slow stews, and starch scoops — communal eating is central.",
+  "attributes": {
+    "cuisine_id": "cuisine.south_african",
+    "cuisine_key": "south_african",
+    "region": "africa",
+    "signature_spice": "curry powder",
+    "signature_starch": "pap",
+    "signature_fat": "oil",
+    "micro_lesson": "Bloom berbere or ras el hanout in oil; long simmer with legumes; acid from lime or tamarind at finish.",
+    "shopping_tip": "Spice blends, palm or peanut oil, and injera or rice as base.",
+    "flavor_building": [
+      "Start with oil as your cooking medium.",
+      "Season with curry powder — toast or bloom in fat when using ground spices.",
+      "Build the plate around pap as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect South African food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "south_african",
+      "africa"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.greek",
+  "type": "cuisine",
+  "display_name": "Greek",
+  "description": "Greek home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "greek",
+      "mediterranean"
+    ],
+    "region": "mediterranean",
+    "signature_spice": "oregano and lemon",
+    "signature_starch": "rice"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

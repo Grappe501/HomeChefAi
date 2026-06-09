@@ -1,0 +1,25 @@
+{
+  "id": "technique.stock",
+  "type": "technique",
+  "display_name": "Stock & Broth",
+  "description": "Roast bones for depth; simmer skimming — never a rolling boil on clear stock.",
+  "attributes": {
+    "micro_lesson": "Roast bones for depth; simmer skimming — never a rolling boil on clear stock.",
+    "steps": [
+      "Roast bones optional",
+      "Cold water start",
+      "Simmer and skim",
+      "Strain and cool fast"
+    ],
+    "difficulty": "beginner",
+    "category": "foundation",
+    "cuisine_tags": [
+      "french",
+      "comfort"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

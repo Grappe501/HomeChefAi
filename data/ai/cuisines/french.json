@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.french",
+  "type": "cuisine",
+  "display_name": "French",
+  "description": "French home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "french",
+      "europe"
+    ],
+    "region": "europe",
+    "signature_spice": "herbes de Provence",
+    "signature_starch": "potatoes"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

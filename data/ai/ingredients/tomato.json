@@ -46,10 +46,82 @@
       "ingredient.tomato.paste",
       "ingredient.tomato.diced",
       "ingredient.tomato.crushed"
+    ],
+    "unit_category": "produce",
+    "default_unit": "lb",
+    "package_label": "lb",
+    "packaging_options": [
+      {
+        "label": "1 lb",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "label": "4 count",
+        "quantity": 4,
+        "unit": "each"
+      }
+    ],
+    "retail_aisle": "Produce",
+    "storage_location": "fridge",
+    "brand_examples": [
+      {
+        "id": "bushs",
+        "label": "Bush's",
+        "tier": "national"
+      },
+      {
+        "id": "goya",
+        "label": "Goya",
+        "tier": "national"
+      },
+      {
+        "id": "365",
+        "label": "365",
+        "tier": "store"
+      },
+      {
+        "id": "great_value",
+        "label": "Great Value",
+        "tier": "store"
+      }
+    ],
+    "form_options": [
+      {
+        "id": "fresh",
+        "label": "Fresh",
+        "packaging": "lb",
+        "knowledge_id": "ingredient.tomato.fresh"
+      },
+      {
+        "id": "diced_can",
+        "label": "Diced Can",
+        "packaging": "can",
+        "knowledge_id": "ingredient.tomato.diced"
+      },
+      {
+        "id": "crushed",
+        "label": "Crushed",
+        "packaging": "can",
+        "knowledge_id": "ingredient.tomato.crushed"
+      },
+      {
+        "id": "sauce",
+        "label": "Sauce",
+        "packaging": "jar",
+        "knowledge_id": "ingredient.tomato.sauce"
+      },
+      {
+        "id": "paste",
+        "label": "Paste",
+        "packaging": "can",
+        "knowledge_id": "ingredient.tomato.paste"
+      }
     ]
   },
   "sources": [
     "curated",
-    "food_taxonomy_1_0"
+    "food_taxonomy_1_0",
+    "ingredient_depth_v1"
   ]
 }

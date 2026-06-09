@@ -18,7 +18,7 @@ export default function ExploreIndex() {
         path="/explore"
       />
       <PageHeader
-        eyebrow="The platform · Brain 4.0"
+        eyebrow="The platform · Brain 5.1"
         title="Five layers. One kitchen that gets smarter."
         lead="22 live functions mapped with honest status badges — including proactive Brain, pantry vision, and Hosting Studio."
       />

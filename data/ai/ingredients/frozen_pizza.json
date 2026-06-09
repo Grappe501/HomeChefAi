@@ -10,10 +10,55 @@
       "contains_gluten": true,
       "contains_dairy": true
     },
-    "cuisine_tags": []
+    "cuisine_tags": [],
+    "unit_category": "count",
+    "default_unit": "each",
+    "package_label": "pizza",
+    "packaging_options": [
+      {
+        "label": "1 pizza",
+        "quantity": 1,
+        "unit": "each"
+      },
+      {
+        "label": "2 pizzas",
+        "quantity": 2,
+        "unit": "each"
+      },
+      {
+        "label": "3 pizzas",
+        "quantity": 3,
+        "unit": "each"
+      }
+    ],
+    "retail_aisle": "Frozen",
+    "storage_location": "freezer",
+    "brand_examples": [
+      {
+        "id": "digiorno",
+        "label": "DiGiorno",
+        "tier": "national"
+      },
+      {
+        "id": "red_barron",
+        "label": "Red Baron",
+        "tier": "national"
+      },
+      {
+        "id": "amy",
+        "label": "Amy's",
+        "tier": "premium"
+      },
+      {
+        "id": "cauliflower",
+        "label": "Caulipower",
+        "tier": "premium"
+      }
+    ]
   },
   "sources": [
     "generate-pantry-knowledge",
-    "pantry_wizard_1_0"
+    "pantry_wizard_1_0",
+    "ingredient_depth_v1"
   ]
 }

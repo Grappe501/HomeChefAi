@@ -1,0 +1,20 @@
+{
+  "id": "technique.poach",
+  "kind": "technique",
+  "title": "Poach",
+  "knowledge_id": "technique.poach",
+  "match_keywords": [
+    "poach",
+    "poach"
+  ],
+  "summary": "Submerged in barely simmering liquid — eggs, fish, chicken stay tender.",
+  "origins": "Poach is a core moist technique used across french cooking.",
+  "history": "Home cooks and professionals rely on poach for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Acidulated court bouillon",
+    "180–190°F target",
+    "Gentle slide-in",
+    "Do not boil"
+  ],
+  "related_ids": []
+}

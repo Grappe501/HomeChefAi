@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.ethiopian",
+  "type": "cuisine",
+  "display_name": "Ethiopian",
+  "description": "Ethiopian home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "ethiopian",
+      "africa"
+    ],
+    "region": "africa",
+    "signature_spice": "berbere",
+    "signature_starch": "injera"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

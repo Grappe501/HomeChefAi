@@ -1,0 +1,32 @@
+{
+  "id": "culture.moroccan",
+  "type": "culture",
+  "display_name": "Moroccan Culinary Culture",
+  "description": "Moroccan cooking centers on ras el hanout, couscous, and olive oil. Bold spice blends, slow stews, and starch scoops — communal eating is central.",
+  "attributes": {
+    "cuisine_id": "cuisine.moroccan",
+    "cuisine_key": "moroccan",
+    "region": "africa",
+    "signature_spice": "ras el hanout",
+    "signature_starch": "couscous",
+    "signature_fat": "olive oil",
+    "micro_lesson": "Bloom berbere or ras el hanout in oil; long simmer with legumes; acid from lime or tamarind at finish.",
+    "shopping_tip": "Spice blends, palm or peanut oil, and injera or rice as base.",
+    "flavor_building": [
+      "Start with olive oil as your cooking medium.",
+      "Season with ras el hanout — toast or bloom in fat when using ground spices.",
+      "Build the plate around couscous as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Moroccan food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "moroccan",
+      "africa"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

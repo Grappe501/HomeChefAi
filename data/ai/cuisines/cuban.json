@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.cuban",
+  "type": "cuisine",
+  "display_name": "Cuban",
+  "description": "Cuban home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "cuban",
+      "latin"
+    ],
+    "region": "latin",
+    "signature_spice": "citrus and garlic",
+    "signature_starch": "rice"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

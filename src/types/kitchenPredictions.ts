@@ -7,7 +7,8 @@ export type KitchenPredictionType =
   | 'ledger_avoid'
   | 'buy_never_use'
   | 'cook_night'
-  | 'emerging_tradition';
+  | 'emerging_tradition'
+  | 'kitchen_staple';
 
 export interface KitchenPrediction {
   id: string;

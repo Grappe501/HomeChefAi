@@ -1,0 +1,25 @@
+{
+  "id": "technique.smoke",
+  "type": "technique",
+  "display_name": "Smoke",
+  "description": "Low and slow — smoke ring is chemistry, patience is flavor.",
+  "attributes": {
+    "micro_lesson": "Low and slow — smoke ring is chemistry, patience is flavor.",
+    "steps": [
+      "Maintain 225–275°F",
+      "Wood choice matters",
+      "Wrap when bark sets",
+      "Rest and hold"
+    ],
+    "difficulty": "advanced",
+    "category": "heat",
+    "cuisine_tags": [
+      "bbq",
+      "southern"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

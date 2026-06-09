@@ -9,10 +9,50 @@
       "vegan": true,
       "vegetarian": true
     },
-    "cuisine_tags": []
+    "cuisine_tags": [],
+    "unit_category": "count",
+    "default_unit": "can",
+    "package_label": "can",
+    "packaging_options": [
+      {
+        "label": "1 can",
+        "quantity": 1,
+        "unit": "can"
+      },
+      {
+        "label": "2 cans",
+        "quantity": 2,
+        "unit": "can"
+      },
+      {
+        "label": "3 cans",
+        "quantity": 3,
+        "unit": "can"
+      },
+      {
+        "label": "4 cans",
+        "quantity": 4,
+        "unit": "can"
+      }
+    ],
+    "retail_aisle": "Pantry",
+    "storage_location": "pantry",
+    "brand_examples": [
+      {
+        "id": "organic",
+        "label": "Organic",
+        "tier": "national"
+      },
+      {
+        "id": "conventional",
+        "label": "Conventional",
+        "tier": "national"
+      }
+    ]
   },
   "sources": [
     "generate-pantry-knowledge",
-    "pantry_wizard_1_0"
+    "pantry_wizard_1_0",
+    "ingredient_depth_v1"
   ]
 }

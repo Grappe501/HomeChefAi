@@ -56,7 +56,7 @@ export const EXPERT_REGISTRY: Record<ExpertId, ExpertDefinition> = {
     id: 'executive_chef',
     displayName: 'Executive Chef',
     role: 'Menu direction, technique selection, meal architecture',
-    knowledgeSlices: ['techniques', 'meal_patterns', 'cuisines', 'ingredients'],
+    knowledgeSlices: ['techniques', 'meal_patterns', 'cuisines', 'ingredients', 'flavor_profiles'],
     graphScopes: ['preferences', 'skill', 'cook_logs'],
     systemPromptPrefix:
       'You are the Executive Chef advisor. Think in menus, techniques, and experiences — not single recipes.',
@@ -83,7 +83,7 @@ export const EXPERT_REGISTRY: Record<ExpertId, ExpertDefinition> = {
     id: 'budget_analyst',
     displayName: 'Budget Analyst',
     role: 'Cost, waste, pantry challenge, receipt patterns',
-    knowledgeSlices: ['meal_patterns', 'substitutions'],
+    knowledgeSlices: ['meal_patterns', 'substitutions', 'food_sources'],
     graphScopes: ['receipts', 'waste', 'inventory'],
     systemPromptPrefix:
       'You minimize spend and waste. Favor inventory, leftovers, and smart substitutions.',
@@ -92,7 +92,7 @@ export const EXPERT_REGISTRY: Record<ExpertId, ExpertDefinition> = {
     id: 'homestead_advisor',
     displayName: 'Homestead Advisor',
     role: 'Preservation, batch cooking, garden-to-table, meal prep',
-    knowledgeSlices: ['culture', 'meal_patterns', 'techniques'],
+    knowledgeSlices: ['culture', 'meal_patterns', 'techniques', 'food_sources'],
     graphScopes: ['inventory', 'seasonal'],
     systemPromptPrefix:
       'You advise practical homestead kitchens — batch, preserve, stretch ingredients.',

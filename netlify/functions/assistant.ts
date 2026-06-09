@@ -1,11 +1,8 @@
 import type { Handler } from '@netlify/functions';
 import { withCors, jsonResponse, errorResponse, parseBody, requireAuth } from './utils/response.js';
-import { useDevStore, loadStore } from './utils/db.js';
-import { getSupabaseUserClient } from './utils/supabase.js';
+import { loadAssistantSession } from './utils/assistantContext.js';
 import { checkAndIncrementQuota, quotaErrorResponse, chargeCredits } from './utils/quotas.js';
 import type { InventoryItem, Profile } from '../../src/types/index';
-import type { CreditAction } from '../../src/types/credits.js';
-import { isBasicAssistantMessage } from '../../src/types/credits.js';
 import { formatInventoryForAI } from './utils/inventoryContext.js';
 import {
   wantsDirectionsFirst,
@@ -17,7 +14,9 @@ import { buildExperiencePlan, type ExperienceType } from './utils/ai/experienceT
 import { logGenerationToLedger } from './utils/ai/ledgerStore.js';
 import { runSubstitutionPipeline } from './utils/ai/substitutionPipeline.js';
 import { routeClaraReply } from './utils/ai/claraToolRouter.js';
-import { needsExpertSynthesis } from './utils/ai/expertSynthesis.js';
+import { resolveAssistantCreditAction } from './utils/ai/claraCredits.js';
+import { parseDishRecipeRequest, formatDishRecipeReply } from './utils/ai/dishRecipeFormat.js';
+import { buildSkillCoaching } from './utils/ai/skills.js';
 
 function detectExperienceType(message: string): ExperienceType {
   if (/\bgame\s*day\b/i.test(message)) return 'game_day';
@@ -52,6 +51,33 @@ async function assistantReply(
   const apiKey = process.env.OPENAI_API_KEY;
   const inventoryBlock = formatInventoryForAI(inventory);
   const intent = classifyIntent(message);
+
+  const dishId = parseDishRecipeRequest(message);
+  if (dishId) {
+    const recipe = formatDishRecipeReply(dishId);
+    if (recipe) {
+      return {
+        reply: recipe.reply,
+        action: 'view_recipe',
+        intent: 'suggestion',
+        evidence: recipe.evidence,
+        credit_cost: 0,
+      };
+    }
+  }
+
+  if (intent === 'skill') {
+    const coach = buildSkillCoaching(message, inventory.map((i) => i.name));
+    if (coach.tips.length) {
+      const tips = coach.tips.map((t) => `**${t.technique_name}**\n${t.micro_lesson}`).join('\n\n');
+      return {
+        reply: `Chef, here's a quick coaching note:\n\n${tips}`,
+        intent: 'skill',
+        evidence: coach.inferred_technique_ids,
+        credit_cost: 0,
+      };
+    }
+  }
 
   if (intent === 'substitution') {
     const sub = runSubstitutionPipeline(message, inventory, profile);
@@ -146,6 +172,7 @@ async function assistantReply(
       intent: dirResult.intent,
       evidence: dirResult.directions.flatMap((d) => d.evidence).slice(0, 8),
       expert_ids: dirResult.expert_ids,
+      credit_cost: 0,
     };
   }
 
@@ -210,12 +237,7 @@ export const handler: Handler = withCors(async (event) => {
     if (!body?.message) return errorResponse('Missing message');
 
     const intent = classifyIntent(body.message);
-    let creditAction: CreditAction = 'assistant_complex';
-    if (isBasicAssistantMessage(body.message)) creditAction = 'assistant_basic';
-    else if (intent === 'substitution') creditAction = 'assistant_basic';
-    else if (intent === 'hosting') creditAction = 'hosting_plan';
-    else if (intent === 'suggestion' || wantsDirectionsFirst(body.message)) creditAction = 'suggestion';
-    else if (needsExpertSynthesis(body.message, intent)) creditAction = 'expert_synthesis';
+    const creditAction = resolveAssistantCreditAction(body.message, intent);
 
     const credit = await chargeCredits(userId, creditAction);
     if (!credit.allowed) {
@@ -229,22 +251,9 @@ export const handler: Handler = withCors(async (event) => {
     // Legacy message counter for analytics
     await checkAndIncrementQuota(userId, 'assistant_messages', { message: body.message, skipCredit: true });
 
-    let inventory: InventoryItem[] = [];
-    let profile: Profile;
-
-    if (useDevStore()) {
-      const store = loadStore();
-      inventory = store.inventory_items.filter((i) => i.user_id === userId);
-      profile = store.profiles.find((p) => p.user_id === userId)!;
-    } else if (user.token) {
-      const db = getSupabaseUserClient(user.token);
-      const { data: items } = await db.from('inventory_items').select('*').eq('user_id', userId);
-      inventory = (items ?? []) as InventoryItem[];
-      const { data: prof } = await db.from('profiles').select('*').eq('user_id', userId).single();
-      profile = prof as Profile;
-    } else {
-      return errorResponse('Missing token', 401);
-    }
+    const loaded = await loadAssistantSession(event);
+    if ('error' in loaded) return loaded.error;
+    const { inventory, profile } = loaded.session;
 
     const result = await assistantReply(body.message, inventory, profile, body.history || [], user.token);
     return jsonResponse({

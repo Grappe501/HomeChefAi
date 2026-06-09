@@ -1,0 +1,32 @@
+{
+  "id": "culture.greek",
+  "type": "culture",
+  "display_name": "Greek Culinary Culture",
+  "description": "Greek cooking centers on oregano and lemon, rice, and olive oil. Olive oil, acid, and herbs carry the plate — meat is often a flavoring, not the bulk.",
+  "attributes": {
+    "cuisine_id": "cuisine.greek",
+    "cuisine_key": "greek",
+    "region": "mediterranean",
+    "signature_spice": "oregano and lemon",
+    "signature_starch": "rice",
+    "signature_fat": "olive oil",
+    "micro_lesson": "Layer olive oil, garlic, lemon, and herbs; char vegetables for smoke without heaviness.",
+    "shopping_tip": "Quality olive oil, lemons, olives, and dried oregano transform simple ingredients.",
+    "flavor_building": [
+      "Start with olive oil as your cooking medium.",
+      "Season with oregano and lemon — toast or bloom in fat when using ground spices.",
+      "Build the plate around rice as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Greek food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "greek",
+      "mediterranean"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

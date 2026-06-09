@@ -1,0 +1,20 @@
+{
+  "id": "technique.shallow_fry",
+  "kind": "technique",
+  "title": "Shallow Fry",
+  "knowledge_id": "technique.shallow_fry",
+  "match_keywords": [
+    "shallow fry",
+    "shallow fry"
+  ],
+  "summary": "Oil halfway up the pan — perfect for latkes, schnitzel, fried rice cakes.",
+  "origins": "Shallow Fry is a core fat technique used across comfort cooking.",
+  "history": "Home cooks and professionals rely on shallow fry for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Medium-high oil",
+    "Do not overcrowd",
+    "Flip when golden",
+    "Paper towel drain"
+  ],
+  "related_ids": []
+}

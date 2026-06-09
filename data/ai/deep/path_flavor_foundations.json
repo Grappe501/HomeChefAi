@@ -1,0 +1,20 @@
+{
+  "id": "path.flavor_foundations",
+  "kind": "path",
+  "title": "Flavor Foundations",
+  "summary": "Learn salt, acid, fat, heat — and how to balance a plate.",
+  "origins": "Kitchen Academy structured paths — learn techniques and concepts in intentional order.",
+  "history": "Learn salt, acid, fat, heat — and how to balance a plate.",
+  "teaching": [
+    "Salt at every stage — lightly early, adjust at the end.",
+    "Acid is a finish move: lemon, vinegar, pickle brine.",
+    "Fat carries flavor; without acid, dishes taste heavy."
+  ],
+  "related_ids": [
+    "flavor_profile.umami",
+    "flavor_profile.bright_acid",
+    "flavor_profile.rich_creamy",
+    "technique.layer_season",
+    "technique.deglaze"
+  ]
+}

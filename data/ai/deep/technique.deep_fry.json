@@ -1,0 +1,20 @@
+{
+  "id": "technique.deep_fry",
+  "kind": "technique",
+  "title": "Deep Fry",
+  "knowledge_id": "technique.deep_fry",
+  "match_keywords": [
+    "deep fry",
+    "deep fry"
+  ],
+  "summary": "Oil at 350–375°F — crowding drops temp and makes food greasy.",
+  "origins": "Deep Fry is a core fat technique used across comfort, southern cooking.",
+  "history": "Home cooks and professionals rely on deep fry for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Thermometer essential",
+    "Dry food",
+    "Fry in batches",
+    "Drain and salt immediately"
+  ],
+  "related_ids": []
+}

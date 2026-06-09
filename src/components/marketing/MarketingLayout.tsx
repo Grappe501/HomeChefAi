@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState, type ReactNode } from 'react';
 import { Menu, Search, X } from 'lucide-react';
 import { SiteSearch, useSiteSearchShortcut } from '@/components/marketing/SiteSearch';
@@ -23,13 +23,16 @@ const NAV = [
   { to: '/vision', label: 'Vision ↓' },
 ];
 
+const EMPTY_CRUMBS: { label: string; href?: string }[] = [];
+
 function appNavItem(isLoggedIn: boolean) {
   return { to: appEntryPath(isLoggedIn), label: 'App' };
 }
 
-export function MarketingLayout({ children, crumbs = [], dark = false }: MarketingLayoutProps) {
+export function MarketingLayout({ children, crumbs = EMPTY_CRUMBS, dark = false }: MarketingLayoutProps) {
   const { user } = useApp();
   const navigate = useNavigate();
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -44,7 +47,7 @@ export function MarketingLayout({ children, crumbs = [], dark = false }: Marketi
 
   useEffect(() => {
     setMenuOpen(false);
-  }, [crumbs]);
+  }, [location.pathname]);
 
   const cta = () => navigate(appEntryPath(!!user));
   const navItems = [...NAV, appNavItem(!!user)];
@@ -144,11 +147,23 @@ export function MarketingLayout({ children, crumbs = [], dark = false }: Marketi
         {menuOpen && (
           <div id="mobile-nav" className={`md:hidden border-t px-5 py-4 space-y-3 ${dark ? 'border-white/10 bg-chef' : 'border-steel bg-white'}`}>
             {navItems.map((n) => (
-              <Link key={n.label} to={n.to} className={`block text-sm font-medium ${dark ? 'text-white/80' : 'text-chef'}`}>
+              <Link
+                key={n.label}
+                to={n.to}
+                onClick={() => setMenuOpen(false)}
+                className={`block py-1 text-sm font-medium ${dark ? 'text-white/80' : 'text-chef'}`}
+              >
                 {n.label}
               </Link>
             ))}
-            <button onClick={cta} className="btn-primary w-full text-sm !min-h-[44px]">
+            <button
+              type="button"
+              onClick={() => {
+                setMenuOpen(false);
+                cta();
+              }}
+              className="btn-primary w-full text-sm !min-h-[44px]"
+            >
               {user ? 'Open App' : 'Start Free'}
             </button>
           </div>

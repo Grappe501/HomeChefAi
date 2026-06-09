@@ -1,0 +1,22 @@
+{
+  "id": "culture.thai",
+  "kind": "culture",
+  "title": "Thai Culinary Culture",
+  "knowledge_id": "culture.thai",
+  "match_keywords": [
+    "thai",
+    "thai",
+    "asia"
+  ],
+  "summary": "Thai: lemongrass and basil, rice noodles, coconut milk.",
+  "origins": "Thai cuisine reflects asia geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Balance of sweet, sour, salty, spicy, and umami in every bite.",
+  "teaching": [
+    "High heat for wok hei, fish sauce or soy for umami, fresh herbs at the very end.",
+    "Soy, ginger, garlic, rice, and a hot wok or large skillet.",
+    "Signature pairing: lemongrass and basil + rice noodles + coconut milk."
+  ],
+  "related_ids": [
+    "cuisine.thai"
+  ]
+}

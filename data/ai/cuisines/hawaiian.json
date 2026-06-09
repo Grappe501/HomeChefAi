@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.hawaiian",
+  "type": "cuisine",
+  "display_name": "Hawaiian",
+  "description": "Hawaiian home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "hawaiian",
+      "pacific"
+    ],
+    "region": "pacific",
+    "signature_spice": "ginger",
+    "signature_starch": "rice"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

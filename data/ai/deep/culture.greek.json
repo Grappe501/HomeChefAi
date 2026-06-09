@@ -1,0 +1,22 @@
+{
+  "id": "culture.greek",
+  "kind": "culture",
+  "title": "Greek Culinary Culture",
+  "knowledge_id": "culture.greek",
+  "match_keywords": [
+    "greek",
+    "greek",
+    "mediterranean"
+  ],
+  "summary": "Greek: oregano and lemon, rice, olive oil.",
+  "origins": "Greek cuisine reflects mediterranean geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Olive oil, acid, and herbs carry the plate — meat is often a flavoring, not the bulk.",
+  "teaching": [
+    "Layer olive oil, garlic, lemon, and herbs; char vegetables for smoke without heaviness.",
+    "Quality olive oil, lemons, olives, and dried oregano transform simple ingredients.",
+    "Signature pairing: oregano and lemon + rice + olive oil."
+  ],
+  "related_ids": [
+    "cuisine.greek"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.colombian",
+  "type": "cuisine",
+  "display_name": "Colombian",
+  "description": "Colombian home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "colombian",
+      "latin"
+    ],
+    "region": "latin",
+    "signature_spice": "cumin",
+    "signature_starch": "rice"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

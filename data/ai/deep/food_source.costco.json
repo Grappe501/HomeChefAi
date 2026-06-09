@@ -1,0 +1,21 @@
+{
+  "id": "food_source.costco",
+  "kind": "food_source",
+  "title": "Costco",
+  "knowledge_id": "food_source.costco",
+  "match_keywords": [
+    "costco",
+    "costco",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Best for proteins and frozen veg in bulk",
+  "origins": "Costco is a warehouse retailer — knowing layout and house brands saves time and money.",
+  "history": "Rotating seasonal items — berries, pies, holiday roasts.",
+  "teaching": [
+    "Best for proteins and frozen veg in bulk",
+    "Kirkland Signature quality staples",
+    "Split large packs and freeze portions"
+  ]
+}

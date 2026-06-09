@@ -3,6 +3,7 @@ import { Camera, Check, Upload, Pencil, EyeOff, RotateCcw } from 'lucide-react';
 import { pantryScanApi } from '@/lib/api';
 import { fileToBase64, speak } from '@/lib/utils';
 import { useToast } from '@/hooks/useToast';
+import { formatQuantityLabel, inferDisplayUnit, INVENTORY_UNITS } from '@/lib/inventoryUnits';
 import type { PantryScanItem } from '@/types/kitchenPredictions';
 
 interface EditableItem extends PantryScanItem {
@@ -12,18 +13,22 @@ interface EditableItem extends PantryScanItem {
 
 const CATEGORIES = ['produce', 'dairy', 'meat', 'pantry', 'frozen', 'beverage', 'other'] as const;
 const LOCATIONS = ['pantry', 'fridge', 'freezer'] as const;
-const UNITS = ['each', 'lb', 'oz', 'gallon', 'dozen', 'bag', 'box', 'bottle', 'can', 'cup'];
 
 function toEditable(items: PantryScanItem[]): EditableItem[] {
-  return items.map((item, idx) => ({
-    ...item,
-    _id: `item-${idx}-${item.name}`,
-    ignored: false,
-    quantity: item.quantity ?? 1,
-    unit: item.unit || 'each',
-    category: item.category || 'other',
-    location: item.location || 'pantry',
-  }));
+  return items.map((item, idx) => {
+    const name = item.name?.trim() || 'Unknown item';
+    const unit = inferDisplayUnit(name, item.unit);
+    return {
+      ...item,
+      name,
+      _id: `item-${idx}-${name}`,
+      ignored: false,
+      quantity: item.quantity ?? 1,
+      unit,
+      category: item.category || 'other',
+      location: item.location || 'pantry',
+    };
+  });
 }
 
 export default function PantryScan() {
@@ -157,7 +162,7 @@ export default function PantryScan() {
                         onChange={(e) => updateItem(item._id, { unit: e.target.value })}
                         className="input-field"
                       >
-                        {UNITS.map((u) => (
+                        {INVENTORY_UNITS.map((u) => (
                           <option key={u} value={u}>{u}</option>
                         ))}
                       </select>
@@ -191,7 +196,7 @@ export default function PantryScan() {
                     <div className="min-w-0">
                       <p className={`font-medium ${item.ignored ? 'line-through' : ''}`}>{item.name}</p>
                       <p className="text-xs text-chef-subtle mt-1">
-                        {item.quantity} {item.unit} · {item.category} · {item.location}
+                        {formatQuantityLabel(item.quantity, item.unit, item.name)} · {item.category} · {item.location}
                       </p>
                       {item.knowledge_id && (
                         <p className="text-[10px] text-copper-700 mt-1 truncate">{item.knowledge_id}</p>

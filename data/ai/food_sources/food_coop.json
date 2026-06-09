@@ -1,0 +1,25 @@
+{
+  "id": "food_source.food_coop",
+  "type": "food_source",
+  "display_name": "Food Co-op",
+  "description": "Member-owned — often spotlights local producers.",
+  "attributes": {
+    "source_type": "local",
+    "store_type": "local",
+    "local_food_pref": null,
+    "shopping_tips": [
+      "Member-owned — often spotlights local producers.",
+      "Bulk section reduces packaging waste.",
+      "Work-shift discounts at some co-ops."
+    ],
+    "seasonal_notes": "Member day sales; local producer spotlight boards.",
+    "cuisine_tags": [
+      "member",
+      "local"
+    ],
+    "aisles": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "technique.broil",
+  "type": "technique",
+  "display_name": "Broil",
+  "description": "Top-down intense heat — watch constantly, 4–6 inches from element.",
+  "attributes": {
+    "micro_lesson": "Top-down intense heat — watch constantly, 4–6 inches from element.",
+    "steps": [
+      "Preheat broiler",
+      "Use broiler-safe pan",
+      "Flip once",
+      "Finish with acid or butter"
+    ],
+    "difficulty": "intermediate",
+    "category": "heat",
+    "cuisine_tags": [
+      "american"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

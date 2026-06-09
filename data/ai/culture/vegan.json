@@ -1,0 +1,32 @@
+{
+  "id": "culture.vegan",
+  "type": "culture",
+  "display_name": "Vegan Culinary Culture",
+  "description": "Vegan cooking centers on nutritional yeast, legumes, and olive oil. Plant-forward cooking with global spice access — technique over tradition lock-in.",
+  "attributes": {
+    "cuisine_id": "cuisine.vegan",
+    "cuisine_key": "vegan",
+    "region": "global",
+    "signature_spice": "nutritional yeast",
+    "signature_starch": "legumes",
+    "signature_fat": "olive oil",
+    "micro_lesson": "Roast vegetables deeply, use nutritional yeast and miso for umami, acid and crunch for finish.",
+    "shopping_tip": "Legumes, grains, olive oil, and bold spice rack.",
+    "flavor_building": [
+      "Start with olive oil as your cooking medium.",
+      "Season with nutritional yeast — toast or bloom in fat when using ground spices.",
+      "Build the plate around legumes as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Vegan food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "vegan",
+      "global"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

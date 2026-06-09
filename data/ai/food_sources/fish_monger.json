@@ -1,0 +1,25 @@
+{
+  "id": "food_source.fish_monger",
+  "type": "food_source",
+  "display_name": "Fish Monger & Seafood Counter",
+  "description": "Smell the counter — should smell like ocean, not ammonia.",
+  "attributes": {
+    "source_type": "local",
+    "store_type": "local",
+    "local_food_pref": null,
+    "shopping_tips": [
+      "Smell the counter — should smell like ocean, not ammonia.",
+      "Ask what came in today vs. previously frozen.",
+      "Whole fish often best value; ask to fillet."
+    ],
+    "seasonal_notes": "Cook seafood within 24 hours of purchase.",
+    "cuisine_tags": [
+      "seafood",
+      "fresh"
+    ],
+    "aisles": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

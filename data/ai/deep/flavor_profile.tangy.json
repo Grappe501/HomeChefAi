@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.tangy",
+  "kind": "flavor_profile",
+  "title": "Tangy",
+  "knowledge_id": "flavor_profile.tangy",
+  "match_keywords": [
+    "tangy",
+    "tangy",
+    "acid",
+    "ferment",
+    "salt"
+  ],
+  "summary": "Vinegar, buttermilk, yogurt marinades — tang tenderizes and brightens rich food.",
+  "origins": "Taste profiles describe how we experience balance on the plate — tangy is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: acid, ferment, salt. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Marinate in acid + salt",
+    "Pickle vegetables as side",
+    "Splash vinegar at service",
+    "Fat rounds sharp tang; sugar only if balance still reads sour."
+  ]
+}

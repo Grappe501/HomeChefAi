@@ -2,10 +2,17 @@
   "id": "cuisine.mexican",
   "type": "cuisine",
   "display_name": "Mexican",
+  "description": "Mexican home cooking — full course library with mains, appetizers, desserts, and more.",
   "attributes": {
-    "staples": ["ingredient.rice", "ingredient.beans", "ingredient.cumin", "ingredient.tomato"],
-    "regional_uses": ["Tacos", "Rice and beans", "Salsa", "Enchiladas"],
-    "cuisine_tags": ["mexican", "latin"]
+    "cuisine_tags": [
+      "mexican",
+      "latin"
+    ],
+    "region": "latin",
+    "signature_spice": "cumin and chili",
+    "signature_starch": "corn tortillas"
   },
-  "sources": ["curated"]
+  "sources": [
+    "corpus_v3"
+  ]
 }

@@ -24,6 +24,7 @@ const TYPE_DIRS: KnowledgeNodeType[] = [
   'culture',
   'tradition',
   'dish',
+  'food_source',
 ];
 
 let cachedNodes: Map<string, KnowledgeNode> | null = null;
@@ -49,7 +50,7 @@ export function resolveKnowledgeRoot(): string {
   return resolve(DEFAULT_KNOWLEDGE_ROOT.replace(/\\/g, '/'));
 }
 
-function listJsonFiles(dir: string, skipDirs = new Set(['deep'])): string[] {
+function listJsonFiles(dir: string, skipDirs = new Set(['deep', 'corpus'])): string[] {
   const out: string[] = [];
   if (!dirExists(dir)) return out;
   for (const entry of readdirSync(dir)) {
@@ -146,6 +147,10 @@ function scoreMatch(node: KnowledgeNode, q: string): number {
   if (node.description?.toLowerCase().includes(lower)) score += 4;
   const tags = (node.attributes?.cuisine_tags as string[] | undefined) ?? [];
   if (tags.some((t) => t.includes(lower))) score += 3;
+  const brands = (node.attributes?.brand_examples as { label: string }[] | undefined) ?? [];
+  if (brands.some((b) => b.label.toLowerCase().includes(lower))) score += 6;
+  const aliases = (node.attributes?.alias_ids as string[] | undefined) ?? [];
+  if (aliases.some((a) => a.toLowerCase().includes(lower))) score += 5;
   return score;
 }
 
@@ -205,11 +210,31 @@ export function findKnowledgeByWizardItem(wizardItem: string): KnowledgeNode | n
   return match ?? null;
 }
 
-/** Resolve id with parent fallback for display */
+/** Resolve id with parent fallback and alias_ids */
 export function resolveKnowledgeNode(id: string): KnowledgeNode | null {
   for (const candidate of knowledgeIdParentChain(id)) {
     const node = getKnowledgeNode(candidate);
     if (node) return node;
   }
+  for (const node of loadKnowledgeRegistry().values()) {
+    const aliases = (node.attributes?.alias_ids as string[] | undefined) ?? [];
+    if (aliases.includes(id)) return node;
+  }
   return null;
+}
+
+/** Format packaging + brand depth for Clara / knowledge lookup */
+export function formatIngredientDepth(node: KnowledgeNode): string {
+  const a = node.attributes ?? {};
+  const parts: string[] = [node.display_name];
+  if (a.retail_aisle) parts.push(`Aisle: ${a.retail_aisle}`);
+  if (a.storage_location) parts.push(`Store: ${a.storage_location}`);
+  if (a.package_label && a.default_unit) parts.push(`Sold as: ${a.package_label} (${a.default_unit})`);
+  const pkg = (a.packaging_options as { label: string }[] | undefined) ?? [];
+  if (pkg.length) parts.push(`Sizes: ${pkg.slice(0, 4).map((p) => p.label).join(', ')}`);
+  const forms = (a.form_options as { label: string }[] | undefined) ?? [];
+  if (forms.length) parts.push(`Forms: ${forms.slice(0, 5).map((f) => f.label).join(', ')}`);
+  const brands = (a.brand_examples as { label: string }[] | undefined) ?? [];
+  if (brands.length) parts.push(`Brands: ${brands.slice(0, 4).map((b) => b.label).join(', ')}`);
+  return parts.join(' · ');
 }

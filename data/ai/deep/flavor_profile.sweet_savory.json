@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.sweet_savory",
+  "kind": "flavor_profile",
+  "title": "Sweet-Savory",
+  "knowledge_id": "flavor_profile.sweet_savory",
+  "match_keywords": [
+    "sweet savory",
+    "sweet-savory",
+    "sweet",
+    "salt",
+    "umami"
+  ],
+  "summary": "Caramelized onions, maple glaze, teriyaki — sweetness needs salt and acid to taste complex.",
+  "origins": "Taste profiles describe how we experience balance on the plate — sweet-savory is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: sweet, salt, umami. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Reduce until sticky",
+    "Add soy or fish sauce for depth",
+    "Finish with vinegar splash",
+    "If cloying, add acid; if flat, add salt before more sugar."
+  ]
+}

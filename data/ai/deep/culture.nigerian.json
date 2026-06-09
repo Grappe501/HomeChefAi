@@ -1,0 +1,22 @@
+{
+  "id": "culture.nigerian",
+  "kind": "culture",
+  "title": "Nigerian Culinary Culture",
+  "knowledge_id": "culture.nigerian",
+  "match_keywords": [
+    "nigerian",
+    "nigerian",
+    "africa"
+  ],
+  "summary": "Nigerian: scotch bonnet, rice, palm oil.",
+  "origins": "Nigerian cuisine reflects africa geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Bold spice blends, slow stews, and starch scoops — communal eating is central.",
+  "teaching": [
+    "Bloom berbere or ras el hanout in oil; long simmer with legumes; acid from lime or tamarind at finish.",
+    "Spice blends, palm or peanut oil, and injera or rice as base.",
+    "Signature pairing: scotch bonnet + rice + palm oil."
+  ],
+  "related_ids": [
+    "cuisine.nigerian"
+  ]
+}

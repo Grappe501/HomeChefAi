@@ -1,0 +1,21 @@
+{
+  "id": "technique.stir_fry",
+  "kind": "technique",
+  "title": "Stir Fry",
+  "knowledge_id": "technique.stir_fry",
+  "match_keywords": [
+    "stir fry",
+    "stir fry"
+  ],
+  "summary": "Wok hei comes from fierce heat and constant motion — prep everything before you start.",
+  "origins": "Stir Fry is a core heat technique used across asian, chinese cooking.",
+  "history": "Home cooks and professionals rely on stir fry for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Heat wok smoking",
+    "Oil swirl",
+    "Protein first, remove",
+    "Vegetables by cook time",
+    "Sauce to finish"
+  ],
+  "related_ids": []
+}

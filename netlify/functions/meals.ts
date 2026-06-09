@@ -12,13 +12,15 @@ import { enrichMealsWithIntelligence, buildMealIntelligence } from './utils/ai/m
 import {
   persistMealPlanReview,
   getRecentLedger,
-  formatLedgerSummaryForPlanner,
   logGenerationToLedger,
 } from './utils/ai/ledgerStore.js';
+import { buildPlannerIntelligenceFeedback } from './utils/ai/kitchenBrainContext.js';
 import type { MealReviewPayload } from './utils/ai/decisionLedger.js';
 import { buildMealDirections, findDirectionById, formatDirectionsForPrompt } from './utils/ai/reasoning.js';
 import { formatDishesForPlannerPrompt, matchDishesForPantry } from './utils/ai/dishMatcher.js';
+import { validateAndRepairMealPlan } from './utils/ai/mealPlanValidator.js';
 import { mealTagsForPlanContext } from './utils/ai/orchestrator.js';
+import { syncSupplyFromPlan } from './utils/supplyStore.js';
 import {
   courseDepthPrompt,
   DEFAULT_COURSE_DEPTH,
@@ -538,7 +540,8 @@ async function generateMealPlan(
   );
 
   if (totalMeals(mealCounts) > 12) {
-    return generateHeavyMealPlan(inventory, profile, { ...params, days, mealCounts, directionPrompt, courseDepth: params.courseDepth });
+    const heavy = await generateHeavyMealPlan(inventory, profile, { ...params, days, mealCounts, directionPrompt, courseDepth: params.courseDepth });
+    return validateAndRepairMealPlan(heavy, inventory, profile).plan;
   }
 
   const chunkSize = Math.min(chunkSizeForCoverage(mealCounts, days), days);
@@ -566,7 +569,7 @@ async function generateMealPlan(
   }
 
   const results = await Promise.all(chunks);
-  return mergePlanChunks(results);
+  return validateAndRepairMealPlan(mergePlanChunks(results), inventory, profile).plan;
 }
 
 function formatPlanTitle(days: number, counts: MealCounts): string {
@@ -635,15 +638,21 @@ export const handler: Handler = withCors(async (event) => {
 
     if (body.action === 'recipe-ideas') {
       const limit = Math.min(Math.max(Number(body.limit) || 50, 1), 100);
+      const { getDishLibraryStats } = await import('./utils/ai/dishMatcher.js');
+      const library = getDishLibraryStats();
       const matches = matchDishesForPantry(inventory, profile, {
         limit,
         meal_type: body.meal_type,
+        course: body.course,
+        occasion: body.occasion,
         cooking_style: body.cooking_style,
         min_score: 0.2,
       });
       return jsonResponse({
         dishes: matches,
         count: matches.length,
+        library_total: library.total,
+        library_by_course: library.by_course,
         inventory_summary: formatInventorySummary(inventory),
       });
     }
@@ -699,7 +708,13 @@ export const handler: Handler = withCors(async (event) => {
       }
 
       const recentLedger = await getRecentLedger(userId, user.token, 'meal_plan', 20);
-      const ledgerFeedback = formatLedgerSummaryForPlanner(recentLedger);
+      const ledgerFeedback = await buildPlannerIntelligenceFeedback(
+        userId,
+        user.token,
+        inventory,
+        profile,
+        recentLedger,
+      );
 
       let plan: import('../../src/types/index').MealPlan;
       if (useDevStore()) {
@@ -809,7 +824,13 @@ export const handler: Handler = withCors(async (event) => {
     if (!quota.allowed) return quotaErrorResponse(quota.limits, quota.usage, quota.credits);
 
     const recentLedger = await getRecentLedger(userId, user.token, 'meal_plan', 15);
-    const ledgerFeedback = formatLedgerSummaryForPlanner(recentLedger);
+    const ledgerFeedback = await buildPlannerIntelligenceFeedback(
+      userId,
+      user.token,
+      inventory,
+      profile,
+      recentLedger,
+    );
 
     const mealCounts = resolveMealCounts(days, body);
     const courseDepth = resolveCourseDepth(body);
@@ -901,6 +922,7 @@ export const handler: Handler = withCors(async (event) => {
       const pIdx = store.profiles.findIndex((p) => p.user_id === userId);
       if (pIdx >= 0) awardXpDevStore(store, userId, XP_AWARDS.meal_plan);
       saveStore(store);
+      await syncSupplyFromPlan(userId, plan, inventory, user.token);
       return jsonResponse({ plan }, 201);
     }
 
@@ -919,6 +941,7 @@ export const handler: Handler = withCors(async (event) => {
     });
     if (insertErr) return errorResponse(insertErr.message, 500);
     const xp = await awardXpSupabase(db, userId, XP_AWARDS.meal_plan);
+    await syncSupplyFromPlan(userId, plan, inventory, user.token);
     return jsonResponse({ plan, xp_gained: xp.gained }, 201);
   }
 

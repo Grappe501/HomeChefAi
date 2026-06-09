@@ -1,0 +1,32 @@
+{
+  "id": "culture.vegetarian",
+  "type": "culture",
+  "display_name": "Vegetarian Culinary Culture",
+  "description": "Vegetarian cooking centers on herbs, grains, and olive oil. Plant-forward cooking with global spice access — technique over tradition lock-in.",
+  "attributes": {
+    "cuisine_id": "cuisine.vegetarian",
+    "cuisine_key": "vegetarian",
+    "region": "global",
+    "signature_spice": "herbs",
+    "signature_starch": "grains",
+    "signature_fat": "olive oil",
+    "micro_lesson": "Roast vegetables deeply, use nutritional yeast and miso for umami, acid and crunch for finish.",
+    "shopping_tip": "Legumes, grains, olive oil, and bold spice rack.",
+    "flavor_building": [
+      "Start with olive oil as your cooking medium.",
+      "Season with herbs — toast or bloom in fat when using ground spices.",
+      "Build the plate around grains as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Vegetarian food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "vegetarian",
+      "global"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

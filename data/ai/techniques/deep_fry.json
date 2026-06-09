@@ -2,14 +2,24 @@
   "id": "technique.deep_fry",
   "type": "technique",
   "display_name": "Deep Fry",
+  "description": "Oil at 350–375°F — crowding drops temp and makes food greasy.",
   "attributes": {
+    "micro_lesson": "Oil at 350–375°F — crowding drops temp and makes food greasy.",
+    "steps": [
+      "Thermometer essential",
+      "Dry food",
+      "Fry in batches",
+      "Drain and salt immediately"
+    ],
+    "difficulty": "intermediate",
+    "category": "fat",
     "cuisine_tags": [
       "comfort",
       "southern"
     ],
-    "micro_lesson": "Oil at 350–375°F — too cool means greasy, too hot burns outside."
+    "flavor_links": []
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

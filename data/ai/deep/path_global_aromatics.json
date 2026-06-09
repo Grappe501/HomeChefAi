@@ -1,0 +1,20 @@
+{
+  "id": "path.global_aromatics",
+  "kind": "path",
+  "title": "Global Aromatics",
+  "summary": "Build flavor bases from mirepoix to sofrito to curry paste.",
+  "origins": "Kitchen Academy structured paths — learn techniques and concepts in intentional order.",
+  "history": "Build flavor bases from mirepoix to sofrito to curry paste.",
+  "teaching": [
+    "Every cuisine has an aromatic base — learn the pattern, swap the ingredients.",
+    "Bloom spices in fat before adding liquid.",
+    "Cultural respect: learn the why, not just the recipe."
+  ],
+  "related_ids": [
+    "technique.mirepoix",
+    "technique.bloom_spices",
+    "culture.cuisine.indian",
+    "culture.cuisine.mexican",
+    "culture.cuisine.thai"
+  ]
+}

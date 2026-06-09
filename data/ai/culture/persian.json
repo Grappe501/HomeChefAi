@@ -1,0 +1,32 @@
+{
+  "id": "culture.persian",
+  "type": "culture",
+  "display_name": "Persian Culinary Culture",
+  "description": "Persian cooking centers on saffron and turmeric, rice, and yogurt. Shared plates, warm spices, and balance of grain, legume, and herb.",
+  "attributes": {
+    "cuisine_id": "cuisine.persian",
+    "cuisine_key": "persian",
+    "region": "middle_east",
+    "signature_spice": "saffron and turmeric",
+    "signature_starch": "rice",
+    "signature_fat": "yogurt",
+    "micro_lesson": "Toast spices, use yogurt and tahini for richness, finish with fresh herb and pomegranate acid.",
+    "shopping_tip": "Sumac, zaatar, bulgur, chickpeas, and flatbread are pantry anchors.",
+    "flavor_building": [
+      "Start with yogurt as your cooking medium.",
+      "Season with saffron and turmeric — toast or bloom in fat when using ground spices.",
+      "Build the plate around rice as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Persian food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "persian",
+      "middle_east"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

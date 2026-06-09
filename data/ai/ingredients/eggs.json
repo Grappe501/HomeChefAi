@@ -29,10 +29,50 @@
         ],
         "confidence": 0.75
       }
+    ],
+    "unit_category": "count",
+    "default_unit": "eggs",
+    "package_label": "carton",
+    "packaging_options": [
+      {
+        "label": "Half dozen (6)",
+        "quantity": 6,
+        "unit": "eggs"
+      },
+      {
+        "label": "1 dozen (12)",
+        "quantity": 12,
+        "unit": "eggs"
+      },
+      {
+        "label": "18 count",
+        "quantity": 18,
+        "unit": "eggs"
+      }
+    ],
+    "retail_aisle": "Dairy & Eggs",
+    "storage_location": "fridge",
+    "brand_examples": [
+      {
+        "id": "egglands_best",
+        "label": "Eggland's Best",
+        "tier": "national"
+      },
+      {
+        "id": "vital_farms",
+        "label": "Vital Farms",
+        "tier": "premium"
+      },
+      {
+        "id": "great_value",
+        "label": "Great Value",
+        "tier": "store"
+      }
     ]
   },
   "sources": [
     "generate-pantry-knowledge",
-    "pantry_wizard_1_0"
+    "pantry_wizard_1_0",
+    "ingredient_depth_v1"
   ]
 }

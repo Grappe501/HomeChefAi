@@ -1,0 +1,31 @@
+{
+  "id": "food_source.kroger",
+  "type": "food_source",
+  "display_name": "Kroger",
+  "description": "Digital coupons stack with sales",
+  "attributes": {
+    "source_type": "chain",
+    "store_type": "chain",
+    "local_food_pref": null,
+    "shopping_tips": [
+      "Digital coupons stack with sales",
+      "Simple Truth organic line",
+      "Boil-in-bag and meal kits in deli"
+    ],
+    "seasonal_notes": "Local produce tags in summer; floral near holidays.",
+    "cuisine_tags": [
+      "national",
+      "regional"
+    ],
+    "aisles": [
+      "Produce",
+      "Meat & Seafood",
+      "Deli",
+      "Dairy",
+      "Natural Foods"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

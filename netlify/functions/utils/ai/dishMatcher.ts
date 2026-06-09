@@ -12,6 +12,7 @@ import {
 } from '../../../../src/types/dish.js';
 import { listAvailableKnowledgeIds } from '../inventoryContext.js';
 import { getKnowledgeNode, listKnowledgeNodes } from './knowledgeLoader.js';
+import { listAllDishes, getDishCorpusStats } from './dishCatalog.js';
 
 function inventoryNameSet(inventory: InventoryItem[]): Set<string> {
   return new Set(inventory.map((i) => i.name.toLowerCase()));
@@ -30,7 +31,7 @@ function kidSetFromInventory(inventory: InventoryItem[]): Set<string> {
   return new Set(listAvailableKnowledgeIds(inventory));
 }
 
-function scoreDishNode(
+export function scoreDishNode(
   node: KnowledgeNode,
   inventory: InventoryItem[],
   kidSet: Set<string>,
@@ -66,6 +67,8 @@ function scoreDishNode(
     title: node.display_name,
     description: node.description,
     cuisine_id: cuisineId,
+    course: String(attrs.course ?? 'main'),
+    occasions: (attrs.occasions as string[] | undefined) ?? [],
     meal_types: (attrs.meal_types as string[] | undefined) ?? ['dinner'],
     prep_time_minutes: Number(attrs.prep_time_minutes ?? 30),
     tags: (attrs.tags as string[] | undefined) ?? [],
@@ -110,19 +113,28 @@ function preferenceCuisineIds(profile: Profile, cookingStyle?: string): Set<stri
 export function matchDishesForPantry(
   inventory: InventoryItem[],
   profile: Profile,
-  options: { limit?: number; meal_type?: string; cooking_style?: string; min_score?: number } = {},
+  options: {
+    limit?: number;
+    meal_type?: string;
+    course?: string;
+    occasion?: string;
+    cooking_style?: string;
+    min_score?: number;
+  } = {},
 ): DishMatch[] {
   const limit = options.limit ?? 20;
   const minScore = options.min_score ?? 0.25;
   const prefs = preferenceCuisineIds(profile, options.cooking_style);
   const kidSet = kidSetFromInventory(inventory);
-  const dishes = listKnowledgeNodes('dish');
+  const dishes = listAllDishes();
 
   const scored = dishes
     .map((node) => {
       const row = scoreDishNode(node, inventory, kidSet, prefs);
       if (!row) return null;
       if (options.meal_type && !row.meal_types.includes(options.meal_type)) return null;
+      if (options.course && row.course !== options.course) return null;
+      if (options.occasion && !row.occasions.includes(options.occasion)) return null;
       const cuisine = getKnowledgeNode(row.cuisine_id);
       return { ...row, cuisine_label: cuisine?.display_name ?? row.cuisine_id.replace(/^cuisine\./, ''), score: row.score };
     })
@@ -152,7 +164,7 @@ export function matchDishByDescription(
   const prefs = new Set<string>();
   let best: { dish: DishMatch; confidence: number } | null = null;
 
-  for (const node of listKnowledgeNodes('dish')) {
+  for (const node of listAllDishes()) {
     const keywords = dishKeywordsFromNode(node.attributes);
     const title = node.display_name.toLowerCase();
     let keywordHit = keywords.some((k) => lower.includes(k) || k.includes(lower));
@@ -172,6 +184,10 @@ export function matchDishByDescription(
   }
 
   return best;
+}
+
+export function getDishLibraryStats() {
+  return getDishCorpusStats();
 }
 
 export function formatDishesForPlannerPrompt(

@@ -1,0 +1,25 @@
+{
+  "id": "technique.sous_vide",
+  "type": "technique",
+  "display_name": "Sous Vide",
+  "description": "Exact temperature bath — impossible to overcook, finish with hard sear.",
+  "attributes": {
+    "micro_lesson": "Exact temperature bath — impossible to overcook, finish with hard sear.",
+    "steps": [
+      "Bag and seal",
+      "Set precise temp",
+      "Long cook for tough cuts",
+      "Sear hard after"
+    ],
+    "difficulty": "advanced",
+    "category": "moist",
+    "cuisine_tags": [
+      "french",
+      "modern"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "food_source.heb",
+  "kind": "food_source",
+  "title": "H-E-B",
+  "knowledge_id": "food_source.heb",
+  "match_keywords": [
+    "heb",
+    "h-e-b",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Meal Simple ready-to-cook",
+  "origins": "H-E-B is a regional retailer — knowing layout and house brands saves time and money.",
+  "history": "Texas-grown produce; Fiesta and holiday tamales.",
+  "teaching": [
+    "Meal Simple ready-to-cook",
+    "Strong Tex-Mex and BBQ aisle",
+    "Central Market sister stores for gourmet"
+  ]
+}

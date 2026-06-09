@@ -60,8 +60,8 @@ const STATIC_PAGES: SiteSearchEntry[] = [
     title: 'Kitchen Academy',
     href: '/learn',
     category: 'learn',
-    summary: 'Deep dives on ingredients, techniques, dishes — history, origins, and teach-me moments.',
-    keywords: 'learn academy history origins teach clara',
+    summary: 'Deep dives on techniques, taste profiles, cultural cuisines, food sourcing — history, origins, and teach-me moments.',
+    keywords: 'learn academy training kitchen farmers market grocery techniques flavor',
   },
   {
     id: 'page-login',

@@ -1,0 +1,32 @@
+{
+  "id": "culture.cajun",
+  "type": "culture",
+  "display_name": "Cajun & Creole Culinary Culture",
+  "description": "Cajun & Creole cooking centers on Cajun seasoning, rice, and butter. Regional pride — smoke, cast iron, and generous portions with table-side adjustment.",
+  "attributes": {
+    "cuisine_id": "cuisine.cajun",
+    "cuisine_key": "cajun",
+    "region": "american",
+    "signature_spice": "Cajun seasoning",
+    "signature_starch": "rice",
+    "signature_fat": "butter",
+    "micro_lesson": "Smoke and spice rubs, fond from cast iron, vinegar or hot sauce at the table for balance.",
+    "shopping_tip": "Cast iron, BBQ sauce, chili powder, and good black pepper.",
+    "flavor_building": [
+      "Start with butter as your cooking medium.",
+      "Season with Cajun seasoning — toast or bloom in fat when using ground spices.",
+      "Build the plate around rice as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Cajun & Creole food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "cajun",
+      "american"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

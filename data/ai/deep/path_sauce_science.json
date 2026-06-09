@@ -1,0 +1,20 @@
+{
+  "id": "path.sauce_science",
+  "kind": "path",
+  "title": "Sauce Science",
+  "summary": "Roux, emulsion, reduction — sauces that cling and shine.",
+  "origins": "Kitchen Academy structured paths — learn techniques and concepts in intentional order.",
+  "history": "Roux, emulsion, reduction — sauces that cling and shine.",
+  "teaching": [
+    "Roux color determines sauce personality — blond vs. chocolate brown.",
+    "Reduce before adding cream or butter.",
+    "Broken emulsion? Drop of water while whisking off heat."
+  ],
+  "related_ids": [
+    "technique.roux",
+    "technique.stock",
+    "technique.reduce",
+    "technique.emulsion",
+    "technique.mount_butter"
+  ]
+}

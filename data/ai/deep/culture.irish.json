@@ -1,0 +1,22 @@
+{
+  "id": "culture.irish",
+  "kind": "culture",
+  "title": "Irish Culinary Culture",
+  "knowledge_id": "culture.irish",
+  "match_keywords": [
+    "irish",
+    "irish",
+    "europe"
+  ],
+  "summary": "Irish: parsley, potatoes, butter.",
+  "origins": "Irish cuisine reflects europe geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Technique-driven cooking — fond, butter, wine reductions, and respect for seasonal produce.",
+  "teaching": [
+    "Build depth with fond from searing, reduce wine and stock, finish with cold butter for shine.",
+    "Keep mirepoix components, good butter, and wine vinegar on hand.",
+    "Signature pairing: parsley + potatoes + butter."
+  ],
+  "related_ids": [
+    "cuisine.irish"
+  ]
+}

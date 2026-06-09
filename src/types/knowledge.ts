@@ -15,7 +15,8 @@ export type KnowledgeNodeType =
   | 'hosting'
   | 'culture'
   | 'tradition'
-  | 'dish';
+  | 'dish'
+  | 'food_source';
 
 /** Why a substitute is suggested */
 export type SubstitutionReason =
@@ -64,6 +65,30 @@ export interface KnowledgeVariant {
   label: string;
 }
 
+/** How this ingredient is sold at retail — wizard + receipt normalization */
+export interface KnowledgePackagingOption {
+  label: string;
+  quantity: number;
+  unit: string;
+  /** Typical package size hint, e.g. "14 oz jar" */
+  typical_size?: string;
+}
+
+/** Representative brands users recognize — not exhaustive, for receipt matching + depth */
+export interface KnowledgeBrandRef {
+  id: string;
+  label: string;
+  tier?: 'national' | 'store' | 'premium' | 'regional';
+}
+
+/** Form / cut / processing state (fresh, canned, shredded, etc.) */
+export interface KnowledgeFormOption {
+  id: string;
+  label: string;
+  packaging?: string;
+  knowledge_id?: string;
+}
+
 export interface KnowledgeNode {
   id: string;
   type: KnowledgeNodeType;
@@ -85,6 +110,21 @@ export interface KnowledgeNode {
     dietary?: DietaryProfile;
     /** Pantry wizard item name bridge (Phase 2) */
     wizard_item?: string;
+    /** Retail packaging taps from pantry wizard */
+    packaging_options?: KnowledgePackagingOption[];
+    default_unit?: string;
+    package_label?: string;
+    unit_category?: string;
+    /** Representative brands for this product category */
+    brand_examples?: KnowledgeBrandRef[];
+    /** Store aisle / department for shopping intelligence */
+    retail_aisle?: string;
+    /** Typical storage location */
+    storage_location?: 'pantry' | 'fridge' | 'freezer';
+    /** Form options from food taxonomy (fresh, canned, shredded, etc.) */
+    form_options?: KnowledgeFormOption[];
+    /** Alternate knowledge ids (legacy id consolidation) */
+    alias_ids?: string[];
     /** Taxonomy family id bridge */
     taxonomy_family?: string;
     /** Substitution edge fields */

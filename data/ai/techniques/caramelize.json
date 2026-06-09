@@ -2,14 +2,24 @@
   "id": "technique.caramelize",
   "type": "technique",
   "display_name": "Caramelize",
+  "description": "Low heat, patience — onions need 30+ minutes; sugar needs dry pan.",
   "attributes": {
+    "micro_lesson": "Low heat, patience — onions need 30+ minutes; sugar needs dry pan.",
+    "steps": [
+      "Even slice",
+      "Low medium heat",
+      "Stir occasionally",
+      "Deglaze if sticking burns"
+    ],
+    "difficulty": "intermediate",
+    "category": "finishing",
     "cuisine_tags": [
       "french",
       "comfort"
     ],
-    "micro_lesson": "Low heat + patience — rush it and you get bitter, not sweet."
+    "flavor_links": []
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.portuguese",
+  "type": "cuisine",
+  "display_name": "Portuguese",
+  "description": "Portuguese home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "portuguese",
+      "europe"
+    ],
+    "region": "europe",
+    "signature_spice": "piri piri",
+    "signature_starch": "rice"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "flavor_profile.aromatic_spice",
+  "type": "flavor_profile",
+  "display_name": "Aromatic Spice",
+  "description": "Toast whole spices, bloom ground spices in fat — fat carries volatile aromatics.",
+  "attributes": {
+    "micro_lesson": "Toast whole spices, bloom ground spices in fat — fat carries volatile aromatics.",
+    "flavor_pillars": [
+      "whole_spice",
+      "fat",
+      "heat"
+    ],
+    "build_depth": [
+      "Temper spices in hot ghee/oil",
+      "Layer whole and ground",
+      "Finish with fresh spice (cardamom, mint)"
+    ],
+    "balance_tip": "Yogurt, coconut milk, or tomato cools and carries spice evenly.",
+    "cuisine_tags": [
+      "indian",
+      "moroccan"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

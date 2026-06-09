@@ -37,6 +37,10 @@ export const DEEP_KIND_LABEL: Record<DeepEntryKind, string> = {
   dish: 'Dish',
   style: 'Cooking style',
   tradition: 'Tradition',
+  flavor_profile: 'Taste profile',
+  culture: 'Cultural cuisine',
+  food_source: 'Food sourcing',
+  path: 'Learning path',
 };
 
 export { CATALOG as DEEP_CATALOG };

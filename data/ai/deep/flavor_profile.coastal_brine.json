@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.coastal_brine",
+  "kind": "flavor_profile",
+  "title": "Coastal & Briny",
+  "knowledge_id": "flavor_profile.coastal_brine",
+  "match_keywords": [
+    "coastal brine",
+    "coastal & briny",
+    "salt",
+    "seafood",
+    "acid"
+  ],
+  "summary": "Anchovy, capers, olives, seaweed — brine is seasoning; taste before adding more salt.",
+  "origins": "Taste profiles describe how we experience balance on the plate — coastal & briny is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: salt, seafood, acid. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Dissolve anchovy in warm oil",
+    "Use pasta water saltiness",
+    "Finish with lemon not more salt",
+    "Fresh herbs and olive oil soften brine; starch (bread, potatoes) absorbs intensity."
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.hungarian",
+  "type": "cuisine",
+  "display_name": "Hungarian",
+  "description": "Hungarian home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "hungarian",
+      "europe"
+    ],
+    "region": "europe",
+    "signature_spice": "paprika",
+    "signature_starch": "noodles"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

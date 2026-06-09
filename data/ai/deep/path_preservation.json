@@ -1,0 +1,20 @@
+{
+  "id": "path.preservation",
+  "kind": "path",
+  "title": "Preserve & Extend",
+  "summary": "Pickle, ferment, brine — flavor depth and less waste.",
+  "origins": "Kitchen Academy structured paths — learn techniques and concepts in intentional order.",
+  "history": "Pickle, ferment, brine — flavor depth and less waste.",
+  "teaching": [
+    "Quick pickles add acid and crunch in 30 minutes.",
+    "Fermentation is controlled spoilage — salt is the guardrail.",
+    "Preserving extends seasonal bounty into winter cooking."
+  ],
+  "related_ids": [
+    "technique.pickle",
+    "technique.brine",
+    "technique.ferment",
+    "flavor_profile.fermented_depth",
+    "technique.cure"
+  ]
+}

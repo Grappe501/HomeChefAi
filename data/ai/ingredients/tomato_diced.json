@@ -20,11 +20,62 @@
       "ingredient.onion",
       "ingredient.basil",
       "ingredient.cheese"
+    ],
+    "wizard_item": "Diced Tomatoes",
+    "unit_category": "count",
+    "default_unit": "can",
+    "package_label": "can",
+    "packaging_options": [
+      {
+        "label": "1 can",
+        "quantity": 1,
+        "unit": "can"
+      },
+      {
+        "label": "2 cans",
+        "quantity": 2,
+        "unit": "can"
+      },
+      {
+        "label": "3 cans",
+        "quantity": 3,
+        "unit": "can"
+      },
+      {
+        "label": "4 cans",
+        "quantity": 4,
+        "unit": "can"
+      }
+    ],
+    "retail_aisle": "Produce",
+    "storage_location": "fridge",
+    "brand_examples": [
+      {
+        "id": "bushs",
+        "label": "Bush's",
+        "tier": "national"
+      },
+      {
+        "id": "goya",
+        "label": "Goya",
+        "tier": "national"
+      },
+      {
+        "id": "365",
+        "label": "365",
+        "tier": "store"
+      },
+      {
+        "id": "great_value",
+        "label": "Great Value",
+        "tier": "store"
+      }
     ]
   },
   "sources": [
     "generate-variant-nodes",
     "curated",
-    "food_taxonomy_1_0"
+    "food_taxonomy_1_0",
+    "ingredient_depth_v1"
   ]
 }

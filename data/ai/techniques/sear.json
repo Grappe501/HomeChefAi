@@ -2,10 +2,26 @@
   "id": "technique.sear",
   "type": "technique",
   "display_name": "Sear",
-  "description": "High-heat browning to develop Maillard flavor before finishing.",
+  "description": "Pat protein dry — moisture is the enemy of a golden crust.",
   "attributes": {
     "micro_lesson": "Pat protein dry — moisture is the enemy of a golden crust.",
-    "cuisine_tags": ["american", "french", "italian"]
+    "steps": [
+      "Heat pan until shimmering",
+      "Dry protein thoroughly",
+      "Do not move until release"
+    ],
+    "difficulty": "beginner",
+    "category": "heat",
+    "cuisine_tags": [
+      "american",
+      "french"
+    ],
+    "flavor_links": [
+      "flavor_profile.umami",
+      "flavor_profile.maillard"
+    ]
   },
-  "sources": ["curated"]
+  "sources": [
+    "training-kitchen"
+  ]
 }

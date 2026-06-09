@@ -14,6 +14,7 @@ import {
   type GenerationLedgerPayload,
   type MealReviewPayload,
 } from './decisionLedger.js';
+import { processLedgerOutcomes } from './outcomeProcessor.js';
 
 export type StoredLedgerRow = DecisionLedgerEntry & {
   subject_key: string;
@@ -150,16 +151,22 @@ export async function getRecentLedger(
 
 /** Human-readable summary for meal planner prompts */
 export function formatLedgerSummaryForPlanner(entries: DecisionLedgerEntry[]): string {
-  const mealEntries = entries.filter((e) => e.domain === 'meal_plan');
-  if (!mealEntries.length) return '';
-  const kept = mealEntries.filter((e) => e.outcome === 'accepted').slice(0, 5);
-  const replaced = mealEntries.filter((e) => e.outcome === 'replaced').slice(0, 5);
-  const lines: string[] = ['Recent meal plan feedback from this household:'];
-  if (kept.length) {
-    lines.push(`Kept: ${kept.map((e) => e.recommendation).join('; ')}`);
+  const outcomes = processLedgerOutcomes(entries, 'meal_plan');
+  if (!outcomes.kept_meals.length && !outcomes.replaced_meals.length && !outcomes.prefers_tags.length) {
+    return '';
   }
-  if (replaced.length) {
-    lines.push(`Replace next time: ${replaced.map((e) => e.recommendation).join('; ')}`);
+  const lines: string[] = ['Recent meal plan feedback from this household:'];
+  if (outcomes.kept_meals.length) {
+    lines.push(`Kept: ${outcomes.kept_meals.slice(0, 5).join('; ')}`);
+  }
+  if (outcomes.replaced_meals.length) {
+    lines.push(`Replace next time: ${outcomes.replaced_meals.slice(0, 5).join('; ')}`);
+  }
+  if (outcomes.prefers_tags.length) {
+    lines.push(`Chef prefers these meal styles: ${outcomes.prefers_tags.join(', ')}.`);
+  }
+  if (outcomes.avoids_tags.length) {
+    lines.push(`Chef rejected these styles — do not repeat: ${outcomes.avoids_tags.join(', ')}.`);
   }
   return lines.join('\n');
 }

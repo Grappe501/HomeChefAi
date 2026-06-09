@@ -1,5 +1,6 @@
 import { MarketingLayout, PageHeader, DrillCard, GoDeeperCTA } from '@/components/marketing/MarketingLayout';
 import { PageMeta } from '@/components/marketing/PageMeta';
+import { SITE_STATS, SITE_VERSION } from '@/content/marketingContent';
 
 export default function StoryPage() {
   return (
@@ -33,18 +34,21 @@ export default function StoryPage() {
         </section>
 
         <section>
-          <h2 className="font-display text-xl text-chef mb-3">Brain 4.0 — Clara thinks in tools</h2>
+          <h2 className="font-display text-xl text-chef mb-3">Brain {SITE_VERSION} — Everything connected</h2>
           <p className="text-chef-subtle">
-            Every Clara message runs deterministic tools first: pantry lookup, substitutions, brain patterns, ledger context.
-            Proactive cards on Home and Brain surface expiring food and likely meals at zero credits.
-            Complex asks invoke an expert council — Nutritionist, Budget Analyst, Executive Chef — merged into one voice with evidence you can read.
+            Brain {SITE_VERSION} is the AI Impact Suite: a {SITE_STATS.recipeCount} recipe library across {SITE_STATS.cuisines} cuisines,
+            Training Kitchen ({SITE_STATS.techniques} techniques, {SITE_STATS.flavorProfiles} taste profiles, {SITE_STATS.foodSources} food sources),
+            nine Clara tools that run before GPT, household memories and ledger learning injected into every planner call,
+            proactive cards with inline recipe directions, and multi-course meal planning with per-slot drill-down — all grounded in evidence you can read.
           </p>
         </section>
 
         <section>
-          <h2 className="font-display text-xl text-chef mb-3">Clara is the product</h2>
+          <h2 className="font-display text-xl text-chef mb-3">Clara thinks in tools</h2>
           <p className="text-chef-subtle">
-            Clara is not a feature inside the app — she is the intelligence layer. Hosting Studio, pantry photo scan, and graph-first cook log inference extend the same memory that compounds every week you cook.
+            Every Clara message runs deterministic tools first: pantry lookup, dish library match, knowledge and skill coach,
+            local food sourcing, brain memories, ledger context, substitutions. Recipe lookups and Kitchen Academy browse use zero credits.
+            Complex asks invoke an expert council merged into one voice with evidence chips.
           </p>
         </section>
 

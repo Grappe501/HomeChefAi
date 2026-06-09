@@ -2,13 +2,23 @@
   "id": "technique.deglaze",
   "type": "technique",
   "display_name": "Deglaze",
+  "description": "Liquid lifts fond — wine, stock, or even water turns pan into sauce.",
   "attributes": {
+    "micro_lesson": "Liquid lifts fond — wine, stock, or even water turns pan into sauce.",
+    "steps": [
+      "After sear, pour off excess fat",
+      "Add cold liquid",
+      "Scrape fond",
+      "Reduce and mount with butter"
+    ],
+    "difficulty": "beginner",
+    "category": "finishing",
     "cuisine_tags": [
       "french"
     ],
-    "micro_lesson": "Scrape the fond — that brown layer is concentrated flavor."
+    "flavor_links": []
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

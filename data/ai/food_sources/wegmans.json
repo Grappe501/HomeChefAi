@@ -1,0 +1,31 @@
+{
+  "id": "food_source.wegmans",
+  "type": "food_source",
+  "display_name": "Wegmans",
+  "description": "Eat-in market cafe for inspiration",
+  "attributes": {
+    "source_type": "regional",
+    "store_type": "regional",
+    "local_food_pref": null,
+    "shopping_tips": [
+      "Eat-in market cafe for inspiration",
+      "Extensive cheese and charcuterie",
+      "Meal kits near prepared foods"
+    ],
+    "seasonal_notes": "Local farm partnerships posted weekly.",
+    "cuisine_tags": [
+      "premium",
+      "experience"
+    ],
+    "aisles": [
+      "Market Cafe",
+      "Produce",
+      "Meat",
+      "Cheese Shop",
+      "Bakery"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "food_source.whole_foods",
+  "kind": "food_source",
+  "title": "Whole Foods Market",
+  "knowledge_id": "food_source.whole_foods",
+  "match_keywords": [
+    "whole foods",
+    "whole foods market",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "365 by Whole Foods for value organic",
+  "origins": "Whole Foods Market is a premium retailer — knowing layout and house brands saves time and money.",
+  "history": "Local farm tags on produce; holiday prime rib and turkeys.",
+  "teaching": [
+    "365 by Whole Foods for value organic",
+    "Butcher counter for custom cuts",
+    "Prime member deals on select items"
+  ]
+}

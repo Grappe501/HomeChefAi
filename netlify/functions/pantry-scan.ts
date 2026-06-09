@@ -4,8 +4,7 @@ import { useDevStore, loadStore } from './utils/db.js';
 import { getSupabaseUserClient } from './utils/supabase.js';
 import { chargeCredits, quotaErrorResponse } from './utils/quotas.js';
 import type { PantryScanItem, PantryScanResult } from '../../src/types/kitchenPredictions.js';
-import { searchKnowledge } from './utils/ai/knowledgeLoader.js';
-import { resolveWizardKnowledgeIdSimple } from '../../src/types/knowledgeIdCore.js';
+import { normalizeScanItem } from './utils/inventoryNormalize.js';
 
 async function parsePantryImage(imageBase64: string): Promise<PantryScanResult> {
   const apiKey = process.env.OPENAI_API_KEY;
@@ -49,7 +48,9 @@ async function parsePantryImage(imageBase64: string): Promise<PantryScanResult> 
           content: `You analyze fridge, pantry, or shelf photos for a home kitchen inventory app.
 Return ONLY valid JSON:
 {"scene_summary":"brief description","items":[{"name":"string","quantity":number,"unit":"string","category":"produce|dairy|meat|pantry|frozen|beverage|other","location":"pantry|fridge|freezer","confidence":0.0-1.0,"needs_expiration":boolean,"suggested_expiration":"YYYY-MM-DD or null"}]}
-List distinct food items visible. Estimate quantities conservatively. Infer location from item type.`,
+List distinct food items visible. Estimate quantities conservatively. Infer location from item type.
+NEVER use "unit" or "item" as the unit field. Use kitchen units: each, jar, bag, box, bottle, can, lb, oz, gallon, dozen, cup, tbsp, tsp, container.
+For spices (chili powder, paprika, cumin, etc.) use unit "jar" or "container" with quantity 1 unless clearly otherwise.`,
         },
         {
           role: 'user',
@@ -80,9 +81,17 @@ List distinct food items visible. Estimate quantities conservatively. Infer loca
 
 function linkKnowledgeIds(items: PantryScanItem[]): PantryScanItem[] {
   return items.map((item) => {
-    const hits = searchKnowledge(item.name, 'ingredient', 3);
-    const knowledge_id = hits[0]?.id ?? resolveWizardKnowledgeIdSimple(item.name);
-    return { ...item, knowledge_id };
+    const normalized = normalizeScanItem(item, 'pantry_scan');
+    return {
+      ...item,
+      name: normalized.name,
+      quantity: normalized.quantity,
+      unit: normalized.unit,
+      category: normalized.category,
+      location: normalized.location,
+      knowledge_id: normalized.knowledge_id,
+      suggested_expiration: normalized.expiration_date,
+    };
   });
 }
 
@@ -97,19 +106,20 @@ export const handler: Handler = withCors(async (event) => {
 
   if (body.action === 'confirm' && body.items?.length) {
     const userId = user.id;
-    const items = body.items.map((item) => ({
-      user_id: userId,
-      name: item.name,
-      category: item.category || 'other',
-      quantity: item.quantity || 1,
-      unit: item.unit || 'each',
-      expiration_date: item.suggested_expiration ?? undefined,
-      location: item.location || 'pantry',
-      knowledge_id: item.knowledge_id,
-      added_via: 'pantry_scan',
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    }));
+    const items = body.items.map((item) => {
+      const normalized = normalizeScanItem(item, 'pantry_scan');
+      return {
+        user_id: userId,
+        name: normalized.name,
+        category: normalized.category,
+        quantity: normalized.quantity,
+        unit: normalized.unit,
+        expiration_date: normalized.expiration_date,
+        location: normalized.location,
+        knowledge_id: normalized.knowledge_id ?? null,
+        added_via: 'pantry_scan',
+      };
+    });
 
     if (useDevStore()) {
       const store = loadStore();
@@ -125,7 +135,10 @@ export const handler: Handler = withCors(async (event) => {
     if (!user.token) return errorResponse('Missing token', 401);
     const db = getSupabaseUserClient(user.token);
     const { data, error } = await db.from('inventory_items').insert(items).select();
-    if (error) return errorResponse(error.message, 500);
+    if (error) {
+      console.error('pantry-scan confirm insert failed:', error.message, items);
+      return errorResponse(`Could not save to pantry: ${error.message}`, 500);
+    }
     return jsonResponse({ items_added: data?.length ?? items.length });
   }
 

@@ -1,17 +1,72 @@
 {
-  "id": "ingredient.chicken_breast",
+  "id": "ingredient.chicken.breast",
   "type": "ingredient",
   "display_name": "Chicken Breast",
-  "parent_id": "ingredient.poultry",
+  "parent_id": "ingredient.chicken",
+  "description": "Boneless skinless chicken breast — sold fresh or frozen in family packs.",
   "attributes": {
     "wizard_item": "Chicken Breast",
+    "variant_of": "ingredient.chicken",
+    "variant_key": "breast",
+    "alias_ids": [
+      "ingredient.chicken_breast"
+    ],
     "dietary": {
       "contains_meat": true
     },
-    "cuisine_tags": []
+    "cuisine_tags": [
+      "american",
+      "mediterranean",
+      "asian",
+      "mexican"
+    ],
+    "unit_category": "weight",
+    "default_unit": "lb",
+    "package_label": "pack",
+    "packaging_options": [
+      {
+        "label": "1 lb pack",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "label": "2 lb pack",
+        "quantity": 2,
+        "unit": "lb"
+      },
+      {
+        "label": "Family pack (3 lb)",
+        "quantity": 3,
+        "unit": "lb"
+      }
+    ],
+    "retail_aisle": "Meat & Seafood",
+    "storage_location": "pantry",
+    "brand_examples": [
+      {
+        "id": "tyson",
+        "label": "Tyson",
+        "tier": "national"
+      },
+      {
+        "id": "perdue",
+        "label": "Perdue",
+        "tier": "national"
+      },
+      {
+        "id": "bell_evans",
+        "label": "Bell & Evans",
+        "tier": "premium"
+      },
+      {
+        "id": "kirkland",
+        "label": "Kirkland",
+        "tier": "store"
+      }
+    ]
   },
   "sources": [
-    "generate-pantry-knowledge",
-    "pantry_wizard_1_0"
+    "ingredient_depth_v1",
+    "curated"
   ]
 }

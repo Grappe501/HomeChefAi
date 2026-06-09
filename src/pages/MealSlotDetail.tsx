@@ -173,9 +173,9 @@ export default function MealSlotDetail() {
             <ChefHat size={20} className="text-chef shrink-0" />
             <span className="text-sm font-medium">Browse similar recipes</span>
           </Link>
-          <Link to="/meals" className="action-tile flex-row justify-start gap-3 !min-h-[52px]">
+          <Link to="/shop" className="action-tile flex-row justify-start gap-3 !min-h-[52px]">
             <ShoppingCart size={20} className="text-chef shrink-0" />
-            <span className="text-sm font-medium">View full shopping list</span>
+            <span className="text-sm font-medium">Open shopping list</span>
           </Link>
           <Link to="/learn" className="action-tile flex-row justify-start gap-3 !min-h-[52px]">
             <BookOpen size={20} className="text-chef shrink-0" />

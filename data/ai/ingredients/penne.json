@@ -9,10 +9,55 @@
       "vegetarian": true,
       "contains_gluten": true
     },
-    "cuisine_tags": []
+    "cuisine_tags": [],
+    "unit_category": "package",
+    "default_unit": "box",
+    "package_label": "box",
+    "packaging_options": [
+      {
+        "label": "1 box",
+        "quantity": 1,
+        "unit": "box"
+      },
+      {
+        "label": "2 boxes",
+        "quantity": 2,
+        "unit": "box"
+      },
+      {
+        "label": "3 boxes",
+        "quantity": 3,
+        "unit": "box"
+      }
+    ],
+    "retail_aisle": "Pantry",
+    "storage_location": "pantry",
+    "brand_examples": [
+      {
+        "id": "barilla",
+        "label": "Barilla",
+        "tier": "national"
+      },
+      {
+        "id": "de_cecco",
+        "label": "De Cecco",
+        "tier": "premium"
+      },
+      {
+        "id": "muellers",
+        "label": "Mueller's",
+        "tier": "national"
+      },
+      {
+        "id": "great_value",
+        "label": "Great Value",
+        "tier": "store"
+      }
+    ]
   },
   "sources": [
     "generate-pantry-knowledge",
-    "pantry_wizard_1_0"
+    "pantry_wizard_1_0",
+    "ingredient_depth_v1"
   ]
 }

@@ -1,0 +1,23 @@
+{
+  "id": "technique.boil",
+  "type": "technique",
+  "display_name": "Boil",
+  "description": "Salt the water like the sea for pasta; start potatoes in cold water.",
+  "attributes": {
+    "micro_lesson": "Salt the water like the sea for pasta; start potatoes in cold water.",
+    "steps": [
+      "Rolling boil for pasta",
+      "Cold start for root veg",
+      "Shock greens in ice water"
+    ],
+    "difficulty": "beginner",
+    "category": "moist",
+    "cuisine_tags": [
+      "comfort"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

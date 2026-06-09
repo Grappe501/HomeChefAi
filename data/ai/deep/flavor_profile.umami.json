@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.umami",
+  "kind": "flavor_profile",
+  "title": "Umami-forward",
+  "knowledge_id": "flavor_profile.umami",
+  "match_keywords": [
+    "umami",
+    "umami-forward",
+    "salt",
+    "ferment",
+    "glutamate"
+  ],
+  "summary": "Umami is the fifth taste — savory depth from soy, parmesan, mushrooms, tomato paste, and slow browning.",
+  "origins": "Taste profiles describe how we experience balance on the plate — umami-forward is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: salt, ferment, glutamate. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Add tomato paste and brown it",
+    "Finish with parmesan or fish sauce",
+    "Use dried mushrooms in stocks",
+    "Pair with acid (lemon, vinegar) so richness does not taste flat or heavy."
+  ]
+}

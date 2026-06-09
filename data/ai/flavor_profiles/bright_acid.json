@@ -2,13 +2,26 @@
   "id": "flavor_profile.bright_acid",
   "type": "flavor_profile",
   "display_name": "Bright & Acidic",
+  "description": "Acid lifts fat and salt — finish with citrus, vinegar, or pickled elements; never only at the start.",
   "attributes": {
+    "micro_lesson": "Acid lifts fat and salt — finish with citrus, vinegar, or pickled elements; never only at the start.",
+    "flavor_pillars": [
+      "acid",
+      "fresh_herb",
+      "salt"
+    ],
+    "build_depth": [
+      "Deglaze with wine or vinegar",
+      "Add citrus zest at the end",
+      "Quick-pickle onions for garnish"
+    ],
+    "balance_tip": "If too sharp, add fat (olive oil, butter) or a touch of sweetness.",
     "cuisine_tags": [
       "mediterranean",
-      "mexican"
+      "vietnamese"
     ]
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

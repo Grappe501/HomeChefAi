@@ -1,0 +1,22 @@
+{
+  "id": "food_source.farmers_market",
+  "kind": "food_source",
+  "title": "Farmers Market",
+  "knowledge_id": "food_source.farmers_market",
+  "match_keywords": [
+    "farmers market",
+    "farmers market",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Arrive early for best selection — berries, greens, and eggs go fast.",
+  "origins": "Local food sourcing connects cooks to seasonality, community, and often better flavor per dollar when buying peak produce.",
+  "history": "Walk the market once before buying — compare price and quality. Buy heavy items last.",
+  "teaching": [
+    "Arrive early for best selection — berries, greens, and eggs go fast.",
+    "Ask growers what is peak this week and how they cook it.",
+    "Bring cash and reusable bags; many vendors are small-batch.",
+    "Plan meals around what you find rather than a fixed list."
+  ]
+}

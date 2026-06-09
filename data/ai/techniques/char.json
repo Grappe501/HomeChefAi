@@ -1,0 +1,24 @@
+{
+  "id": "technique.char",
+  "type": "technique",
+  "display_name": "Char / Blister",
+  "description": "Direct flame or ripping-hot cast iron for peppers, tortillas, and greens.",
+  "attributes": {
+    "micro_lesson": "Direct flame or ripping-hot cast iron for peppers, tortillas, and greens.",
+    "steps": [
+      "Dry surface",
+      "High heat briefly",
+      "Steam in covered bowl to peel skins"
+    ],
+    "difficulty": "intermediate",
+    "category": "heat",
+    "cuisine_tags": [
+      "mexican",
+      "mediterranean"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

@@ -40,6 +40,16 @@ export interface DevStore {
   decision_ledger?: DecisionLedgerRow[];
   household_graph_edges?: HouseholdGraphEdgeRow[];
   skill_journey_progress?: SkillProgressRow[];
+  running_supply_lists?: RunningSupplyListRow[];
+}
+
+export interface RunningSupplyListRow {
+  user_id: string;
+  plan_id?: string;
+  plan_title?: string;
+  items: import('../../../src/types/supplyList.js').SupplyListItem[];
+  estimated_cost?: number;
+  updated_at: string;
 }
 
 export interface SkillProgressRow {

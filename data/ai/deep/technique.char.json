@@ -1,0 +1,19 @@
+{
+  "id": "technique.char",
+  "kind": "technique",
+  "title": "Char / Blister",
+  "knowledge_id": "technique.char",
+  "match_keywords": [
+    "char",
+    "char / blister"
+  ],
+  "summary": "Direct flame or ripping-hot cast iron for peppers, tortillas, and greens.",
+  "origins": "Char / Blister is a core heat technique used across mexican, mediterranean cooking.",
+  "history": "Home cooks and professionals rely on char / blister for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Dry surface",
+    "High heat briefly",
+    "Steam in covered bowl to peel skins"
+  ],
+  "related_ids": []
+}

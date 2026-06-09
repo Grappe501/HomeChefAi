@@ -1,0 +1,30 @@
+{
+  "id": "food_source.trader_joes",
+  "type": "food_source",
+  "display_name": "Trader Joe's",
+  "description": "Unique frozen and sauce items",
+  "attributes": {
+    "source_type": "specialty",
+    "store_type": "specialty",
+    "local_food_pref": null,
+    "shopping_tips": [
+      "Unique frozen and sauce items",
+      "Small stores — quick shop",
+      "Fan favorites rotate — stock up when you see favorites"
+    ],
+    "seasonal_notes": "Fearless Flyer seasonal — pumpkin, peppermint, summer BBQ.",
+    "cuisine_tags": [
+      "unique",
+      "value"
+    ],
+    "aisles": [
+      "Produce",
+      "Frozen",
+      "Dairy",
+      "Pantry"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

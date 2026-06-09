@@ -5,39 +5,65 @@ import { mealsApi } from '@/lib/api';
 import type { DishMatch } from '@/types/dish';
 
 const MEAL_FILTERS = ['all', 'breakfast', 'lunch', 'dinner', 'snack'] as const;
+const COURSE_FILTERS = [
+  'all', 'appetizer', 'soup', 'salad', 'main', 'side', 'dessert', 'bread', 'breakfast', 'snack', 'beverage',
+] as const;
+
+const COURSE_LABELS: Record<string, string> = {
+  all: 'All courses',
+  appetizer: 'Appetizers',
+  soup: 'Soups',
+  salad: 'Salads',
+  main: 'Mains',
+  side: 'Sides',
+  dessert: 'Desserts',
+  bread: 'Breads',
+  breakfast: 'Breakfast',
+  snack: 'Snacks',
+  beverage: 'Drinks',
+};
 
 export default function RecipeIdeas() {
   const [dishes, setDishes] = useState<DishMatch[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<(typeof MEAL_FILTERS)[number]>('all');
+  const [courseFilter, setCourseFilter] = useState<(typeof COURSE_FILTERS)[number]>('all');
   const [query, setQuery] = useState('');
   const [expanded, setExpanded] = useState<string | null>(null);
   const [summary, setSummary] = useState('');
+  const [libraryTotal, setLibraryTotal] = useState(0);
 
   useEffect(() => {
     setLoading(true);
     mealsApi
-      .recipeIdeas({ limit: 80 })
+      .recipeIdeas({
+        limit: 100,
+        course: courseFilter === 'all' ? undefined : courseFilter,
+        meal_type: filter === 'all' ? undefined : filter,
+      })
       .then((r) => {
         setDishes(r.dishes);
         setSummary(r.inventory_summary);
+        setLibraryTotal(r.library_total ?? r.dishes.length);
       })
       .catch(() => setDishes([]))
       .finally(() => setLoading(false));
-  }, []);
+  }, [filter, courseFilter]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return dishes.filter((d) => {
       if (filter !== 'all' && !d.meal_types.includes(filter)) return false;
+      if (courseFilter !== 'all' && d.course !== courseFilter) return false;
       if (!q) return true;
       return (
         d.title.toLowerCase().includes(q)
         || d.cuisine_label.toLowerCase().includes(q)
+        || d.course.toLowerCase().includes(q)
         || d.ingredients.some((i) => i.name.toLowerCase().includes(q))
       );
     });
-  }, [dishes, filter, query]);
+  }, [dishes, filter, courseFilter, query]);
 
   return (
     <div className="space-y-4">
@@ -47,12 +73,27 @@ export default function RecipeIdeas() {
           Recipe Ideas
         </h2>
         <p className="text-sm text-chef-subtle mt-1">
-          {dishes.length > 0
-            ? `${dishes.length}+ recipes matched to your pantry${summary ? ` · ${summary}` : ''}`
+          {libraryTotal > 0
+            ? `${libraryTotal.toLocaleString()}+ recipes in the library · ${dishes.length} matched to your pantry${summary ? ` · ${summary}` : ''}`
             : 'Add pantry items to unlock personalized recipe ideas from our library.'}
         </p>
         <Link to="/meals" className="text-link !min-h-0 text-xs mt-2 inline-flex">← Meal Planner</Link>
       </header>
+
+      <div className="flex gap-2 overflow-x-auto pb-1">
+        {COURSE_FILTERS.map((f) => (
+          <button
+            key={f}
+            type="button"
+            onClick={() => setCourseFilter(f)}
+            className={`px-3 py-2 rounded-xl text-xs font-medium whitespace-nowrap min-h-[44px] ${
+              courseFilter === f ? 'bg-copper-700 text-white' : 'bg-white border border-steel text-chef-subtle'
+            }`}
+          >
+            {COURSE_LABELS[f]}
+          </button>
+        ))}
+      </div>
 
       <div className="flex gap-2 overflow-x-auto pb-1">
         {MEAL_FILTERS.map((f) => (
@@ -75,16 +116,16 @@ export default function RecipeIdeas() {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search recipes or ingredients…"
+          placeholder="Search recipes, cuisines, or ingredients…"
           className="w-full pl-10 pr-4 py-3 rounded-xl border border-steel min-h-[52px]"
         />
       </div>
 
-      {loading && <div className="card text-chef-subtle text-sm">Loading recipe library…</div>}
+      {loading && <div className="card text-chef-subtle text-sm">Searching {libraryTotal.toLocaleString() || '…'} recipes…</div>}
 
       {!loading && filtered.length === 0 && (
         <div className="card text-center py-8 space-y-3 text-chef-subtle">
-          <p>No matches yet.</p>
+          <p>No matches yet for this filter.</p>
           <Link to="/wizard" className="btn-primary inline-flex">Stock your pantry</Link>
         </div>
       )}
@@ -102,8 +143,8 @@ export default function RecipeIdeas() {
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <h3 className="font-semibold text-chef">{d.title}</h3>
-                    <p className="text-xs text-chef-subtle mt-0.5">
-                      {d.cuisine_label} · {d.pantry_match}% pantry match
+                    <p className="text-xs text-chef-subtle mt-0.5 capitalize">
+                      {d.cuisine_label} · {d.course.replace(/_/g, ' ')} · {d.pantry_match}% pantry match
                     </p>
                   </div>
                   <span className="text-xs text-chef-subtle flex items-center gap-1 shrink-0">
@@ -113,6 +154,11 @@ export default function RecipeIdeas() {
                 </div>
                 {d.description && (
                   <p className="text-sm text-chef-subtle mt-2 line-clamp-2">{d.description}</p>
+                )}
+                {d.occasions.length > 0 && (
+                  <p className="text-[10px] text-copper-700 mt-1 uppercase tracking-wide">
+                    {d.occasions.slice(0, 3).map((o) => o.replace(/_/g, ' ')).join(' · ')}
+                  </p>
                 )}
               </button>
 

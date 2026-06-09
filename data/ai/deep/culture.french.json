@@ -1,0 +1,22 @@
+{
+  "id": "culture.french",
+  "kind": "culture",
+  "title": "French Culinary Culture",
+  "knowledge_id": "culture.french",
+  "match_keywords": [
+    "french",
+    "french",
+    "europe"
+  ],
+  "summary": "French: herbes de Provence, potatoes, butter.",
+  "origins": "French cuisine reflects europe geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Technique-driven cooking — fond, butter, wine reductions, and respect for seasonal produce.",
+  "teaching": [
+    "Build depth with fond from searing, reduce wine and stock, finish with cold butter for shine.",
+    "Keep mirepoix components, good butter, and wine vinegar on hand.",
+    "Signature pairing: herbes de Provence + potatoes + butter."
+  ],
+  "related_ids": [
+    "cuisine.french"
+  ]
+}

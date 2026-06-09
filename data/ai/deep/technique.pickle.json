@@ -1,0 +1,20 @@
+{
+  "id": "technique.pickle",
+  "kind": "technique",
+  "title": "Quick Pickle",
+  "knowledge_id": "technique.pickle",
+  "match_keywords": [
+    "pickle",
+    "quick pickle"
+  ],
+  "summary": "Hot vinegar brine — cucumbers, onions, jalapeños ready in 30 minutes.",
+  "origins": "Quick Pickle is a core prep technique used across southern, asian cooking.",
+  "history": "Home cooks and professionals rely on quick pickle for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Slice thin",
+    "Heat vinegar + salt + sugar",
+    "Pour over veg",
+    "Chill 30+ min"
+  ],
+  "related_ids": []
+}

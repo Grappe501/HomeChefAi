@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.malaysian",
+  "type": "cuisine",
+  "display_name": "Malaysian",
+  "description": "Malaysian home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "malaysian",
+      "asia"
+    ],
+    "region": "asia",
+    "signature_spice": "curry paste",
+    "signature_starch": "rice"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

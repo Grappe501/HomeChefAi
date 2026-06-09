@@ -2,13 +2,26 @@
   "id": "flavor_profile.smoky",
   "type": "flavor_profile",
   "display_name": "Smoky",
+  "description": "Smoke from wood, chipotle, paprika, or char — a little goes far; build in layers.",
   "attributes": {
+    "micro_lesson": "Smoke from wood, chipotle, paprika, or char — a little goes far; build in layers.",
+    "flavor_pillars": [
+      "smoke",
+      "salt",
+      "umami"
+    ],
+    "build_depth": [
+      "Dry rub with smoked paprika",
+      "Char peppers over flame",
+      "Finish with smoked salt"
+    ],
+    "balance_tip": "Bright acid and fresh herbs keep smoke from tasting one-note.",
     "cuisine_tags": [
       "bbq",
-      "southern"
+      "mexican"
     ]
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

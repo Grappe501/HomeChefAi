@@ -1,0 +1,22 @@
+{
+  "id": "culture.moroccan",
+  "kind": "culture",
+  "title": "Moroccan Culinary Culture",
+  "knowledge_id": "culture.moroccan",
+  "match_keywords": [
+    "moroccan",
+    "moroccan",
+    "africa"
+  ],
+  "summary": "Moroccan: ras el hanout, couscous, olive oil.",
+  "origins": "Moroccan cuisine reflects africa geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Bold spice blends, slow stews, and starch scoops — communal eating is central.",
+  "teaching": [
+    "Bloom berbere or ras el hanout in oil; long simmer with legumes; acid from lime or tamarind at finish.",
+    "Spice blends, palm or peanut oil, and injera or rice as base.",
+    "Signature pairing: ras el hanout + couscous + olive oil."
+  ],
+  "related_ids": [
+    "cuisine.moroccan"
+  ]
+}

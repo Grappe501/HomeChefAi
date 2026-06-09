@@ -1,0 +1,32 @@
+{
+  "id": "culture.portuguese",
+  "type": "culture",
+  "display_name": "Portuguese Culinary Culture",
+  "description": "Portuguese cooking centers on piri piri, rice, and olive oil. Technique-driven cooking — fond, butter, wine reductions, and respect for seasonal produce.",
+  "attributes": {
+    "cuisine_id": "cuisine.portuguese",
+    "cuisine_key": "portuguese",
+    "region": "europe",
+    "signature_spice": "piri piri",
+    "signature_starch": "rice",
+    "signature_fat": "olive oil",
+    "micro_lesson": "Build depth with fond from searing, reduce wine and stock, finish with cold butter for shine.",
+    "shopping_tip": "Keep mirepoix components, good butter, and wine vinegar on hand.",
+    "flavor_building": [
+      "Start with olive oil as your cooking medium.",
+      "Season with piri piri — toast or bloom in fat when using ground spices.",
+      "Build the plate around rice as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Portuguese food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "portuguese",
+      "europe"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

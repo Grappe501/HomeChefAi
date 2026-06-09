@@ -62,10 +62,99 @@
       "ingredient.cheese.swiss",
       "ingredient.cheese.shredded",
       "ingredient.cheese.block"
+    ],
+    "unit_category": "weight",
+    "default_unit": "oz",
+    "package_label": "block",
+    "packaging_options": [
+      {
+        "label": "Small",
+        "quantity": 4,
+        "unit": "oz"
+      },
+      {
+        "label": "Medium",
+        "quantity": 8,
+        "unit": "oz"
+      },
+      {
+        "label": "Large",
+        "quantity": 16,
+        "unit": "oz"
+      }
+    ],
+    "retail_aisle": "Dairy & Eggs",
+    "storage_location": "fridge",
+    "brand_examples": [
+      {
+        "id": "kraft",
+        "label": "Kraft",
+        "tier": "national"
+      },
+      {
+        "id": "tillamook",
+        "label": "Tillamook",
+        "tier": "premium"
+      },
+      {
+        "id": "sargento",
+        "label": "Sargento",
+        "tier": "national"
+      },
+      {
+        "id": "belgioioso",
+        "label": "BelGioioso",
+        "tier": "premium"
+      }
+    ],
+    "form_options": [
+      {
+        "id": "shredded",
+        "label": "Shredded",
+        "packaging": "oz",
+        "knowledge_id": "ingredient.cheese.shredded"
+      },
+      {
+        "id": "block",
+        "label": "Block",
+        "packaging": "oz",
+        "knowledge_id": "ingredient.cheese.block"
+      },
+      {
+        "id": "sliced",
+        "label": "Sliced",
+        "packaging": "oz",
+        "knowledge_id": "ingredient.cheese.sliced"
+      },
+      {
+        "id": "parmesan",
+        "label": "Parmesan",
+        "packaging": "oz",
+        "knowledge_id": "ingredient.cheese.parmesan"
+      },
+      {
+        "id": "mozzarella",
+        "label": "Mozzarella",
+        "packaging": "oz",
+        "knowledge_id": "ingredient.cheese.mozzarella"
+      },
+      {
+        "id": "cheddar",
+        "label": "Cheddar",
+        "packaging": "oz",
+        "knowledge_id": "ingredient.cheese.cheddar"
+      },
+      {
+        "id": "pepper_jack",
+        "label": "Pepper Jack",
+        "packaging": "oz",
+        "knowledge_id": "ingredient.cheese.pepper_jack"
+      }
     ]
   },
   "sources": [
     "curated",
-    "food_taxonomy_1_0"
+    "food_taxonomy_1_0",
+    "ingredient_depth_v1"
   ]
 }

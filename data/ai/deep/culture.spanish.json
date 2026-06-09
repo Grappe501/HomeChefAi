@@ -1,0 +1,22 @@
+{
+  "id": "culture.spanish",
+  "kind": "culture",
+  "title": "Spanish Culinary Culture",
+  "knowledge_id": "culture.spanish",
+  "match_keywords": [
+    "spanish",
+    "spanish",
+    "europe"
+  ],
+  "summary": "Spanish: smoked paprika, rice, olive oil.",
+  "origins": "Spanish cuisine reflects europe geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Technique-driven cooking — fond, butter, wine reductions, and respect for seasonal produce.",
+  "teaching": [
+    "Build depth with fond from searing, reduce wine and stock, finish with cold butter for shine.",
+    "Keep mirepoix components, good butter, and wine vinegar on hand.",
+    "Signature pairing: smoked paprika + rice + olive oil."
+  ],
+  "related_ids": [
+    "cuisine.spanish"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "technique.grill",
+  "kind": "technique",
+  "title": "Grill",
+  "knowledge_id": "technique.grill",
+  "match_keywords": [
+    "grill",
+    "grill"
+  ],
+  "summary": "Clean grates, oil the food not the grate, two-zone fire for control.",
+  "origins": "Grill is a core heat technique used across bbq, american cooking.",
+  "history": "Home cooks and professionals rely on grill for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Preheat",
+    "Oil food",
+    "Sear over direct heat",
+    "Move to indirect to finish"
+  ],
+  "related_ids": []
+}

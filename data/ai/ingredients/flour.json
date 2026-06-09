@@ -48,10 +48,52 @@
       "ingredient.flour.bread",
       "ingredient.flour.whole_wheat",
       "ingredient.flour.self_rising"
-    ]
+    ],
+    "wizard_item": "Flour",
+    "unit_category": "weight",
+    "default_unit": "lb",
+    "package_label": "bag",
+    "packaging_options": [
+      {
+        "label": "2 lb bag",
+        "quantity": 2,
+        "unit": "lb"
+      },
+      {
+        "label": "5 lb bag",
+        "quantity": 5,
+        "unit": "lb"
+      },
+      {
+        "label": "10 lb bag",
+        "quantity": 10,
+        "unit": "lb"
+      }
+    ],
+    "retail_aisle": "Grains & Pasta",
+    "storage_location": "pantry",
+    "brand_examples": [
+      {
+        "id": "gold_medal",
+        "label": "Gold Medal",
+        "tier": "national"
+      },
+      {
+        "id": "king_arthur",
+        "label": "King Arthur",
+        "tier": "premium"
+      },
+      {
+        "id": "pillsbury",
+        "label": "Pillsbury",
+        "tier": "national"
+      }
+    ],
+    "taxonomy_family": "flour"
   },
   "sources": [
     "curated",
-    "food_taxonomy_1_0"
+    "food_taxonomy_1_0",
+    "ingredient_depth_v1"
   ]
 }

@@ -1,0 +1,32 @@
+{
+  "id": "culture.filipino",
+  "type": "culture",
+  "display_name": "Filipino Culinary Culture",
+  "description": "Filipino cooking centers on garlic and vinegar, rice, and oil. Balance of sweet, sour, salty, spicy, and umami in every bite.",
+  "attributes": {
+    "cuisine_id": "cuisine.filipino",
+    "cuisine_key": "filipino",
+    "region": "asia",
+    "signature_spice": "garlic and vinegar",
+    "signature_starch": "rice",
+    "signature_fat": "oil",
+    "micro_lesson": "High heat for wok hei, fish sauce or soy for umami, fresh herbs at the very end.",
+    "shopping_tip": "Soy, ginger, garlic, rice, and a hot wok or large skillet.",
+    "flavor_building": [
+      "Start with oil as your cooking medium.",
+      "Season with garlic and vinegar — toast or bloom in fat when using ground spices.",
+      "Build the plate around rice as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Filipino food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "filipino",
+      "asia"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

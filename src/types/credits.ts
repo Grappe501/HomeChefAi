@@ -3,6 +3,8 @@
 export type CreditAction =
   | 'assistant_basic'
   | 'assistant_complex'
+  | 'agent_loop'
+  | 'agent_loop_synthesis'
   | 'receipt_ocr'
   | 'meal_plan_3day'
   | 'meal_plan_7day'
@@ -17,6 +19,8 @@ export type CreditAction =
 export const CREDIT_COSTS: Record<CreditAction, number> = {
   assistant_basic: 0,
   assistant_complex: 1,
+  agent_loop: 2,
+  agent_loop_synthesis: 3,
   receipt_ocr: 1,
   meal_plan_3day: 1,
   meal_plan_7day: 2,
@@ -25,7 +29,7 @@ export const CREDIT_COSTS: Record<CreditAction, number> = {
   meal_explain: 1,
   hosting_plan: 5,
   pantry_vision: 2,
-  expert_synthesis: 1,
+  expert_synthesis: 2,
   cook_log_infer: 0,
 };
 

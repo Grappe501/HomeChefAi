@@ -1,0 +1,25 @@
+{
+  "id": "technique.pressure_cook",
+  "type": "technique",
+  "display_name": "Pressure Cook",
+  "description": "Trapped steam raises boiling point — beans and tough cuts in fraction of time.",
+  "attributes": {
+    "micro_lesson": "Trapped steam raises boiling point — beans and tough cuts in fraction of time.",
+    "steps": [
+      "Minimum liquid",
+      "Do not overfill",
+      "Natural release for meats",
+      "Quick release for veg"
+    ],
+    "difficulty": "intermediate",
+    "category": "moist",
+    "cuisine_tags": [
+      "comfort",
+      "indian"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

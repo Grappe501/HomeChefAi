@@ -1,0 +1,20 @@
+{
+  "id": "technique.emulsion",
+  "kind": "technique",
+  "title": "Emulsion",
+  "knowledge_id": "technique.emulsion",
+  "match_keywords": [
+    "emulsion",
+    "emulsion"
+  ],
+  "summary": "Slow oil into egg yolk/lemon while whisking — mayo, hollandaise, vinaigrette.",
+  "origins": "Emulsion is a core finishing technique used across french cooking.",
+  "history": "Home cooks and professionals rely on emulsion for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Room temp ingredients",
+    "Whisk base",
+    "Drizzle oil slowly",
+    "Fix broken with water drop"
+  ],
+  "related_ids": []
+}

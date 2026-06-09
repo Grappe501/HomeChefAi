@@ -1,0 +1,25 @@
+{
+  "id": "technique.bloom_spices",
+  "type": "technique",
+  "display_name": "Bloom Spices",
+  "description": "Toast whole spices dry, bloom ground in fat — fat-soluble flavor awakens.",
+  "attributes": {
+    "micro_lesson": "Toast whole spices dry, bloom ground in fat — fat-soluble flavor awakens.",
+    "steps": [
+      "Toast whole spices dry",
+      "Grind fresh",
+      "Add to hot oil 30 seconds",
+      "Add wet ingredients quickly"
+    ],
+    "difficulty": "beginner",
+    "category": "foundation",
+    "cuisine_tags": [
+      "indian",
+      "mexican"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

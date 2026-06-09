@@ -1,0 +1,31 @@
+{
+  "id": "food_source.sprouts",
+  "type": "food_source",
+  "display_name": "Sprouts Farmers Market",
+  "description": "Wednesday double ad day",
+  "attributes": {
+    "source_type": "specialty",
+    "store_type": "specialty",
+    "local_food_pref": null,
+    "shopping_tips": [
+      "Wednesday double ad day",
+      "Bulk bins for grains and nuts",
+      "Strong produce at competitive prices"
+    ],
+    "seasonal_notes": "Organic produce focus; holiday grazing boards.",
+    "cuisine_tags": [
+      "produce",
+      "natural"
+    ],
+    "aisles": [
+      "Produce",
+      "Bulk",
+      "Vitamins",
+      "Meat",
+      "Deli"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

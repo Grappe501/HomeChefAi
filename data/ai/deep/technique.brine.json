@@ -1,0 +1,20 @@
+{
+  "id": "technique.brine",
+  "kind": "technique",
+  "title": "Brine",
+  "knowledge_id": "technique.brine",
+  "match_keywords": [
+    "brine",
+    "brine"
+  ],
+  "summary": "Saltwater penetrates — juicy turkey and chicken; 5–6% salt for wet brine.",
+  "origins": "Brine is a core prep technique used across american, southern cooking.",
+  "history": "Home cooks and professionals rely on brine for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Dissolve salt completely",
+    "Submerge or inject",
+    "Rinse and dry for crisp skin",
+    "Time by weight"
+  ],
+  "related_ids": []
+}

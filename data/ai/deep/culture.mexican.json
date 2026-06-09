@@ -1,0 +1,22 @@
+{
+  "id": "culture.mexican",
+  "kind": "culture",
+  "title": "Mexican Culinary Culture",
+  "knowledge_id": "culture.mexican",
+  "match_keywords": [
+    "mexican",
+    "mexican",
+    "latin"
+  ],
+  "summary": "Mexican: cumin and chili, corn tortillas, lard or oil.",
+  "origins": "Mexican cuisine reflects latin geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Fresh lime, chili heat, and masa or rice — brightness against rich proteins.",
+  "teaching": [
+    "Char chilies and tomatoes, bloom cumin in fat, finish with cilantro and lime never cooked long.",
+    "Dried chilies, cumin, corn products, and fresh lime are non-negotiable.",
+    "Signature pairing: cumin and chili + corn tortillas + lard or oil."
+  ],
+  "related_ids": [
+    "cuisine.mexican"
+  ]
+}

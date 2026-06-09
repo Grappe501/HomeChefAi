@@ -1,0 +1,25 @@
+{
+  "id": "technique.whip",
+  "type": "technique",
+  "display_name": "Whip & Aerate",
+  "description": "Cold bowl and cream whip faster — soft peaks for folding, stiff for piping.",
+  "attributes": {
+    "micro_lesson": "Cold bowl and cream whip faster — soft peaks for folding, stiff for piping.",
+    "steps": [
+      "Chill bowl and beaters",
+      "Start slow",
+      "Increase speed",
+      "Stop at correct peak"
+    ],
+    "difficulty": "beginner",
+    "category": "finishing",
+    "cuisine_tags": [
+      "french",
+      "baking"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

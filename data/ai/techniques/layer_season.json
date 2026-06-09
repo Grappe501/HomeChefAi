@@ -1,0 +1,24 @@
+{
+  "id": "technique.layer_season",
+  "type": "technique",
+  "display_name": "Layer Seasoning",
+  "description": "Salt at every stage — lightly at start, adjust at finish; acid last for brightness.",
+  "attributes": {
+    "micro_lesson": "Salt at every stage — lightly at start, adjust at finish; acid last for brightness.",
+    "steps": [
+      "Salt protein early",
+      "Season sauce as it builds",
+      "Finish acid and fresh herbs",
+      "Taste constantly"
+    ],
+    "difficulty": "beginner",
+    "category": "foundation",
+    "cuisine_tags": [
+      "global"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

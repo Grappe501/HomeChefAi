@@ -1,0 +1,22 @@
+{
+  "id": "culture.argentinian",
+  "kind": "culture",
+  "title": "Argentinian Culinary Culture",
+  "knowledge_id": "culture.argentinian",
+  "match_keywords": [
+    "argentinian",
+    "argentinian",
+    "latin"
+  ],
+  "summary": "Argentinian: chimichurri, potatoes, olive oil.",
+  "origins": "Argentinian cuisine reflects latin geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Fresh lime, chili heat, and masa or rice — brightness against rich proteins.",
+  "teaching": [
+    "Char chilies and tomatoes, bloom cumin in fat, finish with cilantro and lime never cooked long.",
+    "Dried chilies, cumin, corn products, and fresh lime are non-negotiable.",
+    "Signature pairing: chimichurri + potatoes + olive oil."
+  ],
+  "related_ids": [
+    "cuisine.argentinian"
+  ]
+}

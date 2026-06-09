@@ -1,21 +1,31 @@
 /**
- * Brain 4.0 — Clara Tool Router: deterministic tools before GPT synthesis.
+ * Agent Suite v6 — Clara Tool Router: intent-selective tools before GPT synthesis.
  */
 
 import type { InventoryItem, Profile } from '../../../../src/types/index.js';
-import type { MealDirection } from '../../../../src/types/mealDirections.js';
 import { formatInventoryForAI, formatInventorySummary } from '../inventoryContext.js';
 import { runSubstitutionPipeline } from './substitutionPipeline.js';
 import { buildDirectionsResponse, classifyIntent, type ClassifiedIntent } from './orchestrator.js';
 import { buildClaraContext, formatClaraContextForPrompt } from './buildClaraContext.js';
 import { buildKitchenPredictions } from './kitchenPredictions.js';
+import { matchDishesForPantry } from './dishMatcher.js';
+import { searchKnowledge, getKnowledgeNode, formatIngredientDepth } from './knowledgeLoader.js';
+import { getDeepByKnowledgeId, searchDeep } from './deepLoader.js';
+import { buildSkillCoaching } from './skills.js';
+import { buildLocalFoodContext, lookupSourcingFromMessage } from './localFoodContext.js';
+import { parseDishRecipeRequest, formatDishRecipeReply } from './dishRecipeFormat.js';
 import { expertsForIntent } from './brainRegistry.js';
+import { planClaraTools, needsDishSearch } from './claraToolPlan.js';
 import {
   needsExpertSynthesis,
   runExpertSynthesis,
   synthesizeClaraReply,
-  type ExpertOutput,
 } from './expertSynthesis.js';
+import { needsAgentLoop, runClaraAgentLoop } from './claraAgentLoop.js';
+import { searchDishes } from './dishSearch.js';
+import type { ClaraRoutedReply } from './claraReplyTypes.js';
+
+export type { ClaraRoutedReply } from './claraReplyTypes.js';
 
 export interface ClaraToolBundle {
   tools_used: string[];
@@ -23,19 +33,6 @@ export interface ClaraToolBundle {
   evidence: string[];
   expert_ids: string[];
   intent: ClassifiedIntent;
-}
-
-export interface ClaraRoutedReply {
-  reply: string;
-  suggested_items?: { name: string; quantity: number; unit: string }[];
-  action?: string;
-  directions?: MealDirection[];
-  intent?: string;
-  evidence?: string[];
-  expert_ids?: string[];
-  expert_outputs?: ExpertOutput[];
-  tools_used?: string[];
-  synthesis?: boolean;
 }
 
 function expiringBlock(inventory: InventoryItem[], withinDays = 7): string {
@@ -50,6 +47,55 @@ function expiringBlock(inventory: InventoryItem[], withinDays = 7): string {
   return `Expiring soon: ${expiring.slice(0, 8).map((i) => i.name).join(', ')}.`;
 }
 
+function formatKnowledgeSnippet(node: import('../../../../src/types/knowledge.js').KnowledgeNode): string {
+  const lesson = (node.attributes?.micro_lesson as string | undefined) ?? node.description;
+  if (node.type === 'technique' || node.type === 'flavor_profile' || node.type === 'culture') {
+    return lesson ? `${node.display_name}: ${lesson.slice(0, 140)}` : node.display_name;
+  }
+  if (node.type === 'food_source') {
+    const tip = (node.attributes?.shopping_tips as string[] | undefined)?.[0];
+    return tip ? `${node.display_name}: ${tip.slice(0, 140)}` : node.display_name;
+  }
+  return formatIngredientDepth(node);
+}
+
+function runKnowledgeLookup(message: string): { text: string; evidence: string[] } {
+  const q = message.replace(/\b(what is|how to|tell me about)\b/gi, '').trim().slice(0, 80);
+  if (!q) return { text: '', evidence: [] };
+
+  const parts: string[] = [];
+  const evidence: string[] = [];
+  const seen = new Set<string>();
+
+  for (const h of searchKnowledge(q, undefined, 5)) {
+    if (seen.has(h.id)) continue;
+    seen.add(h.id);
+    const node = getKnowledgeNode(h.id);
+    const depth = node ? formatKnowledgeSnippet(node) : h.display_name;
+    const deep = node ? getDeepByKnowledgeId(h.id) : undefined;
+    if (deep?.summary) {
+      parts.push(`${depth} — ${deep.summary.slice(0, 140)}`);
+      evidence.push(deep.id);
+    } else {
+      const desc = node?.description?.slice(0, 100);
+      parts.push(desc ? `${depth} — ${desc}` : depth);
+      evidence.push(h.id);
+    }
+  }
+
+  for (const deep of searchDeep(q, 2)) {
+    if (seen.has(deep.id)) continue;
+    seen.add(deep.id);
+    parts.push(`${deep.title}: ${deep.summary.slice(0, 140)}`);
+    evidence.push(deep.id);
+  }
+
+  return {
+    text: parts.length ? `Knowledge lookup: ${parts.join(' | ')}` : '',
+    evidence,
+  };
+}
+
 export async function executeClaraTools(
   userId: string,
   token: string | undefined,
@@ -59,25 +105,42 @@ export async function executeClaraTools(
 ): Promise<ClaraToolBundle> {
   const intent = classifyIntent(message);
   const domain = intent === 'general' ? 'chat' : intent;
+  const toolPlan = planClaraTools(intent, message);
   const tools_used: string[] = [];
   const parts: string[] = [];
   const evidence: string[] = [];
 
-  tools_used.push('lookup_pantry');
-  parts.push(`Pantry summary: ${formatInventorySummary(inventory)}`);
-  const exp = expiringBlock(inventory);
-  if (exp) {
-    parts.push(exp);
-    evidence.push(`expiring:${exp.split(': ')[1]?.split(',')[0] ?? 'items'}`);
+  if (toolPlan.has('lookup_pantry')) {
+    tools_used.push('lookup_pantry');
+    parts.push(`Pantry summary: ${formatInventorySummary(inventory)}`);
+    const exp = expiringBlock(inventory);
+    if (exp) {
+      parts.push(exp);
+      evidence.push(`expiring:${exp.split(': ')[1]?.split(',')[0] ?? 'items'}`);
+    }
+    const localFood = buildLocalFoodContext(profile);
+    if (localFood.text) {
+      parts.push(localFood.text);
+      evidence.push(...localFood.evidence);
+    }
   }
 
-  const ctx = await buildClaraContext(userId, token, inventory, profile, domain);
-  tools_used.push('get_ledger_context');
-  const ctxBlock = formatClaraContextForPrompt(ctx);
-  if (ctxBlock) parts.push(ctxBlock);
-  evidence.push(...ctx.evidence);
+  let ctx = {
+    expert_ids: [] as string[],
+    evidence: [] as string[],
+  };
 
-  if (intent === 'substitution' || /\bsubstitut/i.test(message)) {
+  if (toolPlan.has('get_ledger_context')) {
+    tools_used.push('get_ledger_context');
+    const bundle = await buildClaraContext(userId, token, inventory, profile, domain);
+    ctx = bundle;
+    const ctxBlock = formatClaraContextForPrompt(bundle);
+    if (ctxBlock) parts.push(ctxBlock);
+    evidence.push(...bundle.evidence);
+    if (bundle.memory_block) tools_used.push('brain_memories');
+  }
+
+  if (toolPlan.has('find_substitutes')) {
     tools_used.push('find_substitutes');
     const sub = runSubstitutionPipeline(message, inventory, profile);
     if (sub.handled && sub.reply) {
@@ -86,29 +149,80 @@ export async function executeClaraTools(
     }
   }
 
-  if (/\bwhat (can|should)|dinner|tonight|directions\b/i.test(message)) {
+  if (toolPlan.has('suggest_directions')) {
     tools_used.push('suggest_directions');
     const dirs = buildDirectionsResponse(inventory, profile, message);
     if (dirs.directions.length) {
       parts.push(
-        `Three directions: ${dirs.directions.map((d, i) => `${i + 1}. ${d.title} (${d.cuisine_label})`).join('; ')}`,
+        `Three directions: ${dirs.directions.map((d, i) => `${i + 1}. ${d.title} (${d.cuisine_label}${d.dish_id ? ` · ${d.dish_id}` : ''})`).join('; ')}`,
       );
       evidence.push(...dirs.directions.flatMap((d) => d.evidence).slice(0, 6));
     }
   }
 
-  tools_used.push('query_brain');
-  try {
-    const predictions = await buildKitchenPredictions(userId, token);
-    const top = predictions.predictions.slice(0, 3);
-    if (top.length) {
-      parts.push(
-        `Proactive signals: ${top.map((p) => `${p.title} — ${p.message.slice(0, 80)}`).join(' | ')}`,
-      );
-      for (const p of top) evidence.push(...p.evidence.slice(0, 2));
+  if (toolPlan.has('match_dishes')) {
+    const useSearch = needsDishSearch(message);
+    tools_used.push(useSearch ? 'search_dishes' : 'match_dishes');
+    let matches;
+    let search_mode: ClaraRoutedReply['search_mode'];
+    if (useSearch) {
+      const result = await searchDishes(message, inventory, profile, { limit: 6 });
+      matches = result.matches;
+      search_mode = result.mode;
+    } else {
+      matches = matchDishesForPantry(inventory, profile, { limit: 6 });
+      search_mode = 'pantry';
     }
-  } catch {
-    /* brain predictions optional */
+    if (matches.length) {
+      parts.push(
+        `Dish library (${matches.length} matches${search_mode ? ` · ${search_mode}` : ''}): ${matches
+          .slice(0, 5)
+          .map((m) => `${m.title} (${m.pantry_match}% pantry · ${m.id})`)
+          .join('; ')}`,
+      );
+      evidence.push(...matches.slice(0, 3).map((m) => m.id));
+    }
+  }
+
+  if (toolPlan.has('lookup_knowledge')) {
+    tools_used.push('lookup_knowledge');
+    const lookup = runKnowledgeLookup(message);
+    if (lookup.text) {
+      parts.push(lookup.text);
+      evidence.push(...lookup.evidence);
+    }
+    const sourcing = lookupSourcingFromMessage(message);
+    if (sourcing.text) {
+      parts.push(sourcing.text);
+      evidence.push(...sourcing.evidence);
+    }
+  }
+
+  if (toolPlan.has('skill_coach')) {
+    tools_used.push('skill_coach');
+    const coach = buildSkillCoaching(message, inventory.map((i) => i.name));
+    if (coach.tips.length) {
+      parts.push(
+        `Skill coaching: ${coach.tips.map((t) => `${t.technique_name} — ${t.micro_lesson.slice(0, 120)}`).join(' | ')}`,
+      );
+      evidence.push(...coach.inferred_technique_ids);
+    }
+  }
+
+  if (toolPlan.has('query_brain')) {
+    tools_used.push('query_brain');
+    try {
+      const predictions = await buildKitchenPredictions(userId, token);
+      const top = predictions.predictions.slice(0, 3);
+      if (top.length) {
+        parts.push(
+          `Proactive signals: ${top.map((p) => `${p.title} — ${p.message.slice(0, 80)}`).join(' | ')}`,
+        );
+        for (const p of top) evidence.push(...p.evidence.slice(0, 2));
+      }
+    } catch {
+      /* optional */
+    }
   }
 
   return {
@@ -127,10 +241,29 @@ export async function routeClaraReply(
   history: { role: string; content: string }[] = [],
   token?: string,
 ): Promise<ClaraRoutedReply> {
+  const dishId = parseDishRecipeRequest(message);
+  if (dishId) {
+    const recipe = formatDishRecipeReply(dishId);
+    if (recipe) {
+      return {
+        reply: recipe.reply,
+        action: 'view_recipe',
+        intent: 'suggestion',
+        evidence: recipe.evidence,
+        tools_used: ['match_dishes', 'lookup_knowledge'],
+        synthesis: false,
+      };
+    }
+  }
+
+  const intent = classifyIntent(message);
+  if (needsAgentLoop(message, intent)) {
+    return runClaraAgentLoop(message, inventory, profile, history, intent, token);
+  }
+
   const apiKey = process.env.OPENAI_API_KEY;
   const inventoryBlock = formatInventoryForAI(inventory);
   const bundle = await executeClaraTools(profile.user_id, token, message, inventory, profile);
-  const intent = bundle.intent;
   const domain = intent === 'general' ? 'chat' : intent;
   const experts = expertsForIntent(domain as import('./brainRegistry.js').IntentDomain);
 

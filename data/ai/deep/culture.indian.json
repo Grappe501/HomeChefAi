@@ -1,0 +1,22 @@
+{
+  "id": "culture.indian",
+  "kind": "culture",
+  "title": "Indian Culinary Culture",
+  "knowledge_id": "culture.indian",
+  "match_keywords": [
+    "indian",
+    "indian",
+    "asia"
+  ],
+  "summary": "Indian: garam masala, basmati rice, ghee.",
+  "origins": "Indian cuisine reflects asia geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Balance of sweet, sour, salty, spicy, and umami in every bite.",
+  "teaching": [
+    "High heat for wok hei, fish sauce or soy for umami, fresh herbs at the very end.",
+    "Soy, ginger, garlic, rice, and a hot wok or large skillet.",
+    "Signature pairing: garam masala + basmati rice + ghee."
+  ],
+  "related_ids": [
+    "cuisine.indian"
+  ]
+}

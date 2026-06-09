@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Camera, Wand2, CalendarDays, Package, BookOpen, Sparkles, PartyPopper, ChefHat } from 'lucide-react';
+import { Camera, Wand2, CalendarDays, Package, BookOpen, Sparkles, PartyPopper, ChefHat, ShoppingCart } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
-import { inventoryApi, mealsApi, brainApi } from '@/lib/api';
+import { inventoryApi, mealsApi, brainApi, supplyApi } from '@/lib/api';
 import type { InventoryItem, MealPlan } from '@/types';
 import type { BrainInsight } from '@/types/brain';
 import type { KitchenPrediction } from '@/types/kitchenPredictions';
+import type { RunningSupplyList } from '@/types/supplyList';
+import { supplyProgress } from '@/lib/supplyListOps';
 import CookTogetherCard from '@/components/CookTogetherCard';
 import BrainInsightCard from '@/components/BrainInsightCard';
 import ProactiveKitchenCards from '@/components/ProactiveKitchenCards';
@@ -80,6 +82,7 @@ export default function Dashboard() {
   const [plans, setPlans] = useState<MealPlan[]>([]);
   const [insights, setInsights] = useState<BrainInsight[]>([]);
   const [predictions, setPredictions] = useState<KitchenPrediction[]>([]);
+  const [supplyList, setSupplyList] = useState<RunningSupplyList | null>(null);
   const [predictionsLoading, setPredictionsLoading] = useState(true);
   const assistantName = assistantFirstName(profile?.assistant_name);
   const kitchenName = profile?.household_display_name || 'Your Kitchen';
@@ -88,6 +91,7 @@ export default function Dashboard() {
     inventoryApi.list().then((r) => setItems(r.items)).catch(() => {});
     mealsApi.list().then((r) => setPlans(r.plans)).catch(() => {});
     brainApi.insights().then((r) => setInsights(r.insights.slice(0, 3))).catch(() => {});
+    supplyApi.get().then((r) => setSupplyList(r.list)).catch(() => {});
     brainApi
       .predictions()
       .then((r) => setPredictions(r.predictions))
@@ -106,6 +110,8 @@ export default function Dashboard() {
     activePlan?.plan_data?.meals?.filter((m) => m.meal_type === 'dinner').slice(0, 3) ?? [];
   const statusItems = buildStatus(items, expiring, insights, activePlan);
   const action = nextAction(items, expiring, insights);
+
+  const supplyStats = supplyList?.items.length ? supplyProgress(supplyList.items) : null;
 
   return (
     <div className="space-y-6">
@@ -135,6 +141,31 @@ export default function Dashboard() {
       </section>
 
       <ProactiveKitchenCards predictions={predictions} loading={predictionsLoading} />
+
+      <section className="card border-copper-200/80 bg-copper-50/20">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-copper-700">Kitchen Supply List</p>
+            {supplyStats && supplyStats.total > 0 ? (
+              <>
+                <p className="text-sm text-chef mt-1 font-medium">
+                  {supplyStats.total - supplyStats.checked} items to buy
+                  {supplyList?.plan_title && ` · ${supplyList.plan_title}`}
+                </p>
+                {supplyList?.estimated_cost != null && supplyList.estimated_cost > 0 && (
+                  <p className="text-xs text-chef-subtle mt-0.5">Est. ~${supplyList.estimated_cost.toFixed(2)}</p>
+                )}
+              </>
+            ) : (
+              <p className="text-sm text-chef-subtle mt-1">Plan meals — your grocery list builds automatically.</p>
+            )}
+          </div>
+          <ShoppingCart className="text-copper-600 shrink-0" size={22} />
+        </div>
+        <Link to="/shop" className="btn-primary w-full mt-4 text-sm">
+          {supplyStats && supplyStats.total > 0 ? 'Open shopping list' : 'Start supply list'}
+        </Link>
+      </section>
 
       <section className="space-y-3">
         <div className="flex items-center justify-between gap-4">
@@ -207,6 +238,10 @@ export default function Dashboard() {
           <Link to="/receipt" className="action-tile">
             <Camera className="text-chef" size={24} />
             <span className="font-medium text-sm">Scan Receipt</span>
+          </Link>
+          <Link to="/shop" className="action-tile">
+            <ShoppingCart className="text-chef" size={24} />
+            <span className="font-medium text-sm">Supply List</span>
           </Link>
           <Link to="/pantry-scan" className="action-tile">
             <Sparkles className="text-chef" size={24} />

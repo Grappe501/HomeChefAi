@@ -1,0 +1,25 @@
+{
+  "id": "food_source.csa",
+  "type": "food_source",
+  "display_name": "CSA (Community Supported Agriculture)",
+  "description": "Weekly box teaches seasonal cooking — embrace surprise vegetables.",
+  "attributes": {
+    "source_type": "local",
+    "store_type": "local",
+    "local_food_pref": "community_supported_ag",
+    "shopping_tips": [
+      "Weekly box teaches seasonal cooking — embrace surprise vegetables.",
+      "Pick-up day is meal-plan day: sort what needs using first.",
+      "Share or swap extras with neighbors if quantities are large."
+    ],
+    "seasonal_notes": "Treat the box as your produce budget — supplement proteins at grocery.",
+    "cuisine_tags": [
+      "seasonal",
+      "subscription"
+    ],
+    "aisles": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

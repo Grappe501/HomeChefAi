@@ -8,7 +8,18 @@ import SousChefMark from '@/components/SousChefMark';
 import { useApp } from '@/hooks/useApp';
 import { assistantFirstName } from '@/lib/assistant';
 
-const KINDS: (DeepEntryKind | 'all')[] = ['all', 'ingredient', 'technique', 'dish', 'style', 'tradition'];
+const KINDS: (DeepEntryKind | 'all')[] = [
+  'all',
+  'ingredient',
+  'technique',
+  'flavor_profile',
+  'culture',
+  'food_source',
+  'path',
+  'dish',
+  'style',
+  'tradition',
+];
 
 export default function LearnPage() {
   const { profile } = useApp();

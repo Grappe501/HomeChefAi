@@ -1,8 +1,8 @@
 {
   "name": "homechef-ai",
-  "version": "4.0.0",
+  "version": "5.1.0",
   "private": true,
-  "description": "SousChef v4 — Brain 4.0 Clara Tool Router, proactive intelligence, pantry vision, hosting studio.",
+  "description": "SousChef v5.1 — Brain 5.1 Training Kitchen, 280k recipe library, nine-tool Clara, multi-course planning.",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,7 +16,10 @@
     "knowledge:import": "node scripts/import-taxonomy-to-knowledge.mjs",
     "knowledge:generate": "node scripts/generate-pantry-knowledge.mjs",
     "knowledge:variants": "node scripts/generate-variant-nodes.mjs",
+    "knowledge:depth": "npx tsx scripts/generate-ingredient-depth.ts",
     "knowledge:dishes": "node scripts/generate-dish-corpus.mjs",
+    "knowledge:training": "node scripts/generate-training-kitchen.mjs",
+    "knowledge:all": "npm run knowledge:generate && npm run knowledge:variants && npm run knowledge:depth && npm run knowledge:dishes && npm run knowledge:training",
     "db:init": "node scripts/init-db.mjs"
   },
   "dependencies": {

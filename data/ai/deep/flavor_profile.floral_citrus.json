@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.floral_citrus",
+  "kind": "flavor_profile",
+  "title": "Floral & Citrus",
+  "knowledge_id": "flavor_profile.floral_citrus",
+  "match_keywords": [
+    "floral citrus",
+    "floral & citrus",
+    "citrus",
+    "floral_herb",
+    "sweet"
+  ],
+  "summary": "Orange blossom, rose, lemongrass, kaffir lime — use sparingly; aroma is not volume.",
+  "origins": "Taste profiles describe how we experience balance on the plate — floral & citrus is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: citrus, floral_herb, sweet. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Zest before juice",
+    "Infuse cream or syrup",
+    "Add delicate herbs at service",
+    "Salt and acid ground floral notes so they taste food, not perfume."
+  ]
+}

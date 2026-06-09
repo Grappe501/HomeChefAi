@@ -697,6 +697,24 @@ export default function MealPlanner() {
             </Link>
           ))}
 
+          {groupedSupply && activePlan.plan_data?.shopping_list && activePlan.plan_data.shopping_list.length > 0 && (
+            <Link
+              to="/shop"
+              className="flex items-center justify-between gap-3 rounded-xl border border-copper-200 bg-copper-50/60 px-4 py-3 min-h-[52px] hover:border-copper-400 transition-colors"
+            >
+              <div className="flex items-center gap-2">
+                <ShoppingCart size={18} className="text-copper-600" />
+                <div>
+                  <p className="font-semibold text-sm text-chef">Kitchen Supply List</p>
+                  <p className="text-xs text-chef-subtle">
+                    {activePlan.plan_data.shopping_list.length} items · tap to check off while shopping
+                  </p>
+                </div>
+              </div>
+              <ChevronRight size={18} className="text-chef-subtle shrink-0" />
+            </Link>
+          )}
+
           <details className="card text-sm">
             <summary className="font-medium text-chef cursor-pointer min-h-[44px] flex items-center">
               All dishes ({activePlan.plan_data?.meals?.length ?? 0})

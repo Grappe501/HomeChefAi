@@ -1,0 +1,20 @@
+{
+  "id": "technique.steam",
+  "kind": "technique",
+  "title": "Steam",
+  "knowledge_id": "technique.steam",
+  "match_keywords": [
+    "steam",
+    "steam"
+  ],
+  "summary": "Preserves color and nutrients — boiling water never touches the food.",
+  "origins": "Steam is a core moist technique used across asian, healthy cooking.",
+  "history": "Home cooks and professionals rely on steam for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Boiling water below",
+    "Even layer in steamer",
+    "Cover tightly",
+    "Check doneness early"
+  ],
+  "related_ids": []
+}

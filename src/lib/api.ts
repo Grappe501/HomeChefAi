@@ -129,8 +129,14 @@ export const mealsApi = {
       method: 'POST',
       body: JSON.stringify({ action: 'what-can-i-make' }),
     }),
-  recipeIdeas: (params?: { limit?: number; meal_type?: string; cooking_style?: string }) =>
-    api<{ dishes: import('@/types/dish').DishMatch[]; count: number; inventory_summary: string }>('meals', {
+  recipeIdeas: (params?: { limit?: number; meal_type?: string; course?: string; occasion?: string; cooking_style?: string }) =>
+    api<{
+      dishes: import('@/types/dish').DishMatch[];
+      count: number;
+      library_total?: number;
+      library_by_course?: Record<string, number>;
+      inventory_summary: string;
+    }>('meals', {
       method: 'POST',
       body: JSON.stringify({ action: 'recipe-ideas', ...params }),
     }),
@@ -177,6 +183,44 @@ export const mealsApi = {
         review_action: data.action,
         meal: data.meal,
       }),
+    }),
+};
+
+export const supplyApi = {
+  get: () => api<{ list: import('@/types/supplyList').RunningSupplyList }>('supply'),
+  sync: (planId?: string) =>
+    api<{ list: import('@/types/supplyList').RunningSupplyList; synced?: boolean; plan?: import('@/types').MealPlan }>(
+      'supply',
+      { method: 'POST', body: JSON.stringify({ action: 'sync-plan', plan_id: planId }) },
+    ),
+  syncLatest: () =>
+    api<{ list: import('@/types/supplyList').RunningSupplyList; synced: boolean; plan?: import('@/types').MealPlan }>(
+      'supply?action=sync',
+    ),
+  save: (list: import('@/types/supplyList').RunningSupplyList) =>
+    api<{ list: import('@/types/supplyList').RunningSupplyList }>('supply', {
+      method: 'PUT',
+      body: JSON.stringify({ list }),
+    }),
+  addItem: (name: string, quantity = 1, unit = 'each') =>
+    api<{ list: import('@/types/supplyList').RunningSupplyList }>('supply', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'add-item', name, quantity, unit }),
+    }),
+  toggleItem: (itemId: string, checked?: boolean) =>
+    api<{ list: import('@/types/supplyList').RunningSupplyList }>('supply', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'toggle-item', item_id: itemId, checked }),
+    }),
+  removeItem: (itemId: string) =>
+    api<{ list: import('@/types/supplyList').RunningSupplyList }>('supply', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'remove-item', item_id: itemId }),
+    }),
+  clearChecked: () =>
+    api<{ list: import('@/types/supplyList').RunningSupplyList }>('supply', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'clear-checked' }),
     }),
 };
 
@@ -272,24 +316,92 @@ export const cookInferApi = {
     }),
 };
 
+export type AssistantChatResult = {
+  reply: string;
+  suggested_items?: { name: string; quantity: number; unit: string }[];
+  action?: string;
+  directions?: import('@/types/mealDirections').MealDirection[];
+  intent?: string;
+  evidence?: string[];
+  expert_ids?: string[];
+  credit_cost?: number;
+  credits_remaining?: number;
+  credits_used?: number;
+  credits_pool?: number;
+  tools_used?: string[];
+  agent_steps?: number;
+  search_mode?: string;
+};
+
 export const assistantApi = {
   chat: (message: string, history?: { role: string; content: string }[]) =>
-    api<{
-      reply: string;
-      suggested_items?: { name: string; quantity: number; unit: string }[];
-      action?: string;
-      directions?: import('@/types/mealDirections').MealDirection[];
-      intent?: string;
-      evidence?: string[];
-      expert_ids?: string[];
-      credit_cost?: number;
-      credits_remaining?: number;
-      credits_used?: number;
-      credits_pool?: number;
-    }>('assistant', {
+    api<AssistantChatResult>('assistant', {
       method: 'POST',
       body: JSON.stringify({ message, history }),
     }),
+
+  chatStream: async (
+    message: string,
+    history: { role: string; content: string }[] | undefined,
+    onEvent: (event: Record<string, unknown>) => void,
+  ): Promise<AssistantChatResult> => {
+    if (!navigator.onLine) {
+      throw new ApiError('You appear to be offline. Check your connection and try again.', 0);
+    }
+
+    const token = await getAccessToken();
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (token) headers.Authorization = `Bearer ${token}`;
+
+    const res = await fetch(`${API_BASE}/assistant-stream`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ message, history }),
+    });
+
+    if (res.status === 401) {
+      const refreshed = await refreshAccessToken();
+      if (refreshed) return assistantApi.chatStream(message, history, onEvent);
+      throw new ApiError('Session expired — please sign in again.', 401);
+    }
+
+    if (!res.ok || !res.body) {
+      const raw = await res.text().catch(() => '');
+      let data: Record<string, unknown> = {};
+      try {
+        data = raw ? JSON.parse(raw) : {};
+      } catch {
+        /* ignore */
+      }
+      throw new ApiError((data.error as string) || 'Stream request failed', res.status);
+    }
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+    let complete: Record<string, unknown> | null = null;
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const chunks = buffer.split('\n\n');
+      buffer = chunks.pop() ?? '';
+      for (const chunk of chunks) {
+        const line = chunk.trim();
+        if (!line.startsWith('data: ')) continue;
+        const payload = JSON.parse(line.slice(6)) as Record<string, unknown>;
+        onEvent(payload);
+        if (payload.type === 'complete') complete = payload;
+        if (payload.type === 'error') {
+          throw new ApiError(String(payload.message ?? 'Stream failed'), 500);
+        }
+      }
+    }
+
+    if (!complete) throw new ApiError('Stream ended without a reply', 500);
+    return complete as AssistantChatResult;
+  },
 };
 
 export const recipesApi = {

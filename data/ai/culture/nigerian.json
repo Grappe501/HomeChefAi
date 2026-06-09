@@ -1,0 +1,32 @@
+{
+  "id": "culture.nigerian",
+  "type": "culture",
+  "display_name": "Nigerian Culinary Culture",
+  "description": "Nigerian cooking centers on scotch bonnet, rice, and palm oil. Bold spice blends, slow stews, and starch scoops — communal eating is central.",
+  "attributes": {
+    "cuisine_id": "cuisine.nigerian",
+    "cuisine_key": "nigerian",
+    "region": "africa",
+    "signature_spice": "scotch bonnet",
+    "signature_starch": "rice",
+    "signature_fat": "palm oil",
+    "micro_lesson": "Bloom berbere or ras el hanout in oil; long simmer with legumes; acid from lime or tamarind at finish.",
+    "shopping_tip": "Spice blends, palm or peanut oil, and injera or rice as base.",
+    "flavor_building": [
+      "Start with palm oil as your cooking medium.",
+      "Season with scotch bonnet — toast or bloom in fat when using ground spices.",
+      "Build the plate around rice as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Nigerian food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "nigerian",
+      "africa"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

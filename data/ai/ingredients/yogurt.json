@@ -9,10 +9,55 @@
       "vegetarian": true,
       "contains_dairy": true
     },
-    "cuisine_tags": []
+    "cuisine_tags": [],
+    "unit_category": "package",
+    "default_unit": "cup",
+    "package_label": "cup",
+    "packaging_options": [
+      {
+        "label": "Single cup",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "label": "4-pack",
+        "quantity": 4,
+        "unit": "cups"
+      },
+      {
+        "label": "6-pack",
+        "quantity": 6,
+        "unit": "cups"
+      }
+    ],
+    "retail_aisle": "Dairy & Eggs",
+    "storage_location": "fridge",
+    "brand_examples": [
+      {
+        "id": "chobani",
+        "label": "Chobani",
+        "tier": "national"
+      },
+      {
+        "id": "fage",
+        "label": "Fage",
+        "tier": "premium"
+      },
+      {
+        "id": "yoplait",
+        "label": "Yoplait",
+        "tier": "national"
+      },
+      {
+        "id": "siggi",
+        "label": "Siggi's",
+        "tier": "premium"
+      }
+    ]
   },
   "sources": [
     "generate-pantry-knowledge",
-    "pantry_wizard_1_0"
+    "pantry_wizard_1_0",
+    "ingredient_depth_v1"
   ]
 }

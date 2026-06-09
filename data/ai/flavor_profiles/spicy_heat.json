@@ -2,14 +2,27 @@
   "id": "flavor_profile.spicy_heat",
   "type": "flavor_profile",
   "display_name": "Spicy Heat",
+  "description": "Heat needs fat to spread and acid to refresh — capsaicin is oil-soluble, not water-soluble.",
   "attributes": {
+    "micro_lesson": "Heat needs fat to spread and acid to refresh — capsaicin is oil-soluble, not water-soluble.",
+    "flavor_pillars": [
+      "capsaicin",
+      "fat",
+      "acid"
+    ],
+    "build_depth": [
+      "Bloom chili in hot oil",
+      "Layer fresh and dried chilies",
+      "Serve with cooling yogurt or lime"
+    ],
+    "balance_tip": "Sugar and acid tame burn; dairy fat soothes without killing flavor.",
     "cuisine_tags": [
-      "cajun",
       "mexican",
-      "thai"
+      "thai",
+      "indian"
     ]
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

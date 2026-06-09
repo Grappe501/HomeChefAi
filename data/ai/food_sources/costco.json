@@ -1,0 +1,31 @@
+{
+  "id": "food_source.costco",
+  "type": "food_source",
+  "display_name": "Costco",
+  "description": "Best for proteins and frozen veg in bulk",
+  "attributes": {
+    "source_type": "warehouse",
+    "store_type": "warehouse",
+    "local_food_pref": null,
+    "shopping_tips": [
+      "Best for proteins and frozen veg in bulk",
+      "Kirkland Signature quality staples",
+      "Split large packs and freeze portions"
+    ],
+    "seasonal_notes": "Rotating seasonal items — berries, pies, holiday roasts.",
+    "cuisine_tags": [
+      "bulk",
+      "value"
+    ],
+    "aisles": [
+      "Fresh",
+      "Meat",
+      "Dairy",
+      "Frozen",
+      "Dry Goods"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

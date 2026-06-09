@@ -1,0 +1,20 @@
+{
+  "id": "path.shop_smarter",
+  "kind": "path",
+  "title": "Shop Smarter",
+  "summary": "Farmers markets, CSAs, and grocery strategy for better meals.",
+  "origins": "Kitchen Academy structured paths — learn techniques and concepts in intentional order.",
+  "history": "Farmers markets, CSAs, and grocery strategy for better meals.",
+  "teaching": [
+    "Buy seasonal first — plan meals around what is peak.",
+    "Use chain stores for staples; local for peak produce and proteins.",
+    "Set preferred store in profile so Clara tailors shopping tips."
+  ],
+  "related_ids": [
+    "food_source.farmers_market",
+    "food_source.csa",
+    "food_source.seasonal_produce",
+    "food_source.walmart",
+    "food_source.whole_foods"
+  ]
+}

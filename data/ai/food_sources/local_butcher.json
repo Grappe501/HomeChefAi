@@ -1,0 +1,25 @@
+{
+  "id": "food_source.local_butcher",
+  "type": "food_source",
+  "display_name": "Local Butcher",
+  "description": "Ask for custom cuts and trimming — they know the animal.",
+  "attributes": {
+    "source_type": "local",
+    "store_type": "local",
+    "local_food_pref": "local_butcher",
+    "shopping_tips": [
+      "Ask for custom cuts and trimming — they know the animal.",
+      "Bones and trim often cheap or free for stock.",
+      "Many butchers dry-age or source local farms — ask provenance."
+    ],
+    "seasonal_notes": "Call ahead for holiday roasts and special cuts.",
+    "cuisine_tags": [
+      "protein",
+      "craft"
+    ],
+    "aisles": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

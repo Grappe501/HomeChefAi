@@ -1,6 +1,15 @@
 /** Deep knowledge — history, origins, teaching (Layer 1+) */
 
-export type DeepEntryKind = 'ingredient' | 'technique' | 'dish' | 'style' | 'tradition';
+export type DeepEntryKind =
+  | 'ingredient'
+  | 'technique'
+  | 'dish'
+  | 'style'
+  | 'tradition'
+  | 'flavor_profile'
+  | 'culture'
+  | 'food_source'
+  | 'path';
 
 export interface DeepTimelineEvent {
   when: string;

@@ -1,18 +1,18 @@
 {
   "id": "cuisine.asian",
   "type": "cuisine",
-  "display_name": "Asian",
+  "display_name": "Pan-Asian",
+  "description": "Pan-Asian home cooking — full course library with mains, appetizers, desserts, and more.",
   "attributes": {
-    "staples": [
-      "ingredient.rice",
-      "ingredient.garlic",
-      "ingredient.soy_sauce"
-    ],
     "cuisine_tags": [
-      "asian"
-    ]
+      "asian",
+      "asia"
+    ],
+    "region": "asia",
+    "signature_spice": "soy and ginger",
+    "signature_starch": "rice"
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "corpus_v3"
   ]
 }

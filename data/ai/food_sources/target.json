@@ -1,0 +1,30 @@
+{
+  "id": "food_source.target",
+  "type": "food_source",
+  "display_name": "Target",
+  "description": "Good for last-minute dinner fixes",
+  "attributes": {
+    "source_type": "chain",
+    "store_type": "chain",
+    "local_food_pref": null,
+    "shopping_tips": [
+      "Good for last-minute dinner fixes",
+      "Good & Gather house brand",
+      "Combine with household run"
+    ],
+    "seasonal_notes": "Seasonal endcaps — Super Bowl, back-to-school lunch.",
+    "cuisine_tags": [
+      "national",
+      "convenience"
+    ],
+    "aisles": [
+      "Fresh",
+      "Frozen",
+      "Grocery",
+      "Household"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

@@ -67,7 +67,7 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
     icon: ScanLine,
     status: 'live',
     intro:
-      'The foundation of every smart kitchen — truth about what is in your pantry, fridge, and freezer. Every item can link to a 270+ node culinary knowledge graph.',
+      'The foundation of every smart kitchen — truth about what is in your pantry, fridge, and freezer. Every item can link to a 400+ node culinary knowledge graph with sensible kitchen units.',
     features: [
       {
         id: 'receipt-scan',
@@ -90,6 +90,7 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
           'Mobile-first capture — no receipt required',
           'Review and edit before adding to inventory',
           'Knowledge_id linking via graph search',
+          'Unit normalization — jar, bag, lb (not generic "unit")',
           '2 AI credits per photo scan',
         ],
       },
@@ -121,7 +122,7 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
         id: 'knowledge-graph',
         title: 'Knowledge-Linked Items',
         status: 'live',
-        summary: '270+ JSON nodes — ingredients, techniques, cuisines, substitutions, hosting, traditions.',
+        summary: '400+ JSON nodes — ingredients, techniques (45+), culture (48), flavor profiles (18), food sources (21), substitutions, hosting, traditions.',
         details: [
           'Variant nodes (paprika.smoked, rice.white, chicken.breast)',
           'Substitution engine with dietary reasons',
@@ -198,13 +199,26 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
         id: 'proactive-intelligence',
         title: 'Proactive Kitchen Intelligence',
         status: 'live',
-        summary: 'Brain 4.0 — expiring items, likely meals, buy-never-use, and ledger feedback surface before you ask Clara.',
+        summary: 'Brain 5.1 — expiring items, kitchen staples, likely meals, buy-never-use, and ledger feedback with inline recipe directions.',
         origins: 'Most apps wait for you to open chat. SousChef reads patterns and pushes actionable cards to Home and Brain.',
         details: [
-          'Use-before-waste with three cooking directions',
-          'Likely-this-week from pantry + cook rhythm',
+          'Use-before-waste with inline direction chips → recipe library',
+          'Kitchen staple predictions from cook rhythm',
+          'Likely-this-week from pantry + ledger prefers/avoids',
           'Tap any card → Clara opens with context pre-filled',
           'Deterministic — zero AI credits',
+        ],
+      },
+      {
+        id: 'ai-impact-suite',
+        title: 'AI Impact Suite',
+        status: 'live',
+        summary: 'Household memories, ledger learning, and dish corpus feed every planner prompt and Clara tool call.',
+        details: [
+          'kitchenBrainContext injects brain memories + ledger tags',
+          'Planner intelligence feedback from decision ledger',
+          'Unified context — not siloed features',
+          'Deterministic assembly before any GPT call',
         ],
       },
     ],
@@ -218,18 +232,30 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
     icon: Sparkles,
     status: 'live',
     intro:
-      'Brain 4.0 Clara — tool router first, expert council when needed. Not “here’s a recipe.” Three directions, grounded reasoning, and proactive cards on your dashboard.',
+      'Brain 5.1 Clara — nine tools first, expert council when needed. 280,000+ recipe library, Training Kitchen, multi-course plans, and proactive cards on your dashboard.',
     features: [
+      {
+        id: 'recipe-library',
+        title: 'Recipe Ideas Library',
+        status: 'live',
+        summary: '280,000+ structured recipes across 48 cuisines and 10 course types — matched to your pantry at zero credits.',
+        details: [
+          'Filter by course: mains, appetizers, soups, salads, sides, desserts, breads, breakfast, snacks, beverages',
+          'Occasion tags: weeknight, holiday, game day, date night, and more',
+          'Pantry match score — uses what you have',
+          'recipe:dish_id fast path in Clara — full recipe at 0 credits',
+        ],
+      },
       {
         id: 'clara-tool-router',
         title: 'Clara Tool Router',
         status: 'live',
-        summary: 'Every message runs deterministic tools before GPT — pantry, ledger, substitutions, brain signals.',
+        summary: 'Nine deterministic tools before GPT — pantry, dishes, knowledge, skills, ledger, brain memories, substitutions.',
         details: [
-          'lookup_pantry, find_substitutes, suggest_directions',
-          'query_brain pulls proactive predictions into context',
+          'lookup_pantry, match_dishes, lookup_knowledge, skill_coach',
+          'brain_memories, ledger context, find_substitutes, suggest_directions',
+          'Proactive predictions pulled into tool context',
           'Evidence chips show what Clara actually used',
-          'Cuts hallucinations and credit waste',
         ],
       },
       {
@@ -254,12 +280,24 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
         id: 'meal-planner',
         title: 'AI Meal Planner',
         status: 'live',
-        summary: '1–14 day plans from your inventory, coverage presets, and planning goals.',
+        summary: '1–14 day plans from your inventory, coverage presets, multi-course slots, and planning goals.',
         details: [
-          'Dinners only, breakfast+lunch+dinner, or custom counts',
+          'Multi-course: dinner 1/3/4/5, lunch 2/3, optional breakfast',
+          'Slot drill-down — per-course Why this? and shopping lists',
           'Cook N nights / easy nights for leftovers',
           'Kitchen Supply Plan grouped shopping list',
-          'Coverage metrics and inventory utilization score',
+          'Planner intelligence feedback from ledger + brain memories',
+        ],
+      },
+      {
+        id: 'multi-course-meals',
+        title: 'Multi-Course Meal Plans',
+        status: 'live',
+        summary: 'Plan appetizer through dessert — each slot opens full course detail at /meals/:planId/slot/:slotId.',
+        details: [
+          'Simple slot cards on planner — tap to drill down',
+          'Per-slot Why this?, substitutions, and shopping',
+          'Works with AI Impact Suite context',
         ],
       },
       {
@@ -302,12 +340,24 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
         id: 'clara',
         title: 'Clara Sous Chef',
         status: 'live',
-        summary: 'Brain 4.0 assistant — tool router, voice-friendly, mobile session refresh, expert synthesis.',
+        summary: 'Brain 5.1 assistant — nine-tool router, dish recipe fast path, local sourcing, mobile session refresh, expert synthesis.',
         details: [
           'Graph-first substitutions and directions (0 credits)',
-          'Tool context + ledger reject history in every GPT call',
+          'recipe:dish_id → full structured recipe at 0 credits',
+          'Skill coach from knowledge graph (0 credits)',
+          'Tool context + ledger + brain memories in every GPT call',
           'Hosting intent → experience timeline or Hosting Studio',
-          'Cook log ingredient confirmation flow',
+        ],
+      },
+      {
+        id: 'pwa-install',
+        title: 'Install on Home Screen',
+        status: 'beta',
+        summary: 'Add SousChef to your phone home screen — manifest and install prompt live; offline service worker on roadmap.',
+        details: [
+          'Web app manifest with SousChef branding',
+          'InstallPrompt component on mobile',
+          'Full offline PWA — roadmap',
         ],
       },
       {
@@ -363,7 +413,7 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
         id: 'micro-lessons',
         title: 'Technique Micro-Lessons',
         status: 'live',
-        summary: '15+ techniques with embedded micro_lesson copy in the knowledge graph.',
+        summary: '45+ techniques with micro_lessons, steps, and Kitchen Academy deep dives.',
         origins: 'Technique teaching in kitchens predates written recipes — apprentices watched, then did.',
         history: 'Escoffier codified French technique in the 1900s; home cooks learned from Joy of Cooking and TV. SousChef embeds micro-lessons in the graph so Clara can teach at the moment you need sear, roux, or braise.',
         teachings: [
@@ -371,7 +421,7 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
           'Cook Together coach surfaces the right tip mid-recipe',
           'Each technique links to substitutions and pairings in the graph',
         ],
-        details: ['Sear, roux, braise, emulsion, and more', 'Surfaced during Cook Together coach'],
+        details: ['Sear, braise, emulsion, fermentation, and 40+ more', '18 taste profiles teach salt, acid, fat, heat balance', 'Surfaced during Cook Together coach'],
       },
       {
         id: 'cook-coach',
@@ -391,11 +441,25 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
         ],
       },
       {
+        id: 'kitchen-academy',
+        title: 'Kitchen Academy',
+        status: 'live',
+        summary: '150+ deep dives — techniques, taste profiles, 48 cuisines, grocery & farmers market sourcing.',
+        origins: 'Cooking education works best in context — while you sear, shop, or explore a new cuisine.',
+        history: 'Training Kitchen v1 adds structured learning paths, flavor balance education, and local food source intelligence tied to your profile.',
+        teachings: [
+          'Browse taste profiles to learn salt, acid, fat, and heat balance',
+          'Culture nodes explain how each cuisine builds depth',
+          'Set preferred store and local food prefs for tailored shopping tips',
+        ],
+        details: ['6 learning paths', '21 food source nodes (chains + local)', 'Clara surfaces sourcing in chat'],
+      },
+      {
         id: 'gamification',
         title: 'XP & Quests',
         status: 'live',
         summary: 'Levels from First Meal to Master Chef — scan, plan, cook rewards.',
-        details: ['Professional academy progression — vision expands this', 'See Kitchen Academy on roadmap'],
+        details: ['Six structured learning paths live', 'Clara surfaces sourcing from preferred store + local food prefs'],
       },
     ],
     goDeeper: [{ label: 'Kitchen Academy vision', href: '/vision/academy' }],
@@ -475,7 +539,7 @@ export const HOW_IT_WORKS = [
   {
     step: '03',
     title: 'Act',
-    body: 'Clara runs tools first, then speaks. Plan with Why this?. Host with timelines. Preserve traditions.',
+    body: 'Browse 280k recipes matched to your pantry. Learn techniques in Kitchen Academy. Clara runs nine tools first. Plan multi-course meals with Why this?. Host with timelines.',
   },
 ];
 
@@ -493,16 +557,25 @@ export const VISION_TOPICS: VisionTopic[] = [
         body: 'Knowledge graph, Brain 2.0, reasoning engine, decision ledger, skills, hosting API, legacy schema, landing site.',
       },
       {
+        heading: 'Shipped (Brain 5.1)',
+        body: 'Training Kitchen — 45+ techniques, 18 taste profiles, 48 cultural cuisines, 21 food sources, 150+ Academy deep dives. AI Impact Suite, 280,000+ recipe library (48 cuisines), Agent Suite v6 Clara router, multi-course meal planning, proactive inline directions, inventory unit normalization, PWA install prompt.',
+      },
+      {
+        heading: 'Shipped (Brain 5.0)',
+        body: 'AI Impact Suite foundation, 40k+ recipe corpus v2, nine-tool Clara router, multi-course meal planning, proactive inline directions.',
+      },
+      {
         heading: 'Shipped (Brain 4.0)',
-        body: 'Clara Tool Router, proactive intelligence, pantry vision, expert synthesis, cook log infer, Hosting Studio, mobile Clara fixes.',
+        body: 'Clara Tool Router foundation, proactive intelligence, pantry vision, expert synthesis, cook log infer, Hosting Studio, mobile Clara fixes.',
       },
       {
         heading: 'Next (Phase 10–11)',
-        body: 'Stripe billing launch, recipes/cookbook restore, famous style layer, Kitchen Academy paths, Brain 1.0B optional phrasing.',
+        body: 'Stripe billing launch, cookbook social feed, famous style layer, Brain 1.0B optional phrasing.',
         bullets: [
-          '/recipes with lineage and forks',
+          'Cookbook social UI (API partial — Recipes.tsx not routed)',
           'Famous Recipe Inspiration Layer (legal)',
           'Leftover Masterpiece or Plate Score',
+          'Full offline PWA service worker',
         ],
       },
       {
@@ -604,18 +677,24 @@ export const VISION_TOPICS: VisionTopic[] = [
     tagline: 'Professional progression — not participation trophies.',
     icon: ChefHat,
     audience: 'Growing home cooks',
-    summary: 'Knife skills → roux → smoke management → sauce building → leftovers mastery → plating → multi-dish timing.',
+    summary: 'Knife skills → roux → smoke → flavor balance → local sourcing → leftovers mastery.',
     sections: [
       {
-        heading: 'Today',
-        body: 'Micro-lessons on cook log, skill journey DB, comfort levels from practice count.',
+        heading: 'Live today',
+        body: '150+ Kitchen Academy deep dives — techniques, taste profiles, cultural cuisines, food sourcing. Six learning paths. Micro-lessons on cook log, skill journey DB, comfort levels from practice count. Browse at /learn.',
+        bullets: [
+          '45+ techniques with steps and micro-lessons',
+          '18 taste profiles — salt, acid, fat, heat education',
+          '48 cultural cuisine nodes + 21 grocery & local food sources',
+          'Clara skill coach and sourcing tips at zero credits',
+        ],
       },
       {
         heading: 'Vision',
         body: '"Nice work, Chef. You\'ve handled three roux-based dishes. Next time we explore darker roux and gumbo." — Clara as coach, not quiz app.',
         bullets: [
-          'Structured technique paths',
           'Milestone unlocks tied to real cook logs',
+          'Video and visual learning modes',
           'Replaces generic XP level names over time',
         ],
       },
@@ -632,7 +711,7 @@ export const VISION_TOPICS: VisionTopic[] = [
     sections: [
       {
         heading: 'Live today',
-        body: 'Recipes from cook log, like/save API, neighbor swap by zip. Recipes route restoring soon.',
+        body: 'Recipe Ideas at /recipes — 280,000+ library with pantry match. Recipes from cook log, like/save API, neighbor swap by zip. Social feed UI on roadmap.',
       },
       {
         heading: 'Vision',
@@ -649,18 +728,18 @@ export const VISION_TOPICS: VisionTopic[] = [
   {
     id: 'knowledge',
     title: 'Knowledge Graph Expansion',
-    tagline: '270+ nodes today — culinary database tomorrow.',
+    tagline: '400+ nodes + 280,000 recipes — culinary database today.',
     icon: Brain,
     audience: 'Technical readers, moat believers',
-    summary: 'nutrition/ (partial), culture/, equipment/, food_safety/, preservation/, famous_styles/ — the legal KB Clara queries.',
+    summary: 'Structured JSON knowledge nodes plus partitioned dish corpus — the legal KB and recipe library Clara queries.',
     sections: [
       {
         heading: 'Live directories',
-        bullets: ['ingredients', 'techniques', 'cuisines', 'substitutions', 'hosting', 'traditions', 'food_science', 'flavor_profiles', 'meal_patterns', 'nutrition (per-serving estimates)'],
+        bullets: ['ingredients', 'techniques (45+)', 'cuisines & culture (48)', 'flavor_profiles (18)', 'food_sources (21 chains + local)', 'substitutions', 'hosting', 'traditions', 'food_science', 'meal_patterns', 'nutrition', 'dishes/corpus — 280,000+ recipes across 48 cuisines'],
       },
       {
         heading: 'Planned directories',
-        bullets: ['culture', 'equipment', 'food_safety', 'preservation', 'famous_styles', 'gardening'],
+        bullets: ['equipment', 'food_safety', 'preservation', 'famous_styles', 'gardening'],
       },
     ],
     relatedExplore: 'inventory',
@@ -715,9 +794,15 @@ export const FEATURE_IN_APP: Record<string, string> = {
   'inventory-mgmt': '/inventory',
   'brain-insights': '/brain',
   'proactive-intelligence': '/brain',
+  'ai-impact-suite': '/brain',
+  'recipe-library': '/recipes',
   'meal-planner': '/meals',
+  'supply-list': '/shop',
+  'kitchen-supply': '/shop',
+  'multi-course-meals': '/meals',
   'why-this': '/meals',
   'replace-meal': '/meals',
+  'nutrition-estimates': '/meals',
   clara: '/assistant',
   'clara-tool-router': '/assistant',
   'expert-synthesis': '/assistant',
@@ -726,23 +811,30 @@ export const FEATURE_IN_APP: Record<string, string> = {
   'what-can-i-make': '/meals',
   'kitchen-calendar': '/calendar',
   'cook-coach': '/cook',
+  'skill-journey': '/cook',
   'micro-lessons': '/learn',
+  'kitchen-academy': '/learn',
   'cook-together': '/settings',
+  'pwa-install': '/settings',
   hosting: '/hosting',
   'neighbor-swap': '/community',
+  traditions: '/brain',
 };
 
 export const ROADMAP_PHASES = [
-  { phase: 'Shipped', status: 'live' as const, items: ['Brain 4.0 — Tool Router + proactive intelligence', 'Pantry photo scan + Hosting Studio', 'Expert council synthesis + cook log infer', 'Clara mobile session refresh + safe areas', 'Knowledge graph (270+ nodes)', 'Unified AI credits (30/150/300)', 'Brain 2.0 + decision ledger'] },
-  { phase: 'Phase 10', status: 'beta' as const, items: ['Stripe billing launch', 'Recipes / cookbook restore', 'Brain 1.0B optional phrasing', 'Grocery price APIs'] },
-  { phase: 'Phase 11', status: 'vision' as const, items: ['Famous style layer', 'Kitchen Academy paths', 'Plate Score / challenges'] },
+  { phase: 'Shipped', status: 'live' as const, items: ['Brain 5.1 — Training Kitchen (45 techniques, 18 flavors, 48 cultures, 21 food sources, 150+ Academy)', '280k recipe library · Agent Suite v6 Clara router', 'Multi-course meal planning + slot drill-down', 'Proactive inline directions + kitchen staple predictions', 'Inventory unit normalization · PWA install prompt', 'Knowledge graph (400+ nodes) + unified AI credits (30/150/300)'] },
+  { phase: 'Phase 10', status: 'beta' as const, items: ['Stripe billing launch', 'Cookbook social feed UI', 'Brain 1.0B optional phrasing', 'Full offline PWA service worker', 'Grocery price APIs'] },
+  { phase: 'Phase 11', status: 'vision' as const, items: ['Famous style layer', 'Plate Score / challenges', 'Video Academy modules'] },
   { phase: 'Phase 12', status: 'vision' as const, items: ['Cookbook social feed', 'Dinner Club', 'Culture engine'] },
   { phase: 'Future', status: 'vision' as const, items: ['Smart kitchen integrations', 'PWA push + weekly digest', 'Wine & bourbon cellar'] },
 ];
 
 export const PRICING_COMPARISON = [
   { feature: 'Pantry & manual inventory', free: true, plus: true, family: true },
+  { feature: 'Recipe library match (0 credits)', free: true, plus: true, family: true },
   { feature: 'Brain + proactive predictions', free: true, plus: true, family: true },
+  { feature: 'Kitchen Academy browse (0 credits)', free: true, plus: true, family: true },
+  { feature: 'Skill coach + food sourcing tips (0 credits)', free: true, plus: true, family: true },
   { feature: 'Graph substitutions (0 credits)', free: true, plus: true, family: true },
   { feature: 'AI credits / month', free: '30', plus: '150', family: '300' },
   { feature: 'Receipt OCR (1 credit)', free: true, plus: true, family: true },

@@ -1,0 +1,23 @@
+{
+  "id": "technique.mount_butter",
+  "type": "technique",
+  "display_name": "Mount with Butter",
+  "description": "Cold butter off heat — emulsifies sauce for shine and richness.",
+  "attributes": {
+    "micro_lesson": "Cold butter off heat — emulsifies sauce for shine and richness.",
+    "steps": [
+      "Remove from heat",
+      "Whisk in cold butter cubes",
+      "Do not boil after mounting"
+    ],
+    "difficulty": "intermediate",
+    "category": "finishing",
+    "cuisine_tags": [
+      "french"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

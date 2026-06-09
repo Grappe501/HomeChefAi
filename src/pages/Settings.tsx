@@ -77,6 +77,21 @@ export default function Settings() {
       <CookTogetherSection />
 
       <section className="card space-y-2">
+        <h3 className="font-semibold flex items-center gap-2">
+          <Download size={18} className="text-chef" /> App on your phone
+        </h3>
+        <p className="text-xs text-chef-subtle">
+          Use SousChef in the browser anytime at home-chef-ai.netlify.app — or install to your home screen for a full-screen app experience.
+        </p>
+        <p className="text-xs text-chef-subtle">
+          <strong className="text-chef">Android / Chrome:</strong> tap Install when prompted, or Menu → Install app.
+        </p>
+        <p className="text-xs text-chef-subtle">
+          <strong className="text-chef">iPhone:</strong> Share → Add to Home Screen.
+        </p>
+      </section>
+
+      <section className="card space-y-2">
         <h3 className="font-semibold">Website</h3>
         <p className="text-xs text-chef-subtle">Platform overview, pricing, Kitchen Academy, and roadmap.</p>
         <Link to={MARKETING_HOME} className="btn-secondary w-full inline-flex items-center justify-center gap-2 text-sm">

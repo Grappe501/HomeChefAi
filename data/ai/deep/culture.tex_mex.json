@@ -1,0 +1,22 @@
+{
+  "id": "culture.tex_mex",
+  "kind": "culture",
+  "title": "Tex-Mex Culinary Culture",
+  "knowledge_id": "culture.tex_mex",
+  "match_keywords": [
+    "tex_mex",
+    "tex-mex",
+    "american"
+  ],
+  "summary": "Tex-Mex: chili powder, flour tortillas, cheese.",
+  "origins": "Tex-Mex cuisine reflects american geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Regional pride — smoke, cast iron, and generous portions with table-side adjustment.",
+  "teaching": [
+    "Smoke and spice rubs, fond from cast iron, vinegar or hot sauce at the table for balance.",
+    "Cast iron, BBQ sauce, chili powder, and good black pepper.",
+    "Signature pairing: chili powder + flour tortillas + cheese."
+  ],
+  "related_ids": [
+    "cuisine.tex_mex"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "food_source.seasonal_produce",
+  "kind": "food_source",
+  "title": "Seasonal Produce Strategy",
+  "knowledge_id": "food_source.seasonal_produce",
+  "match_keywords": [
+    "seasonal produce",
+    "seasonal produce strategy",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "In-season produce costs less and tastes better.",
+  "origins": "Local food sourcing connects cooks to seasonality, community, and often better flavor per dollar when buying peak produce.",
+  "history": "USDA seasonal charts + local extension office guides for your zone.",
+  "teaching": [
+    "In-season produce costs less and tastes better.",
+    "Freeze berries and corn at peak; can tomatoes in late summer.",
+    "Use SousChef meal plans weighted to what is in season near you."
+  ]
+}

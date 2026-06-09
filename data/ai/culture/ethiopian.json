@@ -1,0 +1,32 @@
+{
+  "id": "culture.ethiopian",
+  "type": "culture",
+  "display_name": "Ethiopian Culinary Culture",
+  "description": "Ethiopian cooking centers on berbere, injera, and niter kibbeh. Bold spice blends, slow stews, and starch scoops — communal eating is central.",
+  "attributes": {
+    "cuisine_id": "cuisine.ethiopian",
+    "cuisine_key": "ethiopian",
+    "region": "africa",
+    "signature_spice": "berbere",
+    "signature_starch": "injera",
+    "signature_fat": "niter kibbeh",
+    "micro_lesson": "Bloom berbere or ras el hanout in oil; long simmer with legumes; acid from lime or tamarind at finish.",
+    "shopping_tip": "Spice blends, palm or peanut oil, and injera or rice as base.",
+    "flavor_building": [
+      "Start with niter kibbeh as your cooking medium.",
+      "Season with berbere — toast or bloom in fat when using ground spices.",
+      "Build the plate around injera as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Ethiopian food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "ethiopian",
+      "africa"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

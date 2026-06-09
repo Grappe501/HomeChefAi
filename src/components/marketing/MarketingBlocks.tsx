@@ -196,10 +196,10 @@ export const FEATURE_MOCKS: Record<string, MockVariant> = {
 
 export function SiteStatsStrip({ dark }: { dark?: boolean }) {
   const stats = [
-    { n: SITE_STATS.knowledgeNodes, l: 'Knowledge nodes' },
-    { n: `Brain ${SITE_STATS.brainVersion}`, l: 'Clara intelligence' },
-    { n: SITE_STATS.liveFunctions, l: 'Live functions' },
-    { n: SITE_STATS.platformLayers, l: 'Platform layers' },
+    { n: SITE_STATS.recipeCount, l: 'Recipe library' },
+    { n: SITE_STATS.cuisines, l: 'World cuisines' },
+    { n: `Brain ${SITE_STATS.brainVersion}`, l: 'AI Impact Suite' },
+    { n: SITE_STATS.claraTools, l: 'Clara tools' },
   ];
   return (
     <div className={`grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 ${dark ? 'text-white' : ''}`}>

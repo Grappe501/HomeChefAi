@@ -1,0 +1,21 @@
+{
+  "id": "food_source.target",
+  "kind": "food_source",
+  "title": "Target",
+  "knowledge_id": "food_source.target",
+  "match_keywords": [
+    "target",
+    "target",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Good for last-minute dinner fixes",
+  "origins": "Target is a chain retailer — knowing layout and house brands saves time and money.",
+  "history": "Seasonal endcaps — Super Bowl, back-to-school lunch.",
+  "teaching": [
+    "Good for last-minute dinner fixes",
+    "Good & Gather house brand",
+    "Combine with household run"
+  ]
+}

@@ -2,14 +2,24 @@
   "id": "technique.knead",
   "type": "technique",
   "display_name": "Knead",
+  "description": "Develop gluten with stretch and fold — windowpane test tells you when to stop.",
   "attributes": {
+    "micro_lesson": "Develop gluten with stretch and fold — windowpane test tells you when to stop.",
+    "steps": [
+      "Push and fold",
+      "Rest between sets",
+      "Test windowpane",
+      "Proof until doubled"
+    ],
+    "difficulty": "intermediate",
+    "category": "baking",
     "cuisine_tags": [
       "baking",
       "italian"
     ],
-    "micro_lesson": "Stop when dough is smooth and springs back — over-kneading toughens bread."
+    "flavor_links": []
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.persian",
+  "type": "cuisine",
+  "display_name": "Persian",
+  "description": "Persian home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "persian",
+      "middle_east"
+    ],
+    "region": "middle_east",
+    "signature_spice": "saffron and turmeric",
+    "signature_starch": "rice"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

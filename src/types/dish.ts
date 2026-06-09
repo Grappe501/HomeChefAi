@@ -6,6 +6,7 @@ export interface DishIngredient {
   name: string;
   quantity: number;
   unit: string;
+  knowledge_id?: string;
 }
 
 export interface DishMatch {
@@ -14,6 +15,8 @@ export interface DishMatch {
   description?: string;
   cuisine_id: string;
   cuisine_label: string;
+  course: string;
+  occasions: string[];
   meal_types: string[];
   prep_time_minutes: number;
   tags: string[];
@@ -34,6 +37,7 @@ export function dishIngredientsFromNode(attrs: Record<string, unknown> | undefin
       name: String(i.name ?? ''),
       quantity: Number(i.quantity ?? 1),
       unit: String(i.unit ?? 'each'),
+      ...(i.knowledge_id ? { knowledge_id: String(i.knowledge_id) } : {}),
     }))
     .filter((i) => i.name.length > 0);
 }

@@ -4,11 +4,13 @@ import { Trash2 } from 'lucide-react';
 import { inventoryApi } from '@/lib/api';
 import { LOCATION_EMOJI } from '@/lib/utils';
 import { inferWizardItemLocation, type InventoryItem } from '@/types';
+import { useToast } from '@/hooks/useToast';
 
 const LOCATIONS = ['all', 'pantry', 'fridge', 'freezer'] as const;
 const STORAGE_LOCATIONS = ['pantry', 'fridge', 'freezer'] as const;
 
 export default function Inventory() {
+  const toast = useToast();
   const [items, setItems] = useState<InventoryItem[]>([]);
   const [filter, setFilter] = useState<string>('all');
   const [loading, setLoading] = useState(true);
@@ -30,20 +32,32 @@ export default function Inventory() {
 
   const adjustQty = async (item: InventoryItem, delta: number) => {
     const newQty = Math.max(0, Number(item.quantity) + delta);
-    await inventoryApi.update({ id: item.id, quantity: newQty });
-    load();
+    try {
+      await inventoryApi.update({ id: item.id, quantity: newQty });
+      load();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Could not update quantity');
+    }
   };
 
   const remove = async (id: string) => {
-    await inventoryApi.remove(id);
-    load();
+    try {
+      await inventoryApi.remove(id);
+      load();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Could not remove item');
+    }
   };
 
   const cycleLocation = async (item: InventoryItem) => {
     const idx = STORAGE_LOCATIONS.indexOf(item.location);
     const next = STORAGE_LOCATIONS[(idx + 1) % STORAGE_LOCATIONS.length];
-    await inventoryApi.update({ id: item.id, location: next });
-    load();
+    try {
+      await inventoryApi.update({ id: item.id, location: next });
+      load();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Could not update location');
+    }
   };
 
   const likelyMislocated = useMemo(() => {

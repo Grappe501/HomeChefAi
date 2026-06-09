@@ -1,0 +1,23 @@
+{
+  "id": "flavor_profile.bbq",
+  "kind": "flavor_profile",
+  "title": "BBQ Profile",
+  "knowledge_id": "flavor_profile.bbq",
+  "match_keywords": [
+    "bbq",
+    "bbq profile",
+    "smoke",
+    "sweet",
+    "acid",
+    "spice"
+  ],
+  "summary": "Classic BBQ balance: sweet molasses/brown sugar, vinegar tang, smoke, and pepper heat.",
+  "origins": "Taste profiles describe how we experience balance on the plate — bbq profile is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: smoke, sweet, acid, spice. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Dry rub under skin",
+    "Spritz with vinegar during cook",
+    "Glaze in last 15 minutes",
+    "Too sweet? More vinegar. Too sharp? Touch of fat or honey."
+  ]
+}

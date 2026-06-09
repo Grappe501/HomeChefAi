@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.scandinavian",
+  "type": "cuisine",
+  "display_name": "Scandinavian",
+  "description": "Scandinavian home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "scandinavian",
+      "europe"
+    ],
+    "region": "europe",
+    "signature_spice": "dill",
+    "signature_starch": "potatoes"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

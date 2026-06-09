@@ -9,6 +9,7 @@ import { expertIdsForIntent } from './orchestrator.js';
 import { formatInventorySummary } from '../inventoryContext.js';
 import { getRecentLedger } from './ledgerStore.js';
 import { formatRejectHistoryForAssistant, processLedgerOutcomes } from './outcomeProcessor.js';
+import { buildKitchenBrainContext, formatKitchenBrainContextForPrompt } from './kitchenBrainContext.js';
 
 export interface ClaraContextBundle {
   pantry_summary: string;
@@ -56,14 +57,22 @@ export async function buildClaraContext(
           .join(', ')}.`
       : '';
 
-  const memory_block = lastMealBlock(profile);
+  const brainCtx = await buildKitchenBrainContext(userId, token, inventory, profile);
+  const brainBlock = formatKitchenBrainContextForPrompt(brainCtx);
+  const memory_block = [lastMealBlock(profile), brainBlock].filter(Boolean).join('\n');
 
   let ledger_hint = '';
-  const evidence: string[] = [];
+  const evidence: string[] = [...brainCtx.evidence];
   if (domain === 'meal_plan' || domain === 'suggestion' || domain === 'chat') {
     const ledger = await getRecentLedger(userId, token, 'meal_plan', 10);
-    const processed = processLedgerOutcomes(ledger);
+    const processed = processLedgerOutcomes(ledger, 'meal_plan');
     ledger_hint = formatRejectHistoryForAssistant(processed);
+    if (processed.prefers_tags.length) {
+      ledger_hint += `\nPrefer: ${processed.prefers_tags.join(', ')}.`;
+    }
+    if (processed.avoids_tags.length) {
+      ledger_hint += `\nAvoid: ${processed.avoids_tags.join(', ')}.`;
+    }
     if (processed.kept_meals.length) evidence.push(`kept:${processed.kept_meals[0]}`);
     if (processed.replaced_meals.length) evidence.push(`replaced:${processed.replaced_meals[0]}`);
   }

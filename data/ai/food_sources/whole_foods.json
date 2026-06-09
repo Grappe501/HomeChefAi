@@ -1,0 +1,32 @@
+{
+  "id": "food_source.whole_foods",
+  "type": "food_source",
+  "display_name": "Whole Foods Market",
+  "description": "365 by Whole Foods for value organic",
+  "attributes": {
+    "source_type": "premium",
+    "store_type": "premium",
+    "local_food_pref": null,
+    "shopping_tips": [
+      "365 by Whole Foods for value organic",
+      "Butcher counter for custom cuts",
+      "Prime member deals on select items"
+    ],
+    "seasonal_notes": "Local farm tags on produce; holiday prime rib and turkeys.",
+    "cuisine_tags": [
+      "organic",
+      "premium"
+    ],
+    "aisles": [
+      "Produce",
+      "Meat",
+      "Seafood",
+      "Dairy",
+      "Bulk",
+      "Prepared Foods"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

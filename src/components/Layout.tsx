@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
-import { Home, Package, Camera, CalendarDays, ChefHat, MessageCircle, Users, Settings, Globe } from 'lucide-react';
+import { Home, Package, ShoppingCart, MessageCircle, Settings, Globe, UtensilsCrossed, ChefHat } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
 import { sousChefLabel } from '@/lib/assistant';
 import { MARKETING_HOME } from '@/lib/siteNav';
@@ -7,10 +7,9 @@ import InstallPrompt from '@/components/InstallPrompt';
 
 const navItems = [
   { to: '/', icon: Home, label: 'Home' },
-  { to: '/inventory', icon: Package, label: 'Inventory' },
-  { to: '/receipt', icon: Camera, label: 'Receipt' },
-  { to: '/calendar', icon: CalendarDays, label: 'Calendar' },
-  { to: '/community', icon: Users, label: 'Swap' },
+  { to: '/shop', icon: ShoppingCart, label: 'Shop' },
+  { to: '/meals', icon: UtensilsCrossed, label: 'Meals' },
+  { to: '/inventory', icon: Package, label: 'Pantry' },
   { to: '/assistant', icon: MessageCircle, label: 'Clara' },
 ];
 

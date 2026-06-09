@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.bitter_bright",
+  "kind": "flavor_profile",
+  "title": "Bitter-Bright",
+  "knowledge_id": "flavor_profile.bitter_bright",
+  "match_keywords": [
+    "bitter bright",
+    "bitter-bright",
+    "bitter_green",
+    "acid",
+    "olive_oil"
+  ],
+  "summary": "Radicchio, arugula, coffee, dark chocolate in savory — bitterness needs salt and fat.",
+  "origins": "Taste profiles describe how we experience balance on the plate — bitter-bright is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: bitter_green, acid, olive_oil. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Char bitter greens lightly",
+    "Balance with sweet fruit or balsamic",
+    "Use olive oil generously",
+    "Sweet and acid turn bitterness into complexity, not harshness."
+  ]
+}

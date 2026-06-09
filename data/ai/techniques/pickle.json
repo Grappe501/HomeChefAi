@@ -1,0 +1,25 @@
+{
+  "id": "technique.pickle",
+  "type": "technique",
+  "display_name": "Quick Pickle",
+  "description": "Hot vinegar brine — cucumbers, onions, jalapeños ready in 30 minutes.",
+  "attributes": {
+    "micro_lesson": "Hot vinegar brine — cucumbers, onions, jalapeños ready in 30 minutes.",
+    "steps": [
+      "Slice thin",
+      "Heat vinegar + salt + sugar",
+      "Pour over veg",
+      "Chill 30+ min"
+    ],
+    "difficulty": "beginner",
+    "category": "prep",
+    "cuisine_tags": [
+      "southern",
+      "asian"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

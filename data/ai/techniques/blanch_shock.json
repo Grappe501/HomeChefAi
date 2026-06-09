@@ -1,0 +1,25 @@
+{
+  "id": "technique.blanch_shock",
+  "type": "technique",
+  "display_name": "Blanch & Shock",
+  "description": "Boil briefly, ice bath — bright green veg and easy peeling for tomatoes.",
+  "attributes": {
+    "micro_lesson": "Boil briefly, ice bath — bright green veg and easy peeling for tomatoes.",
+    "steps": [
+      "Salted boiling water",
+      "Ice bath ready",
+      "Brief boil",
+      "Shock immediately"
+    ],
+    "difficulty": "beginner",
+    "category": "prep",
+    "cuisine_tags": [
+      "french",
+      "asian"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

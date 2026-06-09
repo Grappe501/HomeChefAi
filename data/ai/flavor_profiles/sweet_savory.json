@@ -2,13 +2,26 @@
   "id": "flavor_profile.sweet_savory",
   "type": "flavor_profile",
   "display_name": "Sweet-Savory",
+  "description": "Caramelized onions, maple glaze, teriyaki — sweetness needs salt and acid to taste complex.",
   "attributes": {
+    "micro_lesson": "Caramelized onions, maple glaze, teriyaki — sweetness needs salt and acid to taste complex.",
+    "flavor_pillars": [
+      "sweet",
+      "salt",
+      "umami"
+    ],
+    "build_depth": [
+      "Reduce until sticky",
+      "Add soy or fish sauce for depth",
+      "Finish with vinegar splash"
+    ],
+    "balance_tip": "If cloying, add acid; if flat, add salt before more sugar.",
     "cuisine_tags": [
       "asian",
       "american"
     ]
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

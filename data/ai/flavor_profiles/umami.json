@@ -2,13 +2,26 @@
   "id": "flavor_profile.umami",
   "type": "flavor_profile",
   "display_name": "Umami-forward",
+  "description": "Umami is the fifth taste — savory depth from soy, parmesan, mushrooms, tomato paste, and slow browning.",
   "attributes": {
+    "micro_lesson": "Umami is the fifth taste — savory depth from soy, parmesan, mushrooms, tomato paste, and slow browning.",
+    "flavor_pillars": [
+      "salt",
+      "ferment",
+      "glutamate"
+    ],
+    "build_depth": [
+      "Add tomato paste and brown it",
+      "Finish with parmesan or fish sauce",
+      "Use dried mushrooms in stocks"
+    ],
+    "balance_tip": "Pair with acid (lemon, vinegar) so richness does not taste flat or heavy.",
     "cuisine_tags": [
       "asian",
       "italian"
     ]
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

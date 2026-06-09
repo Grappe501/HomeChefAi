@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.earthy",
+  "kind": "flavor_profile",
+  "title": "Earthy",
+  "knowledge_id": "flavor_profile.earthy",
+  "match_keywords": [
+    "earthy",
+    "earthy",
+    "root_veg",
+    "mushroom",
+    "warm_spice"
+  ],
+  "summary": "Mushrooms, beets, lentils, cumin — depth from roasting and long simmering.",
+  "origins": "Taste profiles describe how we experience balance on the plate — earthy is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: root_veg, mushroom, warm_spice. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Roast roots until caramelized",
+    "Deglaze with wine",
+    "Toast spices in fat before wet ingredients",
+    "Fresh acid and herbs on top keep earthiness from feeling heavy."
+  ]
+}

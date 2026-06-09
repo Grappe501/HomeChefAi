@@ -20,6 +20,31 @@ interface Message {
   intent?: string;
   credit_cost?: number;
   credits_remaining?: number;
+  tools_used?: string[];
+}
+
+const TOOL_LABELS: Record<string, string> = {
+  lookup_pantry: 'Checking pantry',
+  search_dishes: 'Searching recipe library',
+  lookup_knowledge: 'Searching Kitchen Academy',
+  find_substitutes: 'Finding substitutes',
+  suggest_directions: 'Building directions',
+  get_brain_context: 'Reading kitchen memory',
+  skill_coach: 'Coaching technique',
+  local_sourcing: 'Looking up local food sources',
+};
+
+function shouldUseAgentStream(message: string): boolean {
+  const m = message.trim();
+  if (m.length <= 80) return false;
+  if (/^(hi|hello|hey|thanks|thank you|ok|okay|yes|no)\b/i.test(m)) return false;
+  if (/\bsubstitut/i.test(m)) return false;
+  if (/\bwhat('s| is) in (my )?pantry\b/i.test(m)) return false;
+  return true;
+}
+
+function toolLabel(tool: string): string {
+  return TOOL_LABELS[tool] ?? tool.replace(/_/g, ' ');
 }
 
 export default function Assistant() {
@@ -35,12 +60,13 @@ export default function Assistant() {
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [toolProgress, setToolProgress] = useState<string[]>([]);
   const [voiceError, setVoiceError] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, toolProgress]);
 
   useEffect(() => {
     billingApi.status().then((s) => {
@@ -59,9 +85,37 @@ export default function Assistant() {
     setMessages((m) => [...m, userMsg]);
     setInput('');
     setLoading(true);
+    setToolProgress([]);
     try {
       const history = messages.map((m) => ({ role: m.role, content: m.content }));
-      const result = await assistantApi.chat(text, history);
+      let result;
+
+      if (shouldUseAgentStream(text)) {
+        try {
+          result = await assistantApi.chatStream(text, history, (event) => {
+            if (event.type === 'tool_start' && typeof event.tool === 'string') {
+              setToolProgress((prev) => [...prev, toolLabel(event.tool as string)]);
+            }
+            if (event.type === 'tool_done' && typeof event.tool === 'string') {
+              setToolProgress((prev) => {
+                const label = toolLabel(event.tool as string);
+                return prev.map((p) => (p === label ? `${label} ✓` : p));
+              });
+            }
+            if (event.type === 'synthesis') {
+              setToolProgress((prev) => [...prev, 'Consulting expert advisors…']);
+            }
+            if (event.type === 'credit' && typeof event.credits_remaining === 'number') {
+              setCreditsRemaining(event.credits_remaining);
+            }
+          });
+        } catch {
+          result = await assistantApi.chat(text, history);
+        }
+      } else {
+        result = await assistantApi.chat(text, history);
+      }
+
       const assistantMsg: Message = {
         role: 'assistant',
         content: result.reply.replace(/\*\*/g, ''),
@@ -71,10 +125,10 @@ export default function Assistant() {
         intent: result.intent,
         credit_cost: result.credit_cost,
         credits_remaining: result.credits_remaining,
+        tools_used: result.tools_used,
       };
       if (result.credits_remaining !== undefined) setCreditsRemaining(result.credits_remaining);
       setMessages((m) => [...m, assistantMsg]);
-      // iOS blocks speechSynthesis unless triggered directly by tap — skip auto-read
       if (!/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
         speak(result.reply.replace(/\*\*/g, ''));
       }
@@ -86,6 +140,7 @@ export default function Assistant() {
       setMessages((m) => [...m, { role: 'assistant', content: msg }]);
     } finally {
       setLoading(false);
+      setToolProgress([]);
     }
   };
 
@@ -131,12 +186,21 @@ export default function Assistant() {
                       <button
                         key={d.id}
                         type="button"
-                        onClick={() => send(`Build a plan around the ${d.cuisine_label} direction: ${d.title}`)}
+                        onClick={() =>
+                          send(
+                            d.dish_id
+                              ? `recipe:${d.dish_id}`
+                              : `Build a plan around the ${d.cuisine_label} direction: ${d.title}`,
+                          )
+                        }
                         className="w-full text-left rounded-lg border border-steel bg-stainless-50 px-3 py-2 hover:border-chef/40"
                       >
                         <p className="text-xs font-semibold text-chef">{d.cuisine_label}</p>
                         <p className="text-sm font-medium">{d.title}</p>
                         <p className="text-xs text-chef-subtle mt-0.5">{d.tagline}</p>
+                        {d.dish_id && (
+                          <p className="text-[10px] text-copper-700 mt-1 font-medium">Tap for full recipe</p>
+                        )}
                       </button>
                     ))}
                   </div>
@@ -165,10 +229,22 @@ export default function Assistant() {
         ))}
         {loading && (
           <div className="flex justify-start space-y-1">
-            <div>
+            <div className="max-w-[85%]">
               <p className="text-xs text-chef-subtle pl-1">{assistantName} says</p>
-              <div className="bg-white border border-steel rounded-xl px-4 py-3 min-h-[52px] flex items-center">
-                <p className="text-sm text-chef-subtle animate-pulse">Thinking…</p>
+              <div className="bg-white border border-steel rounded-xl px-4 py-3 min-h-[52px] space-y-2">
+                <p className="text-sm text-chef-subtle animate-pulse">
+                  {toolProgress.length ? 'Gathering kitchen context…' : 'Thinking…'}
+                </p>
+                {toolProgress.length > 0 && (
+                  <ul className="space-y-1">
+                    {toolProgress.map((step, idx) => (
+                      <li key={`${step}-${idx}`} className="text-xs text-chef-muted flex items-center gap-1.5">
+                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-copper-500 shrink-0" />
+                        {step}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </div>
           </div>

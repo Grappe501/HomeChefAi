@@ -1,0 +1,20 @@
+{
+  "id": "technique.pressure_cook",
+  "kind": "technique",
+  "title": "Pressure Cook",
+  "knowledge_id": "technique.pressure_cook",
+  "match_keywords": [
+    "pressure cook",
+    "pressure cook"
+  ],
+  "summary": "Trapped steam raises boiling point — beans and tough cuts in fraction of time.",
+  "origins": "Pressure Cook is a core moist technique used across comfort, indian cooking.",
+  "history": "Home cooks and professionals rely on pressure cook for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Minimum liquid",
+    "Do not overfill",
+    "Natural release for meats",
+    "Quick release for veg"
+  ],
+  "related_ids": []
+}

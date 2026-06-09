@@ -1,0 +1,32 @@
+{
+  "id": "culture.peruvian",
+  "type": "culture",
+  "display_name": "Peruvian Culinary Culture",
+  "description": "Peruvian cooking centers on aji amarillo, potatoes, and olive oil. Fresh lime, chili heat, and masa or rice — brightness against rich proteins.",
+  "attributes": {
+    "cuisine_id": "cuisine.peruvian",
+    "cuisine_key": "peruvian",
+    "region": "latin",
+    "signature_spice": "aji amarillo",
+    "signature_starch": "potatoes",
+    "signature_fat": "olive oil",
+    "micro_lesson": "Char chilies and tomatoes, bloom cumin in fat, finish with cilantro and lime never cooked long.",
+    "shopping_tip": "Dried chilies, cumin, corn products, and fresh lime are non-negotiable.",
+    "flavor_building": [
+      "Start with olive oil as your cooking medium.",
+      "Season with aji amarillo — toast or bloom in fat when using ground spices.",
+      "Build the plate around potatoes as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Peruvian food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "peruvian",
+      "latin"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

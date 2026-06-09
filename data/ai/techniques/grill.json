@@ -2,14 +2,24 @@
   "id": "technique.grill",
   "type": "technique",
   "display_name": "Grill",
+  "description": "Clean grates, oil the food not the grate, two-zone fire for control.",
   "attributes": {
+    "micro_lesson": "Clean grates, oil the food not the grate, two-zone fire for control.",
+    "steps": [
+      "Preheat",
+      "Oil food",
+      "Sear over direct heat",
+      "Move to indirect to finish"
+    ],
+    "difficulty": "beginner",
+    "category": "heat",
     "cuisine_tags": [
       "bbq",
       "american"
     ],
-    "micro_lesson": "Clean grates + oil = fewer stuck proteins and better grill marks."
+    "flavor_links": []
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

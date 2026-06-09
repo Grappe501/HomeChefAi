@@ -1,0 +1,25 @@
+{
+  "id": "technique.toast_nuts",
+  "type": "technique",
+  "display_name": "Toast Nuts & Seeds",
+  "description": "Dry pan or oven — releases oils and doubles nutty flavor; watch closely.",
+  "attributes": {
+    "micro_lesson": "Dry pan or oven — releases oils and doubles nutty flavor; watch closely.",
+    "steps": [
+      "Single layer in pan",
+      "Medium heat shaking",
+      "Golden not black",
+      "Cool before chopping"
+    ],
+    "difficulty": "beginner",
+    "category": "prep",
+    "cuisine_tags": [
+      "mediterranean",
+      "asian"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

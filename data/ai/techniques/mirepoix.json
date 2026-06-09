@@ -1,0 +1,26 @@
+{
+  "id": "technique.mirepoix",
+  "type": "technique",
+  "display_name": "Mirepoix / Sofrito",
+  "description": "Aromatic base — onion, carrot, celery (or pepper, garlic, tomato) builds flavor layers.",
+  "attributes": {
+    "micro_lesson": "Aromatic base — onion, carrot, celery (or pepper, garlic, tomato) builds flavor layers.",
+    "steps": [
+      "Uniform dice",
+      "Sweat in fat",
+      "Do not brown unless specified",
+      "Build sauce on top"
+    ],
+    "difficulty": "beginner",
+    "category": "foundation",
+    "cuisine_tags": [
+      "french",
+      "italian",
+      "mexican"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

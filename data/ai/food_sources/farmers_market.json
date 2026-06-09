@@ -1,0 +1,26 @@
+{
+  "id": "food_source.farmers_market",
+  "type": "food_source",
+  "display_name": "Farmers Market",
+  "description": "Arrive early for best selection — berries, greens, and eggs go fast.",
+  "attributes": {
+    "source_type": "local",
+    "store_type": "local",
+    "local_food_pref": "farmers_market",
+    "shopping_tips": [
+      "Arrive early for best selection — berries, greens, and eggs go fast.",
+      "Ask growers what is peak this week and how they cook it.",
+      "Bring cash and reusable bags; many vendors are small-batch.",
+      "Plan meals around what you find rather than a fixed list."
+    ],
+    "seasonal_notes": "Walk the market once before buying — compare price and quality. Buy heavy items last.",
+    "cuisine_tags": [
+      "seasonal",
+      "local"
+    ],
+    "aisles": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

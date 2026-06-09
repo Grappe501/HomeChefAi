@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.russian",
+  "type": "cuisine",
+  "display_name": "Russian",
+  "description": "Russian home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "russian",
+      "europe"
+    ],
+    "region": "europe",
+    "signature_spice": "dill and sour cream",
+    "signature_starch": "potatoes"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

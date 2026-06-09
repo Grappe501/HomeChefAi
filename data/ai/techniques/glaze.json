@@ -1,0 +1,25 @@
+{
+  "id": "technique.glaze",
+  "type": "technique",
+  "display_name": "Glaze",
+  "description": "Reduce sauce until glossy and clings — teriyaki, balsamic, maple.",
+  "attributes": {
+    "micro_lesson": "Reduce sauce until glossy and clings — teriyaki, balsamic, maple.",
+    "steps": [
+      "Cook protein nearly done",
+      "Add glaze",
+      "Toss until shiny",
+      "Serve immediately"
+    ],
+    "difficulty": "intermediate",
+    "category": "finishing",
+    "cuisine_tags": [
+      "asian",
+      "american"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

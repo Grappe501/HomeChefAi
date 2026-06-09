@@ -1,0 +1,25 @@
+{
+  "id": "food_source.seasonal_produce",
+  "type": "food_source",
+  "display_name": "Seasonal Produce Strategy",
+  "description": "In-season produce costs less and tastes better.",
+  "attributes": {
+    "source_type": "local",
+    "store_type": "local",
+    "local_food_pref": "seasonal_produce",
+    "shopping_tips": [
+      "In-season produce costs less and tastes better.",
+      "Freeze berries and corn at peak; can tomatoes in late summer.",
+      "Use SousChef meal plans weighted to what is in season near you."
+    ],
+    "seasonal_notes": "USDA seasonal charts + local extension office guides for your zone.",
+    "cuisine_tags": [
+      "planning",
+      "savings"
+    ],
+    "aisles": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

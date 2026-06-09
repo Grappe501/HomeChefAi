@@ -2,14 +2,24 @@
   "id": "technique.steam",
   "type": "technique",
   "display_name": "Steam",
+  "description": "Preserves color and nutrients — boiling water never touches the food.",
   "attributes": {
+    "micro_lesson": "Preserves color and nutrients — boiling water never touches the food.",
+    "steps": [
+      "Boiling water below",
+      "Even layer in steamer",
+      "Cover tightly",
+      "Check doneness early"
+    ],
+    "difficulty": "beginner",
+    "category": "moist",
     "cuisine_tags": [
       "asian",
       "healthy"
     ],
-    "micro_lesson": "Keep the lid on; escaping steam is lost cooking power."
+    "flavor_links": []
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

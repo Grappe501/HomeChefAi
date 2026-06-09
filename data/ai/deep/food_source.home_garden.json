@@ -1,0 +1,21 @@
+{
+  "id": "food_source.home_garden",
+  "kind": "food_source",
+  "title": "Home Garden",
+  "knowledge_id": "food_source.home_garden",
+  "match_keywords": [
+    "home garden",
+    "home garden",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Herbs on the windowsill change daily cooking — start there.",
+  "origins": "Local food sourcing connects cooks to seasonality, community, and often better flavor per dollar when buying peak produce.",
+  "history": "Seed starting calendar for your zone; succession plant greens.",
+  "teaching": [
+    "Herbs on the windowsill change daily cooking — start there.",
+    "Plant what you eat most: tomatoes, peppers, greens.",
+    "Harvest in morning for best texture; cook same day when possible."
+  ]
+}

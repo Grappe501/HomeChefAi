@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.bright_acid",
+  "kind": "flavor_profile",
+  "title": "Bright & Acidic",
+  "knowledge_id": "flavor_profile.bright_acid",
+  "match_keywords": [
+    "bright acid",
+    "bright & acidic",
+    "acid",
+    "fresh_herb",
+    "salt"
+  ],
+  "summary": "Acid lifts fat and salt — finish with citrus, vinegar, or pickled elements; never only at the start.",
+  "origins": "Taste profiles describe how we experience balance on the plate — bright & acidic is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: acid, fresh_herb, salt. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Deglaze with wine or vinegar",
+    "Add citrus zest at the end",
+    "Quick-pickle onions for garnish",
+    "If too sharp, add fat (olive oil, butter) or a touch of sweetness."
+  ]
+}

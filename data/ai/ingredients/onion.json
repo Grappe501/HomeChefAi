@@ -40,9 +40,39 @@
       "ingredient.onion.yellow",
       "ingredient.onion.red",
       "ingredient.onion.white"
+    ],
+    "unit_category": "produce",
+    "default_unit": "each",
+    "package_label": "bag",
+    "packaging_options": [
+      {
+        "label": "1 onion",
+        "quantity": 1,
+        "unit": "each"
+      },
+      {
+        "label": "3 lb bag",
+        "quantity": 3,
+        "unit": "lb"
+      }
+    ],
+    "retail_aisle": "Produce",
+    "storage_location": "fridge",
+    "brand_examples": [
+      {
+        "id": "organic",
+        "label": "Organic",
+        "tier": "national"
+      },
+      {
+        "id": "conventional",
+        "label": "Conventional",
+        "tier": "national"
+      }
     ]
   },
   "sources": [
-    "curated"
+    "curated",
+    "ingredient_depth_v1"
   ]
 }

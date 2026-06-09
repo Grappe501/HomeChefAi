@@ -2,14 +2,24 @@
   "id": "technique.simmer",
   "type": "technique",
   "display_name": "Simmer",
+  "description": "Gentle bubbles — rolling boil toughens protein and breaks emulsions.",
   "attributes": {
+    "micro_lesson": "Gentle bubbles — rolling boil toughens protein and breaks emulsions.",
+    "steps": [
+      "Bring to boil",
+      "Reduce to bare simmer",
+      "Skim if needed",
+      "Season gradually"
+    ],
+    "difficulty": "beginner",
+    "category": "moist",
     "cuisine_tags": [
       "comfort",
       "southern"
     ],
-    "micro_lesson": "Gentle bubbles, not a rolling boil — keeps broth clear and meat tender."
+    "flavor_links": []
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

@@ -1,0 +1,32 @@
+{
+  "id": "culture.american",
+  "type": "culture",
+  "display_name": "Classic American Culinary Culture",
+  "description": "Classic American cooking centers on salt and pepper, potatoes, and butter. Regional pride — smoke, cast iron, and generous portions with table-side adjustment.",
+  "attributes": {
+    "cuisine_id": "cuisine.american",
+    "cuisine_key": "american",
+    "region": "american",
+    "signature_spice": "salt and pepper",
+    "signature_starch": "potatoes",
+    "signature_fat": "butter",
+    "micro_lesson": "Smoke and spice rubs, fond from cast iron, vinegar or hot sauce at the table for balance.",
+    "shopping_tip": "Cast iron, BBQ sauce, chili powder, and good black pepper.",
+    "flavor_building": [
+      "Start with butter as your cooking medium.",
+      "Season with salt and pepper — toast or bloom in fat when using ground spices.",
+      "Build the plate around potatoes as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Classic American food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "american",
+      "american"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

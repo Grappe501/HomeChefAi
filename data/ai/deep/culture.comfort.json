@@ -1,0 +1,22 @@
+{
+  "id": "culture.comfort",
+  "kind": "culture",
+  "title": "American Comfort Culinary Culture",
+  "knowledge_id": "culture.comfort",
+  "match_keywords": [
+    "comfort",
+    "american comfort",
+    "american"
+  ],
+  "summary": "American Comfort: garlic powder, potatoes, butter.",
+  "origins": "American Comfort cuisine reflects american geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Regional pride — smoke, cast iron, and generous portions with table-side adjustment.",
+  "teaching": [
+    "Smoke and spice rubs, fond from cast iron, vinegar or hot sauce at the table for balance.",
+    "Cast iron, BBQ sauce, chili powder, and good black pepper.",
+    "Signature pairing: garlic powder + potatoes + butter."
+  ],
+  "related_ids": [
+    "cuisine.comfort"
+  ]
+}

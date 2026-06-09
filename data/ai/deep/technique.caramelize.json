@@ -1,0 +1,20 @@
+{
+  "id": "technique.caramelize",
+  "kind": "technique",
+  "title": "Caramelize",
+  "knowledge_id": "technique.caramelize",
+  "match_keywords": [
+    "caramelize",
+    "caramelize"
+  ],
+  "summary": "Low heat, patience — onions need 30+ minutes; sugar needs dry pan.",
+  "origins": "Caramelize is a core finishing technique used across french, comfort cooking.",
+  "history": "Home cooks and professionals rely on caramelize for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Even slice",
+    "Low medium heat",
+    "Stir occasionally",
+    "Deglaze if sticking burns"
+  ],
+  "related_ids": []
+}

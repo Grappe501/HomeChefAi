@@ -13,6 +13,7 @@ import {
   getBrainScopeSupabase,
 } from './utils/brain/runBrainSync.js';
 import type { InventoryItem } from '../../src/types/index';
+import { normalizeScanItem } from './utils/inventoryNormalize.js';
 
 export const handler: Handler = withCors(async (event) => {
   const user = await requireAuth(event);
@@ -54,21 +55,24 @@ export const handler: Handler = withCors(async (event) => {
 
     if (!user.token) return errorResponse('Missing token', 401);
     const db = getSupabaseUserClient(user.token);
-    const rows = itemsToAdd.map((item) => ({
-      user_id: userId,
-      name: item.name || 'Unknown',
-      category: item.category || 'other',
-      quantity: Number(item.quantity) || 1,
-      unit: item.unit || 'each',
-      expiration_date: item.expiration_date || null,
-      location: item.location || 'pantry',
-      added_via: item.added_via || 'manual',
-      notes: item.notes || null,
-      knowledge_id: item.knowledge_id || null,
-      taxonomy_id: item.taxonomy_id || null,
-      low_stock_threshold: item.low_stock_threshold || 0,
-      estimated_unit_price: (item as { estimated_unit_price?: number }).estimated_unit_price || 0,
-    }));
+    const rows = itemsToAdd.map((item) => {
+      const normalized = normalizeScanItem(item, item.added_via || 'manual');
+      return {
+        user_id: userId,
+        name: normalized.name,
+        category: normalized.category,
+        quantity: normalized.quantity,
+        unit: normalized.unit,
+        expiration_date: normalized.expiration_date,
+        location: normalized.location,
+        added_via: normalized.added_via,
+        notes: item.notes || null,
+        knowledge_id: normalized.knowledge_id ?? null,
+        taxonomy_id: item.taxonomy_id || null,
+        low_stock_threshold: item.low_stock_threshold || 0,
+        estimated_unit_price: (item as { estimated_unit_price?: number }).estimated_unit_price || 0,
+      };
+    });
     const { data, error } = await db.from('inventory_items').insert(rows).select();
     if (error) return errorResponse(error.message, 500);
     let xp_gained: number | undefined;
@@ -145,18 +149,19 @@ export const handler: Handler = withCors(async (event) => {
 });
 
 function buildItem(userId: string, item: Partial<InventoryItem>): InventoryItem {
+  const normalized = normalizeScanItem(item, item.added_via || 'manual');
   return {
     id: uuidv4(),
     user_id: userId,
-    name: item.name || 'Unknown',
-    category: item.category || 'other',
-    quantity: Number(item.quantity) || 1,
-    unit: item.unit || 'each',
-    expiration_date: item.expiration_date,
-    location: (item.location as InventoryItem['location']) || 'pantry',
-    added_via: item.added_via || 'manual',
+    name: normalized.name,
+    category: normalized.category,
+    quantity: normalized.quantity,
+    unit: normalized.unit,
+    expiration_date: normalized.expiration_date ?? undefined,
+    location: normalized.location,
+    added_via: normalized.added_via,
     notes: item.notes,
-    knowledge_id: item.knowledge_id,
+    knowledge_id: normalized.knowledge_id,
     taxonomy_id: item.taxonomy_id,
     low_stock_threshold: item.low_stock_threshold || 0,
     created_at: new Date().toISOString(),

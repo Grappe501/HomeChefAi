@@ -1,0 +1,32 @@
+{
+  "id": "culture.scandinavian",
+  "type": "culture",
+  "display_name": "Scandinavian Culinary Culture",
+  "description": "Scandinavian cooking centers on dill, potatoes, and butter. Technique-driven cooking — fond, butter, wine reductions, and respect for seasonal produce.",
+  "attributes": {
+    "cuisine_id": "cuisine.scandinavian",
+    "cuisine_key": "scandinavian",
+    "region": "europe",
+    "signature_spice": "dill",
+    "signature_starch": "potatoes",
+    "signature_fat": "butter",
+    "micro_lesson": "Build depth with fond from searing, reduce wine and stock, finish with cold butter for shine.",
+    "shopping_tip": "Keep mirepoix components, good butter, and wine vinegar on hand.",
+    "flavor_building": [
+      "Start with butter as your cooking medium.",
+      "Season with dill — toast or bloom in fat when using ground spices.",
+      "Build the plate around potatoes as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Scandinavian food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "scandinavian",
+      "europe"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

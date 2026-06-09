@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.rich_creamy",
+  "kind": "flavor_profile",
+  "title": "Rich & Creamy",
+  "knowledge_id": "flavor_profile.rich_creamy",
+  "match_keywords": [
+    "rich creamy",
+    "rich & creamy",
+    "fat",
+    "salt",
+    "umami"
+  ],
+  "summary": "Cream, butter, and cheese carry flavor — build sauce on a roux or reduced stock first.",
+  "origins": "Taste profiles describe how we experience balance on the plate — rich & creamy is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: fat, salt, umami. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Reduce liquid before adding dairy",
+    "Mount cold butter off heat",
+    "Use aged cheese sparingly at finish",
+    "Cut with acid (lemon, white wine) or bitter greens on the plate."
+  ]
+}

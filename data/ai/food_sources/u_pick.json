@@ -1,0 +1,25 @@
+{
+  "id": "food_source.u_pick",
+  "type": "food_source",
+  "display_name": "U-Pick Farms & Orchards",
+  "description": "Berries, apples, pumpkins — plan preserving same day.",
+  "attributes": {
+    "source_type": "local",
+    "store_type": "local",
+    "local_food_pref": null,
+    "shopping_tips": [
+      "Berries, apples, pumpkins — plan preserving same day.",
+      "Check weather and field conditions before driving out.",
+      "Great for kids to connect food to source."
+    ],
+    "seasonal_notes": "Bring containers; wear boots; go early to beat heat.",
+    "cuisine_tags": [
+      "family",
+      "seasonal"
+    ],
+    "aisles": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "culture.mexican",
+  "type": "culture",
+  "display_name": "Mexican Culinary Culture",
+  "description": "Mexican cooking centers on cumin and chili, corn tortillas, and lard or oil. Fresh lime, chili heat, and masa or rice — brightness against rich proteins.",
+  "attributes": {
+    "cuisine_id": "cuisine.mexican",
+    "cuisine_key": "mexican",
+    "region": "latin",
+    "signature_spice": "cumin and chili",
+    "signature_starch": "corn tortillas",
+    "signature_fat": "lard or oil",
+    "micro_lesson": "Char chilies and tomatoes, bloom cumin in fat, finish with cilantro and lime never cooked long.",
+    "shopping_tip": "Dried chilies, cumin, corn products, and fresh lime are non-negotiable.",
+    "flavor_building": [
+      "Start with lard or oil as your cooking medium.",
+      "Season with cumin and chili — toast or bloom in fat when using ground spices.",
+      "Build the plate around corn tortillas as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Mexican food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "mexican",
+      "latin"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

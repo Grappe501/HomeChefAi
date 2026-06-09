@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.smoky",
+  "kind": "flavor_profile",
+  "title": "Smoky",
+  "knowledge_id": "flavor_profile.smoky",
+  "match_keywords": [
+    "smoky",
+    "smoky",
+    "smoke",
+    "salt",
+    "umami"
+  ],
+  "summary": "Smoke from wood, chipotle, paprika, or char — a little goes far; build in layers.",
+  "origins": "Taste profiles describe how we experience balance on the plate — smoky is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: smoke, salt, umami. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Dry rub with smoked paprika",
+    "Char peppers over flame",
+    "Finish with smoked salt",
+    "Bright acid and fresh herbs keep smoke from tasting one-note."
+  ]
+}

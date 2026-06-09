@@ -32,7 +32,7 @@ import type { InventoryItem, Profile } from '../../src/types/index.js';
 
 const VALID_TYPES = new Set([
   'ingredient', 'technique', 'cuisine', 'meal_pattern', 'substitution',
-  'flavor_profile', 'food_science', 'nutrition', 'hosting', 'culture', 'tradition', 'dish',
+  'flavor_profile', 'food_science', 'nutrition', 'hosting', 'culture', 'tradition', 'dish', 'food_source',
 ]);
 
 export const handler: Handler = withCors(async (event) => {
@@ -55,7 +55,7 @@ export const handler: Handler = withCors(async (event) => {
   }
 
   if (action === 'deep_catalog') {
-    const kind = params.kind as 'ingredient' | 'technique' | 'dish' | 'style' | 'tradition' | undefined;
+    const kind = params.kind as import('../../src/types/knowledgeDeep.js').DeepEntryKind | undefined;
     const entries = listDeepEntries(kind).map((e) => ({
       id: e.id,
       kind: e.kind,

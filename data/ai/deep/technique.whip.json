@@ -1,0 +1,20 @@
+{
+  "id": "technique.whip",
+  "kind": "technique",
+  "title": "Whip & Aerate",
+  "knowledge_id": "technique.whip",
+  "match_keywords": [
+    "whip",
+    "whip & aerate"
+  ],
+  "summary": "Cold bowl and cream whip faster — soft peaks for folding, stiff for piping.",
+  "origins": "Whip & Aerate is a core finishing technique used across french, baking cooking.",
+  "history": "Home cooks and professionals rely on whip & aerate for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Chill bowl and beaters",
+    "Start slow",
+    "Increase speed",
+    "Stop at correct peak"
+  ],
+  "related_ids": []
+}

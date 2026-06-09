@@ -1,0 +1,22 @@
+{
+  "id": "culture.british",
+  "kind": "culture",
+  "title": "British Culinary Culture",
+  "knowledge_id": "culture.british",
+  "match_keywords": [
+    "british",
+    "british",
+    "europe"
+  ],
+  "summary": "British: thyme, potatoes, butter.",
+  "origins": "British cuisine reflects europe geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Technique-driven cooking — fond, butter, wine reductions, and respect for seasonal produce.",
+  "teaching": [
+    "Build depth with fond from searing, reduce wine and stock, finish with cold butter for shine.",
+    "Keep mirepoix components, good butter, and wine vinegar on hand.",
+    "Signature pairing: thyme + potatoes + butter."
+  ],
+  "related_ids": [
+    "cuisine.british"
+  ]
+}

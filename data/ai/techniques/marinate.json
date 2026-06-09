@@ -2,14 +2,24 @@
   "id": "technique.marinate",
   "type": "technique",
   "display_name": "Marinate",
+  "description": "Acid + salt + time — 30 min to overnight; acid too long turns meat mushy.",
   "attributes": {
+    "micro_lesson": "Acid + salt + time — 30 min to overnight; acid too long turns meat mushy.",
+    "steps": [
+      "Balance acid, oil, salt",
+      "Refrigerate always",
+      "Pat dry before sear",
+      "Never reuse raw marinade"
+    ],
+    "difficulty": "beginner",
+    "category": "prep",
     "cuisine_tags": [
       "bbq",
       "mexican"
     ],
-    "micro_lesson": "Acid + time — 30 minutes for fish, overnight for tough cuts."
+    "flavor_links": []
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

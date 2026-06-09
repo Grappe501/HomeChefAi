@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.moroccan",
+  "type": "cuisine",
+  "display_name": "Moroccan",
+  "description": "Moroccan home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "moroccan",
+      "africa"
+    ],
+    "region": "africa",
+    "signature_spice": "ras el hanout",
+    "signature_starch": "couscous"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

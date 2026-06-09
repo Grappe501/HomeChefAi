@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.south_african",
+  "type": "cuisine",
+  "display_name": "South African",
+  "description": "South African home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "south_african",
+      "africa"
+    ],
+    "region": "africa",
+    "signature_spice": "curry powder",
+    "signature_starch": "pap"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

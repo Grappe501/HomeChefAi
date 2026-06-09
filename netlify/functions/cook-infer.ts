@@ -4,8 +4,8 @@ import { useDevStore, loadStore } from './utils/db.js';
 import { getSupabaseUserClient } from './utils/supabase.js';
 import type { InventoryItem, Profile } from '../../src/types/index';
 import { inferCookLogIngredients } from './utils/ai/cookLogInfer.js';
+import { inferCookLogWithAi } from './utils/ai/cookLogAiFallback.js';
 import { chargeCredits, quotaErrorResponse } from './utils/quotas.js';
-import { routeClaraReply } from './utils/ai/claraToolRouter.js';
 
 async function loadInventory(userId: string, token?: string): Promise<InventoryItem[]> {
   if (useDevStore()) {
@@ -39,7 +39,7 @@ export const handler: Handler = withCors(async (event) => {
   const inventory = await loadInventory(user.id, user.token);
   const graphResult = inferCookLogIngredients(body.meal_description, inventory);
 
-  if (!body.force_ai && graphResult.confidence >= 0.55 && graphResult.suggested_items.length > 0) {
+  if (!body.force_ai && graphResult.confidence >= 0.45 && graphResult.suggested_items.length > 0) {
     return jsonResponse({
       ...graphResult,
       credit_cost: 0,
@@ -49,7 +49,7 @@ export const handler: Handler = withCors(async (event) => {
   const profile = await loadProfile(user.id, user.token);
   if (!profile) return errorResponse('Profile not found', 404);
 
-  const credit = await chargeCredits(user.id, 'assistant_complex');
+  const credit = await chargeCredits(user.id, 'cook_log_infer');
   if (!credit.allowed) {
     return quotaErrorResponse(
       { ai_credits_used: credit.status.pool },
@@ -58,18 +58,22 @@ export const handler: Handler = withCors(async (event) => {
     );
   }
 
-  const routed = await routeClaraReply(
-    `I cooked: ${body.meal_description}. What ingredients should I deduct from my pantry?`,
-    inventory,
-    profile,
-    [],
-    user.token,
-  );
+  const aiResult = await inferCookLogWithAi(body.meal_description, inventory, profile);
+  if (aiResult) {
+    return jsonResponse({
+      reply: aiResult.reply,
+      suggested_items: aiResult.suggested_items,
+      confidence: aiResult.confidence,
+      source: 'ai' as const,
+      credit_cost: credit.cost,
+      credits_remaining: credit.status.remaining,
+    });
+  }
 
   return jsonResponse({
-    reply: routed.reply,
-    suggested_items: routed.suggested_items ?? [],
-    confidence: 0.75,
+    reply: graphResult.reply ?? `Logged: ${body.meal_description}. Add ingredients manually if needed.`,
+    suggested_items: graphResult.suggested_items,
+    confidence: graphResult.confidence,
     source: 'graph' as const,
     credit_cost: credit.cost,
     credits_remaining: credit.status.remaining,

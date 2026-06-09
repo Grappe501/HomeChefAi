@@ -14,7 +14,7 @@ export default function HowItWorks() {
       />
       <div className="marketing-hero-light border-b border-steel/60">
         <PageHeader
-          eyebrow="Our approach · Brain 4.0"
+          eyebrow="Our approach · Brain 5.1"
           title="Capture. Remember. Act."
           lead="Photo the pantry. Let Brain predict. Clara runs tools — then speaks."
         />

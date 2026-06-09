@@ -1,0 +1,22 @@
+{
+  "id": "culture.middle_eastern",
+  "kind": "culture",
+  "title": "Middle Eastern Culinary Culture",
+  "knowledge_id": "culture.middle_eastern",
+  "match_keywords": [
+    "middle_eastern",
+    "middle eastern",
+    "middle_east"
+  ],
+  "summary": "Middle Eastern: baharat, rice, tahini.",
+  "origins": "Middle Eastern cuisine reflects middle east geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Shared plates, warm spices, and balance of grain, legume, and herb.",
+  "teaching": [
+    "Toast spices, use yogurt and tahini for richness, finish with fresh herb and pomegranate acid.",
+    "Sumac, zaatar, bulgur, chickpeas, and flatbread are pantry anchors.",
+    "Signature pairing: baharat + rice + tahini."
+  ],
+  "related_ids": [
+    "cuisine.middle_eastern"
+  ]
+}

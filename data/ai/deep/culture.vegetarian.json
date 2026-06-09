@@ -1,0 +1,22 @@
+{
+  "id": "culture.vegetarian",
+  "kind": "culture",
+  "title": "Vegetarian Culinary Culture",
+  "knowledge_id": "culture.vegetarian",
+  "match_keywords": [
+    "vegetarian",
+    "vegetarian",
+    "global"
+  ],
+  "summary": "Vegetarian: herbs, grains, olive oil.",
+  "origins": "Vegetarian cuisine reflects global geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Plant-forward cooking with global spice access — technique over tradition lock-in.",
+  "teaching": [
+    "Roast vegetables deeply, use nutritional yeast and miso for umami, acid and crunch for finish.",
+    "Legumes, grains, olive oil, and bold spice rack.",
+    "Signature pairing: herbs + grains + olive oil."
+  ],
+  "related_ids": [
+    "cuisine.vegetarian"
+  ]
+}

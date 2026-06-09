@@ -1,14 +1,24 @@
 {
   "id": "technique.proof",
   "type": "technique",
-  "display_name": "Proof (dough)",
+  "display_name": "Proof (Dough)",
+  "description": "Yeast eats sugar, produces CO₂ — warm draft-free spot until doubled.",
   "attributes": {
+    "micro_lesson": "Yeast eats sugar, produces CO₂ — warm draft-free spot until doubled.",
+    "steps": [
+      "Oil bowl",
+      "Cover loosely",
+      "Poke test for doneness",
+      "Do not over-proof"
+    ],
+    "difficulty": "beginner",
+    "category": "baking",
     "cuisine_tags": [
       "baking"
     ],
-    "micro_lesson": "Warm draft-free spot — dough should double before baking."
+    "flavor_links": []
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

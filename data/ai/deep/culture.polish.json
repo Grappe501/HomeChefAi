@@ -1,0 +1,22 @@
+{
+  "id": "culture.polish",
+  "kind": "culture",
+  "title": "Polish Culinary Culture",
+  "knowledge_id": "culture.polish",
+  "match_keywords": [
+    "polish",
+    "polish",
+    "europe"
+  ],
+  "summary": "Polish: dill, potatoes, sour cream.",
+  "origins": "Polish cuisine reflects europe geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Technique-driven cooking — fond, butter, wine reductions, and respect for seasonal produce.",
+  "teaching": [
+    "Build depth with fond from searing, reduce wine and stock, finish with cold butter for shine.",
+    "Keep mirepoix components, good butter, and wine vinegar on hand.",
+    "Signature pairing: dill + potatoes + sour cream."
+  ],
+  "related_ids": [
+    "cuisine.polish"
+  ]
+}

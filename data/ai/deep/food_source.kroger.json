@@ -1,0 +1,21 @@
+{
+  "id": "food_source.kroger",
+  "kind": "food_source",
+  "title": "Kroger",
+  "knowledge_id": "food_source.kroger",
+  "match_keywords": [
+    "kroger",
+    "kroger",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Digital coupons stack with sales",
+  "origins": "Kroger is a chain retailer — knowing layout and house brands saves time and money.",
+  "history": "Local produce tags in summer; floral near holidays.",
+  "teaching": [
+    "Digital coupons stack with sales",
+    "Simple Truth organic line",
+    "Boil-in-bag and meal kits in deli"
+  ]
+}

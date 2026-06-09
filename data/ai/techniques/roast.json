@@ -2,10 +2,24 @@
   "id": "technique.roast",
   "type": "technique",
   "display_name": "Roast",
-  "description": "Dry heat in the oven for caramelization and even cooking.",
+  "description": "Even dry heat — space on the pan for air circulation.",
   "attributes": {
-    "micro_lesson": "Give food space on the pan — crowding steams instead of roasts.",
-    "cuisine_tags": ["american", "comfort", "southern"]
+    "micro_lesson": "Even dry heat — space on the pan for air circulation.",
+    "steps": [
+      "Preheat oven",
+      "Season uniformly",
+      "Roast until done",
+      "Rest before carving"
+    ],
+    "difficulty": "beginner",
+    "category": "heat",
+    "cuisine_tags": [
+      "american",
+      "comfort"
+    ],
+    "flavor_links": []
   },
-  "sources": ["curated"]
+  "sources": [
+    "training-kitchen"
+  ]
 }

@@ -1,0 +1,27 @@
+{
+  "id": "flavor_profile.fermented_depth",
+  "type": "flavor_profile",
+  "display_name": "Fermented Depth",
+  "description": "Miso, kimchi, fish sauce, sourdough — fermentation adds complexity you cannot fake quickly.",
+  "attributes": {
+    "micro_lesson": "Miso, kimchi, fish sauce, sourdough — fermentation adds complexity you cannot fake quickly.",
+    "flavor_pillars": [
+      "ferment",
+      "umami",
+      "acid"
+    ],
+    "build_depth": [
+      "Stir miso off boil",
+      "Use kimchi juice in fried rice",
+      "Fermented chili pastes in marinades"
+    ],
+    "balance_tip": "Fresh raw veg and acid keep fermented dishes from feeling one-dimensional.",
+    "cuisine_tags": [
+      "korean",
+      "japanese"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "technique.temper",
+  "kind": "technique",
+  "title": "Temper (Chocolate/Eggs)",
+  "knowledge_id": "technique.temper",
+  "match_keywords": [
+    "temper",
+    "temper (chocolate/eggs)"
+  ],
+  "summary": "Gradual heat prevents curdling and seize — hot liquid into eggs slowly.",
+  "origins": "Temper (Chocolate/Eggs) is a core baking technique used across french, baking cooking.",
+  "history": "Home cooks and professionals rely on temper (chocolate/eggs) for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Warm dairy separately",
+    "Whisk eggs",
+    "Ladle hot liquid slowly",
+    "Combine and strain"
+  ],
+  "related_ids": []
+}

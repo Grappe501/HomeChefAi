@@ -1,0 +1,20 @@
+{
+  "id": "technique.rest",
+  "kind": "technique",
+  "title": "Rest (Meat)",
+  "knowledge_id": "technique.rest",
+  "match_keywords": [
+    "rest",
+    "rest (meat)"
+  ],
+  "summary": "Juices redistribute — 5 min for steaks, 20+ for roasts; tent loosely with foil.",
+  "origins": "Rest (Meat) is a core finishing technique used across bbq, american cooking.",
+  "history": "Home cooks and professionals rely on rest (meat) for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Transfer off heat",
+    "Tent foil loosely",
+    "Wait before slicing",
+    "Slice against grain"
+  ],
+  "related_ids": []
+}

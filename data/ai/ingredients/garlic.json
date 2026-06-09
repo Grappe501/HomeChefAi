@@ -27,9 +27,44 @@
     "dietary": {
       "vegan": true,
       "vegetarian": true
-    }
+    },
+    "unit_category": "produce",
+    "default_unit": "head",
+    "package_label": "head",
+    "packaging_options": [
+      {
+        "label": "1 head",
+        "quantity": 1,
+        "unit": "head"
+      },
+      {
+        "label": "2 heads",
+        "quantity": 2,
+        "unit": "head"
+      },
+      {
+        "label": "3 heads",
+        "quantity": 3,
+        "unit": "head"
+      }
+    ],
+    "retail_aisle": "Produce",
+    "storage_location": "fridge",
+    "brand_examples": [
+      {
+        "id": "organic",
+        "label": "Organic",
+        "tier": "national"
+      },
+      {
+        "id": "conventional",
+        "label": "Conventional",
+        "tier": "national"
+      }
+    ]
   },
   "sources": [
-    "curated"
+    "curated",
+    "ingredient_depth_v1"
   ]
 }

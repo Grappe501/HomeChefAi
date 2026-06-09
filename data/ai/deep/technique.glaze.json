@@ -1,0 +1,20 @@
+{
+  "id": "technique.glaze",
+  "kind": "technique",
+  "title": "Glaze",
+  "knowledge_id": "technique.glaze",
+  "match_keywords": [
+    "glaze",
+    "glaze"
+  ],
+  "summary": "Reduce sauce until glossy and clings — teriyaki, balsamic, maple.",
+  "origins": "Glaze is a core finishing technique used across asian, american cooking.",
+  "history": "Home cooks and professionals rely on glaze for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Cook protein nearly done",
+    "Add glaze",
+    "Toss until shiny",
+    "Serve immediately"
+  ],
+  "related_ids": []
+}

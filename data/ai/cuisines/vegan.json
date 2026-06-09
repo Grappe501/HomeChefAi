@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.vegan",
+  "type": "cuisine",
+  "display_name": "Vegan",
+  "description": "Vegan home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "vegan",
+      "global"
+    ],
+    "region": "global",
+    "signature_spice": "nutritional yeast",
+    "signature_starch": "legumes"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

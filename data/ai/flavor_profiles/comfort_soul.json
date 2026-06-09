@@ -1,0 +1,28 @@
+{
+  "id": "flavor_profile.comfort_soul",
+  "type": "flavor_profile",
+  "display_name": "Comfort & Soul",
+  "description": "Low and slow, well-seasoned layers — soul food depth comes from time, fond, and spice blend.",
+  "attributes": {
+    "micro_lesson": "Low and slow, well-seasoned layers — soul food depth comes from time, fond, and spice blend.",
+    "flavor_pillars": [
+      "fat",
+      "salt",
+      "slow_cook",
+      "spice"
+    ],
+    "build_depth": [
+      "Season every layer",
+      "Use smoked meat for base",
+      "Finish with hot sauce or vinegar table-side"
+    ],
+    "balance_tip": "Pickled or fresh sides cut richness; acid at the table lets diners adjust.",
+    "cuisine_tags": [
+      "soul_food",
+      "comfort"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

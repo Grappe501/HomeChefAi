@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.spicy_heat",
+  "kind": "flavor_profile",
+  "title": "Spicy Heat",
+  "knowledge_id": "flavor_profile.spicy_heat",
+  "match_keywords": [
+    "spicy heat",
+    "spicy heat",
+    "capsaicin",
+    "fat",
+    "acid"
+  ],
+  "summary": "Heat needs fat to spread and acid to refresh — capsaicin is oil-soluble, not water-soluble.",
+  "origins": "Taste profiles describe how we experience balance on the plate — spicy heat is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: capsaicin, fat, acid. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Bloom chili in hot oil",
+    "Layer fresh and dried chilies",
+    "Serve with cooling yogurt or lime",
+    "Sugar and acid tame burn; dairy fat soothes without killing flavor."
+  ]
+}

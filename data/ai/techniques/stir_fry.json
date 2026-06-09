@@ -2,13 +2,25 @@
   "id": "technique.stir_fry",
   "type": "technique",
   "display_name": "Stir Fry",
+  "description": "Wok hei comes from fierce heat and constant motion — prep everything before you start.",
   "attributes": {
-    "cuisine_tags": [
-      "asian"
+    "micro_lesson": "Wok hei comes from fierce heat and constant motion — prep everything before you start.",
+    "steps": [
+      "Heat wok smoking",
+      "Oil swirl",
+      "Protein first, remove",
+      "Vegetables by cook time",
+      "Sauce to finish"
     ],
-    "micro_lesson": "Keep the pan screaming hot; add ingredients in order of cook time."
+    "difficulty": "intermediate",
+    "category": "heat",
+    "cuisine_tags": [
+      "asian",
+      "chinese"
+    ],
+    "flavor_links": []
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.herbaceous",
+  "kind": "flavor_profile",
+  "title": "Herbaceous",
+  "knowledge_id": "flavor_profile.herbaceous",
+  "match_keywords": [
+    "herbaceous",
+    "herbaceous",
+    "fresh_herb",
+    "olive_oil",
+    "acid"
+  ],
+  "summary": "Soft herbs (basil, cilantro) at the end; hardy herbs (rosemary, thyme) early in cooking.",
+  "origins": "Taste profiles describe how we experience balance on the plate — herbaceous is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: fresh_herb, olive_oil, acid. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Chop herbs just before serving",
+    "Infuse oil with hardy herbs",
+    "Gremolata or chimichurri finish",
+    "Salt and acid make herbs pop; too much heat kills delicate aroma."
+  ]
+}

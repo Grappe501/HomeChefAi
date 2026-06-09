@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.irish",
+  "type": "cuisine",
+  "display_name": "Irish",
+  "description": "Irish home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "irish",
+      "europe"
+    ],
+    "region": "europe",
+    "signature_spice": "parsley",
+    "signature_starch": "potatoes"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

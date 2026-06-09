@@ -1,0 +1,20 @@
+{
+  "id": "technique.stock",
+  "kind": "technique",
+  "title": "Stock & Broth",
+  "knowledge_id": "technique.stock",
+  "match_keywords": [
+    "stock",
+    "stock & broth"
+  ],
+  "summary": "Roast bones for depth; simmer skimming — never a rolling boil on clear stock.",
+  "origins": "Stock & Broth is a core foundation technique used across french, comfort cooking.",
+  "history": "Home cooks and professionals rely on stock & broth for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Roast bones optional",
+    "Cold water start",
+    "Simmer and skim",
+    "Strain and cool fast"
+  ],
+  "related_ids": []
+}

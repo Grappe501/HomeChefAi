@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.british",
+  "type": "cuisine",
+  "display_name": "British",
+  "description": "British home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "british",
+      "europe"
+    ],
+    "region": "europe",
+    "signature_spice": "thyme",
+    "signature_starch": "potatoes"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

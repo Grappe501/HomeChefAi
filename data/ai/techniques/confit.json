@@ -1,0 +1,24 @@
+{
+  "id": "technique.confit",
+  "type": "technique",
+  "display_name": "Confit",
+  "description": "Submerged slow cook in fat — duck legs, garlic, potatoes transformed.",
+  "attributes": {
+    "micro_lesson": "Submerged slow cook in fat — duck legs, garlic, potatoes transformed.",
+    "steps": [
+      "Salt cure overnight",
+      "Submerge in fat",
+      "Low oven hours",
+      "Store submerged"
+    ],
+    "difficulty": "advanced",
+    "category": "fat",
+    "cuisine_tags": [
+      "french"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

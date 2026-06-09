@@ -1,0 +1,32 @@
+{
+  "id": "culture.lebanese",
+  "type": "culture",
+  "display_name": "Lebanese Culinary Culture",
+  "description": "Lebanese cooking centers on sumac and zaatar, pita, and olive oil. Shared plates, warm spices, and balance of grain, legume, and herb.",
+  "attributes": {
+    "cuisine_id": "cuisine.lebanese",
+    "cuisine_key": "lebanese",
+    "region": "middle_east",
+    "signature_spice": "sumac and zaatar",
+    "signature_starch": "pita",
+    "signature_fat": "olive oil",
+    "micro_lesson": "Toast spices, use yogurt and tahini for richness, finish with fresh herb and pomegranate acid.",
+    "shopping_tip": "Sumac, zaatar, bulgur, chickpeas, and flatbread are pantry anchors.",
+    "flavor_building": [
+      "Start with olive oil as your cooking medium.",
+      "Season with sumac and zaatar — toast or bloom in fat when using ground spices.",
+      "Build the plate around pita as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Lebanese food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "lebanese",
+      "middle_east"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

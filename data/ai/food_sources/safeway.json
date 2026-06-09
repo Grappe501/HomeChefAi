@@ -1,0 +1,30 @@
+{
+  "id": "food_source.safeway",
+  "type": "food_source",
+  "display_name": "Safeway / Albertsons",
+  "description": "Just for U rewards",
+  "attributes": {
+    "source_type": "chain",
+    "store_type": "chain",
+    "local_food_pref": null,
+    "shopping_tips": [
+      "Just for U rewards",
+      "O Organics line",
+      "Combined with Vons, Jewel-Osco in some regions"
+    ],
+    "seasonal_notes": "Regional wine and cheese features.",
+    "cuisine_tags": [
+      "west",
+      "national"
+    ],
+    "aisles": [
+      "Produce",
+      "Meat",
+      "Deli",
+      "Bakery"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.nutty",
+  "kind": "flavor_profile",
+  "title": "Nutty & Toasted",
+  "knowledge_id": "flavor_profile.nutty",
+  "match_keywords": [
+    "nutty",
+    "nutty & toasted",
+    "toast",
+    "fat",
+    "salt"
+  ],
+  "summary": "Toast nuts, seeds, and grains — brown butter and sesame oil are instant nutty depth.",
+  "origins": "Taste profiles describe how we experience balance on the plate — nutty & toasted is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: toast, fat, salt. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Toast nuts in dry pan",
+    "Brown butter for finish",
+    "Use tahini or peanut butter in sauces",
+    "Acid and fresh crunch (herbs, cucumber) keep nutty richness lively."
+  ]
+}

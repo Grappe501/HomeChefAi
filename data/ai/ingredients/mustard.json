@@ -9,10 +9,50 @@
       "vegan": true,
       "vegetarian": true
     },
-    "cuisine_tags": []
+    "cuisine_tags": [],
+    "unit_category": "volume",
+    "default_unit": "bottle",
+    "package_label": "bottle",
+    "packaging_options": [
+      {
+        "label": "1 bottle",
+        "quantity": 1,
+        "unit": "bottle"
+      },
+      {
+        "label": "2 bottles",
+        "quantity": 2,
+        "unit": "bottle"
+      }
+    ],
+    "retail_aisle": "Condiments & Sauces",
+    "storage_location": "pantry",
+    "brand_examples": [
+      {
+        "id": "frenchs",
+        "label": "French's",
+        "tier": "national"
+      },
+      {
+        "id": "gulden",
+        "label": "Gulden's",
+        "tier": "national"
+      },
+      {
+        "id": "grey_poupon",
+        "label": "Grey Poupon",
+        "tier": "premium"
+      },
+      {
+        "id": "annies",
+        "label": "Annie's",
+        "tier": "premium"
+      }
+    ]
   },
   "sources": [
     "generate-pantry-knowledge",
-    "pantry_wizard_1_0"
+    "pantry_wizard_1_0",
+    "ingredient_depth_v1"
   ]
 }

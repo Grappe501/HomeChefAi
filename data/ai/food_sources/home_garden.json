@@ -1,0 +1,25 @@
+{
+  "id": "food_source.home_garden",
+  "type": "food_source",
+  "display_name": "Home Garden",
+  "description": "Herbs on the windowsill change daily cooking — start there.",
+  "attributes": {
+    "source_type": "local",
+    "store_type": "local",
+    "local_food_pref": "grow_garden",
+    "shopping_tips": [
+      "Herbs on the windowsill change daily cooking — start there.",
+      "Plant what you eat most: tomatoes, peppers, greens.",
+      "Harvest in morning for best texture; cook same day when possible."
+    ],
+    "seasonal_notes": "Seed starting calendar for your zone; succession plant greens.",
+    "cuisine_tags": [
+      "grow",
+      "zero_mile"
+    ],
+    "aisles": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

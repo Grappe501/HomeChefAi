@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.soul_food",
+  "type": "cuisine",
+  "display_name": "Soul Food",
+  "description": "Soul Food home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "soul_food",
+      "american"
+    ],
+    "region": "american",
+    "signature_spice": "cayenne",
+    "signature_starch": "rice"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

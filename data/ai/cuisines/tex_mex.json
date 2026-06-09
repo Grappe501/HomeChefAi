@@ -2,17 +2,17 @@
   "id": "cuisine.tex_mex",
   "type": "cuisine",
   "display_name": "Tex-Mex",
+  "description": "Tex-Mex home cooking — full course library with mains, appetizers, desserts, and more.",
   "attributes": {
-    "staples": [
-      "ingredient.beans",
-      "ingredient.cumin",
-      "ingredient.cheese"
-    ],
     "cuisine_tags": [
-      "tex_mex"
-    ]
+      "tex_mex",
+      "american"
+    ],
+    "region": "american",
+    "signature_spice": "chili powder",
+    "signature_starch": "flour tortillas"
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "corpus_v3"
   ]
 }

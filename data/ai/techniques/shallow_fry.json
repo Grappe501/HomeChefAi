@@ -1,0 +1,24 @@
+{
+  "id": "technique.shallow_fry",
+  "type": "technique",
+  "display_name": "Shallow Fry",
+  "description": "Oil halfway up the pan — perfect for latkes, schnitzel, fried rice cakes.",
+  "attributes": {
+    "micro_lesson": "Oil halfway up the pan — perfect for latkes, schnitzel, fried rice cakes.",
+    "steps": [
+      "Medium-high oil",
+      "Do not overcrowd",
+      "Flip when golden",
+      "Paper towel drain"
+    ],
+    "difficulty": "beginner",
+    "category": "fat",
+    "cuisine_tags": [
+      "comfort"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "technique.bloom_spices",
+  "kind": "technique",
+  "title": "Bloom Spices",
+  "knowledge_id": "technique.bloom_spices",
+  "match_keywords": [
+    "bloom spices",
+    "bloom spices"
+  ],
+  "summary": "Toast whole spices dry, bloom ground in fat — fat-soluble flavor awakens.",
+  "origins": "Bloom Spices is a core foundation technique used across indian, mexican cooking.",
+  "history": "Home cooks and professionals rely on bloom spices for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Toast whole spices dry",
+    "Grind fresh",
+    "Add to hot oil 30 seconds",
+    "Add wet ingredients quickly"
+  ],
+  "related_ids": []
+}

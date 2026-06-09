@@ -1,0 +1,21 @@
+{
+  "id": "food_source.trader_joes",
+  "kind": "food_source",
+  "title": "Trader Joe's",
+  "knowledge_id": "food_source.trader_joes",
+  "match_keywords": [
+    "trader joes",
+    "trader joe's",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Unique frozen and sauce items",
+  "origins": "Trader Joe's is a specialty retailer — knowing layout and house brands saves time and money.",
+  "history": "Fearless Flyer seasonal — pumpkin, peppermint, summer BBQ.",
+  "teaching": [
+    "Unique frozen and sauce items",
+    "Small stores — quick shop",
+    "Fan favorites rotate — stock up when you see favorites"
+  ]
+}

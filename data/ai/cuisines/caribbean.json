@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.caribbean",
+  "type": "cuisine",
+  "display_name": "Caribbean",
+  "description": "Caribbean home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "caribbean",
+      "latin"
+    ],
+    "region": "latin",
+    "signature_spice": "jerk seasoning",
+    "signature_starch": "rice and peas"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

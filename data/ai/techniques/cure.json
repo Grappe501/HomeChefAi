@@ -1,0 +1,24 @@
+{
+  "id": "technique.cure",
+  "type": "technique",
+  "display_name": "Dry Cure",
+  "description": "Salt and sugar draw moisture — gravlax, bacon, pastrami start here.",
+  "attributes": {
+    "micro_lesson": "Salt and sugar draw moisture — gravlax, bacon, pastrami start here.",
+    "steps": [
+      "Weigh salt ratio",
+      "Refrigerate covered",
+      "Flip daily",
+      "Rinse and dry"
+    ],
+    "difficulty": "advanced",
+    "category": "prep",
+    "cuisine_tags": [
+      "preservation"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

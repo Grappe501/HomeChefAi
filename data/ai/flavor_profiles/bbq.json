@@ -1,15 +1,28 @@
 {
   "id": "flavor_profile.bbq",
   "type": "flavor_profile",
-  "display_name": "BBQ",
+  "display_name": "BBQ Profile",
+  "description": "Classic BBQ balance: sweet molasses/brown sugar, vinegar tang, smoke, and pepper heat.",
   "attributes": {
+    "micro_lesson": "Classic BBQ balance: sweet molasses/brown sugar, vinegar tang, smoke, and pepper heat.",
+    "flavor_pillars": [
+      "smoke",
+      "sweet",
+      "acid",
+      "spice"
+    ],
+    "build_depth": [
+      "Dry rub under skin",
+      "Spritz with vinegar during cook",
+      "Glaze in last 15 minutes"
+    ],
+    "balance_tip": "Too sweet? More vinegar. Too sharp? Touch of fat or honey.",
     "cuisine_tags": [
       "bbq",
-      "american",
       "southern"
     ]
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

@@ -1,0 +1,32 @@
+{
+  "id": "culture.italian",
+  "type": "culture",
+  "display_name": "Italian Culinary Culture",
+  "description": "Italian cooking centers on garlic and basil, pasta, and olive oil. Technique-driven cooking — fond, butter, wine reductions, and respect for seasonal produce.",
+  "attributes": {
+    "cuisine_id": "cuisine.italian",
+    "cuisine_key": "italian",
+    "region": "europe",
+    "signature_spice": "garlic and basil",
+    "signature_starch": "pasta",
+    "signature_fat": "olive oil",
+    "micro_lesson": "Build depth with fond from searing, reduce wine and stock, finish with cold butter for shine.",
+    "shopping_tip": "Keep mirepoix components, good butter, and wine vinegar on hand.",
+    "flavor_building": [
+      "Start with olive oil as your cooking medium.",
+      "Season with garlic and basil — toast or bloom in fat when using ground spices.",
+      "Build the plate around pasta as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Italian food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "italian",
+      "europe"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

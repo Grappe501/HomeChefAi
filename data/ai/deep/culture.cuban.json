@@ -1,0 +1,22 @@
+{
+  "id": "culture.cuban",
+  "kind": "culture",
+  "title": "Cuban Culinary Culture",
+  "knowledge_id": "culture.cuban",
+  "match_keywords": [
+    "cuban",
+    "cuban",
+    "latin"
+  ],
+  "summary": "Cuban: citrus and garlic, rice, olive oil.",
+  "origins": "Cuban cuisine reflects latin geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Fresh lime, chili heat, and masa or rice — brightness against rich proteins.",
+  "teaching": [
+    "Char chilies and tomatoes, bloom cumin in fat, finish with cilantro and lime never cooked long.",
+    "Dried chilies, cumin, corn products, and fresh lime are non-negotiable.",
+    "Signature pairing: citrus and garlic + rice + olive oil."
+  ],
+  "related_ids": [
+    "cuisine.cuban"
+  ]
+}

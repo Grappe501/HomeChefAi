@@ -1,0 +1,20 @@
+{
+  "id": "technique.cure",
+  "kind": "technique",
+  "title": "Dry Cure",
+  "knowledge_id": "technique.cure",
+  "match_keywords": [
+    "cure",
+    "dry cure"
+  ],
+  "summary": "Salt and sugar draw moisture — gravlax, bacon, pastrami start here.",
+  "origins": "Dry Cure is a core prep technique used across preservation cooking.",
+  "history": "Home cooks and professionals rely on dry cure for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Weigh salt ratio",
+    "Refrigerate covered",
+    "Flip daily",
+    "Rinse and dry"
+  ],
+  "related_ids": []
+}

@@ -2,13 +2,23 @@
   "id": "technique.poach",
   "type": "technique",
   "display_name": "Poach",
+  "description": "Submerged in barely simmering liquid — eggs, fish, chicken stay tender.",
   "attributes": {
+    "micro_lesson": "Submerged in barely simmering liquid — eggs, fish, chicken stay tender.",
+    "steps": [
+      "Acidulated court bouillon",
+      "180–190°F target",
+      "Gentle slide-in",
+      "Do not boil"
+    ],
+    "difficulty": "intermediate",
+    "category": "moist",
     "cuisine_tags": [
       "french"
     ],
-    "micro_lesson": "Liquid should shimmer, never boil — perfect for eggs and delicate fish."
+    "flavor_links": []
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

@@ -1,0 +1,19 @@
+{
+  "id": "technique.boil",
+  "kind": "technique",
+  "title": "Boil",
+  "knowledge_id": "technique.boil",
+  "match_keywords": [
+    "boil",
+    "boil"
+  ],
+  "summary": "Salt the water like the sea for pasta; start potatoes in cold water.",
+  "origins": "Boil is a core moist technique used across comfort cooking.",
+  "history": "Home cooks and professionals rely on boil for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Rolling boil for pasta",
+    "Cold start for root veg",
+    "Shock greens in ice water"
+  ],
+  "related_ids": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "food_source.sprouts",
+  "kind": "food_source",
+  "title": "Sprouts Farmers Market",
+  "knowledge_id": "food_source.sprouts",
+  "match_keywords": [
+    "sprouts",
+    "sprouts farmers market",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Wednesday double ad day",
+  "origins": "Sprouts Farmers Market is a specialty retailer — knowing layout and house brands saves time and money.",
+  "history": "Organic produce focus; holiday grazing boards.",
+  "teaching": [
+    "Wednesday double ad day",
+    "Bulk bins for grains and nuts",
+    "Strong produce at competitive prices"
+  ]
+}

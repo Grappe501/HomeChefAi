@@ -1,0 +1,20 @@
+{
+  "id": "technique.blanch_shock",
+  "kind": "technique",
+  "title": "Blanch & Shock",
+  "knowledge_id": "technique.blanch_shock",
+  "match_keywords": [
+    "blanch shock",
+    "blanch & shock"
+  ],
+  "summary": "Boil briefly, ice bath — bright green veg and easy peeling for tomatoes.",
+  "origins": "Blanch & Shock is a core prep technique used across french, asian cooking.",
+  "history": "Home cooks and professionals rely on blanch & shock for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Salted boiling water",
+    "Ice bath ready",
+    "Brief boil",
+    "Shock immediately"
+  ],
+  "related_ids": []
+}

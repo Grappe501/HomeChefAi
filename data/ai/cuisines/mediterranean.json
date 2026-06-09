@@ -2,17 +2,17 @@
   "id": "cuisine.mediterranean",
   "type": "cuisine",
   "display_name": "Mediterranean",
+  "description": "Mediterranean home cooking — full course library with mains, appetizers, desserts, and more.",
   "attributes": {
-    "staples": [
-      "ingredient.olive_oil",
-      "ingredient.tomato",
-      "ingredient.garlic"
-    ],
     "cuisine_tags": [
+      "mediterranean",
       "mediterranean"
-    ]
+    ],
+    "region": "mediterranean",
+    "signature_spice": "oregano",
+    "signature_starch": "couscous"
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "corpus_v3"
   ]
 }

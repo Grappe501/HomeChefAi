@@ -1,0 +1,21 @@
+{
+  "id": "food_source.u_pick",
+  "kind": "food_source",
+  "title": "U-Pick Farms & Orchards",
+  "knowledge_id": "food_source.u_pick",
+  "match_keywords": [
+    "u pick",
+    "u-pick farms & orchards",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Berries, apples, pumpkins — plan preserving same day.",
+  "origins": "Local food sourcing connects cooks to seasonality, community, and often better flavor per dollar when buying peak produce.",
+  "history": "Bring containers; wear boots; go early to beat heat.",
+  "teaching": [
+    "Berries, apples, pumpkins — plan preserving same day.",
+    "Check weather and field conditions before driving out.",
+    "Great for kids to connect food to source."
+  ]
+}

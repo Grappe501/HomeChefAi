@@ -10,10 +10,50 @@
       "vegetarian": true,
       "contains_gluten": false
     },
-    "cuisine_tags": []
+    "cuisine_tags": [],
+    "unit_category": "weight",
+    "default_unit": "oz",
+    "package_label": "container",
+    "packaging_options": [
+      {
+        "label": "Small canister (18 oz)",
+        "quantity": 18,
+        "unit": "oz"
+      },
+      {
+        "label": "Large canister (42 oz)",
+        "quantity": 42,
+        "unit": "oz"
+      },
+      {
+        "label": "Bulk bag (2 lb)",
+        "quantity": 2,
+        "unit": "lb"
+      }
+    ],
+    "retail_aisle": "Grains & Pasta",
+    "storage_location": "pantry",
+    "brand_examples": [
+      {
+        "id": "quaker",
+        "label": "Quaker",
+        "tier": "national"
+      },
+      {
+        "id": "bobs_red_mill",
+        "label": "Bob's Red Mill",
+        "tier": "premium"
+      },
+      {
+        "id": "one_degree",
+        "label": "One Degree",
+        "tier": "premium"
+      }
+    ]
   },
   "sources": [
     "generate-pantry-knowledge",
-    "pantry_wizard_1_0"
+    "pantry_wizard_1_0",
+    "ingredient_depth_v1"
   ]
 }

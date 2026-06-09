@@ -1,0 +1,22 @@
+{
+  "id": "culture.southern",
+  "kind": "culture",
+  "title": "Southern US Culinary Culture",
+  "knowledge_id": "culture.southern",
+  "match_keywords": [
+    "southern",
+    "southern us",
+    "american"
+  ],
+  "summary": "Southern US: black pepper, cornbread, butter.",
+  "origins": "Southern US cuisine reflects american geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Regional pride — smoke, cast iron, and generous portions with table-side adjustment.",
+  "teaching": [
+    "Smoke and spice rubs, fond from cast iron, vinegar or hot sauce at the table for balance.",
+    "Cast iron, BBQ sauce, chili powder, and good black pepper.",
+    "Signature pairing: black pepper + cornbread + butter."
+  ],
+  "related_ids": [
+    "cuisine.southern"
+  ]
+}

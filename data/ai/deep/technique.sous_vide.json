@@ -1,0 +1,20 @@
+{
+  "id": "technique.sous_vide",
+  "kind": "technique",
+  "title": "Sous Vide",
+  "knowledge_id": "technique.sous_vide",
+  "match_keywords": [
+    "sous vide",
+    "sous vide"
+  ],
+  "summary": "Exact temperature bath — impossible to overcook, finish with hard sear.",
+  "origins": "Sous Vide is a core moist technique used across french, modern cooking.",
+  "history": "Home cooks and professionals rely on sous vide for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Bag and seal",
+    "Set precise temp",
+    "Long cook for tough cuts",
+    "Sear hard after"
+  ],
+  "related_ids": []
+}

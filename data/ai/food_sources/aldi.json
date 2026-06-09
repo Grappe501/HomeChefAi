@@ -1,0 +1,31 @@
+{
+  "id": "food_source.aldi",
+  "type": "food_source",
+  "display_name": "ALDI",
+  "description": "Quarter deposit for cart — bring bags",
+  "attributes": {
+    "source_type": "discount",
+    "store_type": "discount",
+    "local_food_pref": null,
+    "shopping_tips": [
+      "Quarter deposit for cart — bring bags",
+      "Weekly Aldi Finds middle aisle",
+      "Excellent price on basics and cheese"
+    ],
+    "seasonal_notes": "Aldi Finds — German holiday treats, garden plants in spring.",
+    "cuisine_tags": [
+      "budget",
+      "efficient"
+    ],
+    "aisles": [
+      "Fresh",
+      "Meat",
+      "Dairy",
+      "Frozen",
+      "Pantry"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

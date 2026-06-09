@@ -1,0 +1,22 @@
+{
+  "id": "culture.german",
+  "kind": "culture",
+  "title": "German Culinary Culture",
+  "knowledge_id": "culture.german",
+  "match_keywords": [
+    "german",
+    "german",
+    "europe"
+  ],
+  "summary": "German: caraway, potatoes, butter.",
+  "origins": "German cuisine reflects europe geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Technique-driven cooking — fond, butter, wine reductions, and respect for seasonal produce.",
+  "teaching": [
+    "Build depth with fond from searing, reduce wine and stock, finish with cold butter for shine.",
+    "Keep mirepoix components, good butter, and wine vinegar on hand.",
+    "Signature pairing: caraway + potatoes + butter."
+  ],
+  "related_ids": [
+    "cuisine.german"
+  ]
+}

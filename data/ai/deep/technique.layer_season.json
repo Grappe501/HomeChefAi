@@ -1,0 +1,20 @@
+{
+  "id": "technique.layer_season",
+  "kind": "technique",
+  "title": "Layer Seasoning",
+  "knowledge_id": "technique.layer_season",
+  "match_keywords": [
+    "layer season",
+    "layer seasoning"
+  ],
+  "summary": "Salt at every stage — lightly at start, adjust at finish; acid last for brightness.",
+  "origins": "Layer Seasoning is a core foundation technique used across global cooking.",
+  "history": "Home cooks and professionals rely on layer seasoning for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Salt protein early",
+    "Season sauce as it builds",
+    "Finish acid and fresh herbs",
+    "Taste constantly"
+  ],
+  "related_ids": []
+}

@@ -1,0 +1,32 @@
+{
+  "id": "culture.turkish",
+  "type": "culture",
+  "display_name": "Turkish Culinary Culture",
+  "description": "Turkish cooking centers on cumin and mint, bulgur, and olive oil. Shared plates, warm spices, and balance of grain, legume, and herb.",
+  "attributes": {
+    "cuisine_id": "cuisine.turkish",
+    "cuisine_key": "turkish",
+    "region": "middle_east",
+    "signature_spice": "cumin and mint",
+    "signature_starch": "bulgur",
+    "signature_fat": "olive oil",
+    "micro_lesson": "Toast spices, use yogurt and tahini for richness, finish with fresh herb and pomegranate acid.",
+    "shopping_tip": "Sumac, zaatar, bulgur, chickpeas, and flatbread are pantry anchors.",
+    "flavor_building": [
+      "Start with olive oil as your cooking medium.",
+      "Season with cumin and mint — toast or bloom in fat when using ground spices.",
+      "Build the plate around bulgur as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Turkish food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "turkish",
+      "middle_east"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

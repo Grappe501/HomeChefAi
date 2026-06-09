@@ -1,0 +1,32 @@
+{
+  "id": "culture.thai",
+  "type": "culture",
+  "display_name": "Thai Culinary Culture",
+  "description": "Thai cooking centers on lemongrass and basil, rice noodles, and coconut milk. Balance of sweet, sour, salty, spicy, and umami in every bite.",
+  "attributes": {
+    "cuisine_id": "cuisine.thai",
+    "cuisine_key": "thai",
+    "region": "asia",
+    "signature_spice": "lemongrass and basil",
+    "signature_starch": "rice noodles",
+    "signature_fat": "coconut milk",
+    "micro_lesson": "High heat for wok hei, fish sauce or soy for umami, fresh herbs at the very end.",
+    "shopping_tip": "Soy, ginger, garlic, rice, and a hot wok or large skillet.",
+    "flavor_building": [
+      "Start with coconut milk as your cooking medium.",
+      "Season with lemongrass and basil — toast or bloom in fat when using ground spices.",
+      "Build the plate around rice noodles as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Thai food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "thai",
+      "asia"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.thai",
+  "type": "cuisine",
+  "display_name": "Thai",
+  "description": "Thai home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "thai",
+      "asia"
+    ],
+    "region": "asia",
+    "signature_spice": "lemongrass and basil",
+    "signature_starch": "rice noodles"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

@@ -35,6 +35,22 @@ const TECHNIQUE_SIGNALS: { id: string; keywords: string[] }[] = [
   { id: 'technique.marinate', keywords: ['marinate', 'marinade'] },
   { id: 'technique.knead', keywords: ['knead', 'bread', 'dough', 'pizza dough'] },
   { id: 'technique.reduce', keywords: ['reduce', 'reduction', 'pan sauce'] },
+  { id: 'technique.deep_fry', keywords: ['deep fry', 'deep-fry', 'fried chicken', 'tempura'] },
+  { id: 'technique.smoke', keywords: ['smoke', 'smoked', 'smoker', 'brisket'] },
+  { id: 'technique.broil', keywords: ['broil', 'broiled'] },
+  { id: 'technique.char', keywords: ['char', 'blister', 'blistered', 'torch'] },
+  { id: 'technique.pickle', keywords: ['pickle', 'pickled', 'quick pickle'] },
+  { id: 'technique.brine', keywords: ['brine', 'brined', 'turkey brine'] },
+  { id: 'technique.ferment', keywords: ['ferment', 'fermented', 'kimchi', 'sauerkraut'] },
+  { id: 'technique.bloom_spices', keywords: ['bloom spice', 'temper spice', 'tadka', 'curry paste'] },
+  { id: 'technique.layer_season', keywords: ['season', 'seasoning', 'salt layer', 'taste and adjust'] },
+  { id: 'technique.stock', keywords: ['stock', 'broth', 'bone broth'] },
+  { id: 'technique.glaze', keywords: ['glaze', 'glazed', 'teriyaki'] },
+  { id: 'technique.rest', keywords: ['rest meat', 'resting', 'tent foil'] },
+  { id: 'technique.spatchcock', keywords: ['spatchcock', 'butterfly chicken'] },
+  { id: 'technique.pressure_cook', keywords: ['pressure cook', 'instant pot', 'instapot'] },
+  { id: 'technique.blanch_shock', keywords: ['blanch', 'shock', 'ice bath'] },
+  { id: 'technique.render_fat', keywords: ['render', 'bacon fat', 'schmaltz'] },
 ];
 
 function skillLevelPrefix(level: ConfidenceLevel): string {

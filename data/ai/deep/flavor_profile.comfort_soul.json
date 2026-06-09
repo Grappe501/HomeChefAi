@@ -1,0 +1,23 @@
+{
+  "id": "flavor_profile.comfort_soul",
+  "kind": "flavor_profile",
+  "title": "Comfort & Soul",
+  "knowledge_id": "flavor_profile.comfort_soul",
+  "match_keywords": [
+    "comfort soul",
+    "comfort & soul",
+    "fat",
+    "salt",
+    "slow_cook",
+    "spice"
+  ],
+  "summary": "Low and slow, well-seasoned layers — soul food depth comes from time, fond, and spice blend.",
+  "origins": "Taste profiles describe how we experience balance on the plate — comfort & soul is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: fat, salt, slow_cook, spice. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Season every layer",
+    "Use smoked meat for base",
+    "Finish with hot sauce or vinegar table-side",
+    "Pickled or fresh sides cut richness; acid at the table lets diners adjust."
+  ]
+}

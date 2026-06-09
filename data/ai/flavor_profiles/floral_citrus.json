@@ -1,0 +1,27 @@
+{
+  "id": "flavor_profile.floral_citrus",
+  "type": "flavor_profile",
+  "display_name": "Floral & Citrus",
+  "description": "Orange blossom, rose, lemongrass, kaffir lime — use sparingly; aroma is not volume.",
+  "attributes": {
+    "micro_lesson": "Orange blossom, rose, lemongrass, kaffir lime — use sparingly; aroma is not volume.",
+    "flavor_pillars": [
+      "citrus",
+      "floral_herb",
+      "sweet"
+    ],
+    "build_depth": [
+      "Zest before juice",
+      "Infuse cream or syrup",
+      "Add delicate herbs at service"
+    ],
+    "balance_tip": "Salt and acid ground floral notes so they taste food, not perfume.",
+    "cuisine_tags": [
+      "persian",
+      "thai"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

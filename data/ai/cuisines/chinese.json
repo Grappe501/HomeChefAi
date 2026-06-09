@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.chinese",
+  "type": "cuisine",
+  "display_name": "Chinese",
+  "description": "Chinese home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "chinese",
+      "asia"
+    ],
+    "region": "asia",
+    "signature_spice": "ginger and soy",
+    "signature_starch": "rice"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

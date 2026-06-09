@@ -1,0 +1,19 @@
+{
+  "id": "technique.reduce",
+  "kind": "technique",
+  "title": "Reduce",
+  "knowledge_id": "technique.reduce",
+  "match_keywords": [
+    "reduce",
+    "reduce"
+  ],
+  "summary": "Simmer uncovered — water leaves, flavor concentrates.",
+  "origins": "Reduce is a core finishing technique used across french, italian cooking.",
+  "history": "Home cooks and professionals rely on reduce for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Wide pan increases evaporation",
+    "Skim impurities",
+    "Season at end — salt intensifies"
+  ],
+  "related_ids": []
+}

@@ -2,13 +2,26 @@
   "id": "flavor_profile.earthy",
   "type": "flavor_profile",
   "display_name": "Earthy",
+  "description": "Mushrooms, beets, lentils, cumin — depth from roasting and long simmering.",
   "attributes": {
+    "micro_lesson": "Mushrooms, beets, lentils, cumin — depth from roasting and long simmering.",
+    "flavor_pillars": [
+      "root_veg",
+      "mushroom",
+      "warm_spice"
+    ],
+    "build_depth": [
+      "Roast roots until caramelized",
+      "Deglaze with wine",
+      "Toast spices in fat before wet ingredients"
+    ],
+    "balance_tip": "Fresh acid and herbs on top keep earthiness from feeling heavy.",
     "cuisine_tags": [
       "comfort",
-      "southern"
+      "indian"
     ]
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

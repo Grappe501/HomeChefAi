@@ -1,11 +1,18 @@
 {
   "id": "cuisine.comfort",
   "type": "cuisine",
-  "display_name": "Comfort Food",
+  "display_name": "American Comfort",
+  "description": "American Comfort home cooking — full course library with mains, appetizers, desserts, and more.",
   "attributes": {
-    "staples": ["ingredient.butter", "ingredient.flour", "ingredient.cheese", "ingredient.ground_beef"],
-    "regional_uses": ["Mac and cheese", "Meatloaf", "Mashed potatoes", "Casseroles"],
-    "cuisine_tags": ["comfort", "american"]
+    "cuisine_tags": [
+      "comfort",
+      "american"
+    ],
+    "region": "american",
+    "signature_spice": "garlic powder",
+    "signature_starch": "potatoes"
   },
-  "sources": ["curated"]
+  "sources": [
+    "corpus_v3"
+  ]
 }

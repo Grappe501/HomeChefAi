@@ -1,0 +1,22 @@
+{
+  "id": "culture.hungarian",
+  "kind": "culture",
+  "title": "Hungarian Culinary Culture",
+  "knowledge_id": "culture.hungarian",
+  "match_keywords": [
+    "hungarian",
+    "hungarian",
+    "europe"
+  ],
+  "summary": "Hungarian: paprika, noodles, sour cream.",
+  "origins": "Hungarian cuisine reflects europe geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Technique-driven cooking — fond, butter, wine reductions, and respect for seasonal produce.",
+  "teaching": [
+    "Build depth with fond from searing, reduce wine and stock, finish with cold butter for shine.",
+    "Keep mirepoix components, good butter, and wine vinegar on hand.",
+    "Signature pairing: paprika + noodles + sour cream."
+  ],
+  "related_ids": [
+    "cuisine.hungarian"
+  ]
+}

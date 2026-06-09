@@ -1,0 +1,22 @@
+{
+  "id": "culture.hawaiian",
+  "kind": "culture",
+  "title": "Hawaiian Culinary Culture",
+  "knowledge_id": "culture.hawaiian",
+  "match_keywords": [
+    "hawaiian",
+    "hawaiian",
+    "pacific"
+  ],
+  "summary": "Hawaiian: ginger, rice, coconut.",
+  "origins": "Hawaiian cuisine reflects pacific geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Tropical acid, coconut, and fusion of island and Asian influences.",
+  "teaching": [
+    "Pineapple and lime acid, coconut milk richness, grill for smoke.",
+    "Coconut milk, rice, macadamia, and fresh tropical fruit.",
+    "Signature pairing: ginger + rice + coconut."
+  ],
+  "related_ids": [
+    "cuisine.hawaiian"
+  ]
+}

@@ -35,11 +35,23 @@ const SUBSTITUTION_PATTERNS = [
   /\breplace .+ with\b/i,
 ];
 
+const SKILL_PATTERNS = [
+  /\bhow do i (saute|sauté|sear|braise|poach|knead|deglaze|reduce)\b/i,
+  /\bteach me (to )?\b/i,
+  /\blearn (how to|to)\b/i,
+  /\bwhat is (a )?roux\b/i,
+  /\bmicro[- ]?lesson\b/i,
+  /\bimprove my (cooking|knife|skills)\b/i,
+  /\bhelp me (with|learn)\b/i,
+];
+
 export function classifyIntent(message: string): ClassifiedIntent {
   const m = message.trim();
   if (!m) return 'general';
+  if (/^recipe:dish\./i.test(m)) return 'suggestion';
   if (SUBSTITUTION_PATTERNS.some((p) => p.test(m))) return 'substitution';
   if (MEAL_PLAN_PATTERNS.some((p) => p.test(m))) return 'meal_plan';
+  if (SKILL_PATTERNS.some((p) => p.test(m))) return 'skill';
   if (DIRECTION_PATTERNS.some((p) => p.test(m))) return 'suggestion';
   if (/\bhost(ing| a dinner| party)\b/i.test(m)) return 'hosting';
   return 'chat';

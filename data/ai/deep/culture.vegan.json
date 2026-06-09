@@ -1,0 +1,22 @@
+{
+  "id": "culture.vegan",
+  "kind": "culture",
+  "title": "Vegan Culinary Culture",
+  "knowledge_id": "culture.vegan",
+  "match_keywords": [
+    "vegan",
+    "vegan",
+    "global"
+  ],
+  "summary": "Vegan: nutritional yeast, legumes, olive oil.",
+  "origins": "Vegan cuisine reflects global geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Plant-forward cooking with global spice access — technique over tradition lock-in.",
+  "teaching": [
+    "Roast vegetables deeply, use nutritional yeast and miso for umami, acid and crunch for finish.",
+    "Legumes, grains, olive oil, and bold spice rack.",
+    "Signature pairing: nutritional yeast + legumes + olive oil."
+  ],
+  "related_ids": [
+    "cuisine.vegan"
+  ]
+}

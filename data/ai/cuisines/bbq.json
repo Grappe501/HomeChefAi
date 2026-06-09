@@ -1,18 +1,18 @@
 {
   "id": "cuisine.bbq",
   "type": "cuisine",
-  "display_name": "BBQ",
+  "display_name": "BBQ & Smokehouse",
+  "description": "BBQ & Smokehouse home cooking — full course library with mains, appetizers, desserts, and more.",
   "attributes": {
-    "staples": [
-      "ingredient.paprika",
-      "ingredient.garlic",
-      "ingredient.onion"
-    ],
     "cuisine_tags": [
-      "bbq"
-    ]
+      "bbq",
+      "american"
+    ],
+    "region": "american",
+    "signature_spice": "smoked paprika",
+    "signature_starch": "buns"
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "corpus_v3"
   ]
 }

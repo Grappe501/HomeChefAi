@@ -2,13 +2,26 @@
   "id": "flavor_profile.herbaceous",
   "type": "flavor_profile",
   "display_name": "Herbaceous",
+  "description": "Soft herbs (basil, cilantro) at the end; hardy herbs (rosemary, thyme) early in cooking.",
   "attributes": {
+    "micro_lesson": "Soft herbs (basil, cilantro) at the end; hardy herbs (rosemary, thyme) early in cooking.",
+    "flavor_pillars": [
+      "fresh_herb",
+      "olive_oil",
+      "acid"
+    ],
+    "build_depth": [
+      "Chop herbs just before serving",
+      "Infuse oil with hardy herbs",
+      "Gremolata or chimichurri finish"
+    ],
+    "balance_tip": "Salt and acid make herbs pop; too much heat kills delicate aroma.",
     "cuisine_tags": [
       "mediterranean",
       "italian"
     ]
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, Sparkles, CheckCircle2, Brain, Camera, PartyPopper, Wrench } from 'lucide-react';
+import { ArrowRight, Sparkles, CheckCircle2, Camera, BookOpen, Wrench, Zap, Library } from 'lucide-react';
 import { MarketingLayout, DrillCard } from '@/components/marketing/MarketingLayout';
 import { ProductMock, SiteStatsStrip, Brain4Strip } from '@/components/marketing/MarketingBlocks';
 import { PageMeta } from '@/components/marketing/PageMeta';
@@ -7,21 +7,23 @@ import { MarketingFAQ } from '@/components/marketing/MarketingFAQ';
 import { TrustStrip } from '@/components/marketing/TrustStrip';
 import { StickyMobileCTA } from '@/components/marketing/StickyMobileCTA';
 import { DEEP_CATALOG } from '@/lib/deepCatalog';
-import { BRAIN_4_PILLARS, MARKETING_FAQ, TESTIMONIALS, SITE_VERSION } from '@/content/marketingContent';
+import { BRAIN_PILLARS, MARKETING_FAQ, TESTIMONIALS, SITE_VERSION, SITE_STATS } from '@/content/marketingContent';
 import { useApp } from '@/hooks/useApp';
 
 const VALUE_PROPS = [
-  'Tool router — graph lookups before GPT',
-  'Proactive cards — expiring food, likely meals, zero credits',
-  'Pantry photo + receipt scan → verified inventory',
-  'Hosting Studio — menu, timeline, shopping list',
+  `${SITE_STATS.recipeCount} recipes across ${SITE_STATS.cuisines} cuisines — matched to your pantry at zero credits`,
+  'Training Kitchen — techniques, taste profiles, and local food sourcing',
+  'Nine Clara tools — graph and library lookups before GPT',
+  'Multi-course dinner plans with per-slot drill-down',
+  'Proactive cards — expiring food, staples, inline directions',
 ];
 
 const PILLAR_ICONS = {
+  'recipe-library': Library,
   'tool-router': Wrench,
-  proactive: Brain,
+  'training-kitchen': BookOpen,
+  'ai-impact': Zap,
   'pantry-vision': Camera,
-  'hosting-studio': PartyPopper,
 } as const;
 
 export default function Landing() {
@@ -33,7 +35,7 @@ export default function Landing() {
     <MarketingLayout dark>
       <PageMeta
         title="SousChef — Your Kitchen Has A Memory"
-        description="Household Food Operating System — Brain 4.0 Clara, proactive intelligence, pantry vision, meal planning, and a 270+ node knowledge graph. Start free."
+        description={`Household Food Operating System — Brain ${SITE_VERSION}, ${SITE_STATS.recipeCount} recipe library, nine-tool Clara, multi-course planning, and AI Impact Suite. Start free.`}
         path="/landing"
         faq={MARKETING_FAQ.map((f) => ({ question: f.question, answer: f.answer }))}
       />
@@ -47,11 +49,11 @@ export default function Landing() {
               Brain {SITE_VERSION} · Household Food OS
             </p>
             <h1 className="font-display mt-4 text-[clamp(2.35rem,6.5vw,4rem)] leading-[1.04] tracking-tight text-white">
-              Clara thinks in tools,<br className="hidden sm:block" /> not guesses.
+              Your kitchen remembers.<br className="hidden sm:block" /> Clara connects it all.
             </h1>
             <p className="mt-5 text-base md:text-lg text-white/70 leading-relaxed max-w-lg">
-              SousChef learns how you shop, cook, and repeat — then surfaces what to do next before you ask.
-              Evidence you can read. Pantry that always works.
+              SousChef learns how you shop, cook, and repeat — then surfaces what to do next from a
+              {` ${SITE_STATS.recipeCount} recipe library`}, household memories, and nine deterministic tools before any GPT call.
             </p>
             <ul className="mt-6 space-y-2.5">
               {VALUE_PROPS.map((v) => (
@@ -71,10 +73,10 @@ export default function Landing() {
                 <ArrowRight size={16} />
               </button>
               <Link
-                to="/explore/intelligence/clara-tool-router"
+                to="/explore/intelligence/recipe-library"
                 className="inline-flex items-center rounded-full border border-white/25 px-6 py-3.5 text-sm font-medium text-white/90 hover:bg-white/8 min-h-[52px] transition"
               >
-                See Brain 4.0
+                See Brain {SITE_VERSION}
               </Link>
             </div>
             <p className="mt-8 text-sm text-white/40">
@@ -99,18 +101,18 @@ export default function Landing() {
         <SiteStatsStrip dark />
       </section>
 
-      {/* Brain 4 pillars */}
+      {/* Brain 5 pillars */}
       <section className="mx-auto max-w-5xl px-5 pb-16">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
           <div>
-            <p className="marketing-eyebrow text-copper-400/80">Brain 4.0</p>
-            <h2 className="font-display text-2xl md:text-3xl text-white mt-2 tracking-tight">The Clara Reasoning Loop</h2>
+            <p className="marketing-eyebrow text-copper-400/80">Brain {SITE_VERSION}</p>
+            <h2 className="font-display text-2xl md:text-3xl text-white mt-2 tracking-tight">The AI Impact Suite</h2>
           </div>
           <Link to="/explore/intelligence" className="text-sm font-semibold text-copper-300 hover:text-copper-200">
             Intelligence layer →
           </Link>
         </div>
-        <Brain4Strip dark pillars={BRAIN_4_PILLARS} icons={PILLAR_ICONS} />
+        <Brain4Strip dark pillars={BRAIN_PILLARS} icons={PILLAR_ICONS} />
       </section>
 
       <section className="mx-auto max-w-5xl px-5 pb-16">
@@ -141,14 +143,14 @@ export default function Landing() {
       <section className="mx-auto max-w-5xl px-5 pb-20">
         <p className="marketing-eyebrow text-white/35 mb-5">Choose your path</p>
         <div className="grid gap-4 md:grid-cols-3">
-          <DrillCard dark to="/explore" badge="What" title="The Kitchen Stack" subtitle="Five layers. Every live feature mapped — including Brain 4.0." />
-          <DrillCard dark to="/how" badge="How" title="Capture → Remember → Act" subtitle="Receipt, photo, cook log, proactive Brain, Clara tools." />
+          <DrillCard dark to="/explore" badge="What" title="The Kitchen Stack" subtitle={`Five layers. Every live feature mapped — including Brain ${SITE_VERSION}.`} />
+          <DrillCard dark to="/how" badge="How" title="Capture → Remember → Act" subtitle={`Receipt, photo, ${SITE_STATS.recipeCount} recipes, Training Kitchen, nine Clara tools.`} />
           <DrillCard dark to="/learn" badge="Learn" title="Kitchen Academy" subtitle={`Origins, timelines, teach-me — ${DEEP_CATALOG.length}+ deep dives.`} />
         </div>
 
         <div className="mt-4 grid gap-4 md:grid-cols-2">
-          <DrillCard dark to="/vision" badge="Deep" title="Vision & Roadmap" subtitle="Smart kitchen, social, famous styles — honest status." />
-          <DrillCard dark to="/explore/legacy/hosting" badge="Live" title="Hosting Studio" subtitle="Dinner party timelines from your pantry — in the app today." />
+          <DrillCard dark to="/vision" badge="Deep" title="Vision & Roadmap" subtitle="Smart kitchen, social cookbook, famous styles — honest status." />
+          <DrillCard dark to="/explore/intelligence/recipe-library" badge="Live" title="Recipe Ideas" subtitle={`${SITE_STATS.recipeCount} recipes across ${SITE_STATS.cuisines} cuisines — in the app today.`} />
         </div>
 
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/12 bg-white/[0.04] backdrop-blur-sm px-6 py-5">
@@ -156,7 +158,7 @@ export default function Landing() {
             <Sparkles className="text-copper-400" size={22} aria-hidden />
             <div>
               <p className="text-sm font-semibold text-white">Plus $9 · Family $18</p>
-              <p className="text-xs text-white/45">No surprise AI bills. Proactive Brain free at zero credits.</p>
+              <p className="text-xs text-white/45">Recipe library + proactive Brain free at zero credits.</p>
             </div>
           </div>
           <Link to="/pricing" className="text-sm font-semibold text-copper-300 hover:text-copper-200 min-h-[44px] inline-flex items-center">
@@ -169,7 +171,7 @@ export default function Landing() {
 
       <section className="mx-auto max-w-5xl px-5 pb-24 md:pb-16 text-center">
         <h2 className="font-display text-2xl md:text-3xl text-white tracking-tight">Ready when you are, Chef.</h2>
-        <p className="text-white/55 mt-2 text-sm max-w-md mx-auto">Scan a receipt. Photo the pantry. Let Clara read your kitchen.</p>
+        <p className="text-white/55 mt-2 text-sm max-w-md mx-auto">Scan a receipt. Browse {SITE_STATS.recipeCount} recipes. Learn in Kitchen Academy.</p>
         <button
           type="button"
           onClick={cta}

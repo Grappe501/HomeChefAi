@@ -2,10 +2,17 @@
   "id": "cuisine.italian",
   "type": "cuisine",
   "display_name": "Italian",
+  "description": "Italian home cooking — full course library with mains, appetizers, desserts, and more.",
   "attributes": {
-    "staples": ["ingredient.tomato", "ingredient.garlic", "ingredient.cheese", "ingredient.olive_oil"],
-    "regional_uses": ["Pasta", "Risotto", "Marinara", "Parmesan finishing"],
-    "cuisine_tags": ["italian", "mediterranean"]
+    "cuisine_tags": [
+      "italian",
+      "europe"
+    ],
+    "region": "europe",
+    "signature_spice": "garlic and basil",
+    "signature_starch": "pasta"
   },
-  "sources": ["curated"]
+  "sources": [
+    "corpus_v3"
+  ]
 }

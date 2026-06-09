@@ -1,0 +1,20 @@
+{
+  "id": "technique.knead",
+  "kind": "technique",
+  "title": "Knead",
+  "knowledge_id": "technique.knead",
+  "match_keywords": [
+    "knead",
+    "knead"
+  ],
+  "summary": "Develop gluten with stretch and fold — windowpane test tells you when to stop.",
+  "origins": "Knead is a core baking technique used across baking, italian cooking.",
+  "history": "Home cooks and professionals rely on knead for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Push and fold",
+    "Rest between sets",
+    "Test windowpane",
+    "Proof until doubled"
+  ],
+  "related_ids": []
+}

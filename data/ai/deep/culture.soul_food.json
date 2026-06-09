@@ -1,0 +1,22 @@
+{
+  "id": "culture.soul_food",
+  "kind": "culture",
+  "title": "Soul Food Culinary Culture",
+  "knowledge_id": "culture.soul_food",
+  "match_keywords": [
+    "soul_food",
+    "soul food",
+    "american"
+  ],
+  "summary": "Soul Food: cayenne, rice, butter.",
+  "origins": "Soul Food cuisine reflects american geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Regional pride — smoke, cast iron, and generous portions with table-side adjustment.",
+  "teaching": [
+    "Smoke and spice rubs, fond from cast iron, vinegar or hot sauce at the table for balance.",
+    "Cast iron, BBQ sauce, chili powder, and good black pepper.",
+    "Signature pairing: cayenne + rice + butter."
+  ],
+  "related_ids": [
+    "cuisine.soul_food"
+  ]
+}

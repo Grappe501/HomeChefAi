@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.argentinian",
+  "type": "cuisine",
+  "display_name": "Argentinian",
+  "description": "Argentinian home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "argentinian",
+      "latin"
+    ],
+    "region": "latin",
+    "signature_spice": "chimichurri",
+    "signature_starch": "potatoes"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

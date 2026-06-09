@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.fermented_depth",
+  "kind": "flavor_profile",
+  "title": "Fermented Depth",
+  "knowledge_id": "flavor_profile.fermented_depth",
+  "match_keywords": [
+    "fermented depth",
+    "fermented depth",
+    "ferment",
+    "umami",
+    "acid"
+  ],
+  "summary": "Miso, kimchi, fish sauce, sourdough — fermentation adds complexity you cannot fake quickly.",
+  "origins": "Taste profiles describe how we experience balance on the plate — fermented depth is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: ferment, umami, acid. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Stir miso off boil",
+    "Use kimchi juice in fried rice",
+    "Fermented chili pastes in marinades",
+    "Fresh raw veg and acid keep fermented dishes from feeling one-dimensional."
+  ]
+}

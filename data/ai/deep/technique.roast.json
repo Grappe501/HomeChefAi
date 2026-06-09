@@ -1,0 +1,20 @@
+{
+  "id": "technique.roast",
+  "kind": "technique",
+  "title": "Roast",
+  "knowledge_id": "technique.roast",
+  "match_keywords": [
+    "roast",
+    "roast"
+  ],
+  "summary": "Even dry heat — space on the pan for air circulation.",
+  "origins": "Roast is a core heat technique used across american, comfort cooking.",
+  "history": "Home cooks and professionals rely on roast for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Preheat oven",
+    "Season uniformly",
+    "Roast until done",
+    "Rest before carving"
+  ],
+  "related_ids": []
+}

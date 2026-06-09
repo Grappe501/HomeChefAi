@@ -1,14 +1,25 @@
 {
   "id": "technique.ferment",
   "type": "technique",
-  "display_name": "Fermentation",
+  "display_name": "Ferment",
+  "description": "Salt inhibits bad bacteria — kimchi, sauerkraut, miso are controlled fermentation.",
   "attributes": {
-    "cuisine_tags": [
-      "preservation"
+    "micro_lesson": "Salt inhibits bad bacteria — kimchi, sauerkraut, miso are controlled fermentation.",
+    "steps": [
+      "Salt vegetables",
+      "Submerge under brine",
+      "Room temp then fridge",
+      "Taste as it develops"
     ],
-    "micro_lesson": "Salt and time control safety — follow tested ratios for pickles."
+    "difficulty": "advanced",
+    "category": "prep",
+    "cuisine_tags": [
+      "preservation",
+      "korean"
+    ],
+    "flavor_links": []
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

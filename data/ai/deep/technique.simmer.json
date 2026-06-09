@@ -1,0 +1,20 @@
+{
+  "id": "technique.simmer",
+  "kind": "technique",
+  "title": "Simmer",
+  "knowledge_id": "technique.simmer",
+  "match_keywords": [
+    "simmer",
+    "simmer"
+  ],
+  "summary": "Gentle bubbles — rolling boil toughens protein and breaks emulsions.",
+  "origins": "Simmer is a core moist technique used across comfort, southern cooking.",
+  "history": "Home cooks and professionals rely on simmer for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Bring to boil",
+    "Reduce to bare simmer",
+    "Skim if needed",
+    "Season gradually"
+  ],
+  "related_ids": []
+}

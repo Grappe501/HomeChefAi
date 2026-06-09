@@ -20,10 +20,45 @@
       "ingredient.potato.red",
       "ingredient.potato.yukon_gold",
       "ingredient.potato.sweet"
+    ],
+    "unit_category": "produce",
+    "default_unit": "lb",
+    "package_label": "bag",
+    "packaging_options": [
+      {
+        "label": "1 lb",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "label": "5 lb bag",
+        "quantity": 5,
+        "unit": "lb"
+      },
+      {
+        "label": "10 lb bag",
+        "quantity": 10,
+        "unit": "lb"
+      }
+    ],
+    "retail_aisle": "Produce",
+    "storage_location": "fridge",
+    "brand_examples": [
+      {
+        "id": "organic",
+        "label": "Organic",
+        "tier": "national"
+      },
+      {
+        "id": "conventional",
+        "label": "Conventional",
+        "tier": "national"
+      }
     ]
   },
   "sources": [
     "import-taxonomy-to-knowledge",
-    "food_taxonomy_1_0"
+    "food_taxonomy_1_0",
+    "ingredient_depth_v1"
   ]
 }

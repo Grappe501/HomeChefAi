@@ -1,0 +1,22 @@
+{
+  "id": "culture.turkish",
+  "kind": "culture",
+  "title": "Turkish Culinary Culture",
+  "knowledge_id": "culture.turkish",
+  "match_keywords": [
+    "turkish",
+    "turkish",
+    "middle_east"
+  ],
+  "summary": "Turkish: cumin and mint, bulgur, olive oil.",
+  "origins": "Turkish cuisine reflects middle east geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Shared plates, warm spices, and balance of grain, legume, and herb.",
+  "teaching": [
+    "Toast spices, use yogurt and tahini for richness, finish with fresh herb and pomegranate acid.",
+    "Sumac, zaatar, bulgur, chickpeas, and flatbread are pantry anchors.",
+    "Signature pairing: cumin and mint + bulgur + olive oil."
+  ],
+  "related_ids": [
+    "cuisine.turkish"
+  ]
+}

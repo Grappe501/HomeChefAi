@@ -1,0 +1,21 @@
+{
+  "id": "food_source.wegmans",
+  "kind": "food_source",
+  "title": "Wegmans",
+  "knowledge_id": "food_source.wegmans",
+  "match_keywords": [
+    "wegmans",
+    "wegmans",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Eat-in market cafe for inspiration",
+  "origins": "Wegmans is a regional retailer — knowing layout and house brands saves time and money.",
+  "history": "Local farm partnerships posted weekly.",
+  "teaching": [
+    "Eat-in market cafe for inspiration",
+    "Extensive cheese and charcuterie",
+    "Meal kits near prepared foods"
+  ]
+}

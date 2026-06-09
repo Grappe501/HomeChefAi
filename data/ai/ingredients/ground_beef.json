@@ -61,10 +61,50 @@
       "ingredient.ground_beef.90_10",
       "ingredient.ground_beef.85_15",
       "ingredient.ground_beef.93_7"
+    ],
+    "unit_category": "weight",
+    "default_unit": "lb",
+    "package_label": "pack",
+    "packaging_options": [
+      {
+        "label": "1 lb",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "label": "2 lb bag",
+        "quantity": 2,
+        "unit": "lb"
+      },
+      {
+        "label": "3 lb bag",
+        "quantity": 3,
+        "unit": "lb"
+      }
+    ],
+    "retail_aisle": "Meat & Seafood",
+    "storage_location": "pantry",
+    "brand_examples": [
+      {
+        "id": "80_20",
+        "label": "80/20 Ground Beef",
+        "tier": "national"
+      },
+      {
+        "id": "grass_fed",
+        "label": "Grass-Fed",
+        "tier": "premium"
+      },
+      {
+        "id": "great_value",
+        "label": "Great Value",
+        "tier": "store"
+      }
     ]
   },
   "sources": [
     "curated",
-    "food_taxonomy_1_0"
+    "food_taxonomy_1_0",
+    "ingredient_depth_v1"
   ]
 }

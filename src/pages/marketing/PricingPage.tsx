@@ -55,7 +55,7 @@ export default function PricingPage() {
       <StickyMobileCTA label={user ? 'Open app' : 'Start free'} />
 
       <PageHeader
-        eyebrow="Pricing · Brain 4.0"
+        eyebrow="Pricing · Brain 5.1"
         title="Clean prices. No surprise AI bills."
         lead="Proactive Brain, graph substitutions, and pantry always work — even at zero credits."
       />

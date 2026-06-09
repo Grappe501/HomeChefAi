@@ -1,0 +1,24 @@
+{
+  "id": "technique.fold",
+  "type": "technique",
+  "display_name": "Fold (Gentle Mix)",
+  "description": "Preserve air in soufflé, mousse, whipped cream — spatula under and over.",
+  "attributes": {
+    "micro_lesson": "Preserve air in soufflé, mousse, whipped cream — spatula under and over.",
+    "steps": [
+      "Light hand",
+      "Cut through center",
+      "Scrape bowl bottom",
+      "Stop when streaks remain"
+    ],
+    "difficulty": "intermediate",
+    "category": "baking",
+    "cuisine_tags": [
+      "french"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "culture.hawaiian",
+  "type": "culture",
+  "display_name": "Hawaiian Culinary Culture",
+  "description": "Hawaiian cooking centers on ginger, rice, and coconut. Tropical acid, coconut, and fusion of island and Asian influences.",
+  "attributes": {
+    "cuisine_id": "cuisine.hawaiian",
+    "cuisine_key": "hawaiian",
+    "region": "pacific",
+    "signature_spice": "ginger",
+    "signature_starch": "rice",
+    "signature_fat": "coconut",
+    "micro_lesson": "Pineapple and lime acid, coconut milk richness, grill for smoke.",
+    "shopping_tip": "Coconut milk, rice, macadamia, and fresh tropical fruit.",
+    "flavor_building": [
+      "Start with coconut as your cooking medium.",
+      "Season with ginger — toast or bloom in fat when using ground spices.",
+      "Build the plate around rice as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect Hawaiian food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "hawaiian",
+      "pacific"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

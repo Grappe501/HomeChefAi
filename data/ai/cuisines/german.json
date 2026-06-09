@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.german",
+  "type": "cuisine",
+  "display_name": "German",
+  "description": "German home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "german",
+      "europe"
+    ],
+    "region": "europe",
+    "signature_spice": "caraway",
+    "signature_starch": "potatoes"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

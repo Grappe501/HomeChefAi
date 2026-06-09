@@ -1,0 +1,20 @@
+{
+  "id": "technique.broil",
+  "kind": "technique",
+  "title": "Broil",
+  "knowledge_id": "technique.broil",
+  "match_keywords": [
+    "broil",
+    "broil"
+  ],
+  "summary": "Top-down intense heat — watch constantly, 4–6 inches from element.",
+  "origins": "Broil is a core heat technique used across american cooking.",
+  "history": "Home cooks and professionals rely on broil for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Preheat broiler",
+    "Use broiler-safe pan",
+    "Flip once",
+    "Finish with acid or butter"
+  ],
+  "related_ids": []
+}

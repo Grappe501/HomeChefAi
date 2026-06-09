@@ -1,15 +1,24 @@
 {
   "id": "technique.reduce",
   "type": "technique",
-  "display_name": "Reduce (sauce)",
+  "display_name": "Reduce",
+  "description": "Simmer uncovered — water leaves, flavor concentrates.",
   "attributes": {
+    "micro_lesson": "Simmer uncovered — water leaves, flavor concentrates.",
+    "steps": [
+      "Wide pan increases evaporation",
+      "Skim impurities",
+      "Season at end — salt intensifies"
+    ],
+    "difficulty": "beginner",
+    "category": "finishing",
     "cuisine_tags": [
       "french",
       "italian"
     ],
-    "micro_lesson": "Wide pan, medium heat — more surface area = faster, richer reduction."
+    "flavor_links": []
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

@@ -1,0 +1,22 @@
+{
+  "id": "culture.south_african",
+  "kind": "culture",
+  "title": "South African Culinary Culture",
+  "knowledge_id": "culture.south_african",
+  "match_keywords": [
+    "south_african",
+    "south african",
+    "africa"
+  ],
+  "summary": "South African: curry powder, pap, oil.",
+  "origins": "South African cuisine reflects africa geography, trade routes, and home cooking traditions passed through generations.",
+  "history": "Bold spice blends, slow stews, and starch scoops — communal eating is central.",
+  "teaching": [
+    "Bloom berbere or ras el hanout in oil; long simmer with legumes; acid from lime or tamarind at finish.",
+    "Spice blends, palm or peanut oil, and injera or rice as base.",
+    "Signature pairing: curry powder + pap + oil."
+  ],
+  "related_ids": [
+    "cuisine.south_african"
+  ]
+}

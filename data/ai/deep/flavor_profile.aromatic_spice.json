@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.aromatic_spice",
+  "kind": "flavor_profile",
+  "title": "Aromatic Spice",
+  "knowledge_id": "flavor_profile.aromatic_spice",
+  "match_keywords": [
+    "aromatic spice",
+    "aromatic spice",
+    "whole_spice",
+    "fat",
+    "heat"
+  ],
+  "summary": "Toast whole spices, bloom ground spices in fat — fat carries volatile aromatics.",
+  "origins": "Taste profiles describe how we experience balance on the plate — aromatic spice is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: whole_spice, fat, heat. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Temper spices in hot ghee/oil",
+    "Layer whole and ground",
+    "Finish with fresh spice (cardamom, mint)",
+    "Yogurt, coconut milk, or tomato cools and carries spice evenly."
+  ]
+}

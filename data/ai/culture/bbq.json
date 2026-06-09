@@ -1,0 +1,32 @@
+{
+  "id": "culture.bbq",
+  "type": "culture",
+  "display_name": "BBQ & Smokehouse Culinary Culture",
+  "description": "BBQ & Smokehouse cooking centers on smoked paprika, buns, and BBQ sauce. Regional pride — smoke, cast iron, and generous portions with table-side adjustment.",
+  "attributes": {
+    "cuisine_id": "cuisine.bbq",
+    "cuisine_key": "bbq",
+    "region": "american",
+    "signature_spice": "smoked paprika",
+    "signature_starch": "buns",
+    "signature_fat": "BBQ sauce",
+    "micro_lesson": "Smoke and spice rubs, fond from cast iron, vinegar or hot sauce at the table for balance.",
+    "shopping_tip": "Cast iron, BBQ sauce, chili powder, and good black pepper.",
+    "flavor_building": [
+      "Start with BBQ sauce as your cooking medium.",
+      "Season with smoked paprika — toast or bloom in fat when using ground spices.",
+      "Build the plate around buns as the anchor."
+    ],
+    "cultural_notes": [
+      "Respect BBQ & Smokehouse food as living tradition — learn context, not just copycat recipes.",
+      "Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine."
+    ],
+    "cuisine_tags": [
+      "bbq",
+      "american"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

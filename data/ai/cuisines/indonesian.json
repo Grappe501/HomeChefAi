@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.indonesian",
+  "type": "cuisine",
+  "display_name": "Indonesian",
+  "description": "Indonesian home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "indonesian",
+      "asia"
+    ],
+    "region": "asia",
+    "signature_spice": "turmeric and galangal",
+    "signature_starch": "rice"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

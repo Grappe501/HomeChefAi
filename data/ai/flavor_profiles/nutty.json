@@ -1,14 +1,27 @@
 {
   "id": "flavor_profile.nutty",
   "type": "flavor_profile",
-  "display_name": "Nutty",
+  "display_name": "Nutty & Toasted",
+  "description": "Toast nuts, seeds, and grains — brown butter and sesame oil are instant nutty depth.",
   "attributes": {
+    "micro_lesson": "Toast nuts, seeds, and grains — brown butter and sesame oil are instant nutty depth.",
+    "flavor_pillars": [
+      "toast",
+      "fat",
+      "salt"
+    ],
+    "build_depth": [
+      "Toast nuts in dry pan",
+      "Brown butter for finish",
+      "Use tahini or peanut butter in sauces"
+    ],
+    "balance_tip": "Acid and fresh crunch (herbs, cucumber) keep nutty richness lively.",
     "cuisine_tags": [
-      "baking",
+      "mediterranean",
       "asian"
     ]
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

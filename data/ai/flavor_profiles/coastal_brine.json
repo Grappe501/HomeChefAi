@@ -1,0 +1,27 @@
+{
+  "id": "flavor_profile.coastal_brine",
+  "type": "flavor_profile",
+  "display_name": "Coastal & Briny",
+  "description": "Anchovy, capers, olives, seaweed — brine is seasoning; taste before adding more salt.",
+  "attributes": {
+    "micro_lesson": "Anchovy, capers, olives, seaweed — brine is seasoning; taste before adding more salt.",
+    "flavor_pillars": [
+      "salt",
+      "seafood",
+      "acid"
+    ],
+    "build_depth": [
+      "Dissolve anchovy in warm oil",
+      "Use pasta water saltiness",
+      "Finish with lemon not more salt"
+    ],
+    "balance_tip": "Fresh herbs and olive oil soften brine; starch (bread, potatoes) absorbs intensity.",
+    "cuisine_tags": [
+      "greek",
+      "spanish"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

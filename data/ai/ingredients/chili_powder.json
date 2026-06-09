@@ -28,9 +28,49 @@
     "dietary": {
       "vegan": true,
       "vegetarian": true
-    }
+    },
+    "unit_category": "spice",
+    "default_unit": "jar",
+    "package_label": "jar",
+    "packaging_options": [
+      {
+        "label": "1 jar",
+        "quantity": 1,
+        "unit": "jar"
+      },
+      {
+        "label": "2 jars",
+        "quantity": 2,
+        "unit": "jar"
+      }
+    ],
+    "retail_aisle": "Spices & Seasonings",
+    "storage_location": "pantry",
+    "brand_examples": [
+      {
+        "id": "mccormick",
+        "label": "McCormick",
+        "tier": "national"
+      },
+      {
+        "id": "spice_islands",
+        "label": "Spice Islands",
+        "tier": "premium"
+      },
+      {
+        "id": "morton_bassett",
+        "label": "Morton & Bassett",
+        "tier": "premium"
+      },
+      {
+        "id": "great_value",
+        "label": "Great Value",
+        "tier": "store"
+      }
+    ]
   },
   "sources": [
-    "curated"
+    "curated",
+    "ingredient_depth_v1"
   ]
 }

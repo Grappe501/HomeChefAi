@@ -1,0 +1,31 @@
+{
+  "id": "food_source.publix",
+  "type": "food_source",
+  "display_name": "Publix",
+  "description": "BOGO sales on staples",
+  "attributes": {
+    "source_type": "regional",
+    "store_type": "regional",
+    "local_food_pref": null,
+    "shopping_tips": [
+      "BOGO sales on staples",
+      "Sub sandwiches while you shop",
+      "Aprons meal kits and recipes in store"
+    ],
+    "seasonal_notes": "Florida citrus and regional produce highlighted.",
+    "cuisine_tags": [
+      "southeast",
+      "service"
+    ],
+    "aisles": [
+      "Produce",
+      "Meat",
+      "Deli",
+      "Bakery",
+      "Seafood"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

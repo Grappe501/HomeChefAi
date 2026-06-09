@@ -2,13 +2,26 @@
   "id": "flavor_profile.rich_creamy",
   "type": "flavor_profile",
   "display_name": "Rich & Creamy",
+  "description": "Cream, butter, and cheese carry flavor — build sauce on a roux or reduced stock first.",
   "attributes": {
+    "micro_lesson": "Cream, butter, and cheese carry flavor — build sauce on a roux or reduced stock first.",
+    "flavor_pillars": [
+      "fat",
+      "salt",
+      "umami"
+    ],
+    "build_depth": [
+      "Reduce liquid before adding dairy",
+      "Mount cold butter off heat",
+      "Use aged cheese sparingly at finish"
+    ],
+    "balance_tip": "Cut with acid (lemon, white wine) or bitter greens on the plate.",
     "cuisine_tags": [
-      "comfort",
-      "french"
+      "french",
+      "comfort"
     ]
   },
   "sources": [
-    "generate-pantry-knowledge"
+    "training-kitchen"
   ]
 }

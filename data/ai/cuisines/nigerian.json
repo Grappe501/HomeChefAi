@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.nigerian",
+  "type": "cuisine",
+  "display_name": "Nigerian",
+  "description": "Nigerian home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "nigerian",
+      "africa"
+    ],
+    "region": "africa",
+    "signature_spice": "scotch bonnet",
+    "signature_starch": "rice"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

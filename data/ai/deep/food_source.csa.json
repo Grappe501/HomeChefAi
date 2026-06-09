@@ -1,0 +1,21 @@
+{
+  "id": "food_source.csa",
+  "kind": "food_source",
+  "title": "CSA (Community Supported Agriculture)",
+  "knowledge_id": "food_source.csa",
+  "match_keywords": [
+    "csa",
+    "csa (community supported agriculture)",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Weekly box teaches seasonal cooking — embrace surprise vegetables.",
+  "origins": "Local food sourcing connects cooks to seasonality, community, and often better flavor per dollar when buying peak produce.",
+  "history": "Treat the box as your produce budget — supplement proteins at grocery.",
+  "teaching": [
+    "Weekly box teaches seasonal cooking — embrace surprise vegetables.",
+    "Pick-up day is meal-plan day: sort what needs using first.",
+    "Share or swap extras with neighbors if quantities are large."
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "technique.proof",
+  "kind": "technique",
+  "title": "Proof (Dough)",
+  "knowledge_id": "technique.proof",
+  "match_keywords": [
+    "proof",
+    "proof (dough)"
+  ],
+  "summary": "Yeast eats sugar, produces CO₂ — warm draft-free spot until doubled.",
+  "origins": "Proof (Dough) is a core baking technique used across baking cooking.",
+  "history": "Home cooks and professionals rely on proof (dough) for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Oil bowl",
+    "Cover loosely",
+    "Poke test for doneness",
+    "Do not over-proof"
+  ],
+  "related_ids": []
+}

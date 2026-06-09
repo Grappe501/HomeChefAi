@@ -1,0 +1,20 @@
+{
+  "id": "technique.confit",
+  "kind": "technique",
+  "title": "Confit",
+  "knowledge_id": "technique.confit",
+  "match_keywords": [
+    "confit",
+    "confit"
+  ],
+  "summary": "Submerged slow cook in fat — duck legs, garlic, potatoes transformed.",
+  "origins": "Confit is a core fat technique used across french cooking.",
+  "history": "Home cooks and professionals rely on confit for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Salt cure overnight",
+    "Submerge in fat",
+    "Low oven hours",
+    "Store submerged"
+  ],
+  "related_ids": []
+}

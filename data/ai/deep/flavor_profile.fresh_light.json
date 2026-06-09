@@ -1,0 +1,22 @@
+{
+  "id": "flavor_profile.fresh_light",
+  "kind": "flavor_profile",
+  "title": "Fresh & Light",
+  "knowledge_id": "flavor_profile.fresh_light",
+  "match_keywords": [
+    "fresh light",
+    "fresh & light",
+    "acid",
+    "herb",
+    "texture"
+  ],
+  "summary": "Raw crunch, citrus, and minimal fat — season aggressively because there is less fat to carry salt.",
+  "origins": "Taste profiles describe how we experience balance on the plate — fresh & light is a pattern chefs recognize and home cooks can learn.",
+  "history": "Flavor pillars: acid, herb, texture. Building depth means layering these elements rather than one heavy note.",
+  "teaching": [
+    "Salt vegetables to draw moisture",
+    "Dress at last minute",
+    "Use high-quality olive oil sparingly",
+    "Umami anchor (fish sauce, parmesan) stops \"diet food\" blandness."
+  ]
+}

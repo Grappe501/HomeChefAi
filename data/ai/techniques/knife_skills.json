@@ -1,0 +1,23 @@
+{
+  "id": "technique.knife_skills",
+  "type": "technique",
+  "display_name": "Knife Skills",
+  "description": "Claw grip, sharp knife, uniform cuts cook evenly — dull knives are dangerous.",
+  "attributes": {
+    "micro_lesson": "Claw grip, sharp knife, uniform cuts cook evenly — dull knives are dangerous.",
+    "steps": [
+      "Pinch grip on blade",
+      "Guide with knuckles tucked",
+      "Match cut to cook method"
+    ],
+    "difficulty": "beginner",
+    "category": "prep",
+    "cuisine_tags": [
+      "global"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

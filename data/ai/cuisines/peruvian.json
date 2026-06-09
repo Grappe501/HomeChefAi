@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.peruvian",
+  "type": "cuisine",
+  "display_name": "Peruvian",
+  "description": "Peruvian home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "peruvian",
+      "latin"
+    ],
+    "region": "latin",
+    "signature_spice": "aji amarillo",
+    "signature_starch": "potatoes"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

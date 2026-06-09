@@ -1,0 +1,21 @@
+{
+  "id": "food_source.fish_monger",
+  "kind": "food_source",
+  "title": "Fish Monger & Seafood Counter",
+  "knowledge_id": "food_source.fish_monger",
+  "match_keywords": [
+    "fish monger",
+    "fish monger & seafood counter",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Smell the counter — should smell like ocean, not ammonia.",
+  "origins": "Local food sourcing connects cooks to seasonality, community, and often better flavor per dollar when buying peak produce.",
+  "history": "Cook seafood within 24 hours of purchase.",
+  "teaching": [
+    "Smell the counter — should smell like ocean, not ammonia.",
+    "Ask what came in today vs. previously frozen.",
+    "Whole fish often best value; ask to fillet."
+  ]
+}

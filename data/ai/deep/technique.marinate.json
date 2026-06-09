@@ -1,0 +1,20 @@
+{
+  "id": "technique.marinate",
+  "kind": "technique",
+  "title": "Marinate",
+  "knowledge_id": "technique.marinate",
+  "match_keywords": [
+    "marinate",
+    "marinate"
+  ],
+  "summary": "Acid + salt + time — 30 min to overnight; acid too long turns meat mushy.",
+  "origins": "Marinate is a core prep technique used across bbq, mexican cooking.",
+  "history": "Home cooks and professionals rely on marinate for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Balance acid, oil, salt",
+    "Refrigerate always",
+    "Pat dry before sear",
+    "Never reuse raw marinade"
+  ],
+  "related_ids": []
+}

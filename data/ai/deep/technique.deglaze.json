@@ -1,0 +1,20 @@
+{
+  "id": "technique.deglaze",
+  "kind": "technique",
+  "title": "Deglaze",
+  "knowledge_id": "technique.deglaze",
+  "match_keywords": [
+    "deglaze",
+    "deglaze"
+  ],
+  "summary": "Liquid lifts fond — wine, stock, or even water turns pan into sauce.",
+  "origins": "Deglaze is a core finishing technique used across french cooking.",
+  "history": "Home cooks and professionals rely on deglaze for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "After sear, pour off excess fat",
+    "Add cold liquid",
+    "Scrape fond",
+    "Reduce and mount with butter"
+  ],
+  "related_ids": []
+}

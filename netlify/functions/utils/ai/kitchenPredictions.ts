@@ -167,6 +167,23 @@ export async function buildKitchenPredictions(
     });
   }
 
+  const staples = patterns.filter((p) => p.type === 'staple_identity');
+  if (staples.length && profile) {
+    const names = staples.slice(0, 3).map((s) => s.headline.split('—')[0].trim()).join(', ');
+    const dirResult = buildMealDirections(inventory, profile, { count: 3 });
+    predictions.push({
+      id: 'kitchen_staples',
+      type: 'kitchen_staple',
+      title: 'Kitchen staples',
+      message: `Chef, ${names} ${staples.length === 1 ? 'is' : 'are'} part of this kitchen's identity. Here are dishes that lean on what you always have.`,
+      priority: 72,
+      evidence: staples.flatMap((s) => s.evidence).slice(0, 6),
+      clara_prompt: `Suggest meals built around my staples: ${names}.`,
+      directions: dirResult.directions,
+      meals: dirResult.directions.map((d) => d.title),
+    });
+  }
+
   const cookNight = patterns.find((p) => p.type === 'cook_night_rhythm');
   if (cookNight && profile) {
     const dirResult = buildMealDirections(inventory, profile, { count: 3 });

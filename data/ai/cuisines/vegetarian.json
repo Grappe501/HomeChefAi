@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.vegetarian",
+  "type": "cuisine",
+  "display_name": "Vegetarian",
+  "description": "Vegetarian home cooking — full course library with mains, appetizers, desserts, and more.",
+  "attributes": {
+    "cuisine_tags": [
+      "vegetarian",
+      "global"
+    ],
+    "region": "global",
+    "signature_spice": "herbs",
+    "signature_starch": "grains"
+  },
+  "sources": [
+    "corpus_v3"
+  ]
+}

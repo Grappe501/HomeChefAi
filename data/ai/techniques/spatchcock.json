@@ -1,0 +1,25 @@
+{
+  "id": "technique.spatchcock",
+  "type": "technique",
+  "display_name": "Spatchcock",
+  "description": "Remove backbone, flatten bird — even cooking, faster roast, crispier skin.",
+  "attributes": {
+    "micro_lesson": "Remove backbone, flatten bird — even cooking, faster roast, crispier skin.",
+    "steps": [
+      "Remove backbone with shears",
+      "Flatten and press",
+      "Season under skin",
+      "Roast or grill direct"
+    ],
+    "difficulty": "intermediate",
+    "category": "prep",
+    "cuisine_tags": [
+      "bbq",
+      "mediterranean"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

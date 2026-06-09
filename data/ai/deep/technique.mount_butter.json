@@ -1,0 +1,19 @@
+{
+  "id": "technique.mount_butter",
+  "kind": "technique",
+  "title": "Mount with Butter",
+  "knowledge_id": "technique.mount_butter",
+  "match_keywords": [
+    "mount butter",
+    "mount with butter"
+  ],
+  "summary": "Cold butter off heat — emulsifies sauce for shine and richness.",
+  "origins": "Mount with Butter is a core finishing technique used across french cooking.",
+  "history": "Home cooks and professionals rely on mount with butter for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Remove from heat",
+    "Whisk in cold butter cubes",
+    "Do not boil after mounting"
+  ],
+  "related_ids": []
+}

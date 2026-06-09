@@ -1,0 +1,21 @@
+{
+  "id": "food_source.local_butcher",
+  "kind": "food_source",
+  "title": "Local Butcher",
+  "knowledge_id": "food_source.local_butcher",
+  "match_keywords": [
+    "local butcher",
+    "local butcher",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Ask for custom cuts and trimming — they know the animal.",
+  "origins": "Local food sourcing connects cooks to seasonality, community, and often better flavor per dollar when buying peak produce.",
+  "history": "Call ahead for holiday roasts and special cuts.",
+  "teaching": [
+    "Ask for custom cuts and trimming — they know the animal.",
+    "Bones and trim often cheap or free for stock.",
+    "Many butchers dry-age or source local farms — ask provenance."
+  ]
+}

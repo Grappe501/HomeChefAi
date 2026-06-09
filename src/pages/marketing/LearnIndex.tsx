@@ -6,7 +6,18 @@ import { PageMeta } from '@/components/marketing/PageMeta';
 import { DEEP_CATALOG, DEEP_KIND_LABEL, listDeepCatalog, searchDeepCatalog } from '@/lib/deepCatalog';
 import type { DeepEntryKind } from '@/types/knowledgeDeep';
 
-const KINDS: (DeepEntryKind | 'all')[] = ['all', 'ingredient', 'technique', 'dish', 'style', 'tradition'];
+const KINDS: (DeepEntryKind | 'all')[] = [
+  'all',
+  'ingredient',
+  'technique',
+  'flavor_profile',
+  'culture',
+  'food_source',
+  'path',
+  'dish',
+  'style',
+  'tradition',
+];
 
 export default function LearnIndexPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -26,14 +37,14 @@ export default function LearnIndexPage() {
     >
       <PageMeta
         title="Kitchen Academy"
-        description="Deep dives on ingredients, techniques, and dishes — origins, history, timelines, and what Clara can teach while you cook."
+        description="Techniques, taste profiles, cultural cuisines, food sourcing — origins, history, and what Clara can teach while you cook."
         path="/learn"
       />
       <div className="mx-auto max-w-5xl px-5 py-10">
         <PageHeader
           dark
           title="Kitchen Academy"
-          lead={`${DEEP_CATALOG.length}+ deep dives — where ingredients came from, how long dishes have been around, and what Clara can teach you while you cook.`}
+          lead={`${DEEP_CATALOG.length}+ deep dives — techniques, taste profiles, 48 cuisines, grocery & local sourcing, and teach-me moments from the knowledge graph.`}
         />
 
         <div className="relative max-w-md mb-6">

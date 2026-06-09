@@ -1,0 +1,21 @@
+{
+  "id": "food_source.safeway",
+  "kind": "food_source",
+  "title": "Safeway / Albertsons",
+  "knowledge_id": "food_source.safeway",
+  "match_keywords": [
+    "safeway",
+    "safeway / albertsons",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Just for U rewards",
+  "origins": "Safeway / Albertsons is a chain retailer — knowing layout and house brands saves time and money.",
+  "history": "Regional wine and cheese features.",
+  "teaching": [
+    "Just for U rewards",
+    "O Organics line",
+    "Combined with Vons, Jewel-Osco in some regions"
+  ]
+}

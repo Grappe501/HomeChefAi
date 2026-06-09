@@ -1,0 +1,22 @@
+{
+  "id": "technique.sear",
+  "kind": "technique",
+  "title": "Sear",
+  "knowledge_id": "technique.sear",
+  "match_keywords": [
+    "sear",
+    "sear"
+  ],
+  "summary": "Pat protein dry — moisture is the enemy of a golden crust.",
+  "origins": "Sear is a core heat technique used across american, french cooking.",
+  "history": "Home cooks and professionals rely on sear for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Heat pan until shimmering",
+    "Dry protein thoroughly",
+    "Do not move until release"
+  ],
+  "related_ids": [
+    "flavor_profile.umami",
+    "flavor_profile.maillard"
+  ]
+}

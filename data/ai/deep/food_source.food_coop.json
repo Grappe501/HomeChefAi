@@ -1,0 +1,21 @@
+{
+  "id": "food_source.food_coop",
+  "kind": "food_source",
+  "title": "Food Co-op",
+  "knowledge_id": "food_source.food_coop",
+  "match_keywords": [
+    "food coop",
+    "food co-op",
+    "grocery",
+    "market",
+    "shop"
+  ],
+  "summary": "Member-owned — often spotlights local producers.",
+  "origins": "Local food sourcing connects cooks to seasonality, community, and often better flavor per dollar when buying peak produce.",
+  "history": "Member day sales; local producer spotlight boards.",
+  "teaching": [
+    "Member-owned — often spotlights local producers.",
+    "Bulk section reduces packaging waste.",
+    "Work-shift discounts at some co-ops."
+  ]
+}

@@ -15,10 +15,61 @@
       "ingredient.rice",
       "ingredient.cumin",
       "ingredient.tomato"
+    ],
+    "wizard_item": "Chickpeas",
+    "unit_category": "count",
+    "default_unit": "can",
+    "package_label": "can",
+    "packaging_options": [
+      {
+        "label": "1 can",
+        "quantity": 1,
+        "unit": "can"
+      },
+      {
+        "label": "2 cans",
+        "quantity": 2,
+        "unit": "can"
+      },
+      {
+        "label": "3 cans",
+        "quantity": 3,
+        "unit": "can"
+      },
+      {
+        "label": "4 cans",
+        "quantity": 4,
+        "unit": "can"
+      }
+    ],
+    "retail_aisle": "Canned Goods",
+    "storage_location": "pantry",
+    "brand_examples": [
+      {
+        "id": "bushs",
+        "label": "Bush's",
+        "tier": "national"
+      },
+      {
+        "id": "goya",
+        "label": "Goya",
+        "tier": "national"
+      },
+      {
+        "id": "365",
+        "label": "365",
+        "tier": "store"
+      },
+      {
+        "id": "great_value",
+        "label": "Great Value",
+        "tier": "store"
+      }
     ]
   },
   "sources": [
     "generate-variant-nodes",
-    "curated"
+    "curated",
+    "ingredient_depth_v1"
   ]
 }

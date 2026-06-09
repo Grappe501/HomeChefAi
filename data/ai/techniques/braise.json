@@ -2,10 +2,25 @@
   "id": "technique.braise",
   "type": "technique",
   "display_name": "Braise",
-  "description": "Sear then slow-cook in liquid until tender.",
+  "description": "Sear first, liquid halfway up, low oven — collagen becomes silk.",
   "attributes": {
-    "micro_lesson": "Low and slow — collagen melts into silk after the sear built the flavor base.",
-    "cuisine_tags": ["french", "comfort", "southern"]
+    "micro_lesson": "Sear first, liquid halfway up, low oven — collagen becomes silk.",
+    "steps": [
+      "Sear protein",
+      "Sauté aromatics",
+      "Deglaze",
+      "Add liquid halfway",
+      "Cover and braise low"
+    ],
+    "difficulty": "intermediate",
+    "category": "moist",
+    "cuisine_tags": [
+      "french",
+      "comfort"
+    ],
+    "flavor_links": []
   },
-  "sources": ["curated"]
+  "sources": [
+    "training-kitchen"
+  ]
 }

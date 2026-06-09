@@ -1,0 +1,31 @@
+{
+  "id": "food_source.heb",
+  "type": "food_source",
+  "display_name": "H-E-B",
+  "description": "Meal Simple ready-to-cook",
+  "attributes": {
+    "source_type": "regional",
+    "store_type": "regional",
+    "local_food_pref": null,
+    "shopping_tips": [
+      "Meal Simple ready-to-cook",
+      "Strong Tex-Mex and BBQ aisle",
+      "Central Market sister stores for gourmet"
+    ],
+    "seasonal_notes": "Texas-grown produce; Fiesta and holiday tamales.",
+    "cuisine_tags": [
+      "texas",
+      "local"
+    ],
+    "aisles": [
+      "Produce",
+      "Meat",
+      "Tex-Mex",
+      "Bakery",
+      "Prepared"
+    ]
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

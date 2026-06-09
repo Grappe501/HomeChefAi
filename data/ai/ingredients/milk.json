@@ -41,10 +41,85 @@
       "ingredient.milk.lactose_free",
       "ingredient.milk.oat",
       "ingredient.milk.almond"
+    ],
+    "unit_category": "volume",
+    "default_unit": "gallon",
+    "package_label": "gallon",
+    "packaging_options": [
+      {
+        "label": "Half gallon",
+        "quantity": 0.5,
+        "unit": "gallon"
+      },
+      {
+        "label": "Full gallon",
+        "quantity": 1,
+        "unit": "gallon"
+      },
+      {
+        "label": "Quart",
+        "quantity": 1,
+        "unit": "quart"
+      }
+    ],
+    "retail_aisle": "Dairy & Eggs",
+    "storage_location": "fridge",
+    "brand_examples": [
+      {
+        "id": "horizon",
+        "label": "Horizon Organic",
+        "tier": "premium"
+      },
+      {
+        "id": "fairlife",
+        "label": "Fairlife",
+        "tier": "national"
+      },
+      {
+        "id": "great_value",
+        "label": "Great Value",
+        "tier": "store"
+      },
+      {
+        "id": "kirkland",
+        "label": "Kirkland",
+        "tier": "store"
+      }
+    ],
+    "form_options": [
+      {
+        "id": "whole",
+        "label": "Whole"
+      },
+      {
+        "id": "2",
+        "label": "2%"
+      },
+      {
+        "id": "1",
+        "label": "1%"
+      },
+      {
+        "id": "skim",
+        "label": "Skim"
+      },
+      {
+        "id": "lactose_free",
+        "label": "Lactose Free"
+      },
+      {
+        "id": "almond",
+        "label": "Almond"
+      },
+      {
+        "id": "oat",
+        "label": "Oat"
+      }
     ]
   },
   "sources": [
     "import-taxonomy-to-knowledge",
-    "food_taxonomy_1_0"
+    "food_taxonomy_1_0",
+    "ingredient_depth_v1"
   ]
 }
