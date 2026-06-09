@@ -1,0 +1,20 @@
+{
+  "id": "technique.sugar_work",
+  "kind": "technique",
+  "title": "Sugar Work",
+  "knowledge_id": "technique.sugar_work",
+  "match_keywords": [
+    "sugar work",
+    "sugar work"
+  ],
+  "summary": "Cook sugar through thread, soft ball, and hard crack stages for caramel and decoration.",
+  "origins": "Sugar Work is a core baking technique used across french, baking cooking.",
+  "history": "Home cooks and professionals rely on sugar work for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Clean pot sides with wet brush",
+    "Use thermometer stages",
+    "Stop carryover in cold water bath",
+    "Never touch hot sugar"
+  ],
+  "related_ids": []
+}

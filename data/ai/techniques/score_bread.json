@@ -1,0 +1,25 @@
+{
+  "id": "technique.score_bread",
+  "type": "technique",
+  "display_name": "Score Bread",
+  "description": "Shallow angled cuts control oven spring and prevent random bursting.",
+  "attributes": {
+    "micro_lesson": "Shallow angled cuts control oven spring and prevent random bursting.",
+    "steps": [
+      "Use lame or sharp knife",
+      "Cut at 30–45° angle",
+      "One decisive stroke per score",
+      "Bake immediately after scoring"
+    ],
+    "difficulty": "intermediate",
+    "category": "baking",
+    "cuisine_tags": [
+      "french",
+      "baking"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

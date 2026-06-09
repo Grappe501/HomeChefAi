@@ -1,0 +1,20 @@
+{
+  "id": "technique.laminate",
+  "kind": "technique",
+  "title": "Laminate (Dough)",
+  "knowledge_id": "technique.laminate",
+  "match_keywords": [
+    "laminate",
+    "laminate (dough)"
+  ],
+  "summary": "Butter block between dough layers — letter folds create croissant flakiness.",
+  "origins": "Laminate (Dough) is a core baking technique used across french, baking cooking.",
+  "history": "Home cooks and professionals rely on laminate (dough) for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Lock butter block in dough",
+    "Roll and letter fold",
+    "Rest between folds",
+    "Proof until jiggly before bake"
+  ],
+  "related_ids": []
+}

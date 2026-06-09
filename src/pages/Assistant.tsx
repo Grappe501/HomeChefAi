@@ -61,6 +61,7 @@ export default function Assistant() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [toolProgress, setToolProgress] = useState<string[]>([]);
+  const [synthesisDraft, setSynthesisDraft] = useState('');
   const [voiceError, setVoiceError] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -86,6 +87,7 @@ export default function Assistant() {
     setInput('');
     setLoading(true);
     setToolProgress([]);
+    setSynthesisDraft('');
     try {
       const history = messages.map((m) => ({ role: m.role, content: m.content }));
       let result;
@@ -104,6 +106,12 @@ export default function Assistant() {
             }
             if (event.type === 'synthesis') {
               setToolProgress((prev) => [...prev, 'Consulting expert advisors…']);
+            }
+            if (event.type === 'synthesis_start') {
+              setSynthesisDraft('');
+            }
+            if (event.type === 'synthesis_token' && typeof event.token === 'string') {
+              setSynthesisDraft((prev) => prev + event.token);
             }
             if (event.type === 'credit' && typeof event.credits_remaining === 'number') {
               setCreditsRemaining(event.credits_remaining);
@@ -141,6 +149,7 @@ export default function Assistant() {
     } finally {
       setLoading(false);
       setToolProgress([]);
+      setSynthesisDraft('');
     }
   };
 
@@ -244,6 +253,11 @@ export default function Assistant() {
                       </li>
                     ))}
                   </ul>
+                )}
+                {synthesisDraft && (
+                  <p className="text-xs text-chef leading-relaxed border-t border-steel pt-2 mt-1 line-clamp-6">
+                    {synthesisDraft.replace(/[{}"\\]/g, ' ').slice(0, 280)}
+                  </p>
                 )}
               </div>
             </div>

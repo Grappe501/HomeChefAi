@@ -1,12 +1,12 @@
 {
   "name": "homechef-ai",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "private": true,
-  "description": "SousChef v5.1 — Brain 5.1 Training Kitchen, 280k recipe library, nine-tool Clara, multi-course planning.",
+  "description": "SousChef v5.2 — Agent Suite v6 Phase 4, Kitchen Academy tracks, 280k recipe library.",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npx tsx scripts/build-search-index.ts && npx tsx scripts/build-sitemap.ts && vite build",
+    "build": "node scripts/dish-corpus/build-search-pack.mjs && npx tsx scripts/build-search-index.ts && npx tsx scripts/build-sitemap.ts && vite build",
     "search:index": "npx tsx scripts/build-search-index.ts",
     "sitemap": "npx tsx scripts/build-sitemap.ts",
     "preview": "vite preview",
@@ -18,9 +18,12 @@
     "knowledge:variants": "node scripts/generate-variant-nodes.mjs",
     "knowledge:depth": "npx tsx scripts/generate-ingredient-depth.ts",
     "knowledge:dishes": "node scripts/generate-dish-corpus.mjs",
+    "knowledge:search-pack": "node scripts/dish-corpus/build-search-pack.mjs",
+    "knowledge:embed-shards": "node scripts/dish-corpus/build-embed-shards.mjs",
     "knowledge:training": "node scripts/generate-training-kitchen.mjs",
-    "knowledge:all": "npm run knowledge:generate && npm run knowledge:variants && npm run knowledge:depth && npm run knowledge:dishes && npm run knowledge:training",
-    "db:init": "node scripts/init-db.mjs"
+    "knowledge:all": "npm run knowledge:generate && npm run knowledge:variants && npm run knowledge:depth && npm run knowledge:dishes && npm run knowledge:search-pack && npm run knowledge:training",
+    "db:init": "node scripts/init-db.mjs",
+    "env:netlify": "node scripts/sync-netlify-env.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.0",

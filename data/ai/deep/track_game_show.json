@@ -1,0 +1,901 @@
+{
+  "id": "track.game_show",
+  "kind": "path",
+  "title": "Game Show Kitchen",
+  "summary": "Six competition modules inspired by Top Chef, Hell's Kitchen, MasterChef, Restaurant Wars, Iron Chef, and GBBO — speed, replication, and nerves of steel.",
+  "knowledge_id": "track.game_show",
+  "match_keywords": [
+    "track game_show",
+    "game show kitchen",
+    "competition",
+    "game show",
+    "competition"
+  ],
+  "origins": "Kitchen Academy featured tracks — structured career ladders and competition paths with leveled modules.",
+  "history": "Six competition modules inspired by Top Chef, Hell's Kitchen, MasterChef, Restaurant Wars, Iron Chef, and GBBO — speed, replication, and nerves of steel.",
+  "teaching": [
+    "Pick one technique and one flavor arc — do not attempt a full restaurant dish.",
+    "Taste twice before plating; acid fixes flat quickfire plates.",
+    "Leave 2 minutes for garnish and wipe the rim — presentation counts.",
+    "Bloom spices in the pot first — even one-pot dishes need a flavor base.",
+    "Back-time: protein in at minute 8, garnish at minute 18.",
+    "Judges eat temperature — serve the hottest component last on the plate.",
+    "Name the ingredient on the plate — judges should taste it immediately.",
+    "Pair sweet mystery items with acid; pair earthy items with bright herbs.",
+    "If you fail the twist, nothing else saves the score.",
+    "Touch-test calibration: rare soft, medium springy, well-done firm.",
+    "Rest meat while firing garnish — use carryover to your advantage.",
+    "Call times loud: \"Lamb medium, two minutes!\" — silence loses services."
+  ],
+  "related_ids": [
+    "technique.saute",
+    "technique.layer_season",
+    "technique.knife_skills",
+    "flavor_profile.bright_acid",
+    "flavor_profile.umami",
+    "culture.american",
+    "technique.simmer",
+    "technique.bloom_spices",
+    "technique.deglaze",
+    "flavor_profile.aromatic_spice",
+    "flavor_profile.comfort_soul",
+    "culture.mexican",
+    "culture.indian",
+    "technique.roast",
+    "technique.glaze",
+    "technique.pickle",
+    "flavor_profile.sweet_savory",
+    "flavor_profile.tangy",
+    "culture.korean",
+    "technique.sear",
+    "technique.rest",
+    "technique.grill",
+    "flavor_profile.herbaceous",
+    "culture.french"
+  ],
+  "track_type": "competition",
+  "featured": true,
+  "levels": [
+    {
+      "id": "level.quickfire",
+      "rank": 1,
+      "title": "Top Chef Quickfire",
+      "description": "Creativity under the clock — one hero ingredient, no recipe, pure instinct.",
+      "modules": [
+        {
+          "id": "mod.quickfire.pantry_raid",
+          "title": "Pantry Raid Challenge",
+          "summary": "Build a composed bite from mystery basket staples in 20 minutes.",
+          "techniques": [
+            "technique.saute",
+            "technique.layer_season",
+            "technique.knife_skills"
+          ],
+          "flavors": [
+            "flavor_profile.bright_acid",
+            "flavor_profile.umami"
+          ],
+          "ingredients": [
+            "ingredient.onion",
+            "ingredient.eggs",
+            "ingredient.citrus"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.black_pepper",
+            "ingredient.chili_flakes"
+          ],
+          "cultures": [
+            "culture.american"
+          ],
+          "practice_query": "quickfire appetizer from eggs onion and citrus",
+          "teaching": [
+            "Pick one technique and one flavor arc — do not attempt a full restaurant dish.",
+            "Taste twice before plating; acid fixes flat quickfire plates.",
+            "Leave 2 minutes for garnish and wipe the rim — presentation counts."
+          ],
+          "time_limit_minutes": 20,
+          "judge_criteria": [
+            "creativity",
+            "technique",
+            "flavor_balance",
+            "presentation"
+          ],
+          "show_refs": [
+            "Top Chef — Quickfire Challenge"
+          ]
+        },
+        {
+          "id": "mod.quickfire.one_pot",
+          "title": "One-Pot Speed Cook",
+          "summary": "Single vessel, layered flavor, served hot — no backup burner.",
+          "techniques": [
+            "technique.simmer",
+            "technique.bloom_spices",
+            "technique.deglaze"
+          ],
+          "flavors": [
+            "flavor_profile.aromatic_spice",
+            "flavor_profile.comfort_soul"
+          ],
+          "ingredients": [
+            "ingredient.rice",
+            "ingredient.chicken.thigh",
+            "ingredient.tomato"
+          ],
+          "spices": [
+            "ingredient.cumin",
+            "ingredient.paprika",
+            "ingredient.salt"
+          ],
+          "cultures": [
+            "culture.mexican",
+            "culture.indian"
+          ],
+          "practice_query": "one-pot spiced rice and chicken under time pressure",
+          "teaching": [
+            "Bloom spices in the pot first — even one-pot dishes need a flavor base.",
+            "Back-time: protein in at minute 8, garnish at minute 18.",
+            "Judges eat temperature — serve the hottest component last on the plate."
+          ],
+          "time_limit_minutes": 25,
+          "judge_criteria": [
+            "time_management",
+            "flavor_depth",
+            "texture",
+            "clean_plate"
+          ],
+          "show_refs": [
+            "Top Chef — Quickfire Challenge",
+            "Top Chef — Season finales"
+          ]
+        },
+        {
+          "id": "mod.quickfire.twist_ingredient",
+          "title": "Twist Ingredient Integration",
+          "summary": "Mandatory mystery ingredient must be central, not a garnish afterthought.",
+          "techniques": [
+            "technique.roast",
+            "technique.glaze",
+            "technique.pickle"
+          ],
+          "flavors": [
+            "flavor_profile.sweet_savory",
+            "flavor_profile.tangy"
+          ],
+          "ingredients": [
+            "ingredient.mystery_protein",
+            "ingredient.honey",
+            "ingredient.vinegar"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.mustard_seed"
+          ],
+          "cultures": [
+            "culture.american",
+            "culture.korean"
+          ],
+          "practice_query": "dish featuring assigned mystery ingredient as star",
+          "teaching": [
+            "Name the ingredient on the plate — judges should taste it immediately.",
+            "Pair sweet mystery items with acid; pair earthy items with bright herbs.",
+            "If you fail the twist, nothing else saves the score."
+          ],
+          "time_limit_minutes": 30,
+          "judge_criteria": [
+            "mandatory_ingredient_use",
+            "originality",
+            "execution",
+            "storytelling"
+          ],
+          "show_refs": [
+            "Top Chef — Quickfire Challenge"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.hells_kitchen",
+      "rank": 2,
+      "title": "Hell's Kitchen Pass",
+      "description": "Hot line discipline — timing, communication, and perfect protein temps.",
+      "modules": [
+        {
+          "id": "mod.hells.protein_pass",
+          "title": "Protein at the Pass",
+          "summary": "Medium-rare lamb, crispy skin chicken, rest before slice — no excuses.",
+          "techniques": [
+            "technique.sear",
+            "technique.rest",
+            "technique.grill"
+          ],
+          "flavors": [
+            "flavor_profile.umami",
+            "flavor_profile.herbaceous"
+          ],
+          "ingredients": [
+            "ingredient.lamb.chop",
+            "ingredient.chicken.breast",
+            "ingredient.butter"
+          ],
+          "spices": [
+            "ingredient.rosemary",
+            "ingredient.salt",
+            "ingredient.black_pepper"
+          ],
+          "cultures": [
+            "culture.french",
+            "culture.american"
+          ],
+          "practice_query": "two proteins to temp on a simulated dinner rush",
+          "teaching": [
+            "Touch-test calibration: rare soft, medium springy, well-done firm.",
+            "Rest meat while firing garnish — use carryover to your advantage.",
+            "Call times loud: \"Lamb medium, two minutes!\" — silence loses services."
+          ],
+          "time_limit_minutes": 45,
+          "judge_criteria": [
+            "doneness_accuracy",
+            "communication",
+            "consistency",
+            "recovery_under_pressure"
+          ],
+          "show_refs": [
+            "Hell's Kitchen — Dinner Service",
+            "Hell's Kitchen — Pass"
+          ]
+        },
+        {
+          "id": "mod.hells.garnish_station",
+          "title": "Garnish & Sauce Station",
+          "summary": "Emulsion held, sauce napped, garnish identical on every cover.",
+          "techniques": [
+            "technique.emulsion",
+            "technique.mount_butter",
+            "technique.reduce"
+          ],
+          "flavors": [
+            "flavor_profile.rich_creamy",
+            "flavor_profile.bright_acid"
+          ],
+          "ingredients": [
+            "ingredient.butter",
+            "ingredient.lemon",
+            "ingredient.stock"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.white_pepper"
+          ],
+          "cultures": [
+            "culture.french"
+          ],
+          "practice_query": "hollandaise and reduced sauce for four identical plates",
+          "teaching": [
+            "Hold sauces in bain-marie, not direct flame — broken sauce fails the pass.",
+            "Nap with ladle back-and-forth; pool sauces, do not flood the protein.",
+            "Garnish height should not block the protein — judges eat with eyes first."
+          ],
+          "time_limit_minutes": 40,
+          "judge_criteria": [
+            "sauce_quality",
+            "plating_uniformity",
+            "station_organization",
+            "speed"
+          ],
+          "show_refs": [
+            "Hell's Kitchen — Pass",
+            "Hell's Kitchen — Brigade"
+          ]
+        },
+        {
+          "id": "mod.hells.recovery",
+          "title": "Recovery After Mistake",
+          "summary": "Trash it, reboot, communicate — Ramsay-level recovery drill.",
+          "techniques": [
+            "technique.saute",
+            "technique.deglaze",
+            "technique.layer_season"
+          ],
+          "flavors": [
+            "flavor_profile.comfort_soul"
+          ],
+          "ingredients": [
+            "ingredient.beef.steak",
+            "ingredient.shallot",
+            "ingredient.wine"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.black_pepper"
+          ],
+          "cultures": [
+            "culture.american"
+          ],
+          "practice_query": "recover from overseared steak with new pan sauce",
+          "teaching": [
+            "Burned protein cannot be saved — re-fire or substitute before the pass.",
+            "Communicate mistake immediately; hiding it costs the whole brigade.",
+            "Fix process, not just plate — why did it burn? Adjust heat or dry surface."
+          ],
+          "time_limit_minutes": 35,
+          "judge_criteria": [
+            "recovery_speed",
+            "honesty",
+            "final_plate_quality",
+            "composure"
+          ],
+          "show_refs": [
+            "Hell's Kitchen — Dinner Service"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.masterchef",
+      "rank": 3,
+      "title": "MasterChef Replication",
+      "description": "Recreate signature dishes from memory and written specs alone.",
+      "modules": [
+        {
+          "id": "mod.mastchef.classic_replicate",
+          "title": "Classic Dish Replication",
+          "summary": "Study the plate photo — sauce placement, cut size, color contrast.",
+          "techniques": [
+            "technique.roast",
+            "technique.blanch_shock",
+            "technique.knife_skills"
+          ],
+          "flavors": [
+            "flavor_profile.herbaceous",
+            "flavor_profile.rich_creamy"
+          ],
+          "ingredients": [
+            "ingredient.beef.tenderloin",
+            "ingredient.potato",
+            "ingredient.green_beans"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.thyme",
+            "ingredient.black_pepper"
+          ],
+          "cultures": [
+            "culture.french",
+            "culture.british"
+          ],
+          "practice_query": "replicate beef wellington style plate from reference image",
+          "teaching": [
+            "Sketch the plate before cooking — quadrant map for sauce and starch.",
+            "Match cut geometry: same bias, same thickness, same count.",
+            "Color contrast matters — pale-on-pale plates read as unfinished."
+          ],
+          "time_limit_minutes": 90,
+          "judge_criteria": [
+            "visual_accuracy",
+            "technique",
+            "flavor_match",
+            "time_management"
+          ],
+          "show_refs": [
+            "MasterChef — Replication Challenge",
+            "MasterChef — Pressure Test"
+          ]
+        },
+        {
+          "id": "mod.mastchef.bake_replicate",
+          "title": "Baked Showstopper Replication",
+          "summary": "Structure, crumb, and decoration must mirror the reference.",
+          "techniques": [
+            "technique.fold",
+            "technique.whip",
+            "technique.piping"
+          ],
+          "flavors": [
+            "flavor_profile.sweet_savory",
+            "flavor_profile.floral_citrus"
+          ],
+          "ingredients": [
+            "ingredient.flour.all_purpose",
+            "ingredient.sugar",
+            "ingredient.eggs"
+          ],
+          "spices": [
+            "ingredient.vanilla",
+            "ingredient.cinnamon"
+          ],
+          "cultures": [
+            "culture.british",
+            "culture.american"
+          ],
+          "practice_query": "replicate layered celebration cake from photo",
+          "teaching": [
+            "Level cakes before stacking — replication fails on tilt.",
+            "Crumb coat hides sins; final coat shows skill.",
+            "Decoration spacing: measure with your eye using knife marks as guides."
+          ],
+          "time_limit_minutes": 120,
+          "judge_criteria": [
+            "structural_integrity",
+            "decoration_accuracy",
+            "flavor",
+            "finish"
+          ],
+          "show_refs": [
+            "MasterChef — Pressure Test"
+          ]
+        },
+        {
+          "id": "mod.mastchef.blind_taste",
+          "title": "Blind Taste Rebuild",
+          "summary": "Eat once, then rebuild flavor profile without seeing the recipe.",
+          "techniques": [
+            "technique.bloom_spices",
+            "technique.simmer",
+            "technique.layer_season"
+          ],
+          "flavors": [
+            "flavor_profile.aromatic_spice",
+            "flavor_profile.umami",
+            "flavor_profile.bright_acid"
+          ],
+          "ingredients": [
+            "ingredient.tomato",
+            "ingredient.onion",
+            "ingredient.ginger"
+          ],
+          "spices": [
+            "ingredient.cumin",
+            "ingredient.coriander",
+            "ingredient.turmeric"
+          ],
+          "cultures": [
+            "culture.indian",
+            "culture.thai"
+          ],
+          "practice_query": "reverse-engineer curry flavor from single tasting",
+          "teaching": [
+            "Note order of sensations: sweet first bite, heat on finish, acid when?",
+            "Write spice guesses before cooking — adjust one layer at a time.",
+            "Replication is listening; ask what fat carries the spice."
+          ],
+          "time_limit_minutes": 75,
+          "judge_criteria": [
+            "flavor_accuracy",
+            "technique",
+            "reasoning",
+            "presentation"
+          ],
+          "show_refs": [
+            "MasterChef — Taste Test Challenge"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.restaurant_wars",
+      "rank": 4,
+      "title": "Restaurant Wars",
+      "description": "Concept, menu, brigade roles, and opening night service.",
+      "modules": [
+        {
+          "id": "mod.wars.concept_menu",
+          "title": "Concept & Menu Design",
+          "summary": "Theme, price point, and a cohesive three-course arc for judges.",
+          "techniques": [
+            "technique.layer_season",
+            "technique.roast"
+          ],
+          "flavors": [
+            "flavor_profile.smoky",
+            "flavor_profile.bright_acid",
+            "flavor_profile.rich_creamy"
+          ],
+          "ingredients": [
+            "ingredient.seasonal_protein",
+            "ingredient.seasonal_vegetable",
+            "ingredient.starch_base"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.signature_spice_blend"
+          ],
+          "cultures": [
+            "culture.american",
+            "culture.fusion"
+          ],
+          "practice_query": "three-course menu with unified concept and price tier",
+          "teaching": [
+            "Concept in one sentence — if you cannot, the menu wanders.",
+            "Star protein cost caps the rest of the menu; design backwards from food cost.",
+            "Amuse, intermezzo, or palate cleanser shows intention, not filler."
+          ],
+          "time_limit_minutes": 180,
+          "judge_criteria": [
+            "concept_clarity",
+            "menu_cohesion",
+            "cost_realism",
+            "originality"
+          ],
+          "show_refs": [
+            "Top Chef — Restaurant Wars",
+            "Hell's Kitchen — Opening Night"
+          ]
+        },
+        {
+          "id": "mod.wars.brigade_roles",
+          "title": "Brigade Roles & Prep List",
+          "summary": "Assign stations, prep lists, and fire order before doors open.",
+          "techniques": [
+            "technique.knife_skills",
+            "technique.braise",
+            "technique.saute"
+          ],
+          "flavors": [
+            "flavor_profile.comfort_soul"
+          ],
+          "ingredients": [
+            "ingredient.chicken",
+            "ingredient.fish",
+            "ingredient.vegetables"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.pepper"
+          ],
+          "cultures": [
+            "culture.french"
+          ],
+          "practice_query": "prep list and station map for 20-cover pop-up service",
+          "teaching": [
+            "Every item on the menu needs a owner and a par level.",
+            "Cross-train garnish and sauce — Restaurant Wars has absentees.",
+            "Fire list posted at the pass; verbal only fails under noise."
+          ],
+          "time_limit_minutes": 240,
+          "judge_criteria": [
+            "organization",
+            "leadership",
+            "prep_completeness",
+            "teamwork"
+          ],
+          "show_refs": [
+            "Top Chef — Restaurant Wars"
+          ]
+        },
+        {
+          "id": "mod.wars.service_night",
+          "title": "Opening Night Service",
+          "summary": "Full service simulation — tickets, timing, guest complaints.",
+          "techniques": [
+            "technique.sear",
+            "technique.rest",
+            "technique.glaze"
+          ],
+          "flavors": [
+            "flavor_profile.umami",
+            "flavor_profile.herbaceous"
+          ],
+          "ingredients": [
+            "ingredient.menu_protein",
+            "ingredient.menu_starch",
+            "ingredient.menu_vegetable"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.fresh_herbs"
+          ],
+          "cultures": [
+            "culture.american"
+          ],
+          "practice_query": "execute opening night for three-course restaurant wars menu",
+          "teaching": [
+            "86 items when quality drops — empty menu beats bad plate.",
+            "Expediter is the conductor; line cooks do not self-prioritize.",
+            "Guest complaint drill: comp, remake, or explain — decide in 30 seconds."
+          ],
+          "time_limit_minutes": 150,
+          "judge_criteria": [
+            "service_flow",
+            "food_quality",
+            "guest_experience",
+            "team_leadership"
+          ],
+          "show_refs": [
+            "Top Chef — Restaurant Wars",
+            "Hell's Kitchen — Opening Night"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.iron_chef",
+      "rank": 5,
+      "title": "Iron Chef",
+      "description": "Secret ingredient showdown — multiple courses, stadium energy.",
+      "modules": [
+        {
+          "id": "mod.iron.secret_star",
+          "title": "Secret Ingredient as Star",
+          "summary": "Three courses, one ingredient featured differently in each.",
+          "techniques": [
+            "technique.grill",
+            "technique.steam",
+            "technique.deep_fry"
+          ],
+          "flavors": [
+            "flavor_profile.umami",
+            "flavor_profile.bright_acid",
+            "flavor_profile.rich_creamy"
+          ],
+          "ingredients": [
+            "ingredient.secret_ingredient",
+            "ingredient.citrus",
+            "ingredient.cream"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.soy_sauce"
+          ],
+          "cultures": [
+            "culture.japanese",
+            "culture.french"
+          ],
+          "practice_query": "three courses starring one secret ingredient",
+          "teaching": [
+            "Course 1 raw or light, course 2 main technique, course 3 comfort or dessert.",
+            "Transform texture across courses — crispy, silky, chewy.",
+            "Judges eat volume; portion small, flavor loud."
+          ],
+          "time_limit_minutes": 60,
+          "judge_criteria": [
+            "ingredient_prominence",
+            "variety",
+            "technique_range",
+            "creativity"
+          ],
+          "show_refs": [
+            "Iron Chef America",
+            "Iron Chef Japan"
+          ]
+        },
+        {
+          "id": "mod.iron.battle_timing",
+          "title": "Battle Clock Strategy",
+          "summary": "60-minute war: when to start long cooks vs. fresh finishes.",
+          "techniques": [
+            "technique.roast",
+            "technique.saute",
+            "technique.pickle"
+          ],
+          "flavors": [
+            "flavor_profile.smoky",
+            "flavor_profile.tangy"
+          ],
+          "ingredients": [
+            "ingredient.secret_ingredient",
+            "ingredient.rice",
+            "ingredient.herbs"
+          ],
+          "spices": [
+            "ingredient.chili_flakes",
+            "ingredient.sesame"
+          ],
+          "cultures": [
+            "culture.japanese",
+            "culture.chinese"
+          ],
+          "practice_query": "iron chef timed battle with secret ingredient and rice component",
+          "teaching": [
+            "Minute 0: start roast or braise; minute 30: sauces; minute 50: garnish only.",
+            "Two burners active max — plan cold dishes for relief.",
+            "Taste at minute 45; only salt and acid fixes left after."
+          ],
+          "time_limit_minutes": 60,
+          "judge_criteria": [
+            "time_strategy",
+            "course_progression",
+            "flavor",
+            "plating"
+          ],
+          "show_refs": [
+            "Iron Chef America — Battle"
+          ]
+        },
+        {
+          "id": "mod.iron.stadium_plate",
+          "title": "Stadium Plate Drama",
+          "summary": "Height, color, and story — plates read from the judges' balcony.",
+          "techniques": [
+            "technique.knife_skills",
+            "technique.glaze",
+            "technique.char"
+          ],
+          "flavors": [
+            "flavor_profile.smoky",
+            "flavor_profile.bitter_bright"
+          ],
+          "ingredients": [
+            "ingredient.secret_ingredient",
+            "ingredient.bitter_greens",
+            "ingredient.edible_flower"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.yuzu_or_citrus"
+          ],
+          "cultures": [
+            "culture.japanese"
+          ],
+          "practice_query": "visually dramatic iron chef plate with height and color",
+          "teaching": [
+            "Vertical builds read on camera — anchor with starch or ring mold.",
+            "Contrast colors: secret ingredient color dictates garnish opposite wheel.",
+            "Wipe every fingerprint; stadium lights show every smear."
+          ],
+          "time_limit_minutes": 60,
+          "judge_criteria": [
+            "visual_impact",
+            "use_of_ingredient",
+            "balance",
+            "originality"
+          ],
+          "show_refs": [
+            "Iron Chef America",
+            "Iron Chef Japan"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.gbbo_technical",
+      "rank": 6,
+      "title": "GBBO Technical",
+      "description": "Sparse instructions, judge standards, and bake until done — not until timer.",
+      "modules": [
+        {
+          "id": "mod.gbbo.sponge",
+          "title": "Technical Sponge",
+          "summary": "Ingredients listed, method vague — rely on bake knowledge.",
+          "techniques": [
+            "technique.fold",
+            "technique.whip",
+            "technique.roast"
+          ],
+          "flavors": [
+            "flavor_profile.sweet_savory",
+            "flavor_profile.floral_citrus"
+          ],
+          "ingredients": [
+            "ingredient.flour.all_purpose",
+            "ingredient.sugar",
+            "ingredient.eggs"
+          ],
+          "spices": [
+            "ingredient.vanilla"
+          ],
+          "cultures": [
+            "culture.british"
+          ],
+          "practice_query": "Victoria sponge from minimal instructions",
+          "teaching": [
+            "Cream butter and sugar until pale — GBBO sponges fail on under-creaming.",
+            "Eggs room temp; fold gently to keep volume.",
+            "Springs back when pressed — timer is a hint, not law."
+          ],
+          "time_limit_minutes": 90,
+          "judge_criteria": [
+            "rise",
+            "even_crumb",
+            "flavor",
+            "appearance"
+          ],
+          "show_refs": [
+            "The Great British Bake Off — Technical Challenge"
+          ]
+        },
+        {
+          "id": "mod.gbbo.laminate_technical",
+          "title": "Technical Laminated Pastry",
+          "summary": "Butter block integration without explicit fold count on the sheet.",
+          "techniques": [
+            "technique.laminate",
+            "technique.proof",
+            "technique.roast"
+          ],
+          "flavors": [
+            "flavor_profile.rich_creamy",
+            "flavor_profile.nutty"
+          ],
+          "ingredients": [
+            "ingredient.butter",
+            "ingredient.flour.all_purpose",
+            "ingredient.yeast"
+          ],
+          "spices": [
+            "ingredient.salt"
+          ],
+          "cultures": [
+            "culture.french",
+            "culture.british"
+          ],
+          "practice_query": "croissants from sparse technical brief",
+          "teaching": [
+            "Butter same consistency as dough — GBBO technicals punish warm kitchens.",
+            "Visible layers before bake; if none, folds failed.",
+            "Even golden bake — dark tips mean uneven oven or proof."
+          ],
+          "time_limit_minutes": 150,
+          "judge_criteria": [
+            "lamination",
+            "butter_distribution",
+            "shape_uniformity",
+            "bake"
+          ],
+          "show_refs": [
+            "The Great British Bake Off — Technical Challenge"
+          ]
+        },
+        {
+          "id": "mod.gbbo.bread_technical",
+          "title": "Technical Bread Shape",
+          "summary": "Scoring, proof, and classic shape from Paul Hollywood standards.",
+          "techniques": [
+            "technique.knead",
+            "technique.proof",
+            "technique.score_bread"
+          ],
+          "flavors": [
+            "flavor_profile.nutty",
+            "flavor_profile.earthy"
+          ],
+          "ingredients": [
+            "ingredient.flour.bread",
+            "ingredient.water",
+            "ingredient.yeast"
+          ],
+          "spices": [
+            "ingredient.salt"
+          ],
+          "cultures": [
+            "culture.british",
+            "culture.french"
+          ],
+          "practice_query": "cob loaf or braided technical bread from brief instructions",
+          "teaching": [
+            "Tight initial shape creates oven spring — slack dough spreads.",
+            "Score decisively; timid cuts burst unevenly.",
+            "Hollow tap bottom — technical bread is about sound and crumb."
+          ],
+          "time_limit_minutes": 180,
+          "judge_criteria": [
+            "shape",
+            "crumb_structure",
+            "crust",
+            "flavor"
+          ],
+          "show_refs": [
+            "The Great British Bake Off — Technical Challenge"
+          ]
+        }
+      ]
+    }
+  ],
+  "shows_referenced": [
+    "Top Chef — Quickfire Challenge",
+    "Top Chef — Season finales",
+    "Hell's Kitchen — Dinner Service",
+    "Hell's Kitchen — Pass",
+    "Hell's Kitchen — Brigade",
+    "MasterChef — Replication Challenge",
+    "MasterChef — Pressure Test",
+    "MasterChef — Taste Test Challenge",
+    "Top Chef — Restaurant Wars",
+    "Hell's Kitchen — Opening Night",
+    "Iron Chef America",
+    "Iron Chef Japan",
+    "Iron Chef America — Battle",
+    "The Great British Bake Off — Technical Challenge"
+  ]
+}

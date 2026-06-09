@@ -1,0 +1,20 @@
+{
+  "id": "technique.enrich_dough",
+  "kind": "technique",
+  "title": "Enrich Dough",
+  "knowledge_id": "technique.enrich_dough",
+  "match_keywords": [
+    "enrich dough",
+    "enrich dough"
+  ],
+  "summary": "Butter, eggs, and sugar slow gluten and deepen browning — brioche and challah.",
+  "origins": "Enrich Dough is a core baking technique used across french, baking cooking.",
+  "history": "Home cooks and professionals rely on enrich dough for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Develop gluten first",
+    "Add butter in stages",
+    "Proof slower than lean dough",
+    "Egg wash for shine"
+  ],
+  "related_ids": []
+}

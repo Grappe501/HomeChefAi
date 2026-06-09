@@ -12,7 +12,8 @@ import {
 } from '../../../../src/types/dish.js';
 import { listAvailableKnowledgeIds } from '../inventoryContext.js';
 import { getKnowledgeNode, listKnowledgeNodes } from './knowledgeLoader.js';
-import { listAllDishes, getDishCorpusStats } from './dishCatalog.js';
+import { listAllDishes, getDishCorpusStats, searchDocToNode } from './dishCatalog.js';
+import { loadSearchPack, type DishSearchDoc } from './dishSearchPack.js';
 
 function inventoryNameSet(inventory: InventoryItem[]): Set<string> {
   return new Set(inventory.map((i) => i.name.toLowerCase()));
@@ -81,6 +82,15 @@ export function scoreDishNode(
   };
 }
 
+export function scoreDishFromDoc(
+  doc: DishSearchDoc,
+  inventory: InventoryItem[],
+  kidSet: Set<string>,
+  preferenceCuisines: Set<string>,
+): Omit<DishMatch, 'cuisine_label'> | null {
+  return scoreDishNode(searchDocToNode(doc), inventory, kidSet, preferenceCuisines);
+}
+
 function preferenceCuisineIds(profile: Profile, cookingStyle?: string): Set<string> {
   const ids = new Set<string>();
   const styleMap: Record<string, string> = {
@@ -126,11 +136,26 @@ export function matchDishesForPantry(
   const minScore = options.min_score ?? 0.25;
   const prefs = preferenceCuisineIds(profile, options.cooking_style);
   const kidSet = kidSetFromInventory(inventory);
-  const dishes = listAllDishes();
+  const corpus = listAllDishes();
+  let packDocs = corpus.length ? null : loadSearchPack();
+  if (packDocs && prefs.size) {
+    packDocs = packDocs.filter((d) => prefs.has(d.cuisine_id));
+    if (packDocs.length < 100) packDocs = loadSearchPack();
+  }
+  if (packDocs && packDocs.length > 12000) {
+    const step = Math.ceil(packDocs.length / 12000);
+    packDocs = packDocs.filter((_, i) => i % step === 0);
+  }
+  const source = corpus.length
+    ? corpus.map((n) => ({ kind: 'node' as const, node: n }))
+    : (packDocs ?? []).map((doc) => ({ kind: 'doc' as const, doc }));
 
-  const scored = dishes
-    .map((node) => {
-      const row = scoreDishNode(node, inventory, kidSet, prefs);
+  const scored = source
+    .map((item) => {
+      const row =
+        item.kind === 'node'
+          ? scoreDishNode(item.node, inventory, kidSet, prefs)
+          : scoreDishFromDoc(item.doc, inventory, kidSet, prefs);
       if (!row) return null;
       if (options.meal_type && !row.meal_types.includes(options.meal_type)) return null;
       if (options.course && row.course !== options.course) return null;
@@ -164,7 +189,12 @@ export function matchDishByDescription(
   const prefs = new Set<string>();
   let best: { dish: DishMatch; confidence: number } | null = null;
 
-  for (const node of listAllDishes()) {
+  const corpus = listAllDishes();
+  const iter = corpus.length
+    ? corpus.map((node) => ({ node, doc: null as DishSearchDoc | null }))
+    : loadSearchPack().map((doc) => ({ node: searchDocToNode(doc), doc }));
+
+  for (const { node } of iter) {
     const keywords = dishKeywordsFromNode(node.attributes);
     const title = node.display_name.toLowerCase();
     let keywordHit = keywords.some((k) => lower.includes(k) || k.includes(lower));

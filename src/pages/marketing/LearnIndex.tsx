@@ -4,6 +4,8 @@ import { BookOpen, Search } from 'lucide-react';
 import { MarketingLayout, PageHeader } from '@/components/marketing/MarketingLayout';
 import { PageMeta } from '@/components/marketing/PageMeta';
 import { DEEP_CATALOG, DEEP_KIND_LABEL, listDeepCatalog, searchDeepCatalog } from '@/lib/deepCatalog';
+import AcademyFeaturedHub from '@/components/AcademyFeaturedHub';
+import { FEATURED_ACADEMY_TRACK_IDS } from '@/lib/academyTracks';
 import type { DeepEntryKind } from '@/types/knowledgeDeep';
 
 const KINDS: (DeepEntryKind | 'all')[] = [
@@ -26,8 +28,9 @@ export default function LearnIndexPage() {
   const q = searchParams.get('q') ?? '';
 
   const entries = useMemo(() => {
-    if (q.trim()) return searchDeepCatalog(q.trim());
-    return listDeepCatalog(kind === 'all' ? undefined : kind);
+    const featured = new Set<string>(FEATURED_ACADEMY_TRACK_IDS);
+    const base = q.trim() ? searchDeepCatalog(q.trim()) : listDeepCatalog(kind === 'all' ? undefined : kind);
+    return base.filter((e) => !featured.has(e.id));
   }, [kind, q]);
 
   return (
@@ -91,6 +94,12 @@ export default function LearnIndexPage() {
             </button>
           ))}
         </div>
+
+        {!q && (
+          <div className="mb-10">
+            <AcademyFeaturedHub dark />
+          </div>
+        )}
 
         <div className="grid gap-3 sm:grid-cols-2">
           {entries.map((e) => (

@@ -1,0 +1,20 @@
+{
+  "id": "technique.blind_bake",
+  "kind": "technique",
+  "title": "Blind Bake",
+  "knowledge_id": "technique.blind_bake",
+  "match_keywords": [
+    "blind bake",
+    "blind bake"
+  ],
+  "summary": "Par-bake pastry shell with weights so wet fillings do not sog out the base.",
+  "origins": "Blind Bake is a core baking technique used across french, baking cooking.",
+  "history": "Home cooks and professionals rely on blind bake for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Dock shell with fork",
+    "Line with parchment and weights",
+    "Bake until edges golden",
+    "Brush egg wash to seal"
+  ],
+  "related_ids": []
+}

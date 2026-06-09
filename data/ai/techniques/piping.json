@@ -1,0 +1,25 @@
+{
+  "id": "technique.piping",
+  "type": "technique",
+  "display_name": "Piping",
+  "description": "Consistent pressure and tip choice — buttercream, choux, and decoration.",
+  "attributes": {
+    "micro_lesson": "Consistent pressure and tip choice — buttercream, choux, and decoration.",
+    "steps": [
+      "Fill bag without air pockets",
+      "Twist top for steady pressure",
+      "Practice on parchment first",
+      "Match tip to viscosity"
+    ],
+    "difficulty": "intermediate",
+    "category": "baking",
+    "cuisine_tags": [
+      "french",
+      "baking"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

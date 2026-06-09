@@ -29,6 +29,13 @@ export const handler: Handler = withCors(async (event) => {
       return jsonResponse(result);
     }
 
+    if (action === 'agent_telemetry') {
+      const { getAgentTelemetrySummary } = await import('./utils/ai/agentTelemetry.js');
+      const days = Number(event.queryStringParameters?.days) || 30;
+      const summary = await getAgentTelemetrySummary(userId, days);
+      return jsonResponse({ telemetry: summary });
+    }
+
     if (useDevStore()) {
       const store = loadStore() as DevStore & { household_memories?: StoredMemory[] };
       const memories = (store.household_memories ?? []).filter((m) => m.user_id === userId);

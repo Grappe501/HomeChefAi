@@ -1,0 +1,20 @@
+{
+  "id": "technique.piping",
+  "kind": "technique",
+  "title": "Piping",
+  "knowledge_id": "technique.piping",
+  "match_keywords": [
+    "piping",
+    "piping"
+  ],
+  "summary": "Consistent pressure and tip choice — buttercream, choux, and decoration.",
+  "origins": "Piping is a core baking technique used across french, baking cooking.",
+  "history": "Home cooks and professionals rely on piping for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Fill bag without air pockets",
+    "Twist top for steady pressure",
+    "Practice on parchment first",
+    "Match tip to viscosity"
+  ],
+  "related_ids": []
+}

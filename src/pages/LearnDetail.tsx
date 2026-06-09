@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Clock, GraduationCap, MapPin } from 'lucide-react';
 import { knowledgeApi } from '@/lib/api';
 import { DEEP_KIND_LABEL } from '@/lib/deepCatalog';
+import AcademyTrackPanel from '@/components/AcademyTrackPanel';
 import type { DeepKnowledgeEntry } from '@/types/knowledgeDeep';
 
 export default function LearnDetailPage() {
@@ -47,6 +48,10 @@ export default function LearnDetailPage() {
         {entry.summary && <p className="text-chef mt-3 leading-relaxed">{entry.summary}</p>}
       </header>
 
+      {entry.levels && entry.levels.length > 0 ? (
+        <AcademyTrackPanel track={entry} practiceEnabled />
+      ) : (
+        <>
       {entry.origins && (
         <section className="card space-y-2">
           <h2 className="text-xs font-semibold uppercase tracking-wide text-chef-subtle flex items-center gap-1">
@@ -96,6 +101,8 @@ export default function LearnDetailPage() {
 
       {entry.fun_fact && (
         <p className="text-xs italic text-chef-subtle border-t border-steel pt-4">{entry.fun_fact}</p>
+      )}
+        </>
       )}
     </div>
   );

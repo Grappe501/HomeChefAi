@@ -3,6 +3,7 @@ import { Clock, GraduationCap, MapPin } from 'lucide-react';
 import { MarketingLayout, GoDeeperCTA } from '@/components/marketing/MarketingLayout';
 import { PageMeta } from '@/components/marketing/PageMeta';
 import { getDeepById, DEEP_KIND_LABEL } from '@/lib/deepCatalog';
+import AcademyTrackPanel from '@/components/AcademyTrackPanel';
 
 export default function LearnEntryPage() {
   const { entryId } = useParams<{ entryId: string }>();
@@ -35,6 +36,12 @@ export default function LearnEntryPage() {
           <p className="text-lg text-white/80 mt-6 leading-relaxed">{entry.summary}</p>
         )}
 
+        {entry.levels && entry.levels.length > 0 ? (
+          <div className="mt-10">
+            <AcademyTrackPanel track={entry} practiceEnabled={false} dark />
+          </div>
+        ) : (
+          <>
         {entry.origins && (
           <section className="mt-10 rounded-xl border border-white/10 bg-white/5 p-6">
             <h2 className="text-xs font-semibold uppercase tracking-wider text-white/45 flex items-center gap-2 mb-3">
@@ -84,6 +91,8 @@ export default function LearnEntryPage() {
 
         {entry.fun_fact && (
           <p className="text-sm italic text-white/45 mt-8 pt-6 border-t border-white/10">{entry.fun_fact}</p>
+        )}
+          </>
         )}
 
         <div className="mt-10 flex flex-wrap gap-4">

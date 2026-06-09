@@ -122,7 +122,7 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
         id: 'knowledge-graph',
         title: 'Knowledge-Linked Items',
         status: 'live',
-        summary: '400+ JSON nodes — ingredients, techniques (45+), culture (48), flavor profiles (18), food sources (21), substitutions, hosting, traditions.',
+        summary: '400+ JSON nodes — ingredients, techniques (53+), culture (48), flavor profiles (18), food sources (21), substitutions, hosting, traditions.',
         details: [
           'Variant nodes (paprika.smoked, rice.white, chicken.breast)',
           'Substitution engine with dietary reasons',
@@ -199,7 +199,7 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
         id: 'proactive-intelligence',
         title: 'Proactive Kitchen Intelligence',
         status: 'live',
-        summary: 'Brain 5.1 — expiring items, kitchen staples, likely meals, buy-never-use, and ledger feedback with inline recipe directions.',
+        summary: 'Brain 5.2 — expiring items, kitchen staples, likely meals, buy-never-use, and ledger feedback with inline recipe directions.',
         origins: 'Most apps wait for you to open chat. SousChef reads patterns and pushes actionable cards to Home and Brain.',
         details: [
           'Use-before-waste with inline direction chips → recipe library',
@@ -232,7 +232,7 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
     icon: Sparkles,
     status: 'live',
     intro:
-      'Brain 5.1 Clara — nine tools first, expert council when needed. 280,000+ recipe library, Training Kitchen, multi-course plans, and proactive cards on your dashboard.',
+      'Brain 5.2 Clara — nine tools first, expert council when needed. 280,000+ recipe library, Training Kitchen, multi-course plans, and proactive cards on your dashboard.',
     features: [
       {
         id: 'recipe-library',
@@ -340,7 +340,7 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
         id: 'clara',
         title: 'Clara Sous Chef',
         status: 'live',
-        summary: 'Brain 5.1 assistant — nine-tool router, dish recipe fast path, local sourcing, mobile session refresh, expert synthesis.',
+        summary: 'Brain 5.2 assistant — nine-tool router, dish recipe fast path, local sourcing, mobile session refresh, expert synthesis.',
         details: [
           'Graph-first substitutions and directions (0 credits)',
           'recipe:dish_id → full structured recipe at 0 credits',
@@ -413,7 +413,7 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
         id: 'micro-lessons',
         title: 'Technique Micro-Lessons',
         status: 'live',
-        summary: '45+ techniques with micro_lessons, steps, and Kitchen Academy deep dives.',
+        summary: '53+ techniques with micro_lessons, steps, and Kitchen Academy deep dives.',
         origins: 'Technique teaching in kitchens predates written recipes — apprentices watched, then did.',
         history: 'Escoffier codified French technique in the 1900s; home cooks learned from Joy of Cooking and TV. SousChef embeds micro-lessons in the graph so Clara can teach at the moment you need sear, roux, or braise.',
         teachings: [
@@ -557,8 +557,8 @@ export const VISION_TOPICS: VisionTopic[] = [
         body: 'Knowledge graph, Brain 2.0, reasoning engine, decision ledger, skills, hosting API, legacy schema, landing site.',
       },
       {
-        heading: 'Shipped (Brain 5.1)',
-        body: 'Training Kitchen — 45+ techniques, 18 taste profiles, 48 cultural cuisines, 21 food sources, 150+ Academy deep dives. AI Impact Suite, 280,000+ recipe library (48 cuisines), Agent Suite v6 Clara router, multi-course meal planning, proactive inline directions, inventory unit normalization, PWA install prompt.',
+        heading: 'Shipped (Brain 5.2)',
+        body: 'Training Kitchen — 53+ techniques, 18 taste profiles, 48 cultural cuisines, 21 food sources, 150+ Academy deep dives. AI Impact Suite, 280,000+ recipe library (48 cuisines), Agent Suite v6 Phase 4, multi-course meal planning, proactive inline directions, inventory unit normalization, PWA install prompt.',
       },
       {
         heading: 'Shipped (Brain 5.0)',
@@ -683,7 +683,7 @@ export const VISION_TOPICS: VisionTopic[] = [
         heading: 'Live today',
         body: '150+ Kitchen Academy deep dives — techniques, taste profiles, cultural cuisines, food sourcing. Six learning paths. Micro-lessons on cook log, skill journey DB, comfort levels from practice count. Browse at /learn.',
         bullets: [
-          '45+ techniques with steps and micro-lessons',
+          '53+ techniques with steps and micro-lessons',
           '18 taste profiles — salt, acid, fat, heat education',
           '48 cultural cuisine nodes + 21 grocery & local food sources',
           'Clara skill coach and sourcing tips at zero credits',
@@ -735,7 +735,7 @@ export const VISION_TOPICS: VisionTopic[] = [
     sections: [
       {
         heading: 'Live directories',
-        bullets: ['ingredients', 'techniques (45+)', 'cuisines & culture (48)', 'flavor_profiles (18)', 'food_sources (21 chains + local)', 'substitutions', 'hosting', 'traditions', 'food_science', 'meal_patterns', 'nutrition', 'dishes/corpus — 280,000+ recipes across 48 cuisines'],
+        bullets: ['ingredients', 'techniques (53+)', 'cuisines & culture (48)', 'flavor_profiles (18)', 'food_sources (21 chains + local)', 'substitutions', 'hosting', 'traditions', 'food_science', 'meal_patterns', 'nutrition', 'dishes/corpus — 280,000+ recipes across 48 cuisines'],
       },
       {
         heading: 'Planned directories',
@@ -822,7 +822,7 @@ export const FEATURE_IN_APP: Record<string, string> = {
 };
 
 export const ROADMAP_PHASES = [
-  { phase: 'Shipped', status: 'live' as const, items: ['Brain 5.1 — Training Kitchen (45 techniques, 18 flavors, 48 cultures, 21 food sources, 150+ Academy)', '280k recipe library · Agent Suite v6 Clara router', 'Multi-course meal planning + slot drill-down', 'Proactive inline directions + kitchen staple predictions', 'Inventory unit normalization · PWA install prompt', 'Knowledge graph (400+ nodes) + unified AI credits (30/150/300)'] },
+  { phase: 'Shipped', status: 'live' as const, items: ['Brain 5.2 — Training Kitchen (45 techniques, 18 flavors, 48 cultures, 21 food sources, 150+ Academy)', '280k recipe library · Agent Suite v6 Phase 4', 'Multi-course meal planning + slot drill-down', 'Proactive inline directions + kitchen staple predictions', 'Inventory unit normalization · PWA install prompt', 'Knowledge graph (400+ nodes) + unified AI credits (30/150/300)'] },
   { phase: 'Phase 10', status: 'beta' as const, items: ['Stripe billing launch', 'Cookbook social feed UI', 'Brain 1.0B optional phrasing', 'Full offline PWA service worker', 'Grocery price APIs'] },
   { phase: 'Phase 11', status: 'vision' as const, items: ['Famous style layer', 'Plate Score / challenges', 'Video Academy modules'] },
   { phase: 'Phase 12', status: 'vision' as const, items: ['Cookbook social feed', 'Dinner Club', 'Culture engine'] },

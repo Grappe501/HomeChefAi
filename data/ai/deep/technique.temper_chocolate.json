@@ -1,0 +1,20 @@
+{
+  "id": "technique.temper_chocolate",
+  "kind": "technique",
+  "title": "Temper Chocolate",
+  "knowledge_id": "technique.temper_chocolate",
+  "match_keywords": [
+    "temper chocolate",
+    "temper chocolate"
+  ],
+  "summary": "Stable cocoa butter crystals give snap, gloss, and shelf-stable decorations.",
+  "origins": "Temper Chocolate is a core baking technique used across french, baking cooking.",
+  "history": "Home cooks and professionals rely on temper chocolate for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Melt 2/3 chocolate to 115°F",
+    "Seed with remaining chopped chocolate",
+    "Work at 88–90°F for dark",
+    "Test set on parchment"
+  ],
+  "related_ids": []
+}

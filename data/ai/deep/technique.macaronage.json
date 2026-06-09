@@ -1,0 +1,20 @@
+{
+  "id": "technique.macaronage",
+  "kind": "technique",
+  "title": "Macaronage",
+  "knowledge_id": "technique.macaronage",
+  "match_keywords": [
+    "macaronage",
+    "macaronage"
+  ],
+  "summary": "Fold almond meringue until batter ribbons — under-fold cracks, over-fold spreads flat.",
+  "origins": "Macaronage is a core baking technique used across french, baking cooking.",
+  "history": "Home cooks and professionals rely on macaronage for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Sift almond flour and sugar",
+    "Fold into meringue in strokes",
+    "Test ribbon off spatula",
+    "Pipe and rest until skin forms"
+  ],
+  "related_ids": []
+}

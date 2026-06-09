@@ -11,6 +11,7 @@ import { TRAINING_TECHNIQUES } from './training-kitchen/techniques.mjs';
 import { TRAINING_FLAVORS } from './training-kitchen/flavors.mjs';
 import { GROCERY_CHAINS, LOCAL_FOOD_SOURCES } from './training-kitchen/food-sources.mjs';
 import { ACADEMY_PATHS } from './training-kitchen/academy-paths.mjs';
+import { ACADEMY_FEATURED_TRACKS } from './training-kitchen/academy-tracks.mjs';
 import { CUISINES } from './dish-corpus/cuisines.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -237,6 +238,44 @@ function pathDeep(path) {
   };
 }
 
+function trackDeep(track) {
+  const related_ids = [];
+  const teaching = [];
+  const shows = new Set();
+
+  for (const lv of track.levels ?? []) {
+    for (const m of lv.modules ?? []) {
+      related_ids.push(...(m.techniques ?? []), ...(m.flavors ?? []), ...(m.cultures ?? []));
+      teaching.push(...(m.teaching ?? []));
+      for (const ref of m.show_refs ?? []) shows.add(ref);
+    }
+  }
+
+  const uniqueRelated = [...new Set(related_ids)];
+
+  return {
+    id: track.id,
+    kind: 'path',
+    title: track.title,
+    summary: track.summary,
+    knowledge_id: track.id,
+    match_keywords: [
+      track.id.replace(/\./g, ' '),
+      track.title.toLowerCase(),
+      track.track_type,
+      ...(track.track_type === 'competition' ? ['game show', 'competition'] : ['career', 'ladder']),
+    ],
+    origins: 'Kitchen Academy featured tracks — structured career ladders and competition paths with leveled modules.',
+    history: track.summary,
+    teaching: teaching.slice(0, 12),
+    related_ids: uniqueRelated.slice(0, 24),
+    track_type: track.track_type,
+    featured: track.featured,
+    levels: track.levels,
+    ...(shows.size ? { shows_referenced: [...shows] } : {}),
+  };
+}
+
 function main() {
   const stats = { techniques: 0, flavors: 0, cultures: 0, food_sources: 0, deep: 0 };
 
@@ -274,6 +313,11 @@ function main() {
 
   for (const p of ACADEMY_PATHS) {
     writeJson(join(AI, 'deep', `${p.id.replace(/\./g, '_')}.json`), pathDeep(p));
+    stats.deep++;
+  }
+
+  for (const track of ACADEMY_FEATURED_TRACKS) {
+    writeJson(join(AI, 'deep', `${track.id.replace(/\./g, '_')}.json`), trackDeep(track));
     stats.deep++;
   }
 

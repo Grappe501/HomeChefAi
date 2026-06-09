@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/legal/legal.css" />
 </head>
 <body>
-  <p class="meta"><a href="/landing">← SousChef</a> · Effective June 2026 · Version 2.5 · Brain 5.1</p>
+  <p class="meta"><a href="/landing">← SousChef</a> · Effective June 2026 · Version 2.6 · Brain 5.2</p>
   <h1>AI Usage Policy</h1>
   <p class="lead">AI-assisted features are included with your plan and subject to fair-use limits designed to keep the service reliable for every kitchen.</p>
   <div class="highlight">
@@ -36,8 +36,8 @@
     <tr><td>Skill coach (graph technique lookup)</td><td>0</td><td>Deterministic knowledge graph coaching</td></tr>
     <tr><td>Food sourcing tips (preferred store / local food)</td><td>0</td><td>Chain and farmers market knowledge from profile</td></tr>
     <tr><td>Assistant — complex reasoning</td><td>1</td><td>Multi-step planning, substitution chains</td></tr>
-    <tr><td>Clara agent loop (multi-tool)</td><td>2</td><td>OpenAI function-calling — pantry, hybrid search, brain, knowledge</td></tr>
-    <tr><td>Agent loop + expert synthesis</td><td>3</td><td>Multi-tool loop plus sequential expert chain</td></tr>
+    <tr><td>Clara agent loop (multi-tool)</td><td>2</td><td>OpenAI function-calling — pantry, shard hybrid search, brain, knowledge</td></tr>
+    <tr><td>Agent loop + expert synthesis (streamed)</td><td>3</td><td>Multi-tool loop plus sequential expert chain with live synthesis tokens</td></tr>
     <tr><td>Expert council synthesis</td><td>2</td><td>Multi-expert Clara (budget + nutrition + menu) — router path</td></tr>
     <tr><td>Meal plan — up to 3 days</td><td>1</td><td>All tiers; includes multi-course slots</td></tr>
     <tr><td>Meal plan — 4–7 days</td><td>2</td><td>All tiers</td></tr>
@@ -45,7 +45,7 @@
     <tr><td>"What can I make tonight?" / directions</td><td>0</td><td>Uses inventory + reasoning engine (Agent Suite v6)</td></tr>
     <tr><td>Why this? / meal explain</td><td>1</td><td>Deterministic intelligence; includes nutrition</td></tr>
     <tr><td>Brain insight — view / query</td><td>0</td><td>Reading memories is free</td></tr>
-    <tr><td>Proactive predictions (Home/Brain cards)</td><td>0</td><td>Brain 5.1 — deterministic, no OpenAI</td></tr>
+    <tr><td>Proactive predictions (Home/Brain cards)</td><td>0</td><td>Brain 5.2 — deterministic, no OpenAI</td></tr>
     <tr><td>Clara tool router (9 graph tools)</td><td>0</td><td>Pantry, dishes, knowledge, skills, sourcing, ledger, brain memories, substitutions</td></tr>
     <tr><td>Cook log infer (graph match)</td><td>0</td><td>Template + pantry match; AI fallback = 1 credit</td></tr>
     <tr><td>Brain — deterministic generation</td><td>0</td><td>Brain sync math — no OpenAI</td></tr>
@@ -68,8 +68,11 @@
   <h2>Recipe library data</h2>
   <p>The 280,000+ recipe corpus is structured template data generated and curated by SousChef — not scraped copyrighted recipe text. Matching and browsing use deterministic graph logic. Full recipe display via Clara uses zero credits when sourced from the library.</p>
 
+  <h2>Agent Suite v6 Phase 4</h2>
+  <p>Complex Clara requests may use pre-built embedding shards over our 280,000+ recipe index (query-only embed at runtime), stream expert synthesis tokens during multi-advisor merges, and log anonymized agent telemetry (tools used, steps, latency) to improve your Brain dashboard. Shard search and streaming synthesis respect the same credit tiers as Phase 3.</p>
+
   <h2>Training Kitchen &amp; knowledge graph</h2>
-  <p>Technique micro-lessons, taste profile education, cultural cuisine nodes, and food source tips (grocery chains, farmers markets, CSAs) are served from our knowledge graph and Kitchen Academy deep catalog. Browsing and deterministic coaching use no OpenAI credits. Profile fields such as preferred store and local food preferences personalize sourcing tips.</p>
+  <p>53+ technique micro-lessons, 18 taste profiles, 48 cultural cuisine nodes, three Kitchen Academy featured pathways (Executive Chef, Master Baker, Game Show Kitchen), and food source tips are served from our knowledge graph. Browsing and deterministic coaching use no OpenAI credits.</p>
 
   <h2>Pantry photos &amp; vision data</h2>
   <p>Pantry photo scans are processed to extract item names and quantities. Images are sent to our AI vision provider (OpenAI) for parsing. We do not use pantry photos for advertising or sell image data. You review all items before they enter your inventory. Items normalize to sensible kitchen units before storage. See <a href="/legal/privacy.html">Privacy Policy</a>.</p>
@@ -85,7 +88,7 @@
 
   <footer>
     <p>© 2026 HomeChef AI · Incorporated by reference in <a href="/legal/terms.html">Terms of Service</a></p>
-    <p><em>Framework v2.5 — reflects Brain 5.1 (Training Kitchen, 280k recipe library, Agent Suite v6 Clara router, multi-course planning). Attorney review recommended before first paid charge.</em></p>
+    <p><em>Framework v2.6 — reflects Brain 5.2 (Training Kitchen, 280k recipe library, Agent Suite v6 Clara router, multi-course planning). Attorney review recommended before first paid charge.</em></p>
   </footer>
 </body>
 </html>

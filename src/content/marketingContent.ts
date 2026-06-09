@@ -1,10 +1,10 @@
-/** Production marketing content — FAQ, trust, site config · v5.1 */
+/** Production marketing content — FAQ, trust, site config · v5.2 */
 
 export const SITE_URL = import.meta.env?.VITE_SITE_URL || 'https://home-chef-ai.netlify.app';
 export const SITE_NAME = 'SousChef';
 export const SITE_TAGLINE = 'Your kitchen has a memory.';
-export const SITE_VERSION = '5.1';
-export const LEGAL_VERSION = '2.5';
+export const SITE_VERSION = '5.2';
+export const LEGAL_VERSION = '2.6';
 export const SUPPORT_EMAIL = 'hello@homechef.ai';
 export const LEGAL_ENTITY = 'HomeChef AI';
 
@@ -17,11 +17,13 @@ export const SITE_STATS = {
   liveFunctions: '22',
   visionTopics: '8',
   deepDives: '150+',
-  techniques: '45+',
+  techniques: '53+',
   flavorProfiles: '18',
   foodSources: '21',
   claraTools: '9',
-  brainVersion: '5.1',
+  academyPaths: '3',
+  brainVersion: '5.2',
+  agentSuite: 'v6 Phase 4',
 } as const;
 
 export const BRAIN_PILLARS = [
@@ -32,13 +34,13 @@ export const BRAIN_PILLARS = [
   },
   {
     id: 'tool-router',
-    title: 'Clara Tool Router',
-    summary: 'Agent Suite v6 — nine selective tools before GPT: pantry, dishes, knowledge, skills, sourcing, ledger, brain.',
+    title: 'Clara Agent Suite v6',
+    summary: 'Nine selective tools, BM25 + embedding shard search, streaming expert synthesis, and live tool progress — before GPT speaks.',
   },
   {
     id: 'training-kitchen',
-    title: 'Training Kitchen',
-    summary: '45+ techniques, 18 taste profiles, 48 cultural cuisines, grocery & farmers market sourcing — Clara teaches in context.',
+    title: 'Kitchen Academy',
+    summary: '53+ techniques, 18 taste profiles, 48 cuisines, 3 featured pathways (Executive Chef, Master Baker, Game Show Kitchen) with pantry-matched practice.',
   },
   {
     id: 'ai-impact',
@@ -66,13 +68,13 @@ export const MARKETING_FAQ: FaqItem[] = [
     id: 'what-is',
     question: 'What is SousChef?',
     answer:
-      'SousChef is a Household Food Operating System — not a recipe app. It tracks your pantry, learns your cooking patterns, plans multi-course meals from what you actually have, and builds a kitchen memory that compounds over time. Brain 5.1 adds a 280,000+ recipe library, Training Kitchen education, AI Impact Suite, and nine-tool Clara routing.',
+      'SousChef is a Household Food Operating System — not a recipe app. It tracks your pantry, learns your cooking patterns, plans multi-course meals from what you actually have, and builds a kitchen memory that compounds over time. Brain 5.2 adds Agent Suite v6 Phase 4 (shard search, streaming synthesis), Kitchen Academy featured pathways, and a 280,000+ recipe library.',
   },
   {
     id: 'brain-5',
     question: 'What is Brain 5.1?',
     answer:
-      'Brain 5.1 connects everything: a 280,000+ structured recipe library across 48 cuisines; Training Kitchen (techniques, taste profiles, cultural cuisine, local & chain food sourcing); Clara\'s Agent Suite v6 tool router; AI Impact Suite that injects household learning into meal plans; proactive cards with inline recipe directions; multi-course meal planning; and graph-first cook log at zero credits.',
+      'Brain 5.2 connects everything: a 280,000+ structured recipe library across 48 cuisines; Kitchen Academy with three featured career paths; Agent Suite v6 Phase 4 — pre-built embedding shards, streaming expert synthesis, and agent telemetry; AI Impact Suite; proactive cards; multi-course meal planning; and graph-first cook log at zero credits.',
   },
   {
     id: 'recipes',
@@ -84,7 +86,7 @@ export const MARKETING_FAQ: FaqItem[] = [
     id: 'training-kitchen',
     question: 'What is the Training Kitchen?',
     answer:
-      'Training Kitchen is our culinary education layer: 45+ cooking techniques with micro-lessons and steps, 18 taste profiles that teach salt/acid/fat/heat balance, 48 cultural cuisine nodes, 21 food source nodes (Walmart, Kroger, Whole Foods, farmers markets, CSAs, butchers, and more), and 150+ Kitchen Academy deep dives with six structured learning paths. Skill coaching and Academy browse use zero credits.',
+      'Training Kitchen is our culinary education layer: 45+ cooking techniques with micro-lessons and steps, 18 taste profiles that teach salt/acid/fat/heat balance, 48 cultural cuisine nodes, 21 food source nodes (Walmart, Kroger, Whole Foods, farmers markets, CSAs, butchers, and more), and 150+ Kitchen Academy deep dives — including three featured pathways (Amateur to Executive Chef, Master Baker, and Game Show Kitchen) with leveled modules and pantry-matched practice recipes. Skill coaching and Academy browse use zero credits.',
   },
   {
     id: 'local-food',

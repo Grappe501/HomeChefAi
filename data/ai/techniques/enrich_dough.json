@@ -1,0 +1,25 @@
+{
+  "id": "technique.enrich_dough",
+  "type": "technique",
+  "display_name": "Enrich Dough",
+  "description": "Butter, eggs, and sugar slow gluten and deepen browning — brioche and challah.",
+  "attributes": {
+    "micro_lesson": "Butter, eggs, and sugar slow gluten and deepen browning — brioche and challah.",
+    "steps": [
+      "Develop gluten first",
+      "Add butter in stages",
+      "Proof slower than lean dough",
+      "Egg wash for shine"
+    ],
+    "difficulty": "intermediate",
+    "category": "baking",
+    "cuisine_tags": [
+      "french",
+      "baking"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

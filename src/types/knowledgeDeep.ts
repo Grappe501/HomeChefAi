@@ -16,6 +16,33 @@ export interface DeepTimelineEvent {
   event: string;
 }
 
+export type AcademyTrackType = 'career_ladder' | 'competition' | 'baking';
+
+export interface AcademyModule {
+  id: string;
+  title: string;
+  summary: string;
+  techniques?: string[];
+  flavors?: string[];
+  flavor_profiles?: string[];
+  ingredients?: string[];
+  spices?: string[];
+  cultures?: string[];
+  practice_query?: string;
+  teaching?: string[];
+  time_limit_minutes?: number;
+  judge_criteria?: string[];
+  show_refs?: string[];
+}
+
+export interface AcademyLevel {
+  id: string;
+  rank: number;
+  title: string;
+  description: string;
+  modules: AcademyModule[];
+}
+
 export interface DeepKnowledgeEntry {
   id: string;
   kind: DeepEntryKind;
@@ -30,6 +57,11 @@ export interface DeepKnowledgeEntry {
   teaching: string[];
   fun_fact?: string;
   related_ids?: string[];
+  /** Kitchen Academy featured track metadata */
+  track_type?: AcademyTrackType;
+  featured?: boolean;
+  levels?: AcademyLevel[];
+  shows_referenced?: string[];
 }
 
 export interface IngredientDeepDive {

@@ -1,0 +1,25 @@
+{
+  "id": "technique.laminate",
+  "type": "technique",
+  "display_name": "Laminate (Dough)",
+  "description": "Butter block between dough layers — letter folds create croissant flakiness.",
+  "attributes": {
+    "micro_lesson": "Butter block between dough layers — letter folds create croissant flakiness.",
+    "steps": [
+      "Lock butter block in dough",
+      "Roll and letter fold",
+      "Rest between folds",
+      "Proof until jiggly before bake"
+    ],
+    "difficulty": "advanced",
+    "category": "baking",
+    "cuisine_tags": [
+      "french",
+      "baking"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

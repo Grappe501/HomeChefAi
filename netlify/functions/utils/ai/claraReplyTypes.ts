@@ -17,7 +17,7 @@ export interface ClaraRoutedReply {
   tools_used?: string[];
   synthesis?: boolean;
   agent_steps?: number;
-  search_mode?: 'hybrid' | 'bm25' | 'pantry';
+  search_mode?: 'shard_hybrid' | 'hybrid' | 'bm25' | 'pantry';
 }
 
 export type AgentStreamEvent =
@@ -25,4 +25,6 @@ export type AgentStreamEvent =
   | { type: 'tool_start'; tool: string; step: number }
   | { type: 'tool_done'; tool: string; preview: string; step: number }
   | { type: 'synthesis'; expert_count: number }
+  | { type: 'synthesis_start'; expert_count: number }
+  | { type: 'synthesis_token'; token: string }
   | { type: 'reply'; reply: Partial<ClaraRoutedReply> };

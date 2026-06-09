@@ -90,7 +90,7 @@ export async function runClaraAgentLoop(
     };
   }
 
-  const phaseLabel = process.env.AGENT_V6_PHASE3 === 'false' ? 'Phase 2' : 'Phase 3';
+  const phaseLabel = process.env.AGENT_V6_PHASE4 === 'false' ? (process.env.AGENT_V6_PHASE3 === 'false' ? 'Phase 2' : 'Phase 3') : 'Phase 4';
   const messages: {
     role: string;
     content?: string;
@@ -179,7 +179,9 @@ Never invent cook history. Prefer dish library IDs when recommending recipes.`,
     const toolContext = toolOutputs.join('\n\n');
 
     if (needsExpertSynthesis(message, intent)) {
-      emit({ type: 'synthesis', expert_count: Math.min(experts.filter((e) => e.id !== 'sous_chef').length, 3) });
+      const expertCount = Math.min(experts.filter((e) => e.id !== 'sous_chef').length, 3);
+      emit({ type: 'synthesis', expert_count: expertCount });
+      emit({ type: 'synthesis_start', expert_count: expertCount });
       const expert_outputs = await runSequentialExpertChain(
         message,
         experts,
@@ -194,6 +196,7 @@ Never invent cook history. Prefer dish library IDs when recommending recipes.`,
         inventoryBlock,
         profile,
         history,
+        (token) => emit({ type: 'synthesis_token', token }),
       );
       const reply: ClaraRoutedReply = {
         ...merged,

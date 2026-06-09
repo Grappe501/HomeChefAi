@@ -243,6 +243,7 @@ export async function synthesizeClaraReply(
   inventoryBlock: string,
   profile: Profile,
   history: { role: string; content: string }[],
+  onToken?: (token: string) => void,
 ): Promise<{ reply: string; suggested_items?: { name: string; quantity: number; unit: string }[]; action?: string }> {
   const apiKey = process.env.OPENAI_API_KEY;
   const expertBlock = formatExpertOutputsForPrompt(expertOutputs);
@@ -255,6 +256,8 @@ export async function synthesizeClaraReply(
     };
   }
 
+  const streamEnabled = process.env.AGENT_V6_PHASE4 !== 'false' && process.env.AGENT_V6_SYNTH_STREAM !== 'false' && !!onToken;
+
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -263,6 +266,7 @@ export async function synthesizeClaraReply(
     },
     body: JSON.stringify({
       model: 'gpt-4o-mini',
+      stream: streamEnabled,
       messages: [
         {
           role: 'system',
@@ -279,15 +283,57 @@ Be concise. Cite evidence when relevant. Never invent history.`,
         { role: 'user', content: message },
       ],
       max_tokens: 550,
-      response_format: { type: 'json_object' },
+      ...(streamEnabled ? {} : { response_format: { type: 'json_object' } }),
     }),
   });
 
   if (!response.ok) throw new Error('Expert synthesis failed');
-  const data = (await response.json()) as { choices: { message: { content: string } }[] };
-  return JSON.parse(data.choices[0].message.content) as {
-    reply: string;
-    suggested_items?: { name: string; quantity: number; unit: string }[];
-    action?: string;
-  };
+
+  if (!streamEnabled || !response.body) {
+    const data = (await response.json()) as { choices: { message: { content: string } }[] };
+    return JSON.parse(data.choices[0].message.content) as {
+      reply: string;
+      suggested_items?: { name: string; quantity: number; unit: string }[];
+      action?: string;
+    };
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+  let full = '';
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split('\n');
+    buffer = lines.pop() ?? '';
+    for (const line of lines) {
+      if (!line.startsWith('data: ')) continue;
+      const payload = line.slice(6).trim();
+      if (payload === '[DONE]') continue;
+      try {
+        const chunk = JSON.parse(payload) as { choices?: { delta?: { content?: string } }[] };
+        const token = chunk.choices?.[0]?.delta?.content ?? '';
+        if (token) {
+          full += token;
+          onToken?.(token);
+        }
+      } catch {
+        /* skip malformed SSE chunk */
+      }
+    }
+  }
+
+  try {
+    const jsonMatch = full.match(/\{[\s\S]*\}/);
+    return JSON.parse(jsonMatch?.[0] ?? full) as {
+      reply: string;
+      suggested_items?: { name: string; quantity: number; unit: string }[];
+      action?: string;
+    };
+  } catch {
+    return { reply: full.trim() || `${assistantName} synthesized a response from expert input.`, action: 'general' };
+  }
 }

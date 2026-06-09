@@ -22,6 +22,12 @@ export default function BrainPage() {
   const [predictionsLoading, setPredictionsLoading] = useState(true);
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
+  const [agentStats, setAgentStats] = useState<{
+    total_runs: number;
+    avg_steps: number;
+    avg_latency_ms: number;
+    top_tools: { tool: string; count: number }[];
+  } | null>(null);
   const toast = useToast();
 
   const load = () => {
@@ -41,6 +47,10 @@ export default function BrainPage() {
       .then((r) => setPredictions(r.predictions))
       .catch(() => {})
       .finally(() => setPredictionsLoading(false));
+    brainApi
+      .agentTelemetry(30)
+      .then((r) => setAgentStats(r.telemetry))
+      .catch(() => {});
   };
 
   useEffect(() => {
@@ -85,6 +95,20 @@ export default function BrainPage() {
           {cookingStyle.evidence?.length > 0 && (
             <p className="text-xs text-chef-subtle mt-2">
               Based on {cookingStyle.evidence.length} signals including receipts, cook logs, and your meal plan feedback.
+            </p>
+          )}
+        </section>
+      )}
+
+      {agentStats && agentStats.total_runs > 0 && (
+        <section className="card space-y-2">
+          <p className="text-xs font-semibold text-chef-subtle uppercase tracking-wide">Clara agent activity (30 days)</p>
+          <p className="text-sm text-chef">
+            {agentStats.total_runs} agent runs · avg {agentStats.avg_steps} steps · ~{agentStats.avg_latency_ms}ms
+          </p>
+          {agentStats.top_tools.length > 0 && (
+            <p className="text-xs text-chef-subtle">
+              Top tools: {agentStats.top_tools.slice(0, 4).map((t) => t.tool.replace(/_/g, ' ')).join(', ')}
             </p>
           )}
         </section>

@@ -442,6 +442,16 @@ export const brainApi = {
     }>('brain'),
   predictions: () =>
     api<import('@/types/kitchenPredictions').KitchenPredictionsResult>('brain?action=predictions'),
+  agentTelemetry: (days = 30) =>
+    api<{
+      telemetry: {
+        total_runs: number;
+        avg_steps: number;
+        avg_latency_ms: number;
+        top_tools: { tool: string; count: number }[];
+        search_modes: Record<string, number>;
+      };
+    }>(`brain?action=agent_telemetry&days=${days}`),
   memory: (id: string) =>
     api<{ memory: import('@/types/brain').BrainInsight }>(`brain?id=${id}`),
   getRecentLedger: (domain?: string, limit = 20) =>
@@ -467,6 +477,31 @@ export const knowledgeApi = {
   deep: (id: string) =>
     api<{ entry: import('@/types/knowledgeDeep').DeepKnowledgeEntry }>(
       `knowledge?action=deep&id=${encodeURIComponent(id)}`,
+    ),
+  academyTracks: () =>
+    api<{ tracks: { id: string; title: string; summary: string; track_type?: string; level_count: number; module_count: number }[] }>(
+      'knowledge?action=academy_tracks',
+    ),
+  academyPractice: (trackId: string, levelId: string, moduleId: string) =>
+    api<{
+      practice: {
+        track_id: string;
+        track_title: string;
+        level_id: string;
+        level_title: string;
+        module_id: string;
+        module_title: string;
+        practice_query: string;
+        clara_prompt: string;
+        dishes: import('@/types/dish').DishMatch[];
+        learn_links: { id: string; label: string; kind: string }[];
+        teaching: string[];
+        time_limit_minutes?: number;
+        judge_criteria?: string[];
+        show_refs?: string[];
+      };
+    }>(
+      `knowledge?action=academy_practice&track_id=${encodeURIComponent(trackId)}&level_id=${encodeURIComponent(levelId)}&module_id=${encodeURIComponent(moduleId)}`,
     ),
   stats: () => api<{ node_count: number; types: Record<string, number> }>('knowledge?action=stats'),
 };

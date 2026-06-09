@@ -26,6 +26,7 @@ import type { KnowledgeNodeType, SubstitutionReason } from '../../src/types/know
 import { SUBSTITUTION_REASONS } from '../../src/types/knowledge.js';
 import { getDeepEntry, listDeepEntries, searchDeep } from './utils/ai/deepLoader.js';
 import { matchDishesForPantry } from './utils/ai/dishMatcher.js';
+import { listFeaturedAcademyTracks, suggestAcademyPractice } from './utils/ai/academyPractice.js';
 import { useDevStore, loadStore } from './utils/db.js';
 import { getSupabaseUserClient } from './utils/supabase.js';
 import type { InventoryItem, Profile } from '../../src/types/index.js';
@@ -52,6 +53,48 @@ export const handler: Handler = withCors(async (event) => {
 
   if (action === 'stats') {
     return jsonResponse(getKnowledgeStats());
+  }
+
+  if (action === 'academy_tracks') {
+    return jsonResponse({ tracks: listFeaturedAcademyTracks() });
+  }
+
+  if (action === 'academy_practice') {
+    const trackId = params.track_id?.trim();
+    const levelId = params.level_id?.trim();
+    const moduleId = params.module_id?.trim();
+    if (!trackId || !levelId || !moduleId) {
+      return errorResponse('track_id, level_id, and module_id are required', 400);
+    }
+    let inventory: InventoryItem[] = [];
+    let profile: Profile = {
+      user_id: user.id,
+      dietary_restrictions: [],
+      cuisine_preferences: [],
+      allergies: [],
+      household_size: 2,
+      preferred_store: '',
+      gamification_level: 1,
+      gamification_xp: 0,
+      onboarding_complete: true,
+      assistant_name: 'Clara',
+      last_meal_memory: {},
+    };
+    if (useDevStore()) {
+      const store = loadStore();
+      inventory = store.inventory_items.filter((i) => i.user_id === user.id);
+      const prof = store.profiles.find((p) => p.user_id === user.id);
+      if (prof) profile = prof as Profile;
+    } else if (user.token) {
+      const db = getSupabaseUserClient(user.token);
+      const { data: items } = await db.from('inventory_items').select('*').eq('user_id', user.id);
+      inventory = (items ?? []) as InventoryItem[];
+      const { data: prof } = await db.from('profiles').select('*').eq('user_id', user.id).maybeSingle();
+      if (prof) profile = prof as Profile;
+    }
+    const practice = await suggestAcademyPractice(trackId, levelId, moduleId, inventory, profile);
+    if (!practice) return errorResponse('Academy module not found', 404);
+    return jsonResponse({ practice });
   }
 
   if (action === 'deep_catalog') {

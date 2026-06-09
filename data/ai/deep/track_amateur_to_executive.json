@@ -1,0 +1,905 @@
+{
+  "id": "track.amateur_to_executive",
+  "kind": "path",
+  "title": "Amateur to Executive Chef",
+  "summary": "Eight-level career ladder from first sear to leading a kitchen — techniques, flavors, and leadership at every station.",
+  "knowledge_id": "track.amateur_to_executive",
+  "match_keywords": [
+    "track amateur_to_executive",
+    "amateur to executive chef",
+    "career_ladder",
+    "career",
+    "ladder"
+  ],
+  "origins": "Kitchen Academy featured tracks — structured career ladders and competition paths with leveled modules.",
+  "history": "Eight-level career ladder from first sear to leading a kitchen — techniques, flavors, and leadership at every station.",
+  "teaching": [
+    "Claw grip every cut — knuckles guide the blade.",
+    "Salt lightly at prep; taste and adjust after cooking.",
+    "Uniform size means even cooking — rush prep, ruin the plate.",
+    "Pat protein bone-dry — moisture is the enemy of browning.",
+    "Do not move the protein until it releases on its own.",
+    "Rest 5 minutes before slicing; juices need to settle.",
+    "Salt pasta water like the sea — it is your only seasoning chance.",
+    "Rolling boil toughens delicate protein; simmer for stews.",
+    "Shock greens in ice water to lock bright color.",
+    "Sweat aromatics in fat — do not rush to brown unless the recipe says so.",
+    "Tomato paste counts as an aromatic when browned in oil first.",
+    "Every cuisine has a base pattern; learn the why, swap the ingredients."
+  ],
+  "related_ids": [
+    "technique.knife_skills",
+    "technique.layer_season",
+    "flavor_profile.fresh_light",
+    "culture.american",
+    "technique.sear",
+    "technique.rest",
+    "flavor_profile.umami",
+    "flavor_profile.maillard",
+    "culture.french",
+    "technique.boil",
+    "technique.simmer",
+    "technique.blanch_shock",
+    "flavor_profile.bright_acid",
+    "culture.italian",
+    "technique.mirepoix",
+    "technique.saute",
+    "flavor_profile.herbaceous",
+    "culture.mexican",
+    "technique.deglaze",
+    "technique.reduce",
+    "technique.mount_butter",
+    "flavor_profile.rich_creamy",
+    "technique.roast",
+    "flavor_profile.earthy"
+  ],
+  "track_type": "career_ladder",
+  "featured": true,
+  "levels": [
+    {
+      "id": "level.amateur",
+      "rank": 1,
+      "title": "Amateur Cook",
+      "description": "Learn knife safety, basic seasoning, and your first hot-pan skills.",
+      "modules": [
+        {
+          "id": "mod.amateur.knife_basics",
+          "title": "Knife & Prep Foundations",
+          "summary": "Uniform cuts and safe handling before heat ever hits the pan.",
+          "techniques": [
+            "technique.knife_skills",
+            "technique.layer_season"
+          ],
+          "flavors": [
+            "flavor_profile.fresh_light"
+          ],
+          "ingredients": [
+            "ingredient.onion",
+            "ingredient.garlic",
+            "ingredient.carrot"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.black_pepper"
+          ],
+          "cultures": [
+            "culture.american"
+          ],
+          "practice_query": "simple vegetable soup with diced mirepoix",
+          "teaching": [
+            "Claw grip every cut — knuckles guide the blade.",
+            "Salt lightly at prep; taste and adjust after cooking.",
+            "Uniform size means even cooking — rush prep, ruin the plate."
+          ]
+        },
+        {
+          "id": "mod.amateur.first_sear",
+          "title": "Your First Sear",
+          "summary": "Dry protein, hot pan, patience — the crust that changes everything.",
+          "techniques": [
+            "technique.sear",
+            "technique.rest"
+          ],
+          "flavors": [
+            "flavor_profile.umami",
+            "flavor_profile.maillard"
+          ],
+          "ingredients": [
+            "ingredient.chicken.breast",
+            "ingredient.butter",
+            "ingredient.olive_oil"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.black_pepper",
+            "ingredient.paprika"
+          ],
+          "cultures": [
+            "culture.american",
+            "culture.french"
+          ],
+          "practice_query": "pan-seared chicken breast with pan sauce",
+          "teaching": [
+            "Pat protein bone-dry — moisture is the enemy of browning.",
+            "Do not move the protein until it releases on its own.",
+            "Rest 5 minutes before slicing; juices need to settle."
+          ]
+        },
+        {
+          "id": "mod.amateur.boil_simmer",
+          "title": "Boil, Simmer & Blanch",
+          "summary": "Control water heat — rolling boil vs. gentle simmer changes texture completely.",
+          "techniques": [
+            "technique.boil",
+            "technique.simmer",
+            "technique.blanch_shock"
+          ],
+          "flavors": [
+            "flavor_profile.bright_acid"
+          ],
+          "ingredients": [
+            "ingredient.potato",
+            "ingredient.green_beans",
+            "ingredient.pasta"
+          ],
+          "spices": [
+            "ingredient.salt"
+          ],
+          "cultures": [
+            "culture.italian",
+            "culture.french"
+          ],
+          "practice_query": "blanched green beans with lemon butter",
+          "teaching": [
+            "Salt pasta water like the sea — it is your only seasoning chance.",
+            "Rolling boil toughens delicate protein; simmer for stews.",
+            "Shock greens in ice water to lock bright color."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.home_cook",
+      "rank": 2,
+      "title": "Home Cook",
+      "description": "Build flavor bases, sauté confidently, and finish with acid.",
+      "modules": [
+        {
+          "id": "mod.home.aromatic_base",
+          "title": "Aromatic Bases",
+          "summary": "Mirepoix and sofrito — the hidden engine behind most savory dishes.",
+          "techniques": [
+            "technique.mirepoix",
+            "technique.saute"
+          ],
+          "flavors": [
+            "flavor_profile.herbaceous",
+            "flavor_profile.umami"
+          ],
+          "ingredients": [
+            "ingredient.onion",
+            "ingredient.celery",
+            "ingredient.tomato"
+          ],
+          "spices": [
+            "ingredient.basil",
+            "ingredient.oregano",
+            "ingredient.garlic_powder"
+          ],
+          "cultures": [
+            "culture.french",
+            "culture.italian",
+            "culture.mexican"
+          ],
+          "practice_query": "sofrito-based rice and beans",
+          "teaching": [
+            "Sweat aromatics in fat — do not rush to brown unless the recipe says so.",
+            "Tomato paste counts as an aromatic when browned in oil first.",
+            "Every cuisine has a base pattern; learn the why, swap the ingredients."
+          ]
+        },
+        {
+          "id": "mod.home.deglaze_finish",
+          "title": "Deglaze & Finish",
+          "summary": "Turn pan fond into sauce — wine, stock, or butter at the end.",
+          "techniques": [
+            "technique.deglaze",
+            "technique.reduce",
+            "technique.mount_butter"
+          ],
+          "flavors": [
+            "flavor_profile.rich_creamy",
+            "flavor_profile.bright_acid"
+          ],
+          "ingredients": [
+            "ingredient.butter",
+            "ingredient.chicken_stock",
+            "ingredient.lemon"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.black_pepper"
+          ],
+          "cultures": [
+            "culture.french"
+          ],
+          "practice_query": "pan sauce from seared pork chops",
+          "teaching": [
+            "Pour off excess fat before deglazing — grease dulls the sauce.",
+            "Reduce until the spoon leaves a trail, then mount cold butter off heat.",
+            "Finish acid last — lemon lifts fat without cooking away brightness."
+          ]
+        },
+        {
+          "id": "mod.home.roast_one_pan",
+          "title": "Roast & One-Pan Meals",
+          "summary": "Even dry heat and spacing on the sheet pan for weeknight wins.",
+          "techniques": [
+            "technique.roast",
+            "technique.layer_season"
+          ],
+          "flavors": [
+            "flavor_profile.earthy",
+            "flavor_profile.herbaceous"
+          ],
+          "ingredients": [
+            "ingredient.potato",
+            "ingredient.chicken.thigh",
+            "ingredient.olive_oil"
+          ],
+          "spices": [
+            "ingredient.rosemary",
+            "ingredient.thyme",
+            "ingredient.salt"
+          ],
+          "cultures": [
+            "culture.mediterranean",
+            "culture.american"
+          ],
+          "practice_query": "sheet pan roasted chicken thighs and root vegetables",
+          "teaching": [
+            "Preheat the oven fully — cold starts skew timing.",
+            "Give every piece air space; crowding steams instead of roasts.",
+            "Season in layers: oil, salt, herbs, then a finishing acid on the plate."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.line_cook",
+      "rank": 3,
+      "title": "Line Cook",
+      "description": "Speed, consistency, and multi-tasking on a busy line.",
+      "modules": [
+        {
+          "id": "mod.line.stir_fry_timing",
+          "title": "Wok Timing & Stir Fry",
+          "summary": "Prep everything before heat — wok hei demands fierce heat and motion.",
+          "techniques": [
+            "technique.stir_fry",
+            "technique.blanch_shock"
+          ],
+          "flavors": [
+            "flavor_profile.umami",
+            "flavor_profile.spicy_heat"
+          ],
+          "ingredients": [
+            "ingredient.rice",
+            "ingredient.soy_sauce",
+            "ingredient.ginger"
+          ],
+          "spices": [
+            "ingredient.garlic",
+            "ingredient.red_pepper_flakes"
+          ],
+          "cultures": [
+            "culture.chinese",
+            "culture.thai"
+          ],
+          "practice_query": "stir-fried rice with vegetables and egg",
+          "teaching": [
+            "Protein first, remove, vegetables by cook time, sauce to finish.",
+            "High heat + constant motion = wok hei smoke flavor.",
+            "Mise en place is non-negotiable — the wok will not wait."
+          ]
+        },
+        {
+          "id": "mod.line.grill_char",
+          "title": "Grill Marks & Char",
+          "summary": "Two-zone fire, clean grates, and blistered peppers.",
+          "techniques": [
+            "technique.grill",
+            "technique.char"
+          ],
+          "flavors": [
+            "flavor_profile.smoky",
+            "flavor_profile.bbq"
+          ],
+          "ingredients": [
+            "ingredient.beef.steak",
+            "ingredient.bell_pepper",
+            "ingredient.corn"
+          ],
+          "spices": [
+            "ingredient.chili_powder",
+            "ingredient.cumin",
+            "ingredient.salt"
+          ],
+          "cultures": [
+            "culture.american",
+            "culture.mexican"
+          ],
+          "practice_query": "grilled steak with charred peppers and corn",
+          "teaching": [
+            "Oil the food, not the grate — prevents sticking and flare-ups.",
+            "Sear over direct heat, finish over indirect for thick cuts.",
+            "Char adds smoke; balance with acid and fresh herbs on the plate."
+          ]
+        },
+        {
+          "id": "mod.line.pickle_garnish",
+          "title": "Quick Pickle & Garnish",
+          "summary": "30-minute pickles and crunchy finishes that save a plate.",
+          "techniques": [
+            "technique.pickle",
+            "technique.knife_skills"
+          ],
+          "flavors": [
+            "flavor_profile.bright_acid",
+            "flavor_profile.tangy"
+          ],
+          "ingredients": [
+            "ingredient.cucumber",
+            "ingredient.red_onion",
+            "ingredient.vinegar"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.sugar"
+          ],
+          "cultures": [
+            "culture.southern",
+            "culture.vietnamese"
+          ],
+          "practice_query": "quick-pickled red onions for tacos",
+          "teaching": [
+            "Thin slices pickle faster — mandoline consistency matters.",
+            "Hot brine speeds infusion; chill 30 minutes minimum.",
+            "Garnish is not decoration — acid and crunch balance rich mains."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.station_cook",
+      "rank": 4,
+      "title": "Station Cook",
+      "description": "Own a station — sauce, starch, protein, or veg.",
+      "modules": [
+        {
+          "id": "mod.station.sauce_roux",
+          "title": "Roux & Mother Sauces",
+          "summary": "Blond, brown, and the foundation of béchamel and gravy.",
+          "techniques": [
+            "technique.roux",
+            "technique.stock",
+            "technique.simmer"
+          ],
+          "flavors": [
+            "flavor_profile.rich_creamy",
+            "flavor_profile.umami"
+          ],
+          "ingredients": [
+            "ingredient.flour.all_purpose",
+            "ingredient.butter",
+            "ingredient.milk"
+          ],
+          "spices": [
+            "ingredient.nutmeg",
+            "ingredient.salt",
+            "ingredient.black_pepper"
+          ],
+          "cultures": [
+            "culture.french",
+            "culture.cajun"
+          ],
+          "practice_query": "classic béchamel for mac and cheese",
+          "teaching": [
+            "Equal fat and flour by weight — volume lies.",
+            "Roux color sets sauce personality: blond for dairy, brown for gumbo.",
+            "Add cold liquid to hot roux gradually; whisk constantly to avoid lumps."
+          ]
+        },
+        {
+          "id": "mod.station.braise_low",
+          "title": "Braise & Low Heat",
+          "summary": "Sear, deglaze, submerge halfway — collagen becomes silk.",
+          "techniques": [
+            "technique.braise",
+            "technique.sear",
+            "technique.deglaze"
+          ],
+          "flavors": [
+            "flavor_profile.comfort_soul",
+            "flavor_profile.earthy"
+          ],
+          "ingredients": [
+            "ingredient.beef.chuck",
+            "ingredient.carrot",
+            "ingredient.red_wine"
+          ],
+          "spices": [
+            "ingredient.bay_leaf",
+            "ingredient.thyme",
+            "ingredient.black_pepper"
+          ],
+          "cultures": [
+            "culture.french",
+            "culture.italian"
+          ],
+          "practice_query": "red wine braised short ribs",
+          "teaching": [
+            "Sear hard before liquid — fond is flavor insurance.",
+            "Liquid halfway up the protein; lid on, low oven, patience.",
+            "Cool overnight — braises taste better the next day."
+          ]
+        },
+        {
+          "id": "mod.station.spice_bloom",
+          "title": "Bloom Spices & Curry Base",
+          "summary": "Toast whole spices, bloom ground in fat — fat-soluble flavor awakens.",
+          "techniques": [
+            "technique.bloom_spices",
+            "technique.saute"
+          ],
+          "flavors": [
+            "flavor_profile.aromatic_spice",
+            "flavor_profile.spicy_heat"
+          ],
+          "ingredients": [
+            "ingredient.coconut_milk",
+            "ingredient.tomato",
+            "ingredient.onion"
+          ],
+          "spices": [
+            "ingredient.cumin",
+            "ingredient.coriander",
+            "ingredient.turmeric"
+          ],
+          "cultures": [
+            "culture.indian",
+            "culture.thai"
+          ],
+          "practice_query": "curry with bloomed spices and coconut milk",
+          "teaching": [
+            "Toast whole spices dry before grinding for maximum aroma.",
+            "Bloom ground spices 30 seconds in hot oil — watch, do not burn.",
+            "Add wet ingredients quickly after blooming to stop carryover cooking."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.sous_chef",
+      "rank": 5,
+      "title": "Sous Chef",
+      "description": "Coordinate timing, train juniors, and fix broken sauces.",
+      "modules": [
+        {
+          "id": "mod.sous.emulsion_rescue",
+          "title": "Emulsion & Rescue",
+          "summary": "Hollandaise, mayo, vinaigrette — and how to fix a broken sauce.",
+          "techniques": [
+            "technique.emulsion",
+            "technique.temper",
+            "technique.mount_butter"
+          ],
+          "flavors": [
+            "flavor_profile.rich_creamy",
+            "flavor_profile.bright_acid"
+          ],
+          "ingredients": [
+            "ingredient.eggs",
+            "ingredient.butter",
+            "ingredient.lemon"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.cayenne"
+          ],
+          "cultures": [
+            "culture.french"
+          ],
+          "practice_query": "hollandaise for eggs benedict",
+          "teaching": [
+            "Room-temperature ingredients emulsify easier.",
+            "Broken emulsion? Whisk in a drop of warm water off heat.",
+            "Hold hollandaise at 135°F — too hot curdles, too cold breaks."
+          ]
+        },
+        {
+          "id": "mod.sous.fish_poach",
+          "title": "Fish & Gentle Moist Heat",
+          "summary": "Poach, steam, and sous-vide thinking for delicate proteins.",
+          "techniques": [
+            "technique.poach",
+            "technique.steam",
+            "technique.sous_vide"
+          ],
+          "flavors": [
+            "flavor_profile.coastal_brine",
+            "flavor_profile.fresh_light"
+          ],
+          "ingredients": [
+            "ingredient.salmon",
+            "ingredient.fennel",
+            "ingredient.white_wine"
+          ],
+          "spices": [
+            "ingredient.dill",
+            "ingredient.salt",
+            "ingredient.black_pepper"
+          ],
+          "cultures": [
+            "culture.french",
+            "culture.scandinavian"
+          ],
+          "practice_query": "poached salmon with court bouillon",
+          "teaching": [
+            "180–190°F poaching liquid — never a rolling boil on fish.",
+            "Steam preserves color; check doneness early.",
+            "Sous-vide precision: set temp, sear hard after for crust contrast."
+          ]
+        },
+        {
+          "id": "mod.sous.menu_timing",
+          "title": "Multi-Dish Timing",
+          "summary": "Back-timing a three-course family meal like a service ticket.",
+          "techniques": [
+            "technique.rest",
+            "technique.roast",
+            "technique.saute"
+          ],
+          "flavors": [
+            "flavor_profile.sweet_savory"
+          ],
+          "ingredients": [
+            "ingredient.chicken.whole",
+            "ingredient.asparagus",
+            "ingredient.rice"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.herbs_de_provence"
+          ],
+          "cultures": [
+            "culture.french",
+            "culture.american"
+          ],
+          "practice_query": "roast chicken dinner with sides timed to finish together",
+          "teaching": [
+            "Write a fire list: what starts when, what holds, what finishes last.",
+            "Long-cook items first; fresh garnishes and acid at the pass.",
+            "Resting meat is active cooking time — use it to finish sides."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.chef_de_cuisine",
+      "rank": 6,
+      "title": "Chef de Cuisine",
+      "description": "Menu design, costing, and cuisine identity on one menu.",
+      "modules": [
+        {
+          "id": "mod.cdc.menu_balance",
+          "title": "Menu Balance & Arc",
+          "summary": "Salt, acid, fat, texture, and temperature across a full menu.",
+          "techniques": [
+            "technique.layer_season",
+            "technique.glaze"
+          ],
+          "flavors": [
+            "flavor_profile.bright_acid",
+            "flavor_profile.rich_creamy",
+            "flavor_profile.bitter_bright"
+          ],
+          "ingredients": [
+            "ingredient.lemon",
+            "ingredient.aged_cheese",
+            "ingredient.bitter_greens"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.sumac"
+          ],
+          "cultures": [
+            "culture.mediterranean",
+            "culture.french"
+          ],
+          "practice_query": "three-course dinner with contrasting textures",
+          "teaching": [
+            "No menu should be all rich — alternate heavy and bright plates.",
+            "Repeat one signature spice or fat to tie the menu together.",
+            "Taste the full arc seated, not dish by dish in the kitchen."
+          ]
+        },
+        {
+          "id": "mod.cdc.cure_preserve",
+          "title": "Cure, Ferment & Preserve",
+          "summary": "Extend season, add depth, reduce waste — preservation as creativity.",
+          "techniques": [
+            "technique.cure",
+            "technique.ferment",
+            "technique.pickle"
+          ],
+          "flavors": [
+            "flavor_profile.fermented_depth",
+            "flavor_profile.coastal_brine"
+          ],
+          "ingredients": [
+            "ingredient.salmon",
+            "ingredient.cabbage",
+            "ingredient.cucumber"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.dill",
+            "ingredient.chili_flakes"
+          ],
+          "cultures": [
+            "culture.scandinavian",
+            "culture.korean"
+          ],
+          "practice_query": "gravlax with quick pickle and fermented condiment",
+          "teaching": [
+            "Weigh salt for cures — ratios matter more than intuition.",
+            "Fermentation is controlled spoilage; submerge vegetables under brine.",
+            "Preserved elements let you menu peak flavors off-season."
+          ]
+        },
+        {
+          "id": "mod.cdc.global_fusion",
+          "title": "Global Technique Crossover",
+          "summary": "Borrow techniques respectfully — wok hei on local produce, confit on vegetables.",
+          "techniques": [
+            "technique.confit",
+            "technique.stir_fry",
+            "technique.smoke"
+          ],
+          "flavors": [
+            "flavor_profile.smoky",
+            "flavor_profile.aromatic_spice"
+          ],
+          "ingredients": [
+            "ingredient.duck",
+            "ingredient.mushroom",
+            "ingredient.olive_oil"
+          ],
+          "spices": [
+            "ingredient.star_anise",
+            "ingredient.smoked_paprika"
+          ],
+          "cultures": [
+            "culture.french",
+            "culture.chinese",
+            "culture.moroccan"
+          ],
+          "practice_query": "smoked mushroom confit with global spice blend",
+          "teaching": [
+            "Learn context before fusion — technique transfer is not costume.",
+            "Confit works on garlic, potatoes, and mushrooms — not only duck.",
+            "Smoke and spice need acid on the plate to stay balanced."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.executive_sous",
+      "rank": 7,
+      "title": "Executive Sous Chef",
+      "description": "Run the pass, train brigade, and hold standards under pressure.",
+      "modules": [
+        {
+          "id": "mod.exec_sous.pass_quality",
+          "title": "The Pass & Plating",
+          "summary": "Consistency, temperature, and visual language at the window.",
+          "techniques": [
+            "technique.knife_skills",
+            "technique.glaze",
+            "technique.rest"
+          ],
+          "flavors": [
+            "flavor_profile.herbaceous",
+            "flavor_profile.umami"
+          ],
+          "ingredients": [
+            "ingredient.microgreens",
+            "ingredient.butter",
+            "ingredient.stock"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.fleur_de_sel"
+          ],
+          "cultures": [
+            "culture.french",
+            "culture.japanese"
+          ],
+          "practice_query": "plated steak frites with consistent portion and garnish",
+          "teaching": [
+            "Every plate from the same station should look like twins.",
+            "Wipe rims, check sauce placement, verify protein temp at the pass.",
+            "Finishing salt and fresh herbs go on at the pass — not during prep."
+          ]
+        },
+        {
+          "id": "mod.exec_sous.brigade_train",
+          "title": "Brigade Training",
+          "summary": "Teach technique through demonstration, not correction at service.",
+          "techniques": [
+            "technique.sear",
+            "technique.braise",
+            "technique.deglaze"
+          ],
+          "flavors": [
+            "flavor_profile.comfort_soul"
+          ],
+          "ingredients": [
+            "ingredient.chicken.thigh",
+            "ingredient.onion",
+            "ingredient.stock"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.black_pepper"
+          ],
+          "cultures": [
+            "culture.french"
+          ],
+          "practice_query": "teach a junior cook to sear and build pan sauce",
+          "teaching": [
+            "Demo once slow, then shadow, then solo with feedback.",
+            "Correct technique in prep — never yell fixes during a full rush.",
+            "Build confidence with repeatable drills: sear, rest, slice, taste."
+          ]
+        },
+        {
+          "id": "mod.exec_sous.cost_control",
+          "title": "Cost & Yield Control",
+          "summary": "Trim waste, stretch proteins, and spec consistent portions.",
+          "techniques": [
+            "technique.stock",
+            "technique.render_fat",
+            "technique.knife_skills"
+          ],
+          "flavors": [
+            "flavor_profile.umami"
+          ],
+          "ingredients": [
+            "ingredient.chicken.bones",
+            "ingredient.beef.bones",
+            "ingredient.vegetable_scraps"
+          ],
+          "spices": [
+            "ingredient.bay_leaf",
+            "ingredient.peppercorns"
+          ],
+          "cultures": [
+            "culture.french",
+            "culture.southern"
+          ],
+          "practice_query": "whole chicken breakdown with stock from bones and scraps",
+          "teaching": [
+            "Every trim has a use — stock, staff meal, or ferment.",
+            "Portion by weight on the line; eyes lie under pressure.",
+            "Render fat from trim; cook with it instead of buying more oil."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.executive_chef",
+      "rank": 8,
+      "title": "Executive Chef",
+      "description": "Vision, vendor relationships, and the kitchen as a business.",
+      "modules": [
+        {
+          "id": "mod.executive.vision_menu",
+          "title": "Vision & Seasonal Menu",
+          "summary": "Write menus from farmers market availability, not Pinterest.",
+          "techniques": [
+            "technique.roast",
+            "technique.braise",
+            "technique.pickle"
+          ],
+          "flavors": [
+            "flavor_profile.earthy",
+            "flavor_profile.floral_citrus"
+          ],
+          "ingredients": [
+            "ingredient.seasonal_produce",
+            "ingredient.local_protein",
+            "ingredient.honey"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.fresh_herbs"
+          ],
+          "cultures": [
+            "culture.american",
+            "culture.mediterranean"
+          ],
+          "practice_query": "seasonal tasting menu from farmers market haul",
+          "teaching": [
+            "Shop or receive deliveries before you finalize the menu.",
+            "Feature one hero ingredient three ways to control food cost.",
+            "Change one dish at a time — guests hate whiplash, staff needs stability."
+          ]
+        },
+        {
+          "id": "mod.executive.vendor_partner",
+          "title": "Vendor & Source Partnership",
+          "summary": "Butchers, fishmongers, and farms — relationships beat catalog ordering.",
+          "techniques": [
+            "technique.cure",
+            "technique.marinate"
+          ],
+          "flavors": [
+            "flavor_profile.coastal_brine",
+            "flavor_profile.nutty"
+          ],
+          "ingredients": [
+            "ingredient.beef.ribeye",
+            "ingredient.shrimp",
+            "ingredient.artisan_cheese"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.black_pepper"
+          ],
+          "cultures": [
+            "culture.american"
+          ],
+          "practice_query": "menu built around one butcher cut and one farm box",
+          "teaching": [
+            "Call vendors before service, not during — build trust on their slow days.",
+            "Specify cut, grade, and delivery window in writing.",
+            "Pay on time; best product goes to reliable partners first."
+          ]
+        },
+        {
+          "id": "mod.executive.lead_culture",
+          "title": "Kitchen Culture & Legacy",
+          "summary": "Lead with calm, document recipes, and develop the next generation.",
+          "techniques": [
+            "technique.layer_season",
+            "technique.stock"
+          ],
+          "flavors": [
+            "flavor_profile.comfort_soul",
+            "flavor_profile.fermented_depth"
+          ],
+          "ingredients": [
+            "ingredient.family_recipe_base",
+            "ingredient.staff_meal_staples"
+          ],
+          "spices": [
+            "ingredient.salt"
+          ],
+          "cultures": [
+            "culture.soul_food",
+            "culture.french",
+            "culture.global"
+          ],
+          "practice_query": "document house signature dish for brigade consistency",
+          "teaching": [
+            "The executive sets tone — panic upstairs becomes chaos on the line.",
+            "Recipe cards with photos beat oral tradition for consistency.",
+            "Develop people, not just menus; your legacy is who you trained."
+          ]
+        }
+      ]
+    }
+  ]
+}

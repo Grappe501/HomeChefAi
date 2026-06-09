@@ -1,0 +1,25 @@
+{
+  "id": "technique.blind_bake",
+  "type": "technique",
+  "display_name": "Blind Bake",
+  "description": "Par-bake pastry shell with weights so wet fillings do not sog out the base.",
+  "attributes": {
+    "micro_lesson": "Par-bake pastry shell with weights so wet fillings do not sog out the base.",
+    "steps": [
+      "Dock shell with fork",
+      "Line with parchment and weights",
+      "Bake until edges golden",
+      "Brush egg wash to seal"
+    ],
+    "difficulty": "intermediate",
+    "category": "baking",
+    "cuisine_tags": [
+      "french",
+      "baking"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

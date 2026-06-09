@@ -11,6 +11,7 @@ import { resolveAssistantCreditAction, shouldStreamAgentLoop } from './utils/ai/
 import { runClaraAgentLoop } from './utils/ai/claraAgentLoop.js';
 import { routeClaraReply } from './utils/ai/claraToolRouter.js';
 import { logGenerationToLedger } from './utils/ai/ledgerStore.js';
+import { logAgentTelemetry } from './utils/ai/agentTelemetry.js';
 import type { AgentStreamEvent, ClaraRoutedReply } from './utils/ai/claraReplyTypes.js';
 
 function sseLine(payload: unknown): string {
@@ -57,6 +58,7 @@ export const handler = stream(async (event) => {
 
   const encoder = new TextEncoder();
   const history = body.history ?? [];
+  const started = Date.now();
 
   const readable = new ReadableStream<Uint8Array>({
     async start(controller) {
@@ -111,10 +113,23 @@ export const handler = stream(async (event) => {
               agent_steps: routed.agent_steps,
               search_mode: routed.search_mode,
               stream: true,
+              phase: 4,
             },
           },
           session.profile.household_id,
         );
+
+        await logAgentTelemetry({
+          user_id: session.userId,
+          intent: routed.intent,
+          tools_used: routed.tools_used ?? [],
+          agent_steps: routed.agent_steps ?? 0,
+          search_mode: routed.search_mode,
+          synthesis: !!routed.synthesis,
+          credit_cost: credit.cost,
+          latency_ms: Date.now() - started,
+          stream: true,
+        });
 
         send({
           type: 'complete',

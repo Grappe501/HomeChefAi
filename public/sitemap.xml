@@ -152,6 +152,7 @@
   <url><loc>https://home-chef-ai.netlify.app/learn/path.shop_smarter</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/style.texas_brisket</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.blanch_shock</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/learn/technique.blind_bake</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.bloom_spices</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.boil</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.braise</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -164,17 +165,21 @@
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.deep_fry</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.deglaze</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.emulsion</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/learn/technique.enrich_dough</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.ferment</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.fold</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.glaze</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.grill</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.knead</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.knife_skills</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/learn/technique.laminate</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.layer_season</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/learn/technique.macaronage</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.marinate</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.mirepoix</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.mount_butter</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.pickle</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/learn/technique.piping</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.poach</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.pressure_cook</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.proof</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -184,6 +189,7 @@
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.roast</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.roux</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.saute</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/learn/technique.score_bread</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.sear</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.shallow_fry</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.simmer</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -193,9 +199,14 @@
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.steam</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.stir_fry</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.stock</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/learn/technique.sugar_work</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.temper</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/learn/technique.temper_chocolate</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.toast_nuts</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/technique.whip</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/learn/track.amateur_to_executive</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/learn/track.game_show</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/learn/track.master_baker</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn/tradition.sunday_chili</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/legal/ai-usage.html</loc><lastmod>2026-06-09</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/legal/community.html</loc><lastmod>2026-06-09</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>

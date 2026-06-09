@@ -1,0 +1,25 @@
+{
+  "id": "technique.sugar_work",
+  "type": "technique",
+  "display_name": "Sugar Work",
+  "description": "Cook sugar through thread, soft ball, and hard crack stages for caramel and decoration.",
+  "attributes": {
+    "micro_lesson": "Cook sugar through thread, soft ball, and hard crack stages for caramel and decoration.",
+    "steps": [
+      "Clean pot sides with wet brush",
+      "Use thermometer stages",
+      "Stop carryover in cold water bath",
+      "Never touch hot sugar"
+    ],
+    "difficulty": "advanced",
+    "category": "baking",
+    "cuisine_tags": [
+      "french",
+      "baking"
+    ],
+    "flavor_links": []
+  },
+  "sources": [
+    "training-kitchen"
+  ]
+}

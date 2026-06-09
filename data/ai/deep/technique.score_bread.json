@@ -1,0 +1,20 @@
+{
+  "id": "technique.score_bread",
+  "kind": "technique",
+  "title": "Score Bread",
+  "knowledge_id": "technique.score_bread",
+  "match_keywords": [
+    "score bread",
+    "score bread"
+  ],
+  "summary": "Shallow angled cuts control oven spring and prevent random bursting.",
+  "origins": "Score Bread is a core baking technique used across french, baking cooking.",
+  "history": "Home cooks and professionals rely on score bread for consistent results — practice builds muscle memory and timing.",
+  "teaching": [
+    "Use lame or sharp knife",
+    "Cut at 30–45° angle",
+    "One decisive stroke per score",
+    "Bake immediately after scoring"
+  ],
+  "related_ids": []
+}

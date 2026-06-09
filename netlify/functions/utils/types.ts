@@ -41,6 +41,18 @@ export interface DevStore {
   household_graph_edges?: HouseholdGraphEdgeRow[];
   skill_journey_progress?: SkillProgressRow[];
   running_supply_lists?: RunningSupplyListRow[];
+  agent_telemetry?: {
+    user_id: string;
+    intent?: string;
+    tools_used: string[];
+    agent_steps: number;
+    search_mode?: string;
+    synthesis: boolean;
+    credit_cost: number;
+    latency_ms: number;
+    stream: boolean;
+    created_at?: string;
+  }[];
 }
 
 export interface RunningSupplyListRow {

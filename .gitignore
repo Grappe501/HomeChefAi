@@ -11,3 +11,7 @@ Thumbs.db
 *.local
 dev-data/
 .vite/
+supabase/.temp/
+public/data/ai/
+data/ai/search/dish-bm25-pack.json
+data/ai/embeddings/shards/
