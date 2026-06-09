@@ -22,6 +22,7 @@ export interface Profile {
   household_id?: string;
   household_display_name?: string;
   kitchen_identity?: import('./platform').KitchenIdentity;
+  inferred_cooking_style?: import('./householdGraph').InferredCookingStyle;
   culinary_profile?: import('./platform').CulinaryProfile;
   assistant_persona?: { name?: string; communication_style?: string };
   food_priorities?: string[];

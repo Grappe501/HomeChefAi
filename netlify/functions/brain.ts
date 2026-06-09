@@ -35,8 +35,14 @@ export const handler: Handler = withCors(async (event) => {
         const filtered = type ? memories.filter((m) => m.memory_type === type) : memories;
         return jsonResponse({ memories: filtered.sort(byUpdated) });
       }
+      const profile = loadStore().profiles.find((p) => p.user_id === userId);
       const insights = memories.filter((m) => m.surfaced).sort(byConfidence);
-      return jsonResponse({ insights, learning: memories.filter((m) => !m.surfaced).length });
+      return jsonResponse({
+        insights,
+        learning: memories.filter((m) => !m.surfaced).length,
+        kitchen_identity: profile?.kitchen_identity ?? null,
+        inferred_cooking_style: profile?.inferred_cooking_style ?? null,
+      });
     }
 
     if (!user.token) return errorResponse('Missing token', 401);
@@ -71,7 +77,18 @@ export const handler: Handler = withCors(async (event) => {
       .eq('user_id', userId)
       .eq('surfaced', false);
 
-    return jsonResponse({ insights: insights ?? [], learning: count ?? 0 });
+    const { data: profile } = await db
+      .from('profiles')
+      .select('kitchen_identity, inferred_cooking_style')
+      .eq('user_id', userId)
+      .single();
+
+    return jsonResponse({
+      insights: insights ?? [],
+      learning: count ?? 0,
+      kitchen_identity: profile?.kitchen_identity ?? null,
+      inferred_cooking_style: profile?.inferred_cooking_style ?? null,
+    });
   }
 
   if (event.httpMethod === 'POST') {

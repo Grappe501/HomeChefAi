@@ -4,6 +4,7 @@ import { RefreshCw } from 'lucide-react';
 import { brainApi } from '@/lib/api';
 import { useApp } from '@/hooks/useApp';
 import type { BrainInsight } from '@/types/brain';
+import type { InferredCookingStyle } from '@/types/householdGraph';
 import BrainInsightCard from '@/components/BrainInsightCard';
 import SousChefMark from '@/components/SousChefMark';
 import { assistantFirstName } from '@/lib/assistant';
@@ -14,6 +15,7 @@ export default function BrainPage() {
   const assistantName = assistantFirstName(profile?.assistant_name);
   const [insights, setInsights] = useState<BrainInsight[]>([]);
   const [learning, setLearning] = useState(0);
+  const [cookingStyle, setCookingStyle] = useState<InferredCookingStyle | null>(null);
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
   const toast = useToast();
@@ -25,6 +27,7 @@ export default function BrainPage() {
       .then((r) => {
         setInsights(r.insights);
         setLearning(r.learning);
+        setCookingStyle(r.inferred_cooking_style ?? null);
       })
       .catch(() => toast.error(`Could not load ${assistantName}'s notes`))
       .finally(() => setLoading(false));
@@ -64,6 +67,18 @@ export default function BrainPage() {
           <RefreshCw size={16} className={syncing ? 'animate-spin' : ''} />
         </button>
       </header>
+
+      {cookingStyle?.primary_label && (
+        <section className="card bg-stainless-100 border-chef/20">
+          <p className="text-xs font-semibold text-chef-subtle uppercase tracking-wide">Kitchen identity</p>
+          <p className="text-lg font-semibold text-chef mt-1">{cookingStyle.primary_label}</p>
+          {cookingStyle.evidence?.length > 0 && (
+            <p className="text-xs text-chef-subtle mt-2">
+              Based on {cookingStyle.evidence.length} signals including receipts, cook logs, and your meal plan feedback.
+            </p>
+          )}
+        </section>
+      )}
 
       {loading && (
         <div className="card text-sm text-chef-subtle min-h-[52px] flex items-center">Loading…</div>

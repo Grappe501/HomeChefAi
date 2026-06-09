@@ -11,6 +11,7 @@ export interface MemoryMetadata {
   evidence_lines: string[];
   date_range_start?: string;
   date_range_end?: string;
+  pattern_type?: string;
 }
 
 export interface BrainInsight {

@@ -45,6 +45,7 @@ export interface BrainReceipt {
 export interface BrainUsageLog {
   id: string;
   meal_name?: string;
+  items_used?: { name: string; quantity?: number; unit?: string }[];
   created_at: string;
 }
 

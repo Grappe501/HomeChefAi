@@ -221,7 +221,12 @@ export const householdApi = {
 
 export const brainApi = {
   insights: () =>
-    api<{ insights: import('@/types/brain').BrainInsight[]; learning: number }>('brain'),
+    api<{
+      insights: import('@/types/brain').BrainInsight[];
+      learning: number;
+      kitchen_identity?: import('@/types/platform').KitchenIdentity | null;
+      inferred_cooking_style?: import('@/types/householdGraph').InferredCookingStyle | null;
+    }>('brain'),
   memory: (id: string) =>
     api<{ memory: import('@/types/brain').BrainInsight }>(`brain?id=${id}`),
   getRecentLedger: (domain?: string, limit = 20) =>

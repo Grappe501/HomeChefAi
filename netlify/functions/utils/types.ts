@@ -38,6 +38,20 @@ export interface DevStore {
   household_memories?: BrainStoredMemory[];
   waste_events?: BrainWasteRow[];
   decision_ledger?: DecisionLedgerRow[];
+  household_graph_edges?: HouseholdGraphEdgeRow[];
+}
+
+export interface HouseholdGraphEdgeRow {
+  id: string;
+  user_id: string;
+  household_id?: string;
+  edge_type: string;
+  from_key: string;
+  to_key: string;
+  weight: number;
+  evidence: string[];
+  metadata?: Record<string, unknown>;
+  updated_at: string;
 }
 
 export interface BrainStoredMemory {
