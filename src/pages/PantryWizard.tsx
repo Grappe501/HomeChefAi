@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ChevronRight, Check } from 'lucide-react';
-import { PANTRY_CATEGORIES } from '@/types';
+import { PANTRY_CATEGORIES, pantryCategorySlug } from '@/types';
 import { getWizardItemConfig, type WizardQuantityOption } from '@/types/pantryWizard';
 import {
   buildTaxonomySelection,
@@ -27,7 +27,8 @@ interface SelectedItem {
   inventoryName: string;
   /** Original wizard tile label for knowledge id resolution */
   wizardItem: string;
-  location?: 'pantry' | 'fridge' | 'freezer';
+  category: string;
+  location: 'pantry' | 'fridge' | 'freezer';
   notes?: string;
   knowledge_id?: string;
   taxonomy_id?: string;
@@ -108,6 +109,8 @@ export default function PantryWizard() {
           label: option.label,
           inventoryName: item,
           wizardItem: item,
+          category: pantryCategorySlug(catName),
+          location: catData.location as 'pantry' | 'fridge' | 'freezer',
           knowledge_id,
         },
       });
@@ -134,6 +137,7 @@ export default function PantryWizard() {
         label: formatSelectedLabel(formOption, option.label),
         inventoryName,
         wizardItem: item,
+        category: pantryCategorySlug(catName),
         location: resolveInventoryLocation(catData.location as 'pantry' | 'fridge' | 'freezer', formOption),
         notes: encodeTaxonomyNotes(selection),
         knowledge_id,
@@ -154,12 +158,12 @@ export default function PantryWizard() {
       return;
     }
     setSaving(true);
-    const items = Object.values(selected).map(({ inventoryName, quantity, unit, location, notes, knowledge_id, taxonomy_id }) => ({
+    const items = Object.values(selected).map(({ inventoryName, quantity, unit, location, category, notes, knowledge_id, taxonomy_id }) => ({
       name: inventoryName,
       quantity,
       unit,
-      category: catName.toLowerCase().replace(/[^a-z]/g, '_'),
-      location: location ?? (catData.location as 'pantry' | 'fridge' | 'freezer'),
+      category,
+      location,
       added_via: 'wizard',
       notes,
       knowledge_id,

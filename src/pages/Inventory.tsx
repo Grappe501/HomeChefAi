@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Trash2 } from 'lucide-react';
 import { inventoryApi } from '@/lib/api';
 import { LOCATION_EMOJI } from '@/lib/utils';
-import type { InventoryItem } from '@/types';
+import { inferWizardItemLocation, type InventoryItem } from '@/types';
 
 const LOCATIONS = ['all', 'pantry', 'fridge', 'freezer'] as const;
+const STORAGE_LOCATIONS = ['pantry', 'fridge', 'freezer'] as const;
 
 export default function Inventory() {
   const [items, setItems] = useState<InventoryItem[]>([]);
@@ -36,6 +37,37 @@ export default function Inventory() {
   const remove = async (id: string) => {
     await inventoryApi.remove(id);
     load();
+  };
+
+  const cycleLocation = async (item: InventoryItem) => {
+    const idx = STORAGE_LOCATIONS.indexOf(item.location);
+    const next = STORAGE_LOCATIONS[(idx + 1) % STORAGE_LOCATIONS.length];
+    await inventoryApi.update({ id: item.id, location: next });
+    load();
+  };
+
+  const likelyMislocated = useMemo(() => {
+    if (items.length < 3) return false;
+    const freezerOnly = items.every((i) => i.location === 'freezer');
+    if (!freezerOnly) return false;
+    return items.some((i) => inferWizardItemLocation(i.name) !== 'freezer');
+  }, [items]);
+
+  const fixLocations = async () => {
+    setLoading(true);
+    try {
+      await Promise.all(
+        items.map(async (item) => {
+          const inferred = inferWizardItemLocation(item.name);
+          if (item.location !== inferred) {
+            await inventoryApi.update({ id: item.id, location: inferred });
+          }
+        }),
+      );
+      load();
+    } finally {
+      setLoading(false);
+    }
   };
 
   const grouped = filtered.reduce<Record<string, InventoryItem[]>>((acc, item) => {
@@ -72,6 +104,17 @@ export default function Inventory() {
         ))}
       </div>
 
+      {likelyMislocated && (
+        <div className="card bg-amber-50 border-amber-200 space-y-2">
+          <p className="text-sm text-chef">
+            Everything looks stored in the freezer — that usually means locations need fixing after Pantry Wizard.
+          </p>
+          <button type="button" onClick={fixLocations} className="btn-secondary text-sm">
+            Fix locations automatically
+          </button>
+        </div>
+      )}
+
       {loading && <div className="card text-chef-subtle text-sm min-h-[52px] flex items-center">Loading…</div>}
 
       {!loading && filtered.length === 0 && (
@@ -94,6 +137,15 @@ export default function Inventory() {
                 </p>
               </div>
               <div className="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => cycleLocation(item)}
+                  className="btn-icon bg-stainless-100 text-lg"
+                  title={`Move from ${item.location}`}
+                  aria-label={`Location: ${item.location}. Tap to change.`}
+                >
+                  {LOCATION_EMOJI[item.location] ?? '📦'}
+                </button>
                 <button onClick={() => adjustQty(item, -1)} className="btn-icon bg-stainless-200 text-chef font-bold">−</button>
                 <span className="w-8 text-center font-medium tabular-nums">{item.quantity}</span>
                 <button onClick={() => adjustQty(item, 1)} className="btn-icon bg-stainless-200 text-chef font-bold">+</button>

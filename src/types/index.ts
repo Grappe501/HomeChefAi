@@ -224,6 +224,28 @@ export const PANTRY_CATEGORIES: Record<string, { items: string[]; location: stri
   },
 };
 
+export function pantryCategorySlug(categoryName: string): string {
+  return categoryName.toLowerCase().replace(/[^a-z]/g, '_');
+}
+
+/** Map a wizard tile or inventory name back to pantry / fridge / freezer */
+export function inferWizardItemLocation(itemName: string): 'pantry' | 'fridge' | 'freezer' {
+  const needle = itemName.trim().toLowerCase();
+  for (const catData of Object.values(PANTRY_CATEGORIES)) {
+    if (catData.items.some((i) => i.toLowerCase() === needle)) {
+      return catData.location as 'pantry' | 'fridge' | 'freezer';
+    }
+  }
+  for (const catData of Object.values(PANTRY_CATEGORIES)) {
+    if (catData.items.some((i) => needle.includes(i.toLowerCase()) || i.toLowerCase().includes(needle))) {
+      return catData.location as 'pantry' | 'fridge' | 'freezer';
+    }
+  }
+  if (/\bfrozen\b/i.test(itemName)) return 'freezer';
+  if (/\b(milk|egg|cheese|yogurt|butter|cream|produce|chicken|beef|bacon|sausage|tofu)\b/i.test(itemName)) return 'fridge';
+  return 'pantry';
+}
+
 /** @deprecated Use getWizardItemConfig from @/types/pantryWizard */
 export const QUICK_QUANTITIES: Record<string, string[]> = {
   default: ['1 package', '2 packages'],
