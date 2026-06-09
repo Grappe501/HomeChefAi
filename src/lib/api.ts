@@ -23,14 +23,25 @@ async function api<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   if (token) headers['Authorization'] = `Bearer ${token}`;
 
   const res = await fetch(`${API_BASE}/${endpoint}`, { ...options, headers });
-  const data = await res.json();
+  const raw = await res.text();
+
+  let data: Record<string, unknown>;
+  try {
+    data = raw ? JSON.parse(raw) : {};
+  } catch {
+    const friendly = raw.trimStart().startsWith('<')
+      ? 'Server error — please try again in a moment.'
+      : raw.slice(0, 120) || 'Invalid server response';
+    throw new ApiError(friendly, res.status);
+  }
+
   if (!res.ok) {
     throw new ApiError(
-      data.error || 'Request failed',
+      (data.error as string) || 'Request failed',
       res.status,
-      data.upgrade_required,
-      data.limits,
-      data.usage
+      data.upgrade_required as boolean | undefined,
+      data.limits as Record<string, number> | undefined,
+      data.usage as Record<string, number> | undefined
     );
   }
   return data as T;

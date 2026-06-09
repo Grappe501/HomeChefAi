@@ -7,6 +7,18 @@
   NODE_VERSION = "20"
   NPM_CONFIG_CACHE = "H:/HomeChefAi/.npm-cache"
 
+[functions]
+  node_bundler = "esbuild"
+
+[functions."meals"]
+  timeout = 26
+
+[functions."receipts"]
+  timeout = 26
+
+[functions."assistant"]
+  timeout = 26
+
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"

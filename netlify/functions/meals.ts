@@ -7,6 +7,38 @@ import { checkAndIncrementQuota, quotaErrorResponse } from './utils/quotas.js';
 import { awardXpDevStore, awardXpSupabase, XP_AWARDS } from './utils/gamification.js';
 import type { MealPlanData, InventoryItem, Profile } from '../../src/types/index';
 
+function normalizeProfile(prof: Partial<Profile> | null | undefined, userId: string): Profile {
+  return {
+    user_id: userId,
+    dietary_restrictions: prof?.dietary_restrictions ?? [],
+    cuisine_preferences: prof?.cuisine_preferences ?? [],
+    allergies: prof?.allergies ?? [],
+    household_size: prof?.household_size ?? 2,
+    preferred_store: prof?.preferred_store ?? '',
+    gamification_level: prof?.gamification_level ?? 1,
+    gamification_xp: prof?.gamification_xp ?? 0,
+    onboarding_complete: prof?.onboarding_complete ?? false,
+    assistant_name: prof?.assistant_name ?? 'Clara',
+    last_meal_memory: (prof?.last_meal_memory as Record<string, unknown>) ?? {},
+  };
+}
+
+async function loadKitchenContext(userId: string, token: string | undefined) {
+  if (useDevStore()) {
+    const store = loadStore();
+    const inventory = store.inventory_items.filter((i) => i.user_id === userId);
+    const raw = store.profiles.find((p) => p.user_id === userId);
+    return { inventory, profile: normalizeProfile(raw, userId) };
+  }
+  if (!token) throw new Error('Missing auth token');
+  const db = getSupabaseUserClient(token);
+  const { data: items, error: itemsErr } = await db.from('inventory_items').select('*').eq('user_id', userId);
+  if (itemsErr) throw new Error(itemsErr.message);
+  const { data: prof, error: profErr } = await db.from('profiles').select('*').eq('user_id', userId).maybeSingle();
+  if (profErr) throw new Error(profErr.message);
+  return { inventory: (items ?? []) as InventoryItem[], profile: normalizeProfile(prof as Partial<Profile>, userId) };
+}
+
 async function generateMealPlan(
   inventory: InventoryItem[],
   profile: Profile,
@@ -59,7 +91,7 @@ Breakfasts/day: ${params.breakfasts ?? 1}, Lunches/day: ${params.lunches ?? 1}, 
 Dietary: ${profile.dietary_restrictions.join(', ') || 'none'}
 Cuisines: ${profile.cuisine_preferences.join(', ') || 'any'}
 Allergies: ${profile.allergies.join(', ') || 'none'}
-Preferred store: ${profile.preferred_store}
+Preferred store: ${profile.preferred_store || 'any'}
 Current inventory:
 ${inventoryList || 'Empty — suggest starter meals and shopping list'}
 ${params.message ? `User request: ${params.message}` : ''}`,
@@ -70,7 +102,11 @@ ${params.message ? `User request: ${params.message}` : ''}`,
     }),
   });
 
-  if (!response.ok) throw new Error('Meal planning failed');
+  if (!response.ok) {
+    const errText = await response.text().catch(() => '');
+    console.error('OpenAI meal plan error:', response.status, errText.slice(0, 200));
+    throw new Error('Meal planning service unavailable — try again shortly.');
+  }
   const data = await response.json() as { choices: { message: { content: string } }[] };
   return JSON.parse(data.choices[0].message.content) as MealPlanData;
 }
@@ -88,7 +124,8 @@ export const handler: Handler = withCors(async (event) => {
     }
     if (!user.token) return errorResponse('Missing token', 401);
     const db = getSupabaseUserClient(user.token);
-    const { data: plans } = await db.from('meal_plans').select('*').eq('user_id', userId).order('created_at', { ascending: false });
+    const { data: plans, error } = await db.from('meal_plans').select('*').eq('user_id', userId).order('created_at', { ascending: false });
+    if (error) return errorResponse(error.message, 500);
     return jsonResponse({ plans: plans ?? [] });
   }
 
@@ -99,24 +136,13 @@ export const handler: Handler = withCors(async (event) => {
     }>(event);
     if (!body) return errorResponse('Invalid body');
 
-    let inventory: InventoryItem[] = [];
-    let profile: Profile;
-
-    if (useDevStore()) {
-      const store = loadStore();
-      inventory = store.inventory_items.filter((i) => i.user_id === userId);
-      profile = store.profiles.find((p) => p.user_id === userId)!;
-    } else {
-      if (!user.token) return errorResponse('Missing token', 401);
-    const db = getSupabaseUserClient(user.token);
-      const { data: items } = await db.from('inventory_items').select('*').eq('user_id', userId);
-      inventory = (items ?? []) as InventoryItem[];
-      const { data: prof } = await db.from('profiles').select('*').eq('user_id', userId).single();
-      profile = prof as Profile;
-    }
+    const { inventory, profile } = await loadKitchenContext(userId, user.token);
 
     if (body.action === 'what-can-i-make') {
-      const planData = await generateMealPlan(inventory, profile, { days: 1, message: 'Suggest 3 meals using ONLY what we have in inventory. Minimize missing ingredients.' });
+      const planData = await generateMealPlan(inventory, profile, {
+        days: 1,
+        message: 'Suggest 3 meals using ONLY what we have in inventory. Minimize missing ingredients.',
+      });
       return jsonResponse({ suggestions: planData });
     }
 
@@ -124,7 +150,7 @@ export const handler: Handler = withCors(async (event) => {
     if (!quota.allowed) return quotaErrorResponse(quota.limits, quota.usage);
 
     const days = body.days || 7;
-    const planData = await generateMealPlan(inventory, profile, body);
+    const planData = await generateMealPlan(inventory, profile, { ...body, days });
     const planId = uuidv4();
     const startDate = new Date();
     const endDate = new Date();
@@ -154,7 +180,7 @@ export const handler: Handler = withCors(async (event) => {
 
     if (!user.token) return errorResponse('Missing token', 401);
     const db = getSupabaseUserClient(user.token);
-    await db.from('meal_plans').insert({
+    const { error: insertErr } = await db.from('meal_plans').insert({
       id: planId,
       user_id: userId,
       title: plan.title,
@@ -165,6 +191,7 @@ export const handler: Handler = withCors(async (event) => {
       status: 'active',
       plan_data: planData,
     });
+    if (insertErr) return errorResponse(insertErr.message, 500);
     const xp = await awardXpSupabase(db, userId, XP_AWARDS.meal_plan);
     return jsonResponse({ plan, xp_gained: xp.gained }, 201);
   }

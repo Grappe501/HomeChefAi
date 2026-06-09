@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Sparkles, ShoppingCart } from 'lucide-react';
-import { mealsApi } from '@/lib/api';
+import { mealsApi, ApiError } from '@/lib/api';
 import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
 import { useToast } from '@/hooks/useToast';
@@ -39,7 +39,7 @@ export default function MealPlanner() {
       toast.success(`Meal plan ready · +${res.xp_gained ?? 50} XP`);
       speak(`Your ${days}-day meal plan is ready!`);
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Planning failed');
+      toast.error(err instanceof ApiError ? err.message : 'Could not plan meals. Please try again.');
     } finally {
       setPlanning(false);
     }

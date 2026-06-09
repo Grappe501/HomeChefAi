@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { Home, Package, Camera, CalendarDays, ChefHat, MessageCircle, Users, Settings } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
+import { sousChefLabel } from '@/lib/assistant';
 
 const navItems = [
   { to: '/', icon: Home, label: 'Home' },
@@ -20,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="max-w-lg mx-auto flex items-center justify-between">
           <div>
             <h1 className="font-sans font-semibold text-lg text-chef tracking-tight">SousChef</h1>
-            <p className="text-xs text-chef-subtle">Sous Chef {profile?.assistant_name || 'Clara'}</p>
+            <p className="text-xs text-chef-subtle">{sousChefLabel(profile?.assistant_name)}</p>
           </div>
           <NavLink to="/settings" className="btn-icon text-steel-dark hover:text-chef hover:bg-stainless-100">
             <Settings size={20} />

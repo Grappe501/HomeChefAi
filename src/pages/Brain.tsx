@@ -6,11 +6,12 @@ import { useApp } from '@/hooks/useApp';
 import type { BrainInsight } from '@/types/brain';
 import BrainInsightCard from '@/components/BrainInsightCard';
 import SousChefMark from '@/components/SousChefMark';
+import { assistantFirstName } from '@/lib/assistant';
 import { useToast } from '@/hooks/useToast';
 
 export default function BrainPage() {
   const { profile } = useApp();
-  const assistantName = profile?.assistant_name || 'Clara';
+  const assistantName = assistantFirstName(profile?.assistant_name);
   const [insights, setInsights] = useState<BrainInsight[]>([]);
   const [learning, setLearning] = useState(0);
   const [loading, setLoading] = useState(true);

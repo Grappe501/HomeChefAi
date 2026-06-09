@@ -3,6 +3,7 @@ import { Send, Volume2 } from 'lucide-react';
 import { assistantApi } from '@/lib/api';
 import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
+import { assistantFirstName } from '@/lib/assistant';
 import VoiceButton from '@/components/VoiceButton';
 import SousChefMark from '@/components/SousChefMark';
 
@@ -13,7 +14,7 @@ interface Message {
 
 export default function Assistant() {
   const { profile } = useApp();
-  const assistantName = profile?.assistant_name || 'Clara';
+  const assistantName = assistantFirstName(profile?.assistant_name);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',

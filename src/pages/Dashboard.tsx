@@ -8,6 +8,7 @@ import type { BrainInsight } from '@/types/brain';
 import CookTogetherCard from '@/components/CookTogetherCard';
 import BrainInsightCard from '@/components/BrainInsightCard';
 import SousChefMark from '@/components/SousChefMark';
+import { assistantFirstName } from '@/lib/assistant';
 
 function greeting(): string {
   const h = new Date().getHours();
@@ -76,7 +77,7 @@ export default function Dashboard() {
   const [items, setItems] = useState<InventoryItem[]>([]);
   const [plans, setPlans] = useState<MealPlan[]>([]);
   const [insights, setInsights] = useState<BrainInsight[]>([]);
-  const assistantName = profile?.assistant_name || 'Clara';
+  const assistantName = assistantFirstName(profile?.assistant_name);
   const kitchenName = profile?.household_display_name || 'Your Kitchen';
 
   useEffect(() => {

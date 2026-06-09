@@ -23,7 +23,7 @@ export const handler: Handler = withCors(async (event) => {
           gamification_level: 1,
           gamification_xp: 0,
           onboarding_complete: false,
-          assistant_name: 'Sous Chef',
+          assistant_name: 'Clara',
           last_meal_memory: {},
           is_founder: isFounderUser(user, true),
         };
