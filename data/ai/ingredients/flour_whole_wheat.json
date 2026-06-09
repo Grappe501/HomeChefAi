@@ -1,0 +1,30 @@
+{
+  "id": "ingredient.flour.whole_wheat",
+  "type": "ingredient",
+  "display_name": "Whole Wheat",
+  "parent_id": "ingredient.flour",
+  "attributes": {
+    "variant_of": "ingredient.flour",
+    "variant_key": "whole_wheat",
+    "dietary": {
+      "vegetarian": true,
+      "contains_gluten": true
+    },
+    "cuisine_tags": [
+      "american",
+      "southern",
+      "comfort",
+      "italian"
+    ],
+    "pairings": [
+      "ingredient.butter",
+      "ingredient.egg",
+      "ingredient.milk"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

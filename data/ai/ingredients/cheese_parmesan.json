@@ -1,0 +1,30 @@
+{
+  "id": "ingredient.cheese.parmesan",
+  "type": "ingredient",
+  "display_name": "Parmesan",
+  "parent_id": "ingredient.cheese",
+  "attributes": {
+    "variant_of": "ingredient.cheese",
+    "variant_key": "parmesan",
+    "dietary": {
+      "vegetarian": true,
+      "contains_dairy": true
+    },
+    "cuisine_tags": [
+      "american",
+      "italian",
+      "comfort",
+      "mexican"
+    ],
+    "pairings": [
+      "ingredient.tomato",
+      "ingredient.bread",
+      "ingredient.pasta"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

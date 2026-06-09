@@ -1,0 +1,32 @@
+{
+  "id": "ingredient.paprika.hot",
+  "type": "ingredient",
+  "display_name": "Hot Paprika",
+  "parent_id": "ingredient.paprika",
+  "attributes": {
+    "variant_of": "ingredient.paprika",
+    "variant_key": "hot",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": [
+      "hungarian",
+      "spanish",
+      "cajun",
+      "southern",
+      "bbq"
+    ],
+    "pairings": [
+      "ingredient.garlic",
+      "ingredient.tomato",
+      "ingredient.onion",
+      "ingredient.chicken"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

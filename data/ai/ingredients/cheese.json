@@ -53,7 +53,16 @@
     "dietary": {
       "vegetarian": true,
       "contains_dairy": true
-    }
+    },
+    "variant_ids": [
+      "ingredient.cheese.cheddar",
+      "ingredient.cheese.mozzarella",
+      "ingredient.cheese.parmesan",
+      "ingredient.cheese.pepper_jack",
+      "ingredient.cheese.swiss",
+      "ingredient.cheese.shredded",
+      "ingredient.cheese.block"
+    ]
   },
   "sources": [
     "curated",

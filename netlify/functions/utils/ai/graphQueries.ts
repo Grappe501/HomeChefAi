@@ -2,7 +2,7 @@
  * Knowledge graph query helpers — Phase 2
  */
 
-import type { KnowledgeNode, KnowledgeNodeType } from '../../../src/types/knowledge.js';
+import type { KnowledgeNode, KnowledgeNodeType } from '../../../../src/types/knowledge.js';
 import {
   getKnowledgeNode,
   getRelatedByPairing,

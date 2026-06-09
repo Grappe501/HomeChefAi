@@ -1,0 +1,32 @@
+{
+  "id": "ingredient.paprika.spanish",
+  "type": "ingredient",
+  "display_name": "Spanish Paprika (Pimentón)",
+  "parent_id": "ingredient.paprika",
+  "attributes": {
+    "variant_of": "ingredient.paprika",
+    "variant_key": "spanish",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": [
+      "hungarian",
+      "spanish",
+      "cajun",
+      "southern",
+      "bbq"
+    ],
+    "pairings": [
+      "ingredient.garlic",
+      "ingredient.tomato",
+      "ingredient.onion",
+      "ingredient.chicken"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

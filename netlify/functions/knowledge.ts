@@ -7,6 +7,8 @@ import {
   getRelatedByPairing,
   listKnowledgeNodes,
   getKnowledgeStats,
+  getVariantNodes,
+  findKnowledgeByWizardItem,
 } from './utils/ai/knowledgeLoader.js';
 import {
   resolveSubstitutions,
@@ -73,6 +75,15 @@ export const handler: Handler = withCors(async (event) => {
     const id = params.id;
     if (!id) return errorResponse('id required', 400);
     return jsonResponse({ id, pairings: getPairings(id) });
+  }
+
+  if (action === 'variants') {
+    const id = params.id;
+    if (!id) return errorResponse('id required', 400);
+    const parent = getKnowledgeNode(id);
+    if (!parent) return errorResponse(`Knowledge node not found: ${id}`, 404);
+    const variants = getVariantNodes(id);
+    return jsonResponse({ parent, variants, count: variants.length });
   }
 
   if (action === 'cuisine_staples') {

@@ -1,0 +1,28 @@
+{
+  "id": "ingredient.ground_beef.90_10",
+  "type": "ingredient",
+  "display_name": "90/10 lean",
+  "parent_id": "ingredient.ground_beef",
+  "attributes": {
+    "variant_of": "ingredient.ground_beef",
+    "variant_key": "90_10",
+    "dietary": {
+      "contains_meat": true
+    },
+    "cuisine_tags": [
+      "american",
+      "comfort",
+      "mexican"
+    ],
+    "pairings": [
+      "ingredient.onion",
+      "ingredient.garlic",
+      "ingredient.tomato"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

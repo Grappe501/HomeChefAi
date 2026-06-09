@@ -10,12 +10,13 @@ import type {
   SubstitutionReason,
   SubstitutionResponse,
   SubstitutionSuggestion,
-} from '../../../src/types/knowledge.js';
+} from '../../../../src/types/knowledge.js';
 import {
   getKnowledgeNode,
   listKnowledgeNodes,
   loadKnowledgeRegistry,
 } from './knowledgeLoader.js';
+import { knowledgeIdParentChain } from '../../../../src/types/knowledgeIdCore.js';
 
 const REASON_ALIASES: Record<string, SubstitutionReason> = {
   missing: 'missing',
@@ -219,6 +220,7 @@ export interface ResolveSubstitutionOptions {
 
 /**
  * Core substitution resolver — used by knowledge API, meals, and Clara orchestrator.
+ * Walks parent chain for variants (e.g. ingredient.paprika.smoked → ingredient.paprika).
  */
 export function resolveSubstitutions(
   fromId: string,
@@ -227,36 +229,61 @@ export function resolveSubstitutions(
   const reason = options.reason ?? 'missing';
   const limit = options.limit ?? 10;
   const exclude = new Set(options.excludeIds ?? []);
+  const chain = knowledgeIdParentChain(fromId);
 
-  const source = getKnowledgeNode(fromId);
-  if (!source) return null;
+  let resolvedFrom: string | undefined;
+  let allCollected: SubstitutionSuggestion[] = [];
+  let sourceName = fromId;
+  let alreadySatisfies = false;
 
-  const alreadySatisfies = reason !== 'missing' && !sourceNeedsSubstitution(source, reason);
+  for (let i = 0; i < chain.length; i++) {
+    const id = chain[i];
+    const source = getKnowledgeNode(id);
+    if (!source) continue;
+
+    sourceName = source.display_name;
+    if (reason !== 'missing' && !sourceNeedsSubstitution(source, reason)) {
+      alreadySatisfies = true;
+      break;
+    }
+
+    const depthPenalty = i === 0 ? 1 : 0.92 ** i;
+    const collected = [
+      ...collectDirectSubstitutes(source, reason),
+      ...collectEdgeSubstitutes(id, reason),
+      ...collectReverseEdges(id, reason),
+    ]
+      .filter((s) => !exclude.has(s.id))
+      .map((s) => ({ ...s, confidence: clampConfidence(s.confidence * depthPenalty) }));
+
+    if (collected.length && !resolvedFrom && i > 0) {
+      resolvedFrom = id;
+    }
+    allCollected.push(...collected);
+    if (dedupeAndRank(allCollected).length >= limit) break;
+  }
+
+  const rootSource = getKnowledgeNode(fromId);
+  if (!rootSource && !allCollected.length && !alreadySatisfies) return null;
 
   if (alreadySatisfies) {
     return {
       from_id: fromId,
-      from_name: source.display_name,
+      from_name: rootSource?.display_name ?? sourceName,
       reason,
       suggestions: [],
       already_satisfies: true,
     };
   }
 
-  const collected = [
-    ...collectDirectSubstitutes(source, reason),
-    ...collectEdgeSubstitutes(fromId, reason),
-    ...collectReverseEdges(fromId, reason),
-  ].filter((s) => !exclude.has(s.id));
-
-  const suggestions = dedupeAndRank(collected).slice(0, limit);
-
+  const suggestions = dedupeAndRank(allCollected).slice(0, limit);
   return {
     from_id: fromId,
-    from_name: source.display_name,
+    from_name: rootSource?.display_name ?? sourceName,
     reason,
     suggestions,
     already_satisfies: false,
+    resolved_from: resolvedFrom,
   };
 }
 

@@ -121,6 +121,8 @@ export interface SubstitutionResponse {
   suggestions: SubstitutionSuggestion[];
   /** True when source ingredient already satisfies the dietary constraint */
   already_satisfies?: boolean;
+  /** When a variant inherits substitutes from a parent node */
+  resolved_from?: string;
 }
 
 export interface KnowledgeLookupResponse {

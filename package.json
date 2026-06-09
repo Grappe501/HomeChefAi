@@ -13,6 +13,7 @@
     "test:knowledge": "npx tsx --test tests/knowledge.test.mjs",
     "knowledge:import": "node scripts/import-taxonomy-to-knowledge.mjs",
     "knowledge:generate": "node scripts/generate-pantry-knowledge.mjs",
+    "knowledge:variants": "node scripts/generate-variant-nodes.mjs",
     "db:init": "node scripts/init-db.mjs"
   },
   "dependencies": {

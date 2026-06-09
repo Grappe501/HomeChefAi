@@ -14,7 +14,13 @@
     "dietary": {
       "vegan": true,
       "vegetarian": true
-    }
+    },
+    "variant_ids": [
+      "ingredient.potato.russet",
+      "ingredient.potato.red",
+      "ingredient.potato.yukon_gold",
+      "ingredient.potato.sweet"
+    ]
   },
   "sources": [
     "import-taxonomy-to-knowledge",

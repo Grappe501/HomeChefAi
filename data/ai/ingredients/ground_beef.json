@@ -55,7 +55,13 @@
     "taxonomy_family": "ground_beef",
     "dietary": {
       "contains_meat": true
-    }
+    },
+    "variant_ids": [
+      "ingredient.ground_beef.80_20",
+      "ingredient.ground_beef.90_10",
+      "ingredient.ground_beef.85_15",
+      "ingredient.ground_beef.93_7"
+    ]
   },
   "sources": [
     "curated",

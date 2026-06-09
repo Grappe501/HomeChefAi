@@ -62,7 +62,14 @@
     "dietary": {
       "vegan": true,
       "vegetarian": true
-    }
+    },
+    "variant_ids": [
+      "ingredient.paprika.sweet",
+      "ingredient.paprika.hot",
+      "ingredient.paprika.smoked",
+      "ingredient.paprika.hungarian",
+      "ingredient.paprika.spanish"
+    ]
   },
   "sources": [
     "curated",

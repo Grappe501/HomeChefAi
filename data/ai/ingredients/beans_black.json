@@ -1,0 +1,24 @@
+{
+  "id": "ingredient.beans.black",
+  "type": "ingredient",
+  "display_name": "Black Beans",
+  "parent_id": "ingredient.beans",
+  "attributes": {
+    "variant_of": "ingredient.beans",
+    "variant_key": "black",
+    "cuisine_tags": [
+      "mexican",
+      "southern",
+      "latin"
+    ],
+    "pairings": [
+      "ingredient.rice",
+      "ingredient.cumin",
+      "ingredient.tomato"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated"
+  ]
+}

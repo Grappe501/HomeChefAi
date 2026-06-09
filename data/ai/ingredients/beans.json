@@ -4,8 +4,24 @@
   "display_name": "Beans",
   "parent_id": "ingredient.legumes",
   "attributes": {
-    "cuisine_tags": ["mexican", "southern", "latin"],
-    "pairings": ["ingredient.rice", "ingredient.cumin", "ingredient.tomato"]
+    "cuisine_tags": [
+      "mexican",
+      "southern",
+      "latin"
+    ],
+    "pairings": [
+      "ingredient.rice",
+      "ingredient.cumin",
+      "ingredient.tomato"
+    ],
+    "variant_ids": [
+      "ingredient.beans.black",
+      "ingredient.beans.kidney",
+      "ingredient.beans.pinto",
+      "ingredient.beans.chickpea"
+    ]
   },
-  "sources": ["curated"]
+  "sources": [
+    "curated"
+  ]
 }

@@ -1,0 +1,16 @@
+{
+  "id": "ingredient.chicken.wings",
+  "type": "ingredient",
+  "display_name": "Chicken Wings",
+  "parent_id": "ingredient.chicken",
+  "attributes": {
+    "variant_of": "ingredient.chicken",
+    "variant_key": "wings",
+    "dietary": {
+      "contains_meat": true
+    }
+  },
+  "sources": [
+    "generate-variant-nodes"
+  ]
+}

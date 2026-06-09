@@ -5,16 +5,50 @@
   "parent_id": "ingredient.grain",
   "attributes": {
     "variants": [
-      { "id": "white", "label": "White" },
-      { "id": "jasmine", "label": "Jasmine" },
-      { "id": "basmati", "label": "Basmati" },
-      { "id": "brown", "label": "Brown" }
+      {
+        "id": "white",
+        "label": "White"
+      },
+      {
+        "id": "jasmine",
+        "label": "Jasmine"
+      },
+      {
+        "id": "basmati",
+        "label": "Basmati"
+      },
+      {
+        "id": "brown",
+        "label": "Brown"
+      }
     ],
     "substitutes": [
-      { "id": "ingredient.quinoa", "note": "Higher protein grain" }
+      {
+        "id": "ingredient.quinoa",
+        "note": "Higher protein grain"
+      }
     ],
-    "pairings": ["ingredient.chicken", "ingredient.garlic", "ingredient.onion"],
-    "cuisine_tags": ["asian", "mexican", "cajun", "southern"]
+    "pairings": [
+      "ingredient.chicken",
+      "ingredient.garlic",
+      "ingredient.onion"
+    ],
+    "cuisine_tags": [
+      "asian",
+      "mexican",
+      "cajun",
+      "southern"
+    ],
+    "variant_ids": [
+      "ingredient.rice.white",
+      "ingredient.rice.jasmine",
+      "ingredient.rice.basmati",
+      "ingredient.rice.brown",
+      "ingredient.rice.wild"
+    ]
   },
-  "sources": ["curated", "food_taxonomy_1_0"]
+  "sources": [
+    "curated",
+    "food_taxonomy_1_0"
+  ]
 }

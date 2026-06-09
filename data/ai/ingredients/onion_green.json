@@ -1,0 +1,17 @@
+{
+  "id": "ingredient.onion.green",
+  "type": "ingredient",
+  "display_name": "Green Onions",
+  "parent_id": "ingredient.onion",
+  "attributes": {
+    "variant_of": "ingredient.onion",
+    "variant_key": "green",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    }
+  },
+  "sources": [
+    "generate-variant-nodes"
+  ]
+}

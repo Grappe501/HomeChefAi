@@ -1,0 +1,16 @@
+{
+  "id": "ingredient.sausage.breakfast",
+  "type": "ingredient",
+  "display_name": "Breakfast Sausage",
+  "parent_id": "ingredient.sausage",
+  "attributes": {
+    "variant_of": "ingredient.sausage",
+    "variant_key": "breakfast",
+    "dietary": {
+      "contains_meat": true
+    }
+  },
+  "sources": [
+    "generate-variant-nodes"
+  ]
+}

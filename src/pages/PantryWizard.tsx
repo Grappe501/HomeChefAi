@@ -13,6 +13,7 @@ import {
   resolveInventoryName,
   type TaxonomyFormOption,
 } from '@/types/foodTaxonomy';
+import { resolveWizardInventoryKnowledge } from '@/types/knowledgeId';
 import { inventoryApi } from '@/lib/api';
 import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
@@ -24,8 +25,12 @@ interface SelectedItem {
   label: string;
   /** Key in selected map — wizard tile or resolved inventory name */
   inventoryName: string;
+  /** Original wizard tile label for knowledge id resolution */
+  wizardItem: string;
   location?: 'pantry' | 'fridge' | 'freezer';
   notes?: string;
+  knowledge_id?: string;
+  taxonomy_id?: string;
 }
 
 type WizardPickerStep =
@@ -94,6 +99,7 @@ export default function PantryWizard() {
 
     if (pickerStep.kind === 'quantity_simple') {
       const { item } = pickerStep;
+      const { knowledge_id } = resolveWizardInventoryKnowledge(item);
       setSelected({
         ...selected,
         [item]: {
@@ -101,6 +107,8 @@ export default function PantryWizard() {
           unit: option.unit,
           label: option.label,
           inventoryName: item,
+          wizardItem: item,
+          knowledge_id,
         },
       });
       setPickerStep(null);
@@ -115,6 +123,7 @@ export default function PantryWizard() {
 
     const inventoryName = resolveInventoryName(item, formOption);
     const selection = buildTaxonomySelection(family, formOption);
+    const { knowledge_id, taxonomy_id } = resolveWizardInventoryKnowledge(item, selection);
     const key = item === inventoryName ? item : `${item}::${formOption.id}`;
 
     setSelected({
@@ -124,8 +133,11 @@ export default function PantryWizard() {
         unit: option.unit,
         label: formatSelectedLabel(formOption, option.label),
         inventoryName,
+        wizardItem: item,
         location: resolveInventoryLocation(catData.location as 'pantry' | 'fridge' | 'freezer', formOption),
         notes: encodeTaxonomyNotes(selection),
+        knowledge_id,
+        taxonomy_id,
       },
     });
     setPickerStep(null);
@@ -142,7 +154,7 @@ export default function PantryWizard() {
       return;
     }
     setSaving(true);
-    const items = Object.values(selected).map(({ inventoryName, quantity, unit, location, notes }) => ({
+    const items = Object.values(selected).map(({ inventoryName, quantity, unit, location, notes, knowledge_id, taxonomy_id }) => ({
       name: inventoryName,
       quantity,
       unit,
@@ -150,6 +162,8 @@ export default function PantryWizard() {
       location: location ?? (catData.location as 'pantry' | 'fridge' | 'freezer'),
       added_via: 'wizard',
       notes,
+      knowledge_id,
+      taxonomy_id,
     }));
     try {
       const result = await inventoryApi.add(items);

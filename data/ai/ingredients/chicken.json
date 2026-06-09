@@ -65,7 +65,13 @@
     ],
     "dietary": {
       "contains_meat": true
-    }
+    },
+    "variant_ids": [
+      "ingredient.chicken.breast",
+      "ingredient.chicken.thigh",
+      "ingredient.chicken.whole",
+      "ingredient.chicken.ground"
+    ]
   },
   "sources": [
     "curated",

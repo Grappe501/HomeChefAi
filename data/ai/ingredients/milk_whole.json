@@ -1,0 +1,22 @@
+{
+  "id": "ingredient.milk.whole",
+  "type": "ingredient",
+  "display_name": "Whole Milk",
+  "parent_id": "ingredient.milk",
+  "attributes": {
+    "variant_of": "ingredient.milk",
+    "variant_key": "whole",
+    "dietary": {
+      "vegetarian": true,
+      "contains_dairy": true
+    },
+    "cuisine_tags": [
+      "american"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "import-taxonomy-to-knowledge",
+    "food_taxonomy_1_0"
+  ]
+}

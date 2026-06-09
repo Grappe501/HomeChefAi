@@ -42,7 +42,13 @@
     "dietary": {
       "vegetarian": true,
       "contains_gluten": true
-    }
+    },
+    "variant_ids": [
+      "ingredient.flour.all_purpose",
+      "ingredient.flour.bread",
+      "ingredient.flour.whole_wheat",
+      "ingredient.flour.self_rising"
+    ]
   },
   "sources": [
     "curated",

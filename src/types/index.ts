@@ -39,6 +39,10 @@ export interface InventoryItem {
   location: 'pantry' | 'fridge' | 'freezer';
   added_via: string;
   notes?: string;
+  /** Kitchen knowledge registry node id — e.g. ingredient.paprika.smoked */
+  knowledge_id?: string;
+  /** Food taxonomy id — e.g. cheese.mozzarella */
+  taxonomy_id?: string;
   low_stock_threshold?: number;
   created_at?: string;
   updated_at?: string;
@@ -114,6 +118,8 @@ export interface MealPlanData {
   reviews?: Record<string, { action: 'keep' | 'replace'; at: string }>;
 }
 
+import type { MealIntelligence } from './mealIntelligence';
+
 export interface PlannedMeal {
   day: number;
   meal_type: 'breakfast' | 'lunch' | 'dinner' | 'snack';
@@ -123,6 +129,8 @@ export interface PlannedMeal {
   prep_time_minutes?: number;
   /** See src/types/mealTags.ts */
   tags?: string[];
+  /** Deterministic Clara reasoning — populated at plan time or via explain-meal */
+  intelligence?: MealIntelligence;
 }
 
 export interface ShoppingItem {

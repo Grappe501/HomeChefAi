@@ -103,6 +103,15 @@ export const mealsApi = {
       method: 'POST',
       body: JSON.stringify({ action: 'what-can-i-make' }),
     }),
+  explainMeal: (data: {
+    meal: import('@/types').PlannedMeal;
+    coverage?: import('@/types').MealPlanData['coverage'];
+    metrics?: import('@/types').MealPlanData['metrics'];
+  }) =>
+    api<{ intelligence: import('@/types/mealIntelligence').MealIntelligence }>('meals', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'explain-meal', ...data }),
+    }),
 };
 
 export const calendarApi = {

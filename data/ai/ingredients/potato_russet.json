@@ -1,0 +1,23 @@
+{
+  "id": "ingredient.potato.russet",
+  "type": "ingredient",
+  "display_name": "Russet Potato",
+  "parent_id": "ingredient.potato",
+  "attributes": {
+    "variant_of": "ingredient.potato",
+    "variant_key": "russet",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": [
+      "american",
+      "comfort"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "import-taxonomy-to-knowledge",
+    "food_taxonomy_1_0"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "ingredient.paprika.pimenton",
+  "type": "ingredient",
+  "display_name": "Pimentón (Spanish Paprika)",
+  "parent_id": "ingredient.paprika",
+  "attributes": {
+    "variant_of": "ingredient.paprika",
+    "variant_key": "pimenton",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    }
+  },
+  "sources": [
+    "generate-variant-nodes"
+  ]
+}

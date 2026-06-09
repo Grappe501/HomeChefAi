@@ -1,0 +1,30 @@
+{
+  "id": "ingredient.flour.self_rising",
+  "type": "ingredient",
+  "display_name": "Self-Rising Flour",
+  "parent_id": "ingredient.flour",
+  "attributes": {
+    "variant_of": "ingredient.flour",
+    "variant_key": "self_rising",
+    "dietary": {
+      "vegetarian": true,
+      "contains_gluten": true
+    },
+    "cuisine_tags": [
+      "american",
+      "southern",
+      "comfort",
+      "italian"
+    ],
+    "pairings": [
+      "ingredient.butter",
+      "ingredient.egg",
+      "ingredient.milk"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

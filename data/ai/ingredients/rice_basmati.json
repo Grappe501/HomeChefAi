@@ -1,0 +1,26 @@
+{
+  "id": "ingredient.rice.basmati",
+  "type": "ingredient",
+  "display_name": "Basmati",
+  "parent_id": "ingredient.rice",
+  "attributes": {
+    "variant_of": "ingredient.rice",
+    "variant_key": "basmati",
+    "cuisine_tags": [
+      "asian",
+      "mexican",
+      "cajun",
+      "southern"
+    ],
+    "pairings": [
+      "ingredient.chicken",
+      "ingredient.garlic",
+      "ingredient.onion"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

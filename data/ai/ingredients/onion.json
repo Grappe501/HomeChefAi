@@ -35,7 +35,12 @@
     "dietary": {
       "vegan": true,
       "vegetarian": true
-    }
+    },
+    "variant_ids": [
+      "ingredient.onion.yellow",
+      "ingredient.onion.red",
+      "ingredient.onion.white"
+    ]
   },
   "sources": [
     "curated"

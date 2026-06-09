@@ -1,0 +1,32 @@
+{
+  "id": "ingredient.chicken.thigh",
+  "type": "ingredient",
+  "display_name": "Thigh",
+  "parent_id": "ingredient.chicken",
+  "attributes": {
+    "variant_of": "ingredient.chicken",
+    "variant_key": "thigh",
+    "dietary": {
+      "contains_meat": true
+    },
+    "cuisine_tags": [
+      "american",
+      "southern",
+      "cajun",
+      "italian",
+      "mexican"
+    ],
+    "pairings": [
+      "ingredient.garlic",
+      "ingredient.onion",
+      "ingredient.rice",
+      "ingredient.paprika",
+      "ingredient.butter"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

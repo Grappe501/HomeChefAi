@@ -1,0 +1,31 @@
+{
+  "id": "ingredient.onion.yellow",
+  "type": "ingredient",
+  "display_name": "Yellow",
+  "parent_id": "ingredient.onion",
+  "attributes": {
+    "variant_of": "ingredient.onion",
+    "variant_key": "yellow",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": [
+      "american",
+      "southern",
+      "cajun",
+      "mexican",
+      "italian"
+    ],
+    "pairings": [
+      "ingredient.garlic",
+      "ingredient.butter",
+      "ingredient.chicken",
+      "ingredient.tomato"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "ingredient.rice.brown",
+  "type": "ingredient",
+  "display_name": "Brown",
+  "parent_id": "ingredient.rice",
+  "attributes": {
+    "variant_of": "ingredient.rice",
+    "variant_key": "brown",
+    "cuisine_tags": [
+      "asian",
+      "mexican",
+      "cajun",
+      "southern"
+    ],
+    "pairings": [
+      "ingredient.chicken",
+      "ingredient.garlic",
+      "ingredient.onion"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

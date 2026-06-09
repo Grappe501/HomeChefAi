@@ -1,0 +1,23 @@
+{
+  "id": "ingredient.milk.almond",
+  "type": "ingredient",
+  "display_name": "Almond Milk",
+  "parent_id": "ingredient.milk",
+  "attributes": {
+    "variant_of": "ingredient.milk",
+    "variant_key": "almond",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true,
+      "contains_nuts": true
+    },
+    "cuisine_tags": [
+      "american"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "import-taxonomy-to-knowledge",
+    "food_taxonomy_1_0"
+  ]
+}

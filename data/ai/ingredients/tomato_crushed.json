@@ -1,0 +1,30 @@
+{
+  "id": "ingredient.tomato.crushed",
+  "type": "ingredient",
+  "display_name": "Crushed Tomatoes (canned)",
+  "parent_id": "ingredient.tomato",
+  "attributes": {
+    "variant_of": "ingredient.tomato",
+    "variant_key": "crushed",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": [
+      "italian",
+      "mexican",
+      "mediterranean"
+    ],
+    "pairings": [
+      "ingredient.garlic",
+      "ingredient.onion",
+      "ingredient.basil",
+      "ingredient.cheese"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

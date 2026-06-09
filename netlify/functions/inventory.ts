@@ -64,6 +64,8 @@ export const handler: Handler = withCors(async (event) => {
       location: item.location || 'pantry',
       added_via: item.added_via || 'manual',
       notes: item.notes || null,
+      knowledge_id: item.knowledge_id || null,
+      taxonomy_id: item.taxonomy_id || null,
       low_stock_threshold: item.low_stock_threshold || 0,
       estimated_unit_price: (item as { estimated_unit_price?: number }).estimated_unit_price || 0,
     }));
@@ -99,6 +101,8 @@ export const handler: Handler = withCors(async (event) => {
       expiration_date: body.expiration_date,
       location: body.location,
       notes: body.notes,
+      knowledge_id: body.knowledge_id,
+      taxonomy_id: body.taxonomy_id,
       updated_at: new Date().toISOString(),
     }).eq('id', body.id).eq('user_id', userId).select().single();
     if (error) return errorResponse(error.message, 500);
@@ -152,6 +156,8 @@ function buildItem(userId: string, item: Partial<InventoryItem>): InventoryItem 
     location: (item.location as InventoryItem['location']) || 'pantry',
     added_via: item.added_via || 'manual',
     notes: item.notes,
+    knowledge_id: item.knowledge_id,
+    taxonomy_id: item.taxonomy_id,
     low_stock_threshold: item.low_stock_threshold || 0,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),

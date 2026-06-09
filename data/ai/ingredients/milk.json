@@ -33,6 +33,14 @@
         ],
         "confidence": 0.8
       }
+    ],
+    "variant_ids": [
+      "ingredient.milk.whole",
+      "ingredient.milk.two_percent",
+      "ingredient.milk.skim",
+      "ingredient.milk.lactose_free",
+      "ingredient.milk.oat",
+      "ingredient.milk.almond"
     ]
   },
   "sources": [

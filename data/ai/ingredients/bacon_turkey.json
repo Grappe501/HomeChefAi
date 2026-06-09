@@ -1,0 +1,16 @@
+{
+  "id": "ingredient.bacon.turkey",
+  "type": "ingredient",
+  "display_name": "Turkey Bacon",
+  "parent_id": "ingredient.bacon",
+  "attributes": {
+    "variant_of": "ingredient.bacon",
+    "variant_key": "turkey",
+    "dietary": {
+      "contains_meat": true
+    }
+  },
+  "sources": [
+    "generate-variant-nodes"
+  ]
+}

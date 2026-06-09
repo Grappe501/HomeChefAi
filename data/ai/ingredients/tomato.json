@@ -38,7 +38,15 @@
     "dietary": {
       "vegan": true,
       "vegetarian": true
-    }
+    },
+    "variant_ids": [
+      "ingredient.tomato.fresh",
+      "ingredient.tomato.diced_canned",
+      "ingredient.tomato.sauce",
+      "ingredient.tomato.paste",
+      "ingredient.tomato.diced",
+      "ingredient.tomato.crushed"
+    ]
   },
   "sources": [
     "curated",

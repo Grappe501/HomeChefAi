@@ -1,0 +1,30 @@
+{
+  "id": "ingredient.cheese.swiss",
+  "type": "ingredient",
+  "display_name": "Swiss Cheese",
+  "parent_id": "ingredient.cheese",
+  "attributes": {
+    "variant_of": "ingredient.cheese",
+    "variant_key": "swiss",
+    "dietary": {
+      "vegetarian": true,
+      "contains_dairy": true
+    },
+    "cuisine_tags": [
+      "american",
+      "italian",
+      "comfort",
+      "mexican"
+    ],
+    "pairings": [
+      "ingredient.tomato",
+      "ingredient.bread",
+      "ingredient.pasta"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

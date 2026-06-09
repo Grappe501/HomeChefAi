@@ -1,0 +1,24 @@
+{
+  "id": "ingredient.beans.pinto",
+  "type": "ingredient",
+  "display_name": "Pinto Beans",
+  "parent_id": "ingredient.beans",
+  "attributes": {
+    "variant_of": "ingredient.beans",
+    "variant_key": "pinto",
+    "cuisine_tags": [
+      "mexican",
+      "southern",
+      "latin"
+    ],
+    "pairings": [
+      "ingredient.rice",
+      "ingredient.cumin",
+      "ingredient.tomato"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated"
+  ]
+}

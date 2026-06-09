@@ -1,0 +1,28 @@
+{
+  "id": "ingredient.ground_beef.85_15",
+  "type": "ingredient",
+  "display_name": "Ground Beef 85/15",
+  "parent_id": "ingredient.ground_beef",
+  "attributes": {
+    "variant_of": "ingredient.ground_beef",
+    "variant_key": "85_15",
+    "dietary": {
+      "contains_meat": true
+    },
+    "cuisine_tags": [
+      "american",
+      "comfort",
+      "mexican"
+    ],
+    "pairings": [
+      "ingredient.onion",
+      "ingredient.garlic",
+      "ingredient.tomato"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

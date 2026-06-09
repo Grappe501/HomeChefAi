@@ -1,0 +1,30 @@
+{
+  "id": "ingredient.cheese.pepper_jack",
+  "type": "ingredient",
+  "display_name": "Pepper Jack Cheese",
+  "parent_id": "ingredient.cheese",
+  "attributes": {
+    "variant_of": "ingredient.cheese",
+    "variant_key": "pepper_jack",
+    "dietary": {
+      "vegetarian": true,
+      "contains_dairy": true
+    },
+    "cuisine_tags": [
+      "american",
+      "italian",
+      "comfort",
+      "mexican"
+    ],
+    "pairings": [
+      "ingredient.tomato",
+      "ingredient.bread",
+      "ingredient.pasta"
+    ]
+  },
+  "sources": [
+    "generate-variant-nodes",
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

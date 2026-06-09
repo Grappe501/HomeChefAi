@@ -5,7 +5,8 @@
 
 import { readFileSync, readdirSync, statSync } from 'fs';
 import { join, resolve } from 'path';
-import type { KnowledgeNode, KnowledgeNodeType, KnowledgeSearchResult } from '../../../src/types/knowledge.js';
+import type { KnowledgeNode, KnowledgeNodeType, KnowledgeSearchResult } from '../../../../src/types/knowledge.js';
+import { knowledgeIdParentChain } from '../../../../src/types/knowledgeIdCore.js';
 
 /** Canonical registry root on H: drive */
 export const DEFAULT_KNOWLEDGE_ROOT = 'H:/HomeChefAi/data/ai';
@@ -178,4 +179,32 @@ export function getKnowledgeStats(): { root: string; count: number; by_type: Rec
     by_type[n.type] = (by_type[n.type] ?? 0) + 1;
   }
   return { root, count: nodes.length, by_type };
+}
+
+/** Child variant nodes for a parent ingredient id */
+export function getVariantNodes(parentId: string): KnowledgeNode[] {
+  const ids = (getKnowledgeNode(parentId)?.attributes?.variant_ids as string[] | undefined) ?? [];
+  if (ids.length) {
+    return ids.map((id) => getKnowledgeNode(id)).filter((n): n is KnowledgeNode => !!n);
+  }
+  return listKnowledgeNodes('ingredient').filter(
+    (n) => n.attributes?.variant_of === parentId || n.parent_id === parentId,
+  );
+}
+
+/** Lookup by pantry wizard item label */
+export function findKnowledgeByWizardItem(wizardItem: string): KnowledgeNode | null {
+  const match = listKnowledgeNodes('ingredient').find(
+    (n) => n.attributes?.wizard_item === wizardItem && !n.attributes?.variant_of,
+  );
+  return match ?? null;
+}
+
+/** Resolve id with parent fallback for display */
+export function resolveKnowledgeNode(id: string): KnowledgeNode | null {
+  for (const candidate of knowledgeIdParentChain(id)) {
+    const node = getKnowledgeNode(candidate);
+    if (node) return node;
+  }
+  return null;
 }

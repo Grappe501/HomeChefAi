@@ -1,0 +1,17 @@
+{
+  "id": "ingredient.tomato.cherry",
+  "type": "ingredient",
+  "display_name": "Cherry Tomatoes",
+  "parent_id": "ingredient.tomato",
+  "attributes": {
+    "variant_of": "ingredient.tomato",
+    "variant_key": "cherry",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    }
+  },
+  "sources": [
+    "generate-variant-nodes"
+  ]
+}

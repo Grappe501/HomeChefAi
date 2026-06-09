@@ -5,6 +5,7 @@ import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
 import { useToast } from '@/hooks/useToast';
 import { VoiceInput } from '@/components/VoiceButton';
+import { MealWhyPanel } from '@/components/MealWhyPanel';
 import type { MealPlan, MealPlanData, PlannedMeal } from '@/types';
 import {
   COOKING_STYLES,
@@ -97,6 +98,7 @@ export default function MealPlanner() {
   const [message, setMessage] = useState('');
   const [suggestions, setSuggestions] = useState<MealPlanData | null>(null);
   const [activePlan, setActivePlan] = useState<MealPlan | null>(null);
+  const [expandedWhyKey, setExpandedWhyKey] = useState<string | null>(null);
 
   useEffect(() => {
     mealsApi.list().then((r) => {
@@ -207,15 +209,8 @@ export default function MealPlanner() {
     toast.success(action === 'keep' ? 'Kept — Clara notes what works for you.' : 'Replace noted — Clara will learn from this.');
   };
 
-  const explainMeal = (m: PlannedMeal) => {
-    const parts = [m.description || 'Uses your inventory and household preferences.'];
-    if (m.tags?.length) {
-      parts.push(`Tags: ${m.tags.map((t) => mealTagLabel(t as MealTagId)).join(', ')}.`);
-    }
-    if (m.name.toLowerCase().startsWith('leftover')) {
-      parts.push('Leftover from a prior dinner — saves money and reduces waste.');
-    }
-    toast.info(parts.join(' '));
+  const toggleExplainMeal = (key: string) => {
+    setExpandedWhyKey((prev) => (prev === key ? null : key));
   };
 
   return (
@@ -503,12 +498,17 @@ export default function MealPlanner() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => explainMeal(m)}
-                    className="tap-item flex-1 py-2 text-xs"
+                    onClick={() => toggleExplainMeal(key)}
+                    className={`tap-item flex-1 py-2 text-xs ${expandedWhyKey === key ? 'tap-item-selected' : ''}`}
                   >
                     Why this?
                   </button>
                 </div>
+                {expandedWhyKey === key && (
+                  <div className="mt-3">
+                    <MealWhyPanel meal={m} onClose={() => setExpandedWhyKey(null)} />
+                  </div>
+                )}
               </div>
             );
           })}

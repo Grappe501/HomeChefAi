@@ -1,0 +1,16 @@
+{
+  "id": "ingredient.chicken.drumstick",
+  "type": "ingredient",
+  "display_name": "Chicken Drumsticks",
+  "parent_id": "ingredient.chicken",
+  "attributes": {
+    "variant_of": "ingredient.chicken",
+    "variant_key": "drumstick",
+    "dietary": {
+      "contains_meat": true
+    }
+  },
+  "sources": [
+    "generate-variant-nodes"
+  ]
+}

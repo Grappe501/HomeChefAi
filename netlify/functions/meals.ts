@@ -7,6 +7,8 @@ import { checkAndIncrementQuota, quotaErrorResponse } from './utils/quotas.js';
 import { awardXpDevStore, awardXpSupabase, XP_AWARDS } from './utils/gamification.js';
 import type { MealPlanData, InventoryItem, Profile, PlannedMeal, ShoppingItem } from '../../src/types/index';
 import { computePlanMetrics } from './utils/planMetrics.js';
+import { formatInventoryForAI, formatInventorySummary } from './utils/inventoryContext.js';
+import { enrichMealsWithIntelligence, buildMealIntelligence } from './utils/ai/mealExplain.js';
 
 type MealCounts = { breakfasts: number; lunches: number; dinners: number; snacks: number };
 
@@ -50,9 +52,7 @@ async function loadKitchenContext(userId: string, token: string | undefined) {
 }
 
 function formatInventoryList(inventory: InventoryItem[]): string {
-  const lines = inventory.slice(0, 48).map((i) => `${i.name}: ${i.quantity} ${i.unit}`);
-  if (inventory.length > 48) lines.push(`…and ${inventory.length - 48} more items`);
-  return lines.join('\n') || 'Empty — suggest starter meals and shopping list';
+  return formatInventoryForAI(inventory);
 }
 
 function totalMeals(counts: MealCounts): number {
@@ -345,6 +345,7 @@ ${realismLine}
 ${cookLine}
 Inventory:
 ${inventoryList}
+(${formatInventorySummary(inventory)})
 ${params.message ? `Chef request: ${params.message}` : ''}
 ${shoppingNote}
 Use "day" field values ${params.startDay} through ${params.startDay + params.dayCount - 1}.`;
@@ -534,7 +535,20 @@ export const handler: Handler = withCors(async (event) => {
         message: 'Suggest 3 dinner ideas using ONLY inventory. Minimize missing ingredients.',
         includeShoppingList: false,
       });
-      return jsonResponse({ suggestions: planData });
+      return jsonResponse({ suggestions: enrichMealsWithIntelligence(planData, inventory, profile) });
+    }
+
+    if (body.action === 'explain-meal') {
+      const meal = (body as { meal?: PlannedMeal }).meal;
+      if (!meal) return errorResponse('meal required', 400);
+      const intelligence = buildMealIntelligence({
+        meal,
+        inventory,
+        profile,
+        coverage: (body as { coverage?: MealPlanData['coverage'] }).coverage,
+        metrics: (body as { metrics?: MealPlanData['metrics'] }).metrics,
+      });
+      return jsonResponse({ intelligence });
     }
 
     const quota = await checkAndIncrementQuota(userId, 'meal_plans');
@@ -559,6 +573,7 @@ export const handler: Handler = withCors(async (event) => {
       cook_nights: body.cook_nights,
       preset: body.coverage_preset,
     };
+    const enrichedPlanData = enrichMealsWithIntelligence(planData, inventory, profile);
     const planId = uuidv4();
     const startDate = new Date();
     const endDate = new Date();
@@ -573,7 +588,7 @@ export const handler: Handler = withCors(async (event) => {
       days,
       budget: body.budget,
       status: 'active',
-      plan_data: planData,
+      plan_data: enrichedPlanData,
       created_at: new Date().toISOString(),
     };
 
@@ -597,7 +612,7 @@ export const handler: Handler = withCors(async (event) => {
       days,
       budget: body.budget || null,
       status: 'active',
-      plan_data: planData,
+      plan_data: enrichedPlanData,
     });
     if (insertErr) return errorResponse(insertErr.message, 500);
     const xp = await awardXpSupabase(db, userId, XP_AWARDS.meal_plan);

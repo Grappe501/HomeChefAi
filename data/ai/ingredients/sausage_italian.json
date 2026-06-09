@@ -1,0 +1,16 @@
+{
+  "id": "ingredient.sausage.italian",
+  "type": "ingredient",
+  "display_name": "Italian Sausage",
+  "parent_id": "ingredient.sausage",
+  "attributes": {
+    "variant_of": "ingredient.sausage",
+    "variant_key": "italian",
+    "dietary": {
+      "contains_meat": true
+    }
+  },
+  "sources": [
+    "generate-variant-nodes"
+  ]
+}

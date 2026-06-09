@@ -1,9 +1,10 @@
 import type { Handler } from '@netlify/functions';
 import { withCors, jsonResponse, errorResponse, parseBody, requireAuth } from './utils/response.js';
-import { useDevStore, loadStore, saveStore } from './utils/db.js';
-import { getSupabaseUserClient, useDevStore } from './utils/supabase.js';
+import { useDevStore, loadStore } from './utils/db.js';
+import { getSupabaseUserClient } from './utils/supabase.js';
 import { checkAndIncrementQuota, quotaErrorResponse } from './utils/quotas.js';
 import type { InventoryItem, Profile } from '../../src/types/index';
+import { formatInventoryForAI, formatInventorySummary } from './utils/inventoryContext.js';
 
 async function assistantReply(
   message: string,
@@ -12,7 +13,8 @@ async function assistantReply(
   history: { role: string; content: string }[] = []
 ): Promise<{ reply: string; suggested_items?: { name: string; quantity: number; unit: string }[]; action?: string }> {
   const apiKey = process.env.OPENAI_API_KEY;
-  const inventoryList = inventory.map((i) => `${i.name}: ${i.quantity} ${i.unit}`).join(', ') || 'empty';
+  const inventoryBlock = formatInventoryForAI(inventory);
+  const inventoryMeta = formatInventorySummary(inventory);
 
   if (!apiKey) {
     if (message.toLowerCase().includes('grilled cheese')) {
@@ -26,7 +28,7 @@ async function assistantReply(
         action: 'confirm_usage',
       };
     }
-    return { reply: `Hi! I'm ${profile.assistant_name}. Add your OPENAI_API_KEY for full AI assistant. Your pantry: ${inventoryList}` };
+    return { reply: `Hi! I'm ${profile.assistant_name}. Add your OPENAI_API_KEY for full AI assistant. Pantry (${inventoryMeta}):\n${inventoryBlock}` };
   }
 
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -40,8 +42,10 @@ async function assistantReply(
       messages: [
         {
           role: 'system',
-          content: `You are ${profile.assistant_name}, a friendly kitchen sous chef. User dietary: ${profile.dietary_restrictions.join(', ')}. Cuisines: ${profile.cuisine_preferences.join(', ')}. Pantry: ${inventoryList}. 
-When user says they cooked something, suggest ingredients used and ask for confirmation. Return JSON: {"reply":"string","suggested_items":[{"name":"string","quantity":number,"unit":"string"}],"action":"confirm_usage|suggest_meal|general"}
+          content: `You are ${profile.assistant_name}, a friendly kitchen sous chef. User dietary: ${profile.dietary_restrictions.join(', ')}. Cuisines: ${profile.cuisine_preferences.join(', ')}. Allergies: ${profile.allergies.join(', ')}.
+Pantry (${inventoryMeta}) — each line includes knowledge_id in brackets for ingredient intelligence:
+${inventoryBlock}
+When user says they cooked something, suggest ingredients used and ask for confirmation. For substitutions, prefer pantry items with matching knowledge ids. Return JSON: {"reply":"string","suggested_items":[{"name":"string","quantity":number,"unit":"string"}],"action":"confirm_usage|suggest_meal|general"}
 Be concise, warm, one-thumb friendly. Reference memory: last meals from context.`,
         },
         ...history.slice(-6),
@@ -82,6 +86,8 @@ export const handler: Handler = withCors(async (event) => {
       inventory = (items ?? []) as InventoryItem[];
       const { data: prof } = await db.from('profiles').select('*').eq('user_id', userId).single();
       profile = prof as Profile;
+    } else {
+      return errorResponse('Missing token', 401);
     }
 
     const result = await assistantReply(body.message, inventory, profile, body.history || []);

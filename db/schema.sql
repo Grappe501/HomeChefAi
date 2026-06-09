@@ -37,6 +37,8 @@ CREATE TABLE IF NOT EXISTS inventory_items (
   location TEXT DEFAULT 'pantry',
   added_via TEXT DEFAULT 'manual',
   notes TEXT,
+  knowledge_id TEXT,
+  taxonomy_id TEXT,
   low_stock_threshold NUMERIC DEFAULT 0,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
