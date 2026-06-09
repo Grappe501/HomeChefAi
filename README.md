@@ -2,23 +2,23 @@
 
 **Your Kitchen Has A Memory.**
 
-SousChef is a household food operating system — pantry inventory, receipt scanning, Kitchen Memory (Brain 2.0), AI meal planning with reasoning, nutrition estimates, site search, Cook Together households, skills coaching, and hosting experience plans.
+SousChef is a household food operating system — pantry inventory, receipt and photo scanning, Brain 4.0 proactive intelligence, Clara tool router, AI meal planning, Hosting Studio, site search, Cook Together households, and a 270+ node knowledge graph.
 
-Consumer brand: **SousChef** · Legal entity: **HomeChef AI**
+Consumer brand: **SousChef** · Legal entity: **HomeChef AI** · **v4.0**
 
 Production: https://home-chef-ai.netlify.app  
 Launch page: https://home-chef-ai.netlify.app/landing
 
-## Features (3.0)
+## Features (4.0)
 
-- **Clara Brain 3.0** — context assembler, substitution pipeline (graph-first), evidence chips
-- **Unified AI credits** — 30 / 150 / 300 monthly pools aligned with legal policy
-- **Inventory** — receipt scanning, pantry/fridge/freezer, knowledge-linked items (270+ nodes)
-- **Kitchen Memory** — Brain 2.0 graph, patterns, kitchen identity, decision ledger
-- **Kitchen Intelligence** — 3-direction meal flow, Why this?, nutrition estimates, replace meal
-- **Kitchen Growth** — technique micro-lessons, Cook Together coach, skill memories
-- **Kitchen Legacy** — hosting timelines, tradition memories, recipe lineage
-- **Marketing site** — platform drill-down, Kitchen Academy, site search (Find + Ask)
+- **Brain 4.0** — Clara Tool Router, proactive predictions, expert council synthesis, pantry vision
+- **Clara** — graph-first substitutions (0 credits), evidence chips, mobile session refresh
+- **Unified AI credits** — 30 / 150 / 300 monthly pools aligned with legal policy v2.3
+- **Inventory** — receipt scan, pantry photo scan, wizard, knowledge-linked items (270+ nodes)
+- **Kitchen Memory** — Brain 2.0 graph, proactive cards, kitchen identity, decision ledger
+- **Kitchen Intelligence** — 3-direction flow, Why this?, nutrition, cook log infer, calendar
+- **Kitchen Legacy** — Hosting Studio (live), neighbor swap, tradition memories, Cook Together
+- **Marketing site v4** — editorial redesign, Brain 4.0 platform map, legal v2.3
 
 ## Tech Stack
 
@@ -76,7 +76,7 @@ Marketing site is integrated in the main app at `/landing` (legacy `marketing/` 
 
 ## Legal
 
-Published at `/legal/` — Terms, Privacy, AI Usage, Community Rules, Sub-processors (v2.2 frameworks).
+Published at `/legal/` — Terms, Privacy, AI Usage, Community Rules, Sub-processors (v2.3 · Brain 4.0).
 
 ## Database Migrations
 

@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import { Sparkles } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { SITE_STATS, BRAIN_4_PILLARS } from '@/content/marketingContent';
 
 export type MockVariant =
   | 'pantry'
@@ -10,7 +13,9 @@ export type MockVariant =
   | 'assistant'
   | 'hosting'
   | 'skills'
-  | 'household';
+  | 'household'
+  | 'proactive'
+  | 'pantry-photo';
 
 interface ProductMockProps {
   variant: MockVariant;
@@ -133,6 +138,32 @@ function renderMock(variant: MockVariant) {
           <p className="rounded-lg bg-stainless-50 p-2">Shared pantry · shared Brain</p>
         </div>
       );
+    case 'proactive':
+      return (
+        <div className="space-y-2 text-xs">
+          <p className="font-semibold text-chef">Clara&apos;s proactive read</p>
+          <div className="rounded-lg border-l-2 border-l-amber-500 bg-amber-50/80 p-2">
+            <p className="font-medium text-amber-900">Use before waste</p>
+            <p className="text-chef-subtle mt-0.5">Spinach, cream — 3 directions</p>
+          </div>
+          <div className="rounded-lg border-l-2 border-l-copper-500 bg-copper-50/60 p-2">
+            <p className="font-medium">Likely this week</p>
+            <p className="text-chef-subtle mt-0.5">Cajun · Italian · Comfort</p>
+          </div>
+          <p className="text-[10px] text-emerald-700 font-medium">0 credits · tap → Clara</p>
+        </div>
+      );
+    case 'pantry-photo':
+      return (
+        <div className="space-y-2 text-xs">
+          <p className="font-semibold text-chef">Pantry Photo</p>
+          <div className="rounded-lg bg-stainless-100 p-2 border border-dashed border-steel">
+            <p className="text-chef-subtle">Fridge scan · 8 items</p>
+          </div>
+          <p className="text-chef-subtle">Milk · Eggs · Butter · …</p>
+          <p className="text-[10px] text-copper-700">linked: ingredient.dairy.milk</p>
+        </div>
+      );
     default:
       return null;
   }
@@ -141,38 +172,85 @@ function renderMock(variant: MockVariant) {
 /** Map feature ids to mock variants */
 export const FEATURE_MOCKS: Record<string, MockVariant> = {
   'receipt-scan': 'receipt',
+  'pantry-photo-scan': 'pantry-photo',
   'pantry-wizard': 'pantry',
   'inventory-mgmt': 'pantry',
   'knowledge-graph': 'pantry',
   'brain-insights': 'brain',
+  'proactive-intelligence': 'proactive',
   'decision-ledger': 'planner',
   'household-graph': 'household',
   'meal-planner': 'planner',
   'why-this': 'why-panel',
   'three-directions': 'assistant',
+  'clara-tool-router': 'assistant',
+  'expert-synthesis': 'assistant',
+  'evidence-chips': 'assistant',
   clara: 'assistant',
+  'cook-log-infer': 'cook',
   'cook-coach': 'skills',
   hosting: 'hosting',
   'cook-together': 'household',
+  'neighbor-swap': 'household',
 };
-
-import { SITE_STATS } from '@/content/marketingContent';
 
 export function SiteStatsStrip({ dark }: { dark?: boolean }) {
   const stats = [
     { n: SITE_STATS.knowledgeNodes, l: 'Knowledge nodes' },
-    { n: SITE_STATS.platformLayers, l: 'Platform layers' },
+    { n: `Brain ${SITE_STATS.brainVersion}`, l: 'Clara intelligence' },
     { n: SITE_STATS.liveFunctions, l: 'Live functions' },
-    { n: SITE_STATS.visionTopics, l: 'Vision topics' },
+    { n: SITE_STATS.platformLayers, l: 'Platform layers' },
   ];
   return (
-    <div className={`grid grid-cols-2 sm:grid-cols-4 gap-4 ${dark ? 'text-white' : ''}`}>
+    <div className={`grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 ${dark ? 'text-white' : ''}`}>
       {stats.map((s) => (
-        <div key={s.l} className={`text-center ${dark ? '' : 'rounded-xl border border-steel/60 bg-white py-4'}`}>
-          <p className={`font-display text-2xl ${dark ? 'text-white' : 'text-chef'}`}>{s.n}</p>
-          <p className={`text-xs mt-0.5 ${dark ? 'text-white/45' : 'text-chef-subtle'}`}>{s.l}</p>
+        <div
+          key={s.l}
+          className={
+            dark
+              ? 'marketing-stat-glass'
+              : 'text-center rounded-2xl border border-steel/60 bg-white py-5 shadow-card'
+          }
+        >
+          <p className={`font-display text-2xl md:text-[1.65rem] ${dark ? 'text-white' : 'text-chef'}`}>{s.n}</p>
+          <p className={`text-[11px] mt-1 uppercase tracking-wide font-medium ${dark ? 'text-white/45' : 'text-chef-subtle'}`}>
+            {s.l}
+          </p>
         </div>
       ))}
+    </div>
+  );
+}
+
+export function Brain4Strip({
+  dark,
+  pillars,
+  icons,
+}: {
+  dark?: boolean;
+  pillars: readonly (typeof BRAIN_4_PILLARS)[number][];
+  icons: Record<string, LucideIcon>;
+}) {
+  return (
+    <div className="grid gap-4 sm:grid-cols-2">
+      {pillars.map((p, i) => {
+        const Icon = icons[p.id as keyof typeof icons] ?? Sparkles;
+        return (
+          <div
+            key={p.id}
+            className={`marketing-pillar marketing-animate-in ${dark ? 'marketing-pillar-dark' : 'marketing-pillar-light'}`}
+            style={{ animationDelay: `${0.08 + i * 0.06}s` }}
+          >
+            <Icon size={20} className={dark ? 'text-copper-400' : 'text-copper-600'} aria-hidden />
+            <h3 className={`font-display text-lg mt-3 tracking-tight ${dark ? 'text-white' : 'text-chef'}`}>
+              {p.title}
+            </h3>
+            <p className={`mt-2 text-sm leading-relaxed ${dark ? 'text-white/60' : 'text-chef-subtle'}`}>
+              {p.summary}
+            </p>
+          </div>
+        );
+      })}
     </div>
   );
 }

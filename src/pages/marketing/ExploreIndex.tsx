@@ -18,9 +18,9 @@ export default function ExploreIndex() {
         path="/explore"
       />
       <PageHeader
-        eyebrow="The platform"
+        eyebrow="The platform · Brain 4.0"
         title="Five layers. One kitchen that gets smarter."
-        lead="Tap a layer to see every feature — live, beta, and links to the roadmap. Status badges tell you what's shipping today."
+        lead="22 live functions mapped with honest status badges — including proactive Brain, pantry vision, and Hosting Studio."
       />
 
       <div className="mx-auto max-w-5xl px-5 pb-10">
@@ -33,7 +33,7 @@ export default function ExploreIndex() {
             const Icon = layer.icon;
             return (
               <Link key={layer.id} to={`/explore/${layer.id}`} className="block group">
-                <article className="rounded-2xl border border-steel/80 bg-white p-5 hover:border-copper-500/40 hover:shadow-elevated transition">
+                <article className="marketing-pillar marketing-pillar-light group-hover:shadow-elevated">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-bold text-copper-600">{layer.level}</span>

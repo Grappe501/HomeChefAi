@@ -1,49 +1,155 @@
-/* Marketing site — SousChef v1 */
+/* SousChef Marketing — v4 editorial system */
 
 .marketing-grain {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
 }
 
-.layer-hero-inventory { background: linear-gradient(135deg, #f4f7f4 0%, #eef2ed 100%); }
-.layer-hero-memory { background: linear-gradient(135deg, #f5ede4 0%, #faf6f1 100%); }
-.layer-hero-intelligence { background: linear-gradient(135deg, #111315 0%, #1a1d21 100%); color: white; }
-.layer-hero-growth { background: linear-gradient(135deg, #eef2ed 0%, #e8ebe3 100%); }
-.layer-hero-legacy { background: linear-gradient(135deg, #f3eaec 0%, #faf6f7 100%); }
+/* Hero mesh — warm copper + deep chef */
+.marketing-hero-mesh {
+  position: relative;
+  overflow: hidden;
+}
+.marketing-hero-mesh::before {
+  content: '';
+  position: absolute;
+  inset: -40% -20% auto -20%;
+  height: 70%;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 40%, rgba(184, 115, 51, 0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 40% at 85% 15%, rgba(138, 154, 132, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 45% at 60% 80%, rgba(184, 115, 51, 0.08) 0%, transparent 45%);
+  pointer-events: none;
+}
+.marketing-hero-mesh::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+}
 
+.marketing-hero-light {
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 0%, rgba(184, 115, 51, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 50% at 90% 20%, rgba(102, 120, 95, 0.06) 0%, transparent 45%),
+    linear-gradient(180deg, #fafbfc 0%, #f5f7f8 100%);
+}
+
+/* Glass stat cards (dark hero) */
+.marketing-stat-glass {
+  @apply rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm px-4 py-5 text-center transition;
+}
+.marketing-stat-glass:hover {
+  @apply border-white/20 bg-white/[0.09];
+}
+
+/* Feature pillar cards */
+.marketing-pillar {
+  @apply relative rounded-2xl border p-6 overflow-hidden transition duration-300;
+}
+.marketing-pillar-dark {
+  @apply border-white/10 bg-white/[0.04] hover:border-copper-400/40 hover:bg-white/[0.07];
+}
+.marketing-pillar-light {
+  @apply border-steel/70 bg-white shadow-card hover:border-copper-400/40 hover:shadow-elevated;
+}
+.marketing-pillar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(184, 115, 51, 0.55), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.marketing-pillar:hover::before {
+  opacity: 1;
+}
+
+/* Accent label */
+.marketing-eyebrow {
+  @apply text-[11px] font-bold uppercase tracking-[0.22em];
+}
+
+/* Layer heroes — richer gradients */
+.layer-hero-inventory {
+  background: linear-gradient(145deg, #eef2ed 0%, #f8faf7 40%, #e8ebe3 100%);
+}
+.layer-hero-memory {
+  background: linear-gradient(145deg, #f5ede4 0%, #faf6f1 50%, #edd9c8 100%);
+}
+.layer-hero-intelligence {
+  background: linear-gradient(145deg, #0d0f11 0%, #111315 35%, #1a1d21 70%, #252a30 100%);
+  color: white;
+}
+.layer-hero-growth {
+  background: linear-gradient(145deg, #eef2ed 0%, #dde5da 100%);
+}
+.layer-hero-legacy {
+  background: linear-gradient(145deg, #f3eaec 0%, #faf6f7 50%, #edd9c8 100%);
+}
+
+/* Phone mock */
 .mock-phone {
-  @apply rounded-[1.75rem] border-[3px] border-chef/10 bg-white shadow-elevated overflow-hidden;
+  @apply rounded-[1.85rem] border-[3px] border-steel bg-white overflow-hidden;
+  box-shadow:
+    0 4px 24px rgba(17, 19, 21, 0.12),
+    0 0 0 1px rgba(17, 19, 21, 0.04);
+}
+.mock-phone-glow {
+  box-shadow:
+    0 0 60px rgba(184, 115, 51, 0.15),
+    0 4px 24px rgba(17, 19, 21, 0.14);
 }
 
 .mock-statusbar {
-  @apply h-6 bg-stainless-100 flex items-center justify-center;
+  @apply h-7 bg-stainless-100 flex items-center justify-center;
 }
-
 .mock-statusbar span {
-  @apply w-16 h-1 rounded-full bg-steel;
+  @apply w-20 h-1 rounded-full bg-steel/80;
 }
 
 .stack-connector {
-  @apply w-px h-6 bg-steel mx-auto;
+  @apply w-px h-6 bg-steel/80 mx-auto;
 }
 
+/* Pricing highlight ring */
+.marketing-tier-highlight {
+  @apply relative ring-2 ring-copper-500/50 shadow-elevated;
+}
+.marketing-tier-highlight::after {
+  content: 'Popular';
+  @apply absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-copper-500 px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white;
+}
+
+/* Animations */
 @keyframes marketing-fade-up {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
+}
+@keyframes marketing-shimmer {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
 }
 
 .marketing-animate-in {
-  animation: marketing-fade-up 0.6s ease-out both;
+  animation: marketing-fade-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-
-.marketing-animate-in-delay-1 { animation-delay: 0.08s; }
-.marketing-animate-in-delay-2 { animation-delay: 0.16s; }
-.marketing-animate-in-delay-3 { animation-delay: 0.24s; }
+.marketing-animate-in-delay-1 { animation-delay: 0.1s; }
+.marketing-animate-in-delay-2 { animation-delay: 0.2s; }
+.marketing-animate-in-delay-3 { animation-delay: 0.3s; }
+.marketing-animate-in-delay-4 { animation-delay: 0.4s; }
 
 @media (prefers-reduced-motion: reduce) {
   .marketing-animate-in,
   .marketing-animate-in-delay-1,
   .marketing-animate-in-delay-2,
-  .marketing-animate-in-delay-3 {
+  .marketing-animate-in-delay-3,
+  .marketing-animate-in-delay-4 {
     animation: none;
     opacity: 1;
     transform: none;

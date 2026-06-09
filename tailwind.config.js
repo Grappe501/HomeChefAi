@@ -49,7 +49,11 @@ export default {
       },
       boxShadow: {
         card: '0 1px 3px rgba(17, 19, 21, 0.06)',
-        elevated: '0 2px 8px rgba(17, 19, 21, 0.08)',
+        elevated: '0 4px 20px rgba(17, 19, 21, 0.1)',
+        glow: '0 0 48px rgba(184, 115, 51, 0.18)',
+      },
+      backgroundImage: {
+        'marketing-radial': 'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(184, 115, 51, 0.12), transparent)',
       },
       maxWidth: {
         content: '680px',

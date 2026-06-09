@@ -33,10 +33,18 @@ export default function StoryPage() {
         </section>
 
         <section>
+          <h2 className="font-display text-xl text-chef mb-3">Brain 4.0 — Clara thinks in tools</h2>
+          <p className="text-chef-subtle">
+            Every Clara message runs deterministic tools first: pantry lookup, substitutions, brain patterns, ledger context.
+            Proactive cards on Home and Brain surface expiring food and likely meals at zero credits.
+            Complex asks invoke an expert council — Nutritionist, Budget Analyst, Executive Chef — merged into one voice with evidence you can read.
+          </p>
+        </section>
+
+        <section>
           <h2 className="font-display text-xl text-chef mb-3">Clara is the product</h2>
           <p className="text-chef-subtle">
-            Clara is not a feature inside the app — she is the intelligence layer. Orchestrated experts on a shared knowledge graph:
-            executive chef, food historian, nutritionist, dinner host, preservation expert. One voice. Evidence you can read.
+            Clara is not a feature inside the app — she is the intelligence layer. Hosting Studio, pantry photo scan, and graph-first cook log inference extend the same memory that compounds every week you cook.
           </p>
         </section>
 

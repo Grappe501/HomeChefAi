@@ -5,20 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy — SousChef</title>
   <link rel="icon" href="/favicon.svg" />
-  <style>
-    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem; color: #253328; line-height: 1.65; }
-    h1 { font-family: Georgia, serif; color: #b94409; }
-    h2 { font-size: 1.1rem; margin-top: 1.75rem; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 1rem 0; }
-    th, td { border: 1px solid #e3ebe3; padding: 0.5rem 0.65rem; text-align: left; vertical-align: top; }
-    th { background: #f4f7f4; }
-    a { color: #b94409; }
-    .meta { color: #739576; font-size: 0.9rem; margin-bottom: 2rem; }
-    footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e3ebe3; font-size: 0.85rem; color: #739576; }
-  </style>
+  <link rel="stylesheet" href="/legal/legal.css" />
 </head>
 <body>
-  <p class="meta"><a href="/landing">← SousChef</a> · Effective June 2026 · Version 2.2</p>
+  <p class="meta"><a href="/landing">← SousChef</a> · Effective June 2026 · Version 2.3</p>
   <h1>Privacy Policy</h1>
   <p><strong>SousChef learns your kitchen — not to sell you, but to serve you.</strong> We build a memory of how your household shops, cooks, and eats so you can waste less and preserve what matters.</p>
   <p>Operated by <strong>HomeChef AI</strong>. Consumer product name: <strong>SousChef</strong>.</p>
@@ -31,6 +21,7 @@
     <tr><td>Kitchen identity</td><td>Kitchen name, cooking level, priorities</td><td>Memory + onboarding</td></tr>
     <tr><td>Inventory</td><td>Pantry items, quantities, locations, expiration</td><td>Core product</td></tr>
     <tr><td>Receipts</td><td>Store, items, prices, parse results</td><td>Pantry automation</td></tr>
+    <tr><td>Pantry photos</td><td>Fridge/shelf images you upload for vision scan</td><td>Inventory extraction (OpenAI vision)</td></tr>
     <tr><td>Cook log</td><td>Meals cooked, ingredients used</td><td>Brain + inventory</td></tr>
     <tr><td>Brain memories</td><td>Patterns, insights, confidence scores</td><td>Kitchen Memory</td></tr>
     <tr><td>Household</td><td>Members, invites, shared kitchen</td><td>Cook Together</td></tr>
@@ -55,11 +46,12 @@
   <p>Invited household members can see shared inventory, Brain insights, and cook logs. Each member has their own account. Household admin can remove members. Leaving a household removes access to shared kitchen data; personal account data is retained.</p>
   <p>Service is not directed at children under 13. Parental consent required for minors.</p>
 
-  <h2>AI &amp; receipt processing</h2>
+  <h2>AI, vision &amp; receipt processing</h2>
   <ul>
-    <li>Receipt images may be sent to OpenAI for OCR — you may use manual entry instead</li>
+    <li>Receipt and pantry photos may be sent to OpenAI for vision parsing — you review all items before adding; manual entry always available</li>
+    <li>Clara (Brain 4.0) runs deterministic tools before GPT; proactive prediction cards use no OpenAI</li>
     <li>Assistant prompts include pantry/profile context appropriate to your tier</li>
-    <li>Brain 1.0A insights are computed deterministically on our servers — no OpenAI for core math</li>
+    <li>Brain insights are computed deterministically on our servers — no OpenAI for core math</li>
     <li>Marketing site Ask mode uses site content only — not your personal pantry</li>
   </ul>
 
@@ -78,7 +70,7 @@
 
   <footer>
     <p>© 2026 HomeChef AI · <a href="/legal/terms.html">Terms</a> · <a href="/legal/ai-usage.html">AI Usage</a> · <a href="/legal/sub-processors.html">Sub-processors</a></p>
-    <p><em>Framework v2.2 — attorney review recommended before first paid charge.</em></p>
+    <p><em>Framework v2.3 — reflects Brain 4.0 pantry vision and proactive intelligence. Attorney review recommended before first paid charge.</em></p>
   </footer>
 </body>
 </html>

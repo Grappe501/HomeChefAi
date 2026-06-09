@@ -12,16 +12,18 @@ export default function HowItWorks() {
         description="Capture, remember, act — three moves that power SousChef's Household Food Operating System."
         path="/how"
       />
-      <PageHeader
-        eyebrow="Our approach"
-        title="Capture. Remember. Act."
-        lead="Three moves — then five layers of depth. No black box. Evidence you can read."
-      />
+      <div className="marketing-hero-light border-b border-steel/60">
+        <PageHeader
+          eyebrow="Our approach · Brain 4.0"
+          title="Capture. Remember. Act."
+          lead="Photo the pantry. Let Brain predict. Clara runs tools — then speaks."
+        />
+      </div>
 
-      <div className="mx-auto max-w-5xl px-5 pb-12">
-        <div className="grid gap-6 md:grid-cols-3">
+      <div className="mx-auto max-w-5xl px-5 py-12">
+        <div className="grid gap-6 md:grid-cols-3 relative">
           {HOW_IT_WORKS.map((s, i) => (
-            <div key={s.step} className="relative rounded-2xl border border-steel/80 bg-white p-6 marketing-animate-in" style={{ animationDelay: `${i * 0.08}s` }}>
+            <div key={s.step} className="marketing-pillar marketing-pillar-light marketing-animate-in" style={{ animationDelay: `${i * 0.08}s` }}>
               <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-chef text-white text-xs font-bold">{s.step}</span>
               <h3 className="font-display text-xl mt-4">{s.title}</h3>
               <p className="text-sm text-chef-subtle mt-2 leading-relaxed">{s.body}</p>

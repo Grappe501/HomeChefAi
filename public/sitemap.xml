@@ -9,6 +9,11 @@
   <url><loc>https://home-chef-ai.netlify.app/explore/growth/skill-journey</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/intelligence</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/intelligence/clara</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/explore/intelligence/clara-tool-router</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/explore/intelligence/cook-log-infer</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/explore/intelligence/evidence-chips</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/explore/intelligence/expert-synthesis</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/explore/intelligence/kitchen-calendar</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/intelligence/meal-planner</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/intelligence/nutrition-estimates</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/intelligence/replace-meal</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -18,12 +23,14 @@
   <url><loc>https://home-chef-ai.netlify.app/explore/inventory</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/inventory/inventory-mgmt</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/inventory/knowledge-graph</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/explore/inventory/pantry-photo-scan</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/inventory/pantry-wizard</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/inventory/receipt-scan</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/inventory/substitutions</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/legacy</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/legacy/cook-together</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/legacy/hosting</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/explore/legacy/neighbor-swap</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/legacy/recipe-lineage</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/legacy/traditions</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/memory</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -31,6 +38,7 @@
   <url><loc>https://home-chef-ai.netlify.app/explore/memory/brain-sync</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/memory/decision-ledger</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/explore/memory/household-graph</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://home-chef-ai.netlify.app/explore/memory/proactive-intelligence</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/how</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/landing</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://home-chef-ai.netlify.app/learn</loc><lastmod>2026-06-09</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>

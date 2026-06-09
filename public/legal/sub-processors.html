@@ -5,27 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sub-processors — SousChef</title>
   <link rel="icon" href="/favicon.svg" />
-  <style>
-    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem; color: #253328; line-height: 1.65; }
-    h1 { font-family: Georgia, serif; color: #b94409; }
-    h2 { font-size: 1.1rem; margin-top: 1.75rem; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 1rem 0; }
-    th, td { border: 1px solid #e3ebe3; padding: 0.5rem 0.65rem; text-align: left; vertical-align: top; }
-    th { background: #f4f7f4; }
-    a { color: #b94409; }
-    .meta { color: #739576; font-size: 0.9rem; margin-bottom: 2rem; }
-    footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e3ebe3; font-size: 0.85rem; color: #739576; }
-  </style>
+  <link rel="stylesheet" href="/legal/legal.css" />
 </head>
 <body>
-  <p class="meta"><a href="/landing">← SousChef</a> · Updated June 2026 · Version 2.2</p>
+  <p class="meta"><a href="/landing">← SousChef</a> · Updated June 2026 · Version 2.3</p>
   <h1>Sub-processors</h1>
   <p>HomeChef AI (SousChef) uses the following sub-processors to operate the service. We update this list when vendors change.</p>
 
   <table>
     <tr><th>Processor</th><th>Purpose</th><th>Data shared</th><th>Location</th></tr>
     <tr><td><a href="https://supabase.com">Supabase</a></td><td>Database, authentication, storage</td><td>All application data</td><td>US (configurable region)</td></tr>
-    <tr><td><a href="https://openai.com">OpenAI</a></td><td>Receipt OCR, assistant, meal planning, site Ask</td><td>Images, prompts (ephemeral per API terms)</td><td>US</td></tr>
+    <tr><td><a href="https://openai.com">OpenAI</a></td><td>Receipt OCR, pantry vision, Clara assistant, meal planning, expert synthesis, site Ask</td><td>Images, prompts (ephemeral per API terms)</td><td>US</td></tr>
     <tr><td><a href="https://stripe.com">Stripe</a></td><td>Subscription billing</td><td>Email, payment method (when billing enabled)</td><td>US</td></tr>
     <tr><td><a href="https://netlify.com">Netlify</a></td><td>Hosting, serverless functions</td><td>Request metadata, function payloads</td><td>US / global CDN</td></tr>
   </table>

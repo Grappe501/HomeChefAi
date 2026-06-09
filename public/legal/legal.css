@@ -1,0 +1,144 @@
+/* SousChef Legal — v2.3 · matches marketing design system */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --chef: #111315;
+  --chef-muted: #3a3f44;
+  --chef-subtle: #5a646c;
+  --copper: #b87333;
+  --copper-light: #c4864f;
+  --steel: #d7dce0;
+  --stainless: #f5f7f8;
+  --sage: #66785f;
+  --emerald: #059669;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: Inter, system-ui, sans-serif;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+  color: var(--chef-muted);
+  line-height: 1.7;
+  background: linear-gradient(180deg, #fafbfc 0%, var(--stainless) 100%);
+  min-height: 100vh;
+}
+
+a { color: var(--copper); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.meta {
+  color: var(--chef-subtle);
+  font-size: 0.875rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--steel);
+}
+
+.meta a { font-weight: 500; }
+
+h1 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--chef);
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  font-size: 1.05rem;
+  color: var(--chef-muted);
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--chef);
+  margin: 2rem 0 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--steel);
+}
+
+h2:first-of-type { border-top: none; padding-top: 0; }
+
+h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--chef);
+  margin: 1.25rem 0 0.5rem;
+}
+
+p { margin: 0.75rem 0; }
+
+ul, ol { padding-left: 1.35rem; margin: 0.75rem 0; }
+li { margin: 0.35rem 0; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin: 1rem 0;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(17, 19, 21, 0.06);
+}
+
+th, td {
+  border: 1px solid var(--steel);
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--stainless);
+  font-weight: 600;
+  color: var(--chef);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.highlight {
+  background: #f5ede4;
+  border-left: 3px solid var(--copper);
+  padding: 1rem 1.15rem;
+  border-radius: 0 12px 12px 0;
+  margin: 1.25rem 0;
+}
+
+.highlight strong { color: var(--chef); }
+
+.badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: #f5ede4;
+  color: var(--copper);
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  margin-left: 0.35rem;
+  vertical-align: middle;
+}
+
+footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--steel);
+  font-size: 0.85rem;
+  color: var(--chef-subtle);
+}
+
+footer em { font-size: 0.8rem; }
+
+@media (max-width: 600px) {
+  table { font-size: 0.8rem; }
+  th, td { padding: 0.45rem 0.5rem; }
+}

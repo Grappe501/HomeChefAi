@@ -13,8 +13,8 @@ const TIERS = [
     price: '$0',
     period: 'forever',
     highlight: false,
-    blurb: 'Prove the loop. Your kitchen always works.',
-    items: ['30 AI credits / month', 'Pantry & receipt scanning', 'Brain insights (deterministic)', 'Voice Sous Chef'],
+    blurb: 'Prove the loop. Proactive Brain included.',
+    items: ['30 AI credits / month', 'Pantry, receipt & photo scan', 'Proactive predictions (0 credits)', 'Graph substitutions & Brain insights'],
   },
   {
     name: 'Plus',
@@ -22,7 +22,7 @@ const TIERS = [
     period: '/ month',
     highlight: true,
     blurb: 'The busy family kitchen. Clean price, no tricks.',
-    items: ['150 AI credits / month', 'Meal plans & Why this? + nutrition', 'Hosting experience plans', 'Deterministic Brain (all tiers)'],
+    items: ['150 AI credits / month', 'Expert synthesis & meal plans', 'Hosting Studio (5 credits)', 'Why this? + nutrition drill-down'],
   },
   {
     name: 'Family',
@@ -55,17 +55,19 @@ export default function PricingPage() {
       <StickyMobileCTA label={user ? 'Open app' : 'Start free'} />
 
       <PageHeader
-        eyebrow="Pricing"
+        eyebrow="Pricing · Brain 4.0"
         title="Clean prices. No surprise AI bills."
-        lead="Your pantry, recipes, and kitchen data always work — even when AI credits are exhausted."
+        lead="Proactive Brain, graph substitutions, and pantry always work — even at zero credits."
       />
 
       <div className="mx-auto max-w-5xl px-5 pb-12 grid gap-5 md:grid-cols-3">
         {TIERS.map((tier) => (
           <div
             key={tier.name}
-            className={`rounded-2xl border p-7 ${
-              tier.highlight ? 'border-chef bg-chef text-white shadow-elevated md:scale-[1.02]' : 'border-steel/80 bg-white'
+            className={`rounded-2xl border p-7 transition ${
+              tier.highlight
+                ? 'marketing-tier-highlight border-chef bg-chef text-white md:scale-[1.02]'
+                : 'border-steel/80 bg-white shadow-card hover:shadow-elevated'
             }`}
           >
             <h3 className="text-lg font-semibold">{tier.name}</h3>
@@ -119,7 +121,7 @@ export default function PricingPage() {
         </table>
       </div>
 
-      <MarketingFAQ items={MARKETING_FAQ.filter((f) => ['ai-credits', 'household', 'billing'].includes(f.id))} title="Pricing FAQ" />
+      <MarketingFAQ items={MARKETING_FAQ.filter((f) => ['ai-credits', 'brain-4', 'pantry-photo', 'household', 'billing'].includes(f.id))} title="Pricing FAQ" />
 
       <div className="mx-auto max-w-2xl px-5 pb-24 md:pb-16 text-center text-sm text-chef-subtle">
         <p>Full access during beta. Billing via Stripe at launch.</p>
