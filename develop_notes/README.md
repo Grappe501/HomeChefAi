@@ -78,6 +78,7 @@
 |------|----------|
 | [AI_SAVE_POINT_1_0.md](./AI_SAVE_POINT_1_0.md) | Completed vs paused bookmark |
 | [SOUSCHEF_AI_FOUNDATION_1_0.md](./SOUSCHEF_AI_FOUNDATION_1_0.md) | Six layers, sprints, exit criteria |
+| [SOUSCHEF_AI_BUILD_PLAN_95.md](./SOUSCHEF_AI_BUILD_PLAN_95.md) | **Phased execution to 95%** (8 phases) |
 | [AI_ARCHITECTURE_MAP_1_0.md](./AI_ARCHITECTURE_MAP_1_0.md) | One brain — technical map |
 | [../data/ai/README.md](../data/ai/README.md) | Knowledge registry structure |
 
