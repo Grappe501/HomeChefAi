@@ -219,7 +219,7 @@ export function MarketingLayout({ children, crumbs = [], dark = false }: Marketi
             </div>
           </div>
           <p className={`mt-10 text-[11px] ${dark ? 'text-white/30' : 'text-chef-subtle/80'}`}>
-            © {new Date().getFullYear()} HomeChef AI · SousChef v2.2 · Legal frameworks v2.2 — attorney review before first charge.
+            © {new Date().getFullYear()} HomeChef AI · SousChef v3.0 · Legal frameworks v2.2
           </p>
         </div>
       </footer>

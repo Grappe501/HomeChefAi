@@ -2,7 +2,7 @@ import type { Handler } from '@netlify/functions';
 import { withCors, jsonResponse, errorResponse, parseBody, requireAuth } from './utils/response.js';
 import { useDevStore, loadStore } from './utils/db.js';
 import { getSupabaseUserClient } from './utils/supabase.js';
-import { checkAndIncrementQuota, quotaErrorResponse } from './utils/quotas.js';
+import { chargeCredits, quotaErrorResponse } from './utils/quotas.js';
 import type { InventoryItem, Profile } from '../src/types/index';
 import {
   buildExperiencePlan,
@@ -60,8 +60,14 @@ export const handler: Handler = withCors(async (event) => {
     return errorResponse('experience_type required: potluck | dinner_party | game_day | holiday', 400);
   }
 
-  const quota = await checkAndIncrementQuota(user.id, 'meal_plans');
-  if (!quota.allowed) return quotaErrorResponse(quota.limits, quota.usage);
+  const credit = await chargeCredits(user.id, 'hosting_plan');
+  if (!credit.allowed) {
+    return quotaErrorResponse(
+      { ai_credits_used: credit.status.pool },
+      { ai_credits_used: credit.status.used },
+      credit.status,
+    );
+  }
 
   const { inventory, profile } = await loadContext(user.id, user.token);
   const guestCount = Math.min(Math.max(body.guest_count ?? profile.household_size ?? 4, 2), 24);

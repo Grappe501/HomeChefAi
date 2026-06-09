@@ -144,7 +144,7 @@ export const handler: Handler = withCors(async (event) => {
     if (!body.image) return errorResponse('Missing image');
 
     const quota = await checkAndIncrementQuota(userId, 'receipt_scans');
-    if (!quota.allowed) return quotaErrorResponse(quota.limits, quota.usage);
+    if (!quota.allowed) return quotaErrorResponse(quota.limits, quota.usage, quota.credits);
 
     const parsed = await parseReceiptWithOpenAI(body.image);
     const receiptId = uuidv4();

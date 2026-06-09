@@ -641,11 +641,11 @@ export const FEATURE_IN_APP: Record<string, string> = {
 };
 
 export const ROADMAP_PHASES = [
-  { phase: 'Shipped', status: 'live' as const, items: ['Knowledge graph (270+ nodes)', 'Brain 2.0 + ledger', 'Why this? + deep dives', 'Nutrition estimates', 'Site search (Find + Ask)', 'Marketing site v2.2', 'Skills + hosting API', 'Legacy schema'] },
-  { phase: 'Phase 9', status: 'beta' as const, items: ['Hosting UI polish', 'Recipes restore', 'Clara Brain 3.0 orchestration', 'Stripe billing launch'] },
-  { phase: 'Phase 10', status: 'vision' as const, items: ['Famous style layer', 'Kitchen Academy paths', 'Knowledge expansion'] },
-  { phase: 'Phase 11', status: 'vision' as const, items: ['Plate Score / challenges', 'Cookbook social', 'Dinner Club'] },
-  { phase: 'Future', status: 'vision' as const, items: ['Smart kitchen integrations', 'Brain 1.0B', 'Wine cellar', 'Culture engine'] },
+  { phase: 'Shipped', status: 'live' as const, items: ['Clara Brain 3.0 — context assembler + substitution pipeline', 'Unified AI credit ledger (30/150/300)', 'Evidence chips in assistant UI', 'Knowledge graph (270+ nodes)', 'Site search + marketing v2.2', 'Nutrition estimates', 'Brain 2.0 + ledger'] },
+  { phase: 'Phase 10', status: 'beta' as const, items: ['Expert runner parallel calls', 'Stripe billing launch', 'Hosting UI polish', 'Recipes restore'] },
+  { phase: 'Phase 11', status: 'vision' as const, items: ['Brain 1.0B conversational frame', 'Famous style layer', 'Kitchen Academy paths'] },
+  { phase: 'Phase 12', status: 'vision' as const, items: ['Plate Score / challenges', 'Cookbook social', 'Dinner Club'] },
+  { phase: 'Future', status: 'vision' as const, items: ['Smart kitchen integrations', 'Proactive intelligence', 'Culture engine'] },
 ];
 
 export const PRICING_COMPARISON = [

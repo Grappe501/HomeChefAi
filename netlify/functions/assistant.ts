@@ -2,19 +2,22 @@ import type { Handler } from '@netlify/functions';
 import { withCors, jsonResponse, errorResponse, parseBody, requireAuth } from './utils/response.js';
 import { useDevStore, loadStore } from './utils/db.js';
 import { getSupabaseUserClient } from './utils/supabase.js';
-import { checkAndIncrementQuota, quotaErrorResponse } from './utils/quotas.js';
+import { checkAndIncrementQuota, quotaErrorResponse, chargeCredits } from './utils/quotas.js';
 import type { InventoryItem, Profile } from '../../src/types/index';
-import { formatInventoryForAI, formatInventorySummary } from './utils/inventoryContext.js';
+import type { CreditAction } from '../../src/types/credits.js';
+import { isBasicAssistantMessage } from '../../src/types/credits.js';
+import { formatInventoryForAI } from './utils/inventoryContext.js';
 import {
   wantsDirectionsFirst,
   buildDirectionsResponse,
   formatDirectionsReply,
   classifyIntent,
-  expertIdsForIntent,
 } from './utils/ai/orchestrator.js';
 import { buildExperiencePlan, type ExperienceType } from './utils/ai/experienceTimeline.js';
-import { logGenerationToLedger, getRecentLedger } from './utils/ai/ledgerStore.js';
-import { formatRejectHistoryForAssistant, processLedgerOutcomes } from './utils/ai/outcomeProcessor.js';
+import { logGenerationToLedger } from './utils/ai/ledgerStore.js';
+import { buildClaraContext, formatClaraContextForPrompt } from './utils/ai/buildClaraContext.js';
+import { runSubstitutionPipeline } from './utils/ai/substitutionPipeline.js';
+import { expertsForIntent } from './utils/ai/brainRegistry.js';
 
 function detectExperienceType(message: string): ExperienceType {
   if (/\bgame\s*day\b/i.test(message)) return 'game_day';
@@ -41,12 +44,43 @@ async function assistantReply(
   action?: string;
   directions?: import('../../src/types/mealDirections').MealDirection[];
   intent?: string;
+  evidence?: string[];
+  expert_ids?: string[];
+  credit_cost?: number;
+  credits_remaining?: number;
 }> {
   const apiKey = process.env.OPENAI_API_KEY;
   const inventoryBlock = formatInventoryForAI(inventory);
-  const inventoryMeta = formatInventorySummary(inventory);
-
   const intent = classifyIntent(message);
+
+  if (intent === 'substitution') {
+    const sub = runSubstitutionPipeline(message, inventory, profile);
+    if (sub.handled && sub.reply) {
+      await logGenerationToLedger(
+        profile.user_id,
+        token,
+        `generation:substitution:${Date.now()}`,
+        {
+          domain: 'substitution',
+          recommendation: message.slice(0, 120),
+          why: sub.reply.slice(0, 200),
+          evidence: sub.evidence ?? [],
+          confidence: 0.85,
+          expert_ids: sub.expert_ids ?? [],
+          metadata: { source: 'substitution_pipeline' },
+        },
+        profile.household_id,
+      );
+      return {
+        reply: sub.reply,
+        action: sub.action,
+        intent: 'substitution',
+        evidence: sub.evidence,
+        expert_ids: sub.expert_ids,
+        credit_cost: 0,
+      };
+    }
+  }
 
   if (intent === 'hosting') {
     const experienceType = detectExperienceType(message);
@@ -79,7 +113,13 @@ async function assistantReply(
       profile.household_id,
     );
 
-    return { reply, action: 'hosting_plan', intent: 'hosting' };
+    return {
+      reply,
+      action: 'hosting_plan',
+      intent: 'hosting',
+      evidence: plan.evidence,
+      expert_ids: plan.expert_ids,
+    };
   }
 
   if (wantsDirectionsFirst(message)) {
@@ -104,6 +144,8 @@ async function assistantReply(
       action: 'pick_direction',
       directions: dirResult.directions,
       intent: dirResult.intent,
+      evidence: dirResult.directions.flatMap((d) => d.evidence).slice(0, 8),
+      expert_ids: dirResult.expert_ids,
     };
   }
 
@@ -119,16 +161,24 @@ async function assistantReply(
         action: 'confirm_usage',
       };
     }
-    return { reply: `Hi! I'm ${profile.assistant_name}. Add your OPENAI_API_KEY for full AI assistant. Pantry (${inventoryMeta}):\n${inventoryBlock}` };
+    return {
+      reply: `Hi! I'm ${profile.assistant_name}. Add your OPENAI_API_KEY for full AI assistant.\n\nPantry:\n${inventoryBlock}`,
+    };
   }
 
-  const expertIds = expertIdsForIntent(intent === 'general' || intent === 'chat' ? 'chat' : intent);
-
-  let ledgerHint = '';
-  if (intent === 'meal_plan' || intent === 'suggestion') {
-    const ledger = await getRecentLedger(profile.user_id, token, 'meal_plan', 10);
-    ledgerHint = formatRejectHistoryForAssistant(processLedgerOutcomes(ledger));
-  }
+  const ctx = await buildClaraContext(
+    profile.user_id,
+    token,
+    inventory,
+    profile,
+    intent === 'general' ? 'chat' : intent,
+  );
+  const contextBlock = formatClaraContextForPrompt(ctx);
+  const experts = expertsForIntent(intent === 'general' ? 'chat' : intent);
+  const expertBrief = experts
+    .filter((e) => e.id !== 'sous_chef')
+    .map((e) => `${e.displayName}: ${e.role}`)
+    .join('; ');
 
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
@@ -141,13 +191,17 @@ async function assistantReply(
       messages: [
         {
           role: 'system',
-          content: `You are ${profile.assistant_name}, a friendly kitchen sous chef. User dietary: ${profile.dietary_restrictions.join(', ')}. Cuisines: ${profile.cuisine_preferences.join(', ')}. Allergies: ${profile.allergies.join(', ')}.
-Pantry (${inventoryMeta}) — each line includes knowledge_id in brackets for ingredient intelligence:
+          content: `${experts.find((e) => e.id === 'sous_chef')?.systemPromptPrefix ?? 'You are Clara, a kitchen sous chef.'}
+User dietary: ${profile.dietary_restrictions.join(', ') || 'none'}. Cuisines: ${profile.cuisine_preferences.join(', ') || 'any'}. Allergies: ${profile.allergies.join(', ') || 'none'}.
+Expert advisors active: ${expertBrief}.
+Pantry — each line includes knowledge_id in brackets:
 ${inventoryBlock}
-${ledgerHint ? `${ledgerHint}\n` : ''}
-When user asks what to cook, offer 2–3 distinct flavor directions (not one recipe) unless they pick a direction.
-When user says they cooked something, suggest ingredients used and ask for confirmation. For substitutions, prefer pantry items with matching knowledge ids. Return JSON: {"reply":"string","suggested_items":[{"name":"string","quantity":number,"unit":"string"}],"action":"confirm_usage|suggest_meal|pick_direction|general"}
-Be concise, warm, one-thumb friendly. Reference memory: last meals from context.`,
+${contextBlock ? `\nKitchen context:\n${contextBlock}` : ''}
+When user asks what to cook, offer 2–3 distinct flavor directions unless they picked one.
+When user says they cooked something, suggest ingredients used and ask for confirmation.
+For substitutions, prefer pantry items with matching knowledge ids.
+Return JSON: {"reply":"string","suggested_items":[{"name":"string","quantity":number,"unit":"string"}],"action":"confirm_usage|suggest_meal|pick_direction|general"}
+Be concise, warm, evidence-based. Never invent cook history not in context.`,
         },
         ...history.slice(-6),
         { role: 'user', content: message },
@@ -158,7 +212,7 @@ Be concise, warm, one-thumb friendly. Reference memory: last meals from context.
   });
 
   if (!response.ok) throw new Error('Assistant failed');
-  const data = await response.json() as { choices: { message: { content: string } }[] };
+  const data = (await response.json()) as { choices: { message: { content: string } }[] };
   const parsed = JSON.parse(data.choices[0].message.content) as {
     reply: string;
     suggested_items?: { name: string; quantity: number; unit: string }[];
@@ -173,15 +227,20 @@ Be concise, warm, one-thumb friendly. Reference memory: last meals from context.
       domain: 'chat',
       recommendation: parsed.reply.slice(0, 200),
       why: `Assistant reply for intent: ${intent}`,
-      evidence: [],
+      evidence: ctx.evidence,
       confidence: 0.65,
-      expert_ids: expertIds,
+      expert_ids: ctx.expert_ids,
       metadata: { intent, action: parsed.action },
     },
     profile.household_id,
   );
 
-  return { ...parsed, intent };
+  return {
+    ...parsed,
+    intent,
+    evidence: ctx.evidence,
+    expert_ids: ctx.expert_ids,
+  };
 }
 
 export const handler: Handler = withCors(async (event) => {
@@ -193,8 +252,24 @@ export const handler: Handler = withCors(async (event) => {
     const body = parseBody<{ message: string; history?: { role: string; content: string }[] }>(event);
     if (!body?.message) return errorResponse('Missing message');
 
-    const quota = await checkAndIncrementQuota(userId, 'assistant_messages');
-    if (!quota.allowed) return quotaErrorResponse(quota.limits, quota.usage);
+    const intent = classifyIntent(body.message);
+    let creditAction: CreditAction = 'assistant_complex';
+    if (isBasicAssistantMessage(body.message)) creditAction = 'assistant_basic';
+    else if (intent === 'substitution') creditAction = 'assistant_basic';
+    else if (intent === 'hosting') creditAction = 'hosting_plan';
+    else if (intent === 'suggestion' || wantsDirectionsFirst(body.message)) creditAction = 'suggestion';
+
+    const credit = await chargeCredits(userId, creditAction);
+    if (!credit.allowed) {
+      return quotaErrorResponse(
+        { ai_credits_used: credit.status.pool },
+        { ai_credits_used: credit.status.used },
+        credit.status,
+      );
+    }
+
+    // Legacy message counter for analytics
+    await checkAndIncrementQuota(userId, 'assistant_messages', { message: body.message, skipCredit: true });
 
     let inventory: InventoryItem[] = [];
     let profile: Profile;
@@ -214,7 +289,13 @@ export const handler: Handler = withCors(async (event) => {
     }
 
     const result = await assistantReply(body.message, inventory, profile, body.history || [], user.token);
-    return jsonResponse(result);
+    return jsonResponse({
+      ...result,
+      credit_cost: credit.cost,
+      credits_remaining: credit.status.remaining,
+      credits_used: credit.status.used,
+      credits_pool: credit.status.pool,
+    });
   }
 
   return errorResponse('Method not allowed', 405);

@@ -1,15 +1,22 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { LogOut, BookOpen, Globe } from 'lucide-react';
+import { LogOut, BookOpen, Globe, Sparkles } from 'lucide-react';
 import { MARKETING_HOME } from '@/lib/siteNav';
 import { useApp } from '@/hooks/useApp';
-import { productJournalApi } from '@/lib/api';
+import { productJournalApi, billingApi } from '@/lib/api';
 import CookTogetherSection from '@/components/CookTogetherSection';
 
 export default function Settings() {
   const { profile, user, signOut, updateProfile } = useApp();
   const [zip, setZip] = useState((profile as { zip_code?: string })?.zip_code || '');
   const [isFounder, setIsFounder] = useState(!!profile?.is_founder);
+  const [credits, setCredits] = useState<{ used: number; pool: number; remaining: number } | null>(null);
+
+  useEffect(() => {
+    billingApi.status().then((s) => {
+      if (s.credits) setCredits({ used: s.credits.used, pool: s.credits.pool, remaining: s.credits.remaining });
+    }).catch(() => {});
+  }, []);
 
   useEffect(() => {
     setIsFounder(!!profile?.is_founder);
@@ -41,6 +48,31 @@ export default function Settings() {
           </div>
         </Link>
       )}
+
+      <section className="card space-y-2">
+        <h3 className="font-semibold flex items-center gap-2">
+          <Sparkles size={18} className="text-copper-600" /> AI credits
+        </h3>
+        {credits ? (
+          <>
+            <p className="text-sm text-chef-muted">
+              {credits.remaining} of {credits.pool} credits remaining this month
+            </p>
+            <div className="h-2 rounded-full bg-stainless-200 overflow-hidden">
+              <div
+                className="h-full bg-copper-500 transition-all"
+                style={{ width: `${Math.min(100, (credits.used / Math.max(credits.pool, 1)) * 100)}%` }}
+              />
+            </div>
+            <p className="text-xs text-chef-subtle">
+              Pantry and Brain always work at zero credits.{' '}
+              <a href="/legal/ai-usage.html" className="underline">AI Usage Policy</a>
+            </p>
+          </>
+        ) : (
+          <p className="text-xs text-chef-subtle">Full access during beta — credit tracking ready for billing launch.</p>
+        )}
+      </section>
 
       <CookTogetherSection />
 

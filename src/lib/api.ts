@@ -63,7 +63,7 @@ export const profileApi = {
 
 export const billingApi = {
   status: () => api<import('@/types/billing').UsageQuota & { subscription: unknown }>('billing-status'),
-  checkout: (tier: 'pro' | 'family' = 'pro') =>
+  checkout: (tier: 'plus' | 'pro' | 'family' = 'plus') =>
     api<{ url: string }>('billing-status', { method: 'POST', body: JSON.stringify({ tier }) }),
   portal: () =>
     api<{ url: string }>('billing-status', { method: 'POST', body: JSON.stringify({ action: 'portal' }) }),
@@ -232,6 +232,12 @@ export const assistantApi = {
       action?: string;
       directions?: import('@/types/mealDirections').MealDirection[];
       intent?: string;
+      evidence?: string[];
+      expert_ids?: string[];
+      credit_cost?: number;
+      credits_remaining?: number;
+      credits_used?: number;
+      credits_pool?: number;
     }>('assistant', {
       method: 'POST',
       body: JSON.stringify({ message, history }),

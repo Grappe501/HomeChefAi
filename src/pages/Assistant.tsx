@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { Send, Volume2 } from 'lucide-react';
-import { assistantApi } from '@/lib/api';
+import { assistantApi, billingApi } from '@/lib/api';
 import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
 import { assistantFirstName } from '@/lib/assistant';
 import VoiceButton from '@/components/VoiceButton';
 import SousChefMark from '@/components/SousChefMark';
+import { ClaraEvidenceChips } from '@/components/ClaraEvidenceChips';
 
 import type { MealDirection } from '@/types/mealDirections';
 
@@ -13,15 +14,21 @@ interface Message {
   role: 'user' | 'assistant';
   content: string;
   directions?: MealDirection[];
+  evidence?: string[];
+  expert_ids?: string[];
+  intent?: string;
+  credit_cost?: number;
+  credits_remaining?: number;
 }
 
 export default function Assistant() {
   const { profile } = useApp();
   const assistantName = assistantFirstName(profile?.assistant_name);
+  const [creditsRemaining, setCreditsRemaining] = useState<number | undefined>();
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: `Good ${new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 17 ? 'afternoon' : 'evening'}, Chef. Ask me what to cook, tell me what you made, or ask about your pantry.`,
+      content: `Good ${new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 17 ? 'afternoon' : 'evening'}, Chef. Ask me what to cook, tell me what you made, or ask for a substitution — I route through the knowledge graph first.`,
     },
   ]);
   const [input, setInput] = useState('');
@@ -31,6 +38,12 @@ export default function Assistant() {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  useEffect(() => {
+    billingApi.status().then((s) => {
+      if (s.credits) setCreditsRemaining(s.credits.remaining);
+    }).catch(() => {});
+  }, []);
 
   const send = async (text: string) => {
     if (!text.trim() || loading) return;
@@ -45,7 +58,13 @@ export default function Assistant() {
         role: 'assistant',
         content: result.reply.replace(/\*\*/g, ''),
         directions: result.directions,
+        evidence: result.evidence,
+        expert_ids: result.expert_ids,
+        intent: result.intent,
+        credit_cost: result.credit_cost,
+        credits_remaining: result.credits_remaining,
       };
+      if (result.credits_remaining !== undefined) setCreditsRemaining(result.credits_remaining);
       setMessages((m) => [...m, assistantMsg]);
       speak(result.reply.replace(/\*\*/g, ''));
     } catch {
@@ -57,14 +76,21 @@ export default function Assistant() {
 
   const quickPrompts = [
     'What can I make for dinner?',
-    "I haven't had BBQ in a while",
+    "I'm out of eggs — what can I use?",
     "What's expiring soon?",
-    'Plan a quick lunch for 2',
+    'Substitute for butter',
   ];
 
   return (
     <div className="flex flex-col h-[calc(100dvh-140px)]">
-      <SousChefMark name={assistantName} className="mb-4" />
+      <div className="flex items-start justify-between gap-3 mb-4">
+        <SousChefMark name={assistantName} className="mb-0" />
+        {creditsRemaining !== undefined && (
+          <p className="text-xs text-chef-subtle shrink-0 mt-1">
+            {creditsRemaining} AI credits left
+          </p>
+        )}
+      </div>
 
       <div className="flex-1 overflow-y-auto space-y-4 pb-4">
         {messages.map((msg, i) => (
@@ -101,13 +127,22 @@ export default function Assistant() {
                   </div>
                 )}
                 {msg.role === 'assistant' && (
-                  <button
-                    onClick={() => speak(msg.content)}
-                    className="mt-2 btn-icon !w-[44px] !h-[44px] !min-w-[44px] !min-h-[44px] bg-stainless-200 text-chef-muted self-start"
-                    aria-label="Listen"
-                  >
-                    <Volume2 size={16} />
-                  </button>
+                  <>
+                    <ClaraEvidenceChips
+                      evidence={msg.evidence}
+                      expertIds={msg.expert_ids}
+                      intent={msg.intent}
+                      creditCost={msg.credit_cost}
+                      creditsRemaining={msg.credits_remaining}
+                    />
+                    <button
+                      onClick={() => speak(msg.content)}
+                      className="mt-2 btn-icon !w-[44px] !h-[44px] !min-w-[44px] !min-h-[44px] bg-stainless-200 text-chef-muted self-start"
+                      aria-label="Listen"
+                    >
+                      <Volume2 size={16} />
+                    </button>
+                  </>
                 )}
               </div>
             </div>

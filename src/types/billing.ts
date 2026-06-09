@@ -1,4 +1,4 @@
-export type SubscriptionTier = 'free' | 'trial' | 'pro' | 'family';
+export type SubscriptionTier = 'free' | 'trial' | 'plus' | 'pro' | 'family';
 
 export interface Subscription {
   user_id: string;
@@ -14,10 +14,18 @@ export interface UsageQuota {
   receipt_scans: number;
   meal_plans: number;
   assistant_messages: number;
+  ai_credits_used?: number;
   limits: {
     receipt_scans: number;
     meal_plans: number;
     assistant_messages: number;
+  };
+  credits?: {
+    pool: number;
+    used: number;
+    remaining: number;
+    month_key: string;
+    tier_label: string;
   };
   has_pro_access: boolean;
   trial_ends_at?: string;
@@ -68,7 +76,7 @@ export const PRO_LIMITS = {
 
 export function hasProAccess(sub: Subscription | null): boolean {
   if (!sub) return false;
-  if (sub.tier === 'pro' || sub.tier === 'family') return sub.status === 'active' || sub.status === 'trialing';
+  if (sub.tier === 'pro' || sub.tier === 'plus' || sub.tier === 'family') return sub.status === 'active' || sub.status === 'trialing';
   if (sub.tier === 'trial' && sub.trial_ends_at) {
     return new Date(sub.trial_ends_at) > new Date();
   }

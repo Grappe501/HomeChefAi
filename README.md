@@ -9,15 +9,15 @@ Consumer brand: **SousChef** · Legal entity: **HomeChef AI**
 Production: https://home-chef-ai.netlify.app  
 Launch page: https://home-chef-ai.netlify.app/landing
 
-## Features (2.2)
+## Features (3.0)
 
+- **Clara Brain 3.0** — context assembler, substitution pipeline (graph-first), evidence chips
+- **Unified AI credits** — 30 / 150 / 300 monthly pools aligned with legal policy
 - **Inventory** — receipt scanning, pantry/fridge/freezer, knowledge-linked items (270+ nodes)
 - **Kitchen Memory** — Brain 2.0 graph, patterns, kitchen identity, decision ledger
-- **Kitchen Intelligence** — 3-direction meal flow, Why this?, nutrition estimates, replace meal, Clara
+- **Kitchen Intelligence** — 3-direction meal flow, Why this?, nutrition estimates, replace meal
 - **Kitchen Growth** — technique micro-lessons, Cook Together coach, skill memories
 - **Kitchen Legacy** — hosting timelines, tradition memories, recipe lineage
-- **Cook Together** — household invites, shared pantry
-- **Voice Sous Chef** — assistant with intent routing (meal plan, hosting, substitutions)
 - **Marketing site** — platform drill-down, Kitchen Academy, site search (Find + Ask)
 
 ## Tech Stack

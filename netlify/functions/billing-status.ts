@@ -2,12 +2,12 @@ import type { Handler } from '@netlify/functions';
 import Stripe from 'stripe';
 import { withCors, jsonResponse, errorResponse, requireAuth } from './utils/response.js';
 import { getSupabaseAdmin, useDevStore } from './utils/supabase.js';
-import { getSubscription, getUsage, hasProAccess } from './utils/quotas.js';
+import { getSubscription, getUsage, hasProAccess, getCreditStatus } from './utils/quotas.js';
+import { CREDIT_POOLS, normalizeTier } from '../../src/types/credits.js';
+
 const FREE_LIMITS = { receipt_scans: 5, meal_plans: 3, assistant_messages: 50 };
 
-const stripe = process.env.STRIPE_SECRET_KEY
-  ? new Stripe(process.env.STRIPE_SECRET_KEY)
-  : null;
+const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY) : null;
 
 export const handler: Handler = withCors(async (event) => {
   const user = await requireAuth(event);
@@ -17,6 +17,8 @@ export const handler: Handler = withCors(async (event) => {
     const sub = await getSubscription(user.id);
     const usage = await getUsage(user.id);
     const pro = hasProAccess(sub);
+    const credits = await getCreditStatus(user.id);
+    const tier = normalizeTier(sub?.tier as string | undefined);
 
     return jsonResponse({
       subscription: sub,
@@ -24,10 +26,19 @@ export const handler: Handler = withCors(async (event) => {
         receipt_scans: usage.receipt_scans ?? 0,
         meal_plans: usage.meal_plans ?? 0,
         assistant_messages: usage.assistant_messages ?? 0,
+        ai_credits_used: credits.used,
       },
       limits: pro
         ? { receipt_scans: 999999, meal_plans: 999999, assistant_messages: 999999 }
         : FREE_LIMITS,
+      credits: {
+        pool: credits.pool,
+        used: credits.used,
+        remaining: credits.remaining,
+        month_key: credits.month_key,
+        tier_label: tier,
+        pools: CREDIT_POOLS,
+      },
       has_pro_access: pro,
       trial_ends_at: sub?.trial_ends_at,
       tier: sub?.tier ?? 'free',
@@ -50,10 +61,9 @@ export const handler: Handler = withCors(async (event) => {
       return jsonResponse({ url: session.url });
     }
 
-    const tier = body.tier || 'pro';
-    const priceId = tier === 'family'
-      ? process.env.STRIPE_PRICE_FAMILY
-      : process.env.STRIPE_PRICE_PRO;
+    const tier = body.tier === 'family' ? 'family' : 'plus';
+    const priceId =
+      tier === 'family' ? process.env.STRIPE_PRICE_FAMILY : process.env.STRIPE_PRICE_PRO;
     if (!priceId) return errorResponse('Stripe price not configured', 503);
 
     let customerId: string | undefined;

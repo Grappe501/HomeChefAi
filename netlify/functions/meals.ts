@@ -751,13 +751,13 @@ export const handler: Handler = withCors(async (event) => {
       return jsonResponse(result);
     }
 
-    const quota = await checkAndIncrementQuota(userId, 'meal_plans');
-    if (!quota.allowed) return quotaErrorResponse(quota.limits, quota.usage);
+    const days = Math.min(body.days || 7, 14);
+    const quota = await checkAndIncrementQuota(userId, 'meal_plans', { planDays: days });
+    if (!quota.allowed) return quotaErrorResponse(quota.limits, quota.usage, quota.credits);
 
     const recentLedger = await getRecentLedger(userId, user.token, 'meal_plan', 15);
     const ledgerFeedback = formatLedgerSummaryForPlanner(recentLedger);
 
-    const days = Math.min(body.days || 7, 14);
     const mealCounts = resolveMealCounts(days, body);
     const planData = await generateMealPlan(inventory, profile, { ...body, days, ledgerFeedback });
     const metrics = computePlanMetrics(planData, inventory);
