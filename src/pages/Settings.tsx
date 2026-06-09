@@ -59,6 +59,16 @@ export default function Settings() {
       <button onClick={signOut} className="btn-secondary w-full text-red-600 border-red-200">
         <LogOut size={18} /> Sign Out
       </button>
+
+      <section className="card space-y-2 text-sm text-chef-subtle">
+        <h3 className="font-semibold text-chef">Legal</h3>
+        <div className="flex flex-wrap gap-x-4 gap-y-1">
+          <a href="/legal/terms.html" className="text-chef-muted hover:text-chef">Terms</a>
+          <a href="/legal/privacy.html" className="text-chef-muted hover:text-chef">Privacy</a>
+          <a href="/legal/ai-usage.html" className="text-chef-muted hover:text-chef">AI Usage</a>
+        </div>
+        <p className="text-xs">SousChef is operated by HomeChef AI.</p>
+      </section>
     </div>
   );
 }

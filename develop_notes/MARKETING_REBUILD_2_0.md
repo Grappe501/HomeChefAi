@@ -6,7 +6,7 @@
 **Aligned with:** Brand Freeze 1.0 · Brain 1.0A (shipped) · Design System 1.1 (in app)  
 **Related:** `PRICING_AND_USAGE_2_0.md`, `COMPETITIVE_MOAT_2_0.md`, `LAUNCH_READINESS_AUDIT_1_0.md`
 
-> **Scope:** Documentation and messaging architecture only. No marketing site rebuild in this pass.
+> **Scope:** Documentation, messaging architecture, and consumer-facing surfaces (marketing site, `/legal/*`, README). Shipped June 2026.
 
 ---
 

@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="HomeChef AI — Your personal kitchen sous chef. Track pantry inventory, scan receipts, plan meals with AI. Start free." />
-  <meta property="og:title" content="HomeChef AI — Your Kitchen Sous Chef" />
-  <meta property="og:description" content="Scan receipts. Plan meals. Never waste food again. AI-powered pantry management for busy families." />
-  <title>HomeChef AI — Your Kitchen Sous Chef</title>
+  <meta name="description" content="SousChef — Your Kitchen Has A Memory. Track pantry, reduce waste, plan meals with kitchen intelligence, and preserve family recipes." />
+  <meta property="og:title" content="SousChef — Your Kitchen Has A Memory" />
+  <meta property="og:description" content="Know what's in your kitchen. Reduce waste. Build better food habits. Preserve family recipes. Create memorable experiences." />
+  <title>SousChef — Your Kitchen Has A Memory</title>
   <link rel="icon" href="/favicon.svg" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -16,170 +16,211 @@
       --sage: #527856;
       --sage-light: #f4f7f4;
       --text: #253328;
+      --muted: #739576;
     }
-    body { font-family: system-ui, -apple-system, sans-serif; color: var(--text); line-height: 1.6; }
-    .hero {
-      background: linear-gradient(135deg, #fef7ee 0%, #f4f7f4 50%, #fff 100%);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    body { font-family: system-ui, -apple-system, sans-serif; color: var(--text); line-height: 1.65; }
+    a { color: var(--chef-dark); }
     nav {
       display: flex; justify-content: space-between; align-items: center;
       padding: 1rem 2rem; max-width: 1100px; margin: 0 auto; width: 100%;
     }
-    .logo { font-family: Georgia, serif; font-size: 1.4rem; color: var(--chef-dark); font-weight: bold; }
+    .logo { font-family: Georgia, serif; font-size: 1.5rem; color: var(--chef-dark); font-weight: bold; }
     .nav-cta {
       background: var(--chef); color: white; padding: 0.6rem 1.4rem;
       border-radius: 999px; text-decoration: none; font-weight: 600;
-      transition: background 0.2s;
     }
     .nav-cta:hover { background: var(--chef-dark); }
-    .hero-content {
-      flex: 1; display: flex; flex-direction: column; align-items: center;
-      justify-content: center; text-align: center; padding: 2rem;
-      max-width: 800px; margin: 0 auto;
+    .hero {
+      background: linear-gradient(135deg, #fef7ee 0%, #f4f7f4 55%, #fff 100%);
+      padding: 3rem 2rem 5rem;
+      text-align: center;
     }
-    .hero-emoji { font-size: 4rem; margin-bottom: 1rem; }
-    h1 { font-family: Georgia, serif; font-size: clamp(2rem, 5vw, 3.2rem); color: var(--chef-dark); margin-bottom: 1rem; }
-    .subtitle { font-size: 1.2rem; color: var(--sage); margin-bottom: 2rem; max-width: 600px; }
-    .cta-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .hero-inner { max-width: 760px; margin: 0 auto; }
+    .eyebrow { font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+    h1 { font-family: Georgia, serif; font-size: clamp(2.2rem, 5vw, 3.4rem); color: var(--chef-dark); margin-bottom: 0.5rem; }
+    .tagline { font-family: Georgia, serif; font-size: clamp(1.2rem, 3vw, 1.6rem); color: var(--sage); margin-bottom: 1.25rem; }
+    .lead { font-size: 1.1rem; color: var(--text); margin-bottom: 2rem; max-width: 620px; margin-left: auto; margin-right: auto; }
+    .cta-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem; }
     .btn-primary {
       background: var(--chef); color: white; padding: 1rem 2rem;
-      border-radius: 1rem; text-decoration: none; font-weight: 700; font-size: 1.1rem;
-      box-shadow: 0 4px 14px rgba(238,119,18,0.4); transition: transform 0.2s, background 0.2s;
+      border-radius: 1rem; text-decoration: none; font-weight: 700; font-size: 1.05rem;
+      box-shadow: 0 4px 14px rgba(238,119,18,0.35);
     }
-    .btn-primary:hover { background: var(--chef-dark); transform: translateY(-2px); }
     .btn-secondary {
       background: white; color: var(--sage); padding: 1rem 2rem;
-      border-radius: 1rem; text-decoration: none; font-weight: 600; font-size: 1.1rem;
+      border-radius: 1rem; text-decoration: none; font-weight: 600; font-size: 1.05rem;
       border: 2px solid #c8d7c9;
     }
-    .features {
-      padding: 4rem 2rem; max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;
+    .pillars {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;
+      font-size: 0.9rem; color: var(--muted);
     }
-    .feature {
-      background: white; border-radius: 1.2rem; padding: 2rem;
-      border: 1px solid #e3ebe3; text-align: center;
+    .pillars span { background: white; border: 1px solid #e3ebe3; border-radius: 999px; padding: 0.35rem 0.85rem; }
+    section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+    section h2 { font-family: Georgia, serif; font-size: 2rem; color: var(--chef-dark); text-align: center; margin-bottom: 2rem; }
+    .stack {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;
     }
-    .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-    .feature h3 { font-family: Georgia, serif; color: var(--chef-dark); margin-bottom: 0.5rem; }
-    .pricing {
-      background: var(--sage-light); padding: 4rem 2rem; text-align: center;
+    .stack-card {
+      background: white; border: 1px solid #e3ebe3; border-radius: 1.2rem; padding: 1.75rem;
     }
-    .pricing h2 { font-family: Georgia, serif; font-size: 2rem; color: var(--chef-dark); margin-bottom: 2rem; }
+    .stack-card .level { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--chef); margin-bottom: 0.5rem; }
+    .stack-card h3 { font-family: Georgia, serif; color: var(--chef-dark); margin-bottom: 0.5rem; }
+    .live { color: var(--sage); font-size: 0.8rem; font-weight: 600; }
+    .pricing-wrap { background: var(--sage-light); padding: 4rem 2rem; }
     .price-cards {
-      display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; max-width: 900px; margin: 0 auto;
+      display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; max-width: 960px; margin: 0 auto;
     }
     .price-card {
       background: white; border-radius: 1.2rem; padding: 2rem; flex: 1; min-width: 250px; max-width: 300px;
       border: 2px solid #e3ebe3;
     }
-    .price-card.featured { border-color: var(--chef); box-shadow: 0 8px 30px rgba(238,119,18,0.15); }
+    .price-card.featured { border-color: var(--chef); box-shadow: 0 8px 30px rgba(238,119,18,0.12); }
     .price { font-size: 2.5rem; font-weight: 800; color: var(--chef); }
-    .price span { font-size: 1rem; color: #739576; font-weight: 400; }
-    .price-card ul { list-style: none; margin: 1.5rem 0; text-align: left; }
-    .price-card li { padding: 0.4rem 0; }
+    .price span { font-size: 1rem; color: var(--muted); font-weight: 400; }
+    .price-card ul { list-style: none; margin: 1.25rem 0; text-align: left; font-size: 0.95rem; }
+    .price-card li { padding: 0.35rem 0; }
     .price-card li::before { content: "✓ "; color: var(--chef); font-weight: bold; }
-    footer { text-align: center; padding: 2rem; color: #739576; font-size: 0.9rem; }
+    .privacy-box {
+      max-width: 680px; margin: 0 auto; text-align: center; padding: 2rem;
+      border-top: 1px solid #e3ebe3;
+    }
+    .privacy-box blockquote {
+      font-family: Georgia, serif; font-size: 1.15rem; color: var(--sage); font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+    footer {
+      text-align: center; padding: 2rem; color: var(--muted); font-size: 0.9rem;
+      border-top: 1px solid #e3ebe3;
+    }
+    footer nav { justify-content: center; gap: 1.5rem; padding: 0 0 1rem; flex-wrap: wrap; }
+    footer nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; }
+    footer nav a:hover { color: var(--chef-dark); }
   </style>
 </head>
 <body>
-  <div class="hero">
+  <header class="hero">
     <nav>
-      <div class="logo">👨‍🍳 HomeChef AI</div>
-        <a href="https://home-chef-ai.netlify.app" class="nav-cta">Start Free</a>
+      <div class="logo">SousChef</div>
+      <a href="https://home-chef-ai.netlify.app" class="nav-cta">Start Free</a>
     </nav>
-    <div class="hero-content">
-      <div class="hero-emoji">👨‍🍳</div>
-      <h1>Your Personal Kitchen Sous Chef</h1>
-      <p class="subtitle">
-        Scan grocery receipts. Track your pantry. Plan meals with AI.
-        Talk to your phone while you cook. Never waste food — or money — again.
+    <div class="hero-inner">
+      <p class="eyebrow">Household Food OS</p>
+      <h1>SousChef</h1>
+      <p class="tagline">Your Kitchen Has A Memory.</p>
+      <p class="lead">
+        Know what's in your kitchen. Reduce waste. Build better food habits.
+        Preserve family recipes. Create memorable experiences.
       </p>
       <div class="cta-group">
         <a href="https://home-chef-ai.netlify.app" class="btn-primary">Start Free — Scan Your First Receipt</a>
         <a href="#pricing" class="btn-secondary">See Pricing</a>
       </div>
+      <div class="pillars">
+        <span>Pantry intelligence</span>
+        <span>Kitchen Memory</span>
+        <span>AI meal planning</span>
+        <span>Cook Together</span>
+        <span>Skills &amp; legacy</span>
+      </div>
     </div>
+  </header>
+
+  <section>
+    <h2>The Kitchen Stack</h2>
+    <div class="stack">
+      <div class="stack-card">
+        <p class="level">Level 1</p>
+        <h3>Inventory</h3>
+        <p class="live">Live</p>
+        <p>Scan receipts. Track pantry, fridge, and freezer. Know what you have before you shop.</p>
+      </div>
+      <div class="stack-card">
+        <p class="level">Level 2</p>
+        <h3>Kitchen Memory</h3>
+        <p class="live">Live — Brain 2.0</p>
+        <p>Your kitchen remembers what you buy, cook, and waste. Insights grounded in your history.</p>
+      </div>
+      <div class="stack-card">
+        <p class="level">Level 3</p>
+        <h3>Kitchen Intelligence</h3>
+        <p class="live">Live</p>
+        <p>Three-direction meal reasoning, Why this?, replace meals, and a Sous Chef that learns from your ledger.</p>
+      </div>
+      <div class="stack-card">
+        <p class="level">Level 4</p>
+        <h3>Kitchen Growth</h3>
+        <p class="live">Live</p>
+        <p>Technique micro-lessons, Cook Together coaching, and skill memories from your cook log.</p>
+      </div>
+      <div class="stack-card">
+        <p class="level">Level 5</p>
+        <h3>Kitchen Legacy</h3>
+        <p class="live">Beta</p>
+        <p>Hosting timelines, tradition memories, and recipe lineage — preserve what your family cooks.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="privacy-box">
+    <blockquote>SousChef learns your kitchen — not to sell you, but to serve you.</blockquote>
+    <p>We do not sell your household food data, shopping habits, or family traditions.</p>
   </div>
 
-  <section class="features">
-    <div class="feature">
-      <div class="feature-icon">📸</div>
-      <h3>Receipt Scanning</h3>
-      <p>Snap a photo of your grocery receipt. AI adds everything to your pantry automatically. No manual entry.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">🗣️</div>
-      <h3>Voice-First Kitchen</h3>
-      <p>Talk to your sous chef while you cook. "I made grilled cheese" — inventory updates with one tap.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">📅</div>
-      <h3>AI Meal Planning</h3>
-      <p>Plan 1 to 14 days of meals using what you have. Get shopping lists with estimated costs.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">🎮</div>
-      <h3>Gamified & Fun</h3>
-      <p>Level up from "First Meal" to "Master Chef." Earn XP for planning, cooking, and scanning.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">🧠</div>
-      <h3>Memory That Pays Off</h3>
-      <p>"You haven't had BBQ in two months — you've got chicken and sauce. Let's do that tonight."</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">👆</div>
-      <h3>One-Thumb Easy</h3>
-      <p>Tap icons instead of typing. Half gallon or full? Two sticks of butter? Just tap.</p>
-    </div>
-  </section>
-
-  <section class="pricing" id="pricing">
-    <h2>Simple Pricing. Real Value.</h2>
-    <div class="price-cards">
-      <div class="price-card">
-        <h3>Starter</h3>
-        <div class="price">$0<span>/mo</span></div>
-        <ul>
-          <li>5 receipt scans/month</li>
-          <li>Basic pantry tracking</li>
-          <li>3 meal plans/month</li>
-          <li>Voice assistant</li>
-        </ul>
-        <a href="https://home-chef-ai.netlify.app" class="btn-secondary" style="display:inline-block;margin-top:1rem;">Get Started</a>
+  <div class="pricing-wrap" id="pricing">
+    <section style="padding-top:0;padding-bottom:0;">
+      <h2>Simple Pricing. No Surprise AI Bills.</h2>
+      <p style="text-align:center;color:var(--muted);max-width:560px;margin:0 auto 2rem;">
+        AI-assisted features are included with fair-use limits. Your pantry and kitchen data always work.
+      </p>
+      <div class="price-cards">
+        <div class="price-card">
+          <h3>Free</h3>
+          <div class="price">$0<span>/mo</span></div>
+          <ul>
+            <li>30 AI credits/month</li>
+            <li>Pantry &amp; receipt scanning</li>
+            <li>Kitchen Memory basics</li>
+            <li>Voice Sous Chef</li>
+          </ul>
+          <a href="https://home-chef-ai.netlify.app" class="btn-secondary" style="display:inline-block;margin-top:0.5rem;">Get Started</a>
+        </div>
+        <div class="price-card featured">
+          <h3>Plus</h3>
+          <div class="price">$9<span>/mo</span></div>
+          <ul>
+            <li>150 AI credits/month</li>
+            <li>Full Brain insights</li>
+            <li>Unlimited pantry tracking</li>
+            <li>Meal plans &amp; Why this?</li>
+            <li>Hosting &amp; experience plans</li>
+          </ul>
+          <a href="https://home-chef-ai.netlify.app" class="btn-primary" style="display:inline-block;margin-top:0.5rem;">Start Plus</a>
+        </div>
+        <div class="price-card">
+          <h3>Family</h3>
+          <div class="price">$18<span>/mo</span></div>
+          <ul>
+            <li>300 AI credits/month</li>
+            <li>Everything in Plus</li>
+            <li>Cook Together household</li>
+            <li>Shared pantry &amp; plans</li>
+            <li>Priority AI responses</li>
+          </ul>
+          <a href="https://home-chef-ai.netlify.app" class="btn-secondary" style="display:inline-block;margin-top:0.5rem;">Start Family</a>
+        </div>
       </div>
-      <div class="price-card featured">
-        <h3>Pro</h3>
-        <div class="price">$9.99<span>/mo</span></div>
-        <ul>
-          <li>Unlimited receipt scans</li>
-          <li>Full pantry + expiration alerts</li>
-          <li>Unlimited AI meal plans</li>
-          <li>Shopping lists with prices</li>
-          <li>Meal memory & suggestions</li>
-        </ul>
-        <a href="https://home-chef-ai.netlify.app" class="btn-primary" style="display:inline-block;margin-top:1rem;">Start Pro Trial</a>
-      </div>
-      <div class="price-card">
-        <h3>Family</h3>
-        <div class="price">$14.99<span>/mo</span></div>
-        <ul>
-          <li>Everything in Pro</li>
-          <li>Up to 6 household members</li>
-          <li>Shared pantry & meal plans</li>
-          <li>Priority AI responses</li>
-        </ul>
-        <a href="https://home-chef-ai.netlify.app" class="btn-secondary" style="display:inline-block;margin-top:1rem;">Start Family Trial</a>
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
   <footer>
-    <p>&copy; 2026 HomeChef AI. Built for families who love to eat well and waste less.</p>
+    <nav>
+      <a href="https://home-chef-ai.netlify.app/legal/terms.html">Terms</a>
+      <a href="https://home-chef-ai.netlify.app/legal/privacy.html">Privacy</a>
+      <a href="https://home-chef-ai.netlify.app/legal/ai-usage.html">AI Usage</a>
+    </nav>
+    <p>&copy; 2026 HomeChef AI. SousChef is operated by HomeChef AI.</p>
+    <p style="margin-top:0.5rem;font-size:0.8rem;">Legal documents are draft frameworks — attorney review before first charge.</p>
   </footer>
 </body>
 </html>

@@ -69,6 +69,14 @@ export default function Login() {
       >
         {mode === 'signup' ? 'Already have an account? Sign in' : 'New here? Create account'}
       </button>
+
+      <p className="mt-8 text-xs text-chef-subtle text-center max-w-sm leading-relaxed">
+        By continuing you agree to our{' '}
+        <a href="/legal/terms.html" className="text-chef-muted underline">Terms</a>,{' '}
+        <a href="/legal/privacy.html" className="text-chef-muted underline">Privacy Policy</a>, and{' '}
+        <a href="/legal/ai-usage.html" className="text-chef-muted underline">AI Usage Policy</a>.
+      </p>
+      <p className="mt-2 text-xs text-chef-subtle">SousChef · operated by HomeChef AI</p>
     </div>
   );
 }

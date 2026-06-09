@@ -1,0 +1,20 @@
+{
+  "id": "hosting.game_day",
+  "type": "hosting",
+  "display_name": "Game Day",
+  "description": "Low-lift crowd feeding for sports and watch parties.",
+  "attributes": {
+    "guest_range": [4, 20],
+    "default_duration_hours": 4,
+    "timeline_template": [
+      { "offset_hours": -24, "task": "Choose finger-food menu — nothing that needs a fork", "category": "planning" },
+      { "offset_hours": -4, "task": "Prep dips, chop veg, portion snacks into bowls", "category": "prep" },
+      { "offset_hours": -2, "task": "Start slow-cooker or oven items that hold warm", "category": "cook" },
+      { "offset_hours": -0.5, "task": "Arrange serving stations — keep hot and cold separate", "category": "service" },
+      { "offset_hours": 0, "task": "Kickoff — refresh platters at halftime", "category": "service" }
+    ],
+    "menu_hints": ["Wings or sliders", "Chips and dip", "Something in a slow cooker"],
+    "cuisine_tags": ["bbq", "comfort", "tex_mex"]
+  },
+  "sources": ["curated", "phase_8"]
+}

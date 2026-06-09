@@ -1,0 +1,14 @@
+{
+  "id": "tradition.grandma_potato_salad",
+  "type": "tradition",
+  "display_name": "Grandma Louise's Potato Salad",
+  "description": "Family potluck staple passed down three generations.",
+  "attributes": {
+    "origin_story": "Louise brought this to every church picnic from 1962 onward.",
+    "typical_occasions": ["potluck", "holiday", "family_reunion"],
+    "signature_ingredients": ["ingredient.potato", "ingredient.eggs", "ingredient.mustard"],
+    "serve_count_hint": 11,
+    "cuisine_tags": ["southern", "comfort"]
+  },
+  "sources": ["curated", "phase_8"]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "hosting.holiday",
+  "type": "hosting",
+  "display_name": "Holiday Gathering",
+  "description": "Seasonal feast with tradition-forward menu planning.",
+  "attributes": {
+    "guest_range": [6, 16],
+    "default_duration_hours": 5,
+    "timeline_template": [
+      { "offset_hours": -168, "task": "Confirm traditions — which dishes are non-negotiable family recipes", "category": "planning" },
+      { "offset_hours": -72, "task": "Order turkey/ham or reserve oven timeline", "category": "shopping" },
+      { "offset_hours": -48, "task": "Prep sides that reheat well — dressing, potatoes, veg", "category": "prep" },
+      { "offset_hours": -24, "task": "Bake pies or desserts; set thaw timers for frozen items", "category": "prep" },
+      { "offset_hours": -4, "task": "Start turkey/roast — use thermometer not clock", "category": "cook" },
+      { "offset_hours": 0, "task": "Serve — carve at table if tradition calls for it", "category": "service" }
+    ],
+    "menu_hints": ["Centerpiece protein", "Two classic sides", "Family dessert"],
+    "cuisine_tags": ["comfort", "southern", "american"]
+  },
+  "sources": ["curated", "phase_8"]
+}

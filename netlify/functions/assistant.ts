@@ -12,8 +12,22 @@ import {
   classifyIntent,
   expertIdsForIntent,
 } from './utils/ai/orchestrator.js';
+import { buildExperiencePlan, type ExperienceType } from './utils/ai/experienceTimeline.js';
 import { logGenerationToLedger, getRecentLedger } from './utils/ai/ledgerStore.js';
 import { formatRejectHistoryForAssistant, processLedgerOutcomes } from './utils/ai/outcomeProcessor.js';
+
+function detectExperienceType(message: string): ExperienceType {
+  if (/\bgame\s*day\b/i.test(message)) return 'game_day';
+  if (/\bholiday|thanksgiving|christmas|easter\b/i.test(message)) return 'holiday';
+  if (/\bpotluck\b/i.test(message)) return 'potluck';
+  return 'dinner_party';
+}
+
+function extractGuestCount(message: string, defaultSize: number): number {
+  const match = message.match(/(\d+)\s*(guests?|people|persons?)/i);
+  if (!match) return Math.min(Math.max(defaultSize, 2), 24);
+  return Math.min(Math.max(parseInt(match[1], 10), 2), 24);
+}
 
 async function assistantReply(
   message: string,
@@ -31,6 +45,42 @@ async function assistantReply(
   const apiKey = process.env.OPENAI_API_KEY;
   const inventoryBlock = formatInventoryForAI(inventory);
   const inventoryMeta = formatInventorySummary(inventory);
+
+  const intent = classifyIntent(message);
+
+  if (intent === 'hosting') {
+    const experienceType = detectExperienceType(message);
+    const guestCount = extractGuestCount(message, profile.household_size ?? 4);
+    const plan = buildExperiencePlan({
+      experience_type: experienceType,
+      guest_count: guestCount,
+      start_time: '18:00',
+      inventory,
+      profile,
+      message,
+    });
+    const menuPreview = plan.menu.map((m) => `• ${m.course}: ${m.name}`).join('\n');
+    const timelinePreview = plan.timeline.slice(0, 5).map((s) => `• ${s.time} — ${s.task}`).join('\n');
+    const reply = `${profile.assistant_name} sketched a ${experienceType.replace(/_/g, ' ')} for ${guestCount} guests.\n\n${plan.summary}\n\nMenu:\n${menuPreview}\n\nFirst timeline steps:\n${timelinePreview}\n\nWant me to refine the menu or build a shopping list?`;
+
+    await logGenerationToLedger(
+      profile.user_id,
+      token,
+      `generation:hosting:${Date.now()}`,
+      {
+        domain: 'hosting',
+        recommendation: `${plan.experience_type} for ${guestCount}`,
+        why: plan.summary,
+        evidence: plan.evidence,
+        confidence: 0.75,
+        expert_ids: plan.expert_ids,
+        metadata: { experience_type: experienceType, guest_count: guestCount, source: 'assistant' },
+      },
+      profile.household_id,
+    );
+
+    return { reply, action: 'hosting_plan', intent: 'hosting' };
+  }
 
   if (wantsDirectionsFirst(message)) {
     const dirResult = buildDirectionsResponse(inventory, profile, message);
@@ -72,7 +122,6 @@ async function assistantReply(
     return { reply: `Hi! I'm ${profile.assistant_name}. Add your OPENAI_API_KEY for full AI assistant. Pantry (${inventoryMeta}):\n${inventoryBlock}` };
   }
 
-  const intent = classifyIntent(message);
   const expertIds = expertIdsForIntent(intent === 'general' || intent === 'chat' ? 'chat' : intent);
 
   let ledgerHint = '';

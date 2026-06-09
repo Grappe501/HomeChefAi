@@ -17,6 +17,7 @@ import {
 } from './utils/ai/ledgerStore.js';
 import type { MealReviewPayload } from './utils/ai/decisionLedger.js';
 import { buildMealDirections, findDirectionById, formatDirectionsForPrompt } from './utils/ai/reasoning.js';
+import { mealTagsForPlanContext } from './utils/ai/orchestrator.js';
 
 type MealCounts = { breakfasts: number; lunches: number; dinners: number; snacks: number };
 
@@ -343,6 +344,11 @@ async function generateMealPlanChunk(
   const chunkCounts = chunkMealCounts(params.mealCounts, params.startDay, params.dayCount, params.planDays);
   const chunkMeals = totalMeals(chunkCounts);
 
+  const enforcedTags = mealTagsForPlanContext({
+    planning_goal: params.planningGoal,
+    cooking_style: params.cookingStyle,
+  });
+
   const userContent = `${mealScope}
 Household: Plan all portions for exactly ${people} people.
 Budget: $${params.budget ?? 'flexible'}
@@ -360,7 +366,8 @@ ${params.message ? `Chef request: ${params.message}` : ''}
 ${params.directionPrompt ? `\nSelected cooking direction:\n${params.directionPrompt}` : ''}
 ${params.ledgerFeedback ? `\n${params.ledgerFeedback}` : ''}
 ${shoppingNote}
-Use "day" field values ${params.startDay} through ${params.startDay + params.dayCount - 1}.`;
+Use "day" field values ${params.startDay} through ${params.startDay + params.dayCount - 1}.
+Prefer these meal tags where appropriate: ${enforcedTags.join(', ')}.`;
 
   const maxTokens = maxTokensForChunk(chunkMeals, chunkCounts);
   return callOpenAiMealPlan(userContent, maxTokens);

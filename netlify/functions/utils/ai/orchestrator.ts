@@ -83,3 +83,26 @@ export function formatDirectionsReply(
 export function expertIdsForIntent(intent: IntentDomain): string[] {
   return expertsForIntent(intent).map((e) => e.id);
 }
+
+/** Meal tags to enforce in planner output (Phase 8.7) */
+export function mealTagsForPlanContext(options: {
+  planning_goal?: string;
+  cooking_style?: string;
+  experience_type?: string;
+}): string[] {
+  const tags = new Set<string>(['weeknight']);
+
+  if (options.planning_goal === 'quick_meals') tags.add('30_minutes');
+  if (options.planning_goal === 'big_family') tags.add('crowd_favorite');
+  if (options.planning_goal === 'use_inventory' || options.planning_goal === 'pantry_challenge') {
+    tags.add('leftovers_friendly');
+  }
+  if (options.cooking_style === 'entertaining' || options.experience_type === 'dinner_party') {
+    tags.add('dinner_party');
+    tags.add('crowd_favorite');
+  }
+  if (options.cooking_style === 'meal_prep') tags.add('freezer_friendly');
+  if (options.planning_goal === 'healthy_light') tags.add('30_minutes');
+
+  return [...tags];
+}

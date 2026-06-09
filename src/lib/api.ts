@@ -197,6 +197,21 @@ export const usageApi = {
   list: () => api<{ logs: import('@/types').UsageLog[] }>('usage'),
 };
 
+export const experienceApi = {
+  plan: (data: {
+    experience_type: import('@/types/experience').ExperienceType;
+    guest_count?: number;
+    start_time?: string;
+    cuisine_style?: string;
+    message?: string;
+    use_ai?: boolean;
+  }) =>
+    api<{ plan: import('@/types/experience').ExperiencePlanResult }>('experience-plan', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+};
+
 export const skillsApi = {
   coach: (meal: string, ingredients?: string[]) => {
     const qs = new URLSearchParams({ meal });

@@ -1,0 +1,20 @@
+{
+  "id": "hosting.potluck",
+  "type": "hosting",
+  "display_name": "Potluck",
+  "description": "Crowd-sourced meal where each guest brings a dish.",
+  "attributes": {
+    "guest_range": [6, 30],
+    "default_duration_hours": 3,
+    "timeline_template": [
+      { "offset_hours": -48, "task": "Confirm headcount and dietary restrictions", "category": "planning" },
+      { "offset_hours": -24, "task": "Assign categories (app, main, side, dessert) so nothing duplicates", "category": "planning" },
+      { "offset_hours": -4, "task": "Prep serving utensils, labels for allergens, and warming setup", "category": "prep" },
+      { "offset_hours": -1, "task": "Set buffet line — hot dishes last", "category": "service" },
+      { "offset_hours": 0, "task": "Welcome guests — your dish can be simple if hosting logistics are covered", "category": "service" }
+    ],
+    "menu_hints": ["One-handed apps", "Shareable mains", "Dessert that holds at room temp"],
+    "cuisine_tags": ["american", "comfort"]
+  },
+  "sources": ["curated", "phase_8"]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "tradition.sunday_chili",
+  "type": "tradition",
+  "display_name": "Sunday Chili",
+  "description": "Weekly batch chili that feeds the household and freezes well.",
+  "attributes": {
+    "origin_story": "Batch-cooked most Sundays — lunch leftovers all week.",
+    "typical_occasions": ["weeknight", "game_day"],
+    "signature_ingredients": ["ingredient.ground_beef", "ingredient.beans", "ingredient.tomato"],
+    "cuisine_tags": ["comfort", "tex_mex"]
+  },
+  "sources": ["curated", "phase_8"]
+}

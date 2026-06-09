@@ -1,0 +1,21 @@
+{
+  "id": "hosting.dinner_party",
+  "type": "hosting",
+  "display_name": "Dinner Party",
+  "description": "Seated multi-course dinner for friends or family.",
+  "attributes": {
+    "guest_range": [4, 12],
+    "default_duration_hours": 4,
+    "timeline_template": [
+      { "offset_hours": -72, "task": "Finalize menu — balance one make-ahead, one stovetop, one oven slot", "category": "planning" },
+      { "offset_hours": -48, "task": "Shop — buy wine and perishables last", "category": "shopping" },
+      { "offset_hours": -24, "task": "Prep mise en place — chop aromatics, marinate protein", "category": "prep" },
+      { "offset_hours": -3, "task": "Set table, chill wine, start make-ahead components", "category": "prep" },
+      { "offset_hours": -1, "task": "Begin cooking sequence — appetizer first, main timed to guest arrival", "category": "cook" },
+      { "offset_hours": 0, "task": "Guests arrive — serve appetizer within 20 minutes", "category": "service" }
+    ],
+    "menu_hints": ["Starter + main + optional dessert", "One wow dish, one easy anchor"],
+    "cuisine_tags": ["italian", "french", "mediterranean"]
+  },
+  "sources": ["curated", "phase_8"]
+}

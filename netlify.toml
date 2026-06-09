@@ -20,6 +20,9 @@
 [functions."assistant"]
   timeout = 26
 
+[functions."experience-plan"]
+  timeout = 26
+
 [functions."knowledge"]
   timeout = 10
 

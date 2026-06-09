@@ -1,0 +1,14 @@
+{
+  "id": "tradition.family_roast",
+  "type": "tradition",
+  "display_name": "Family Sunday Roast",
+  "description": "Roasted protein with potatoes — the anchor of a slow Sunday.",
+  "attributes": {
+    "origin_story": "Roast day when everyone eats together at the table.",
+    "typical_occasions": ["holiday", "family_dinner"],
+    "signature_ingredients": ["ingredient.potato", "ingredient.beef"],
+    "technique_ids": ["technique.roast", "technique.sear"],
+    "cuisine_tags": ["comfort", "southern"]
+  },
+  "sources": ["curated", "phase_8"]
+}

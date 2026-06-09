@@ -1,21 +1,22 @@
-# HomeChef AI
+# SousChef
 
-Your personal kitchen sous chef — pantry inventory, receipt scanning, AI meal planning, and voice-first cooking assistant.
+**Your Kitchen Has A Memory.**
 
-Built by **Burt** (Cursor) + **Ernie** (ChatGPT) for fast monetization and family kitchen management.
+SousChef is a household food operating system — pantry inventory, receipt scanning, Kitchen Memory (Brain 2.0), AI meal planning with reasoning, Cook Together households, skills coaching, and hosting experience plans.
 
-## V1 Features
+Consumer brand: **SousChef** · Legal entity: **HomeChef AI**
 
-- **Onboarding wizard** — dietary needs, cuisines, household size, allergies
-- **Receipt scanning** — OpenAI Vision parses grocery receipts into inventory
-- **Pantry wizard** — tap-to-add categories (canned goods, dairy, spices, etc.)
-- **Inventory management** — pantry/fridge/freezer with +/- quantity controls
-- **AI meal planner** — 1–14 day plans using your inventory + budget
-- **"What can I make?"** — meals from current pantry only
-- **Cook logging** — "I made grilled cheese" → auto inventory subtraction
-- **Voice assistant** — speech-to-text + text-to-speech sous chef
-- **Gamification** — XP, levels, quests (First Meal → Master Chef)
-- **Meal memory** — remembers what you cooked, suggests repeats
+Production: https://home-chef-ai.netlify.app
+
+## Features (2.0)
+
+- **Inventory** — receipt scanning, pantry/fridge/freezer, knowledge-linked items
+- **Kitchen Memory** — Brain 2.0 graph, patterns, kitchen identity, decision ledger
+- **Kitchen Intelligence** — 3-direction meal flow, Why this?, replace meal, orchestrator
+- **Kitchen Growth** — technique micro-lessons, Cook Together coach, skill memories
+- **Kitchen Legacy** — hosting timelines (potluck, dinner party, game day, holiday), tradition memories, recipe lineage
+- **Cook Together** — household invites, shared pantry
+- **Voice Sous Chef** — assistant with intent routing (meal plan, hosting, substitutions)
 
 ## Tech Stack
 
@@ -23,136 +24,72 @@ Built by **Burt** (Cursor) + **Ernie** (ChatGPT) for fast monetization and famil
 |-------|-----------|
 | Frontend | React 18 + Vite + TypeScript + Tailwind CSS |
 | Backend | Netlify Functions (serverless) |
-| Database | Neon Postgres via Netlify DB (local JSON dev store fallback) |
-| AI | OpenAI GPT-4o-mini (receipt parsing, meal planning, assistant) |
-| Hosting | Netlify (app + marketing site) |
-| All files | **H:/ drive only** — node_modules, cache, temp on H:/ |
+| Database | Supabase (Postgres + Auth + RLS) |
+| AI | OpenAI GPT-4o-mini (receipts, planning, assistant) |
+| Knowledge | 250+ JSON nodes in `data/ai/` |
+| Hosting | Netlify (app + separate marketing site) |
+| Billing | Stripe (Plus $9 / Family $18 — beta: full access) |
 
-## Quick Start (Local Dev)
+All development on **H:/ drive**.
+
+## Quick Start
 
 ```bash
 cd H:\HomeChefAi
-
-# Copy env and add your OpenAI key
-copy .env.example .env
-
-# Install (everything stays on H: drive via .npmrc)
+copy .env.example .env.local
 npm install
-
-# Init dev data store
 npm run db:init
-
-# Run frontend + Netlify functions locally
 npm run netlify:dev
 ```
 
-App: http://localhost:8888  
-Vite dev server: http://localhost:5173 (proxied through Netlify dev)
+App: http://localhost:8888
 
 ### Environment Variables
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `OPENAI_API_KEY` | Yes (for AI features) | OpenAI API key |
-| `DATABASE_URL` | Production | Neon Postgres connection string |
-| `USE_DEV_STORE` | Dev | `true` = local JSON store, no DB needed |
+| `OPENAI_API_KEY` | Yes (AI features) | OpenAI API key |
+| `VITE_SUPABASE_URL` | Production | Supabase project URL |
+| `VITE_SUPABASE_ANON_KEY` | Production | Supabase anon key |
+| `SUPABASE_SERVICE_ROLE_KEY` | Functions | Server-side Supabase |
+| `USE_DEV_STORE` | Dev | `true` = local JSON store |
+
+## Scripts
+
+```bash
+npm run typecheck      # TypeScript check
+npm run test:knowledge # Knowledge corpus tests
+npm run build          # Production build → dist/
+npm run netlify:dev    # Local app + functions
+```
 
 ## Netlify Deployment
 
-### App Site (main branch)
+**App site** (main branch):
 
-1. Connect repo: https://github.com/Grappe501/HomeChefAi
-2. Branch: `main`
-3. Build command: `npm run build`
-4. Publish directory: `dist`
-5. Functions directory: `netlify/functions` (auto from netlify.toml)
-6. Environment variables:
-   - `OPENAI_API_KEY`
-   - `DATABASE_URL` (from Netlify DB / Neon)
-   - `USE_DEV_STORE=false`
+- Build: `npm run build`
+- Publish: `dist`
+- Functions: `netlify/functions`
+- Env: `OPENAI_API_KEY`, Supabase keys, `USE_DEV_STORE=false`
 
-### Database Setup
+**Marketing site** (`marketing/` folder, separate Netlify site optional):
 
-```bash
-# Run schema against Neon
-psql $DATABASE_URL -f db/schema.sql
-```
+- Publish directory: `marketing` (see `marketing/netlify.toml`)
 
-Or use Netlify DB extension in the Netlify dashboard.
+## Database Migrations
 
-### Marketing Site (marketing branch)
+Migrations live in `supabase/migrations/`. Apply via Supabase CLI or dashboard.
 
-1. Create second Netlify site OR branch deploy
-2. Branch: `marketing`
-3. Publish directory: `marketing` (uses marketing/netlify.toml)
-4. No build command needed — static HTML
+## Legal
 
-Update CTA links in `marketing/index.html` to your app Netlify URL once deployed.
+Draft legal pages (attorney review before first charge):
 
-## Branch Strategy
+- `/legal/terms.html`
+- `/legal/privacy.html`
+- `/legal/ai-usage.html`
 
-| Branch | Purpose | Netlify Deploy |
-|--------|---------|----------------|
-| `main` | Full application | App site → `dist/` |
-| `marketing` | Landing/sales page | Marketing site → `marketing/` |
+Full frameworks: `develop_notes/TERMS_AND_COMMUNITY_RULES_2_0.md`, `PRIVACY_AND_DATA_POSITIONING_2_0.md`, `AI_CREDITS_AND_FAIR_USE_2_0.md`
 
-Workflow: Build features on main → test in sandbox → push → upgrade marketing copy on marketing branch.
+## Repo
 
-## Pricing (Recommended)
-
-| Tier | Price | Target |
-|------|-------|--------|
-| **Starter** | Free | Hook — 5 scans/mo, 3 meal plans |
-| **Pro** | $9.99/mo | Primary revenue — unlimited everything |
-| **Family** | $14.99/mo | Upsell — 6 users, shared pantry |
-
-14-day Pro trial recommended for conversion. Annual plan at $79.99/yr (33% off) for retention.
-
-## Project Structure
-
-```
-H:\HomeChefAi\
-├── src/                    # React frontend
-│   ├── pages/              # Dashboard, Inventory, Receipt, Wizard, Meals, Cook, Assistant
-│   ├── components/         # Layout, VoiceButton, LoadingScreen
-│   ├── hooks/              # useApp, useSpeech
-│   ├── lib/                # API client, utilities
-│   └── types/              # Shared TypeScript types
-├── netlify/functions/      # Serverless API
-│   ├── auth.ts             # User creation/login
-│   ├── profile.ts          # Dietary preferences, gamification
-│   ├── inventory.ts        # Pantry CRUD
-│   ├── receipts.ts         # Receipt scan + verify
-│   ├── meals.ts            # Meal planning AI
-│   ├── usage.ts            # Cook logging / inventory subtract
-│   └── assistant.ts        # Voice/chat sous chef
-├── db/schema.sql           # Postgres schema
-├── marketing/              # Static marketing site (marketing branch)
-├── dev-data/               # Local JSON store (gitignored)
-└── netlify.toml            # Netlify config
-```
-
-## API Endpoints
-
-All at `/.netlify/functions/{name}` with header `X-User-Id`.
-
-| Function | Methods | Purpose |
-|----------|---------|---------|
-| auth | POST | Create/login user |
-| profile | GET, PUT | Get/update preferences |
-| inventory | GET, POST, PUT, DELETE | Pantry CRUD |
-| receipts | GET, POST | Scan & verify receipts |
-| meals | GET, POST | Meal plans + suggestions |
-| usage | GET, POST | Log cooked meals |
-| assistant | POST | Chat/voice AI |
-
-## Roadmap (V2–V5)
-
-- V2: Stripe billing, social recipe sharing, neighbor pantry swap
-- V3: Grocery store price APIs (Walmart/Kroger), inventory value tracking
-- V4: Calendar push notifications, expiration alerts, weekly email digest
-- V5: Plant care module (separate vertical), launch polish
-
-## License
-
-Proprietary — Grappe501 / HomeChef AI
+https://github.com/Grappe501/HomeChefAi

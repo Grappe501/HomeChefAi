@@ -1,7 +1,7 @@
 import type { Handler } from '@netlify/functions';
 import { withCors, jsonResponse, errorResponse, parseBody, requireAuth } from './utils/response.js';
 import { getSupabaseUserClient, useDevStore } from './utils/supabase.js';
-import { loadStore, saveStore } from './utils/devStore.js';
+import { loadStore, saveStore } from './utils/db.js';
 
 export const handler: Handler = withCors(async (event) => {
   const user = await requireAuth(event);
@@ -54,6 +54,10 @@ export const handler: Handler = withCors(async (event) => {
       instructions: body.instructions,
       prep_time_minutes: body.prep_time_minutes,
       is_public: body.is_public ?? false,
+      origin_recipe_id: body.origin_recipe_id ?? null,
+      tradition_id: body.tradition_id ?? null,
+      serve_count: 0,
+      last_served_at: null,
     };
 
     if (useDevStore()) {

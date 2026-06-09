@@ -8,6 +8,44 @@ import { runBrainSyncDevStore, runBrainSyncSupabase, getBrainScopeDevStore, getB
 import { inferTechniquesFromText } from './utils/ai/skills.js';
 import { recordSkillPractice } from './utils/ai/skillJourneyStore.js';
 
+async function incrementRecipeServeCount(
+  db: import('@supabase/supabase-js').SupabaseClient,
+  userId: string,
+  mealName?: string,
+): Promise<void> {
+  if (!mealName?.trim()) return;
+  const { data } = await db
+    .from('recipes')
+    .select('id, serve_count, title')
+    .eq('user_id', userId)
+    .ilike('title', mealName.trim())
+    .limit(1);
+  const match = data?.[0];
+  if (!match) return;
+  await db
+    .from('recipes')
+    .update({
+      serve_count: (match.serve_count ?? 0) + 1,
+      last_served_at: new Date().toISOString(),
+    })
+    .eq('id', match.id);
+}
+
+function incrementRecipeServeCountDevStore(
+  store: { recipes?: { id: string; user_id: string; title?: string; serve_count?: number }[] },
+  userId: string,
+  mealName?: string,
+): void {
+  if (!mealName?.trim() || !store.recipes) return;
+  const lower = mealName.toLowerCase().trim();
+  const idx = store.recipes.findIndex(
+    (r) => r.user_id === userId && r.title?.toLowerCase().trim() === lower,
+  );
+  if (idx < 0) return;
+  store.recipes[idx].serve_count = (store.recipes[idx].serve_count ?? 0) + 1;
+  (store.recipes[idx] as { last_served_at?: string }).last_served_at = new Date().toISOString();
+}
+
 export const handler: Handler = withCors(async (event) => {
   const user = await requireAuth(event);
   if (!user) return errorResponse('Unauthorized', 401);
@@ -68,6 +106,7 @@ export const handler: Handler = withCors(async (event) => {
       const scope = getBrainScopeDevStore(store, userId);
       runBrainSyncDevStore(store, scope);
       await recordSkillPractice(userId, undefined, inferredTechniques);
+      incrementRecipeServeCountDevStore(store, userId, body.meal_name);
       saveStore(store);
       return jsonResponse({ log, inventory_updated: true }, 201);
     }
@@ -116,6 +155,7 @@ export const handler: Handler = withCors(async (event) => {
     const scope = await getBrainScopeSupabase(db, userId);
     await runBrainSyncSupabase(db, scope);
     await recordSkillPractice(userId, user.token, inferredTechniques);
+    await incrementRecipeServeCount(db, userId, body.meal_name);
 
     let recipe = null;
     if (body.share_recipe && body.meal_name) {
