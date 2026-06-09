@@ -84,32 +84,32 @@ export default function CookLog() {
 
   return (
     <div className="space-y-5">
-      <h2 className="font-display text-xl text-chef-800">Log a Meal</h2>
-      <p className="text-sage-600 text-sm">Tell me what you cooked — I'll update your pantry and optionally share the recipe.</p>
+      <h2 className="font-sans font-semibold text-xl text-chef">Log a Meal</h2>
+      <p className="text-chef-subtle text-sm">Tell me what you cooked — I'll update your pantry and optionally share the recipe.</p>
 
       {confirmed ? (
         <div className="text-center py-12">
           <div className="text-5xl mb-4">✅</div>
-          <p className="font-semibold text-chef-700">Inventory Updated!</p>
-          {shared && <p className="text-sm text-sage-600 mt-2 flex items-center justify-center gap-1"><Share2 size={16} /> Recipe shared with community</p>}
+          <p className="font-semibold text-chef">Inventory Updated!</p>
+          {shared && <p className="text-sm text-chef-subtle mt-2 flex items-center justify-center gap-1"><Share2 size={16} /> Recipe shared with community</p>}
         </div>
       ) : suggested ? (
         <div className="space-y-4">
-          <div className="card bg-chef-50">
+          <div className="card bg-stainless-200">
             <p className="font-medium">{mealName}</p>
-            <p className="text-sm text-sage-600 mt-1">Did you use these ingredients?</p>
+            <p className="text-sm text-chef-subtle mt-1">Did you use these ingredients?</p>
           </div>
           {suggested.map((item, idx) => (
             <div key={idx} className="card flex items-center justify-between gap-3 py-4">
               <span className="font-medium flex-1">{item.name}</span>
               <div className="flex items-center gap-2">
-                <button onClick={() => adjustItem(idx, -1)} className="btn-icon bg-sage-100 font-bold text-lg">−</button>
+                <button onClick={() => adjustItem(idx, -1)} className="btn-icon bg-stainless-200 font-bold text-lg">−</button>
                 <span className="w-20 text-center font-semibold text-sm">{item.quantity} {item.unit}</span>
-                <button onClick={() => adjustItem(idx, 1)} className="btn-icon bg-sage-100 font-bold text-lg">+</button>
+                <button onClick={() => adjustItem(idx, 1)} className="btn-icon bg-stainless-200 font-bold text-lg">+</button>
               </div>
             </div>
           ))}
-          <label className="flex items-center gap-3 text-sm text-sage-700 min-h-[52px] py-2">
+          <label className="flex items-center gap-3 text-sm text-chef-subtle min-h-[52px] py-2">
             <input type="checkbox" checked={shareRecipe} onChange={(e) => setShareRecipe(e.target.checked)} className="w-5 h-5 rounded" />
             Share this meal as a community recipe
           </label>
@@ -129,7 +129,7 @@ export default function CookLog() {
             {loading ? 'Thinking...' : 'Log Meal'}
           </button>
           <div>
-            <p className="text-xs text-sage-500 mb-3">Quick tap:</p>
+            <p className="text-xs text-chef-subtle mb-3">Quick tap:</p>
             <div className="flex flex-wrap gap-3">
               {quickMeals.map((m) => (
                 <button key={m} onClick={() => setInput(m)} className="tap-item text-sm">{m}</button>

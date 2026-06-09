@@ -52,8 +52,8 @@ export default function Community() {
 
   return (
     <div className="space-y-4">
-      <h2 className="font-display text-xl text-chef-800">Neighbor Swap</h2>
-      <p className="text-sm text-sage-600">Share extras or find what you need nearby.</p>
+      <h2 className="font-sans font-semibold text-xl text-chef">Neighbor Swap</h2>
+      <p className="text-sm text-chef-subtle">Share extras or find what you need nearby.</p>
 
       <div className="card flex gap-2">
         <input
@@ -86,8 +86,8 @@ export default function Community() {
       )}
 
       {posts.length === 0 ? (
-        <div className="card text-center py-8 text-sage-500">
-          <HandHeart className="mx-auto mb-2 text-sage-300" size={32} />
+        <div className="card text-center py-8 text-chef-subtle">
+          <HandHeart className="mx-auto mb-2 text-steel" size={32} />
           <p>{zip.length >= 5 ? 'No posts in your area yet. Be the first!' : 'Enter your zip code to see nearby posts.'}</p>
         </div>
       ) : (
@@ -99,8 +99,8 @@ export default function Community() {
                   {p.post_type === 'offer' ? 'Offering' : 'Needs'}
                 </span>
                 <p className="font-semibold">{p.item_name} — {p.quantity} {p.unit}</p>
-                {p.message && <p className="text-sm text-sage-600 mt-1">{p.message}</p>}
-                <p className="text-xs text-sage-400 mt-1">Zip {p.zip_code}</p>
+                {p.message && <p className="text-sm text-chef-subtle mt-1">{p.message}</p>}
+                <p className="text-xs text-steel-dark mt-1">Zip {p.zip_code}</p>
               </div>
               <button onClick={() => respond(p.id)} className="btn-secondary text-sm py-2 px-3">I'm interested</button>
             </div>

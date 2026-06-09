@@ -7,31 +7,46 @@
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-sage-50 text-sage-900 font-sans antialiased;
+    @apply bg-stainless-100 text-chef font-sans antialiased;
     min-height: 100dvh;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-chef-500 hover:bg-chef-600 active:bg-chef-700 text-white font-semibold py-3.5 px-6 rounded-2xl transition-colors shadow-md min-h-[52px] flex items-center justify-center gap-2 text-base;
+    @apply bg-chef hover:bg-copper-600 active:bg-copper-700 text-white font-semibold py-3.5 px-6 rounded-xl transition-colors shadow-card min-h-[52px] flex items-center justify-center gap-2 text-base;
   }
   .btn-secondary {
-    @apply bg-white hover:bg-sage-50 active:bg-sage-100 text-sage-800 font-semibold py-3.5 px-6 rounded-2xl border-2 border-sage-200 transition-colors min-h-[52px] flex items-center justify-center gap-2 text-base;
+    @apply bg-white hover:bg-stainless-50 active:bg-stainless-100 text-chef font-semibold py-3.5 px-6 rounded-xl border border-steel transition-colors min-h-[52px] flex items-center justify-center gap-2 text-base;
   }
   .btn-icon {
-    @apply w-12 h-12 rounded-full flex items-center justify-center transition-colors min-w-[48px] min-h-[48px];
+    @apply w-12 h-12 rounded-xl flex items-center justify-center transition-colors min-w-[48px] min-h-[48px];
   }
   .card {
-    @apply bg-white rounded-2xl shadow-sm border border-sage-100 p-4;
+    @apply bg-white rounded-xl shadow-card border border-steel p-4 md:p-5;
+  }
+  .card-elevated {
+    @apply card shadow-elevated border-l-[3px] border-l-copper-500;
   }
   .tap-item {
-    @apply px-4 py-3.5 rounded-xl border-2 border-sage-200 bg-white active:scale-95 transition-transform text-center font-medium min-h-[52px] flex items-center justify-center;
+    @apply px-4 py-3.5 rounded-xl border border-steel bg-white active:scale-[0.98] transition-all text-center font-medium min-h-[52px] flex items-center justify-center text-chef;
   }
   .tap-item-selected {
-    @apply border-chef-500 bg-chef-50 text-chef-700;
+    @apply border-copper-500 bg-copper-50 text-chef ring-1 ring-copper-500/30;
   }
   .input-field {
-    @apply w-full px-4 py-3.5 rounded-xl border-2 border-sage-200 focus:border-chef-500 focus:outline-none text-lg min-h-[52px];
+    @apply w-full px-4 py-3.5 rounded-xl border border-steel bg-white focus:border-copper-500 focus:ring-2 focus:ring-copper-500/20 focus:outline-none text-base text-chef placeholder:text-chef-subtle min-h-[52px];
+  }
+  .progress-track {
+    @apply h-0.5 flex-1 rounded-full bg-steel;
+  }
+  .progress-fill {
+    @apply h-0.5 flex-1 rounded-full bg-copper-500;
+  }
+  .step-title {
+    @apply font-sans text-xl font-semibold text-chef tracking-tight;
+  }
+  .step-subtitle {
+    @apply text-sm text-chef-subtle leading-relaxed;
   }
 }

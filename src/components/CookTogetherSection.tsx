@@ -71,20 +71,20 @@ export default function CookTogetherSection() {
   };
 
   return (
-    <section className="card space-y-4 border-chef-100">
+    <section className="card space-y-4 border-steel">
       <div className="flex items-center gap-2">
-        <Users className="text-chef-500" size={20} />
+        <Users className="text-copper-500" size={20} />
         <h3 className="font-semibold">Cook Together</h3>
       </div>
-      <p className="text-sm text-sage-600">
+      <p className="text-sm text-chef-subtle">
         One kitchen, many cooks. Share pantry, meal plans, and cook logs with family and friends.
       </p>
 
       {household ? (
         <div className="space-y-3">
-          <div className="bg-chef-50 rounded-xl p-3">
-            <p className="font-medium text-chef-800">{household.display_name || household.name}</p>
-            <p className="text-xs text-sage-500 mt-1">{members.length} member{members.length !== 1 ? 's' : ''}</p>
+          <div className="bg-stainless-200 rounded-xl p-3">
+            <p className="font-medium text-chef">{household.display_name || household.name}</p>
+            <p className="text-xs text-chef-subtle mt-1">{members.length} member{members.length !== 1 ? 's' : ''}</p>
           </div>
           <div className="flex gap-2">
             <code className="flex-1 input-field text-center font-mono tracking-widest">
@@ -94,12 +94,12 @@ export default function CookTogetherSection() {
               {copied ? <Check size={18} /> : <Copy size={18} />}
             </button>
           </div>
-          <p className="text-xs text-sage-500">Share this code — family joins the same kitchen in SousChef.</p>
+          <p className="text-xs text-chef-subtle">Share this code — family joins the same kitchen in SousChef.</p>
         </div>
       ) : (
         <div className="space-y-4">
           <div>
-            <label className="text-sm font-medium text-sage-700">Name your kitchen</label>
+            <label className="text-sm font-medium text-chef-subtle">Name your kitchen</label>
             <input
               value={kitchenName}
               onChange={(e) => setKitchenName(e.target.value)}
@@ -111,8 +111,8 @@ export default function CookTogetherSection() {
             {loading ? 'Creating...' : 'Create Household Kitchen'}
           </button>
           <div className="relative">
-            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-sage-200" /></div>
-            <div className="relative flex justify-center text-xs"><span className="bg-white px-2 text-sage-400">or join one</span></div>
+            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-steel" /></div>
+            <div className="relative flex justify-center text-xs"><span className="bg-white px-2 text-steel-dark">or join one</span></div>
           </div>
           <div className="flex gap-2">
             <input
@@ -129,7 +129,7 @@ export default function CookTogetherSection() {
         </div>
       )}
 
-      {message && <p className="text-sm text-center text-chef-700">{message}</p>}
+      {message && <p className="text-sm text-center text-chef">{message}</p>}
     </section>
   );
 }

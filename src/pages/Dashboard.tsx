@@ -36,15 +36,15 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-5">
-      <section className="card bg-gradient-to-br from-chef-500 to-chef-600 text-white">
-        <p className="text-chef-100 text-sm">Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 17 ? 'afternoon' : 'evening'}, Chef!</p>
-        <h2 className="font-display text-xl mt-1">What's cooking today?</h2>
+      <section className="card bg-gradient-to-br from-chef to-chef-muted text-white">
+        <p className="text-white/70 text-sm">Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 17 ? 'afternoon' : 'evening'}, Chef!</p>
+        <h2 className="font-sans font-semibold text-xl mt-1">What's cooking today?</h2>
         {items.length > 0 && (
-          <p className="text-chef-100 text-sm mt-2">Pantry value: ${totalValue.toFixed(2)} · {items.length} items</p>
+          <p className="text-white/70 text-sm mt-2">Pantry value: ${totalValue.toFixed(2)} · {items.length} items</p>
         )}
         {currentQuest && (
           <div className="mt-3 bg-white/20 rounded-xl p-3">
-            <p className="text-xs text-chef-100 flex items-center gap-1"><Sparkles size={12} /> Level {profile?.gamification_level} Quest</p>
+            <p className="text-xs text-white/70 flex items-center gap-1"><Sparkles size={12} /> Level {profile?.gamification_level} Quest</p>
             <p className="font-medium">{currentQuest.quest}</p>
           </div>
         )}
@@ -53,10 +53,10 @@ export default function Dashboard() {
       {insights.length > 0 && (
         <section className="space-y-2">
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-sm text-sage-600 flex items-center gap-1">
+            <h3 className="font-semibold text-sm text-chef-subtle flex items-center gap-1">
               <Brain size={16} /> Kitchen Brain
             </h3>
-            <Link to="/brain" className="text-xs text-chef-600 font-medium">View all →</Link>
+            <Link to="/brain" className="text-xs text-copper-600 font-medium">View all →</Link>
           </div>
           {insights.map((insight) => (
             <BrainInsightCard key={insight.id} insight={insight} />
@@ -67,20 +67,20 @@ export default function Dashboard() {
       <CookTogetherCard />
 
       <section className="grid grid-cols-2 gap-3">
-        <Link to="/receipt" className="card flex flex-col items-center gap-2 hover:border-chef-300 transition-colors py-4">
-          <Camera className="text-chef-500" size={28} />
+        <Link to="/receipt" className="card flex flex-col items-center gap-2 hover:border-copper-500 transition-colors py-4">
+          <Camera className="text-copper-500" size={28} />
           <span className="font-medium text-sm">Scan Receipt</span>
         </Link>
-        <Link to="/wizard" className="card flex flex-col items-center gap-2 hover:border-chef-300 transition-colors py-4">
-          <Wand2 className="text-chef-500" size={28} />
+        <Link to="/wizard" className="card flex flex-col items-center gap-2 hover:border-copper-500 transition-colors py-4">
+          <Wand2 className="text-copper-500" size={28} />
           <span className="font-medium text-sm">Pantry Wizard</span>
         </Link>
-        <Link to="/meals" className="card flex flex-col items-center gap-2 hover:border-chef-300 transition-colors py-4">
-          <CalendarDays className="text-chef-500" size={28} />
+        <Link to="/meals" className="card flex flex-col items-center gap-2 hover:border-copper-500 transition-colors py-4">
+          <CalendarDays className="text-copper-500" size={28} />
           <span className="font-medium text-sm">Plan Meals</span>
         </Link>
-        <Link to="/inventory" className="card flex flex-col items-center gap-2 hover:border-chef-300 transition-colors py-4">
-          <Package className="text-chef-500" size={28} />
+        <Link to="/inventory" className="card flex flex-col items-center gap-2 hover:border-copper-500 transition-colors py-4">
+          <Package className="text-copper-500" size={28} />
           <span className="font-medium text-sm">Pantry ({items.length})</span>
         </Link>
       </section>
@@ -100,8 +100,8 @@ export default function Dashboard() {
       {plans[0] && (
         <section className="card">
           <h3 className="font-semibold">Active Meal Plan</h3>
-          <p className="text-sm text-sage-500 mt-1">{plans[0].title}</p>
-          <Link to="/calendar" className="text-chef-600 text-sm font-medium mt-2 inline-block">Open kitchen calendar →</Link>
+          <p className="text-sm text-chef-subtle mt-1">{plans[0].title}</p>
+          <Link to="/calendar" className="text-copper-600 text-sm font-medium mt-2 inline-block">Open kitchen calendar →</Link>
         </section>
       )}
 
@@ -111,8 +111,8 @@ export default function Dashboard() {
             <span>XP: {profile?.gamification_xp}</span>
             <span>Next level: {levelInfo.nextXp} XP</span>
           </div>
-          <div className="w-full h-2 bg-sage-100 rounded-full mt-2">
-            <div className="h-full bg-chef-400 rounded-full" style={{ width: `${levelInfo.progress}%` }} />
+          <div className="w-full h-2 bg-stainless-200 rounded-full mt-2">
+            <div className="h-full bg-copper-500 rounded-full" style={{ width: `${levelInfo.progress}%` }} />
           </div>
         </section>
       )}

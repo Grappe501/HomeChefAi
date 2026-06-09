@@ -15,7 +15,7 @@ export default function VoiceButton({ onTranscript, className = '' }: VoiceButto
     <button
       type="button"
       onClick={listening ? stop : start}
-      className={`btn-icon ${listening ? 'bg-red-500 text-white animate-pulse' : 'bg-chef-100 text-chef-600'} ${className}`}
+      className={`btn-icon ${listening ? 'bg-red-500 text-white animate-pulse' : 'bg-copper-50 text-copper-600'} ${className}`}
       aria-label={listening ? 'Stop listening' : 'Start voice input'}
     >
       {listening ? <MicOff size={22} /> : <Mic size={22} />}

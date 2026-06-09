@@ -19,31 +19,31 @@ export default function Recipes() {
 
   return (
     <div className="space-y-4">
-      <h2 className="font-display text-xl text-chef-800">Recipes</h2>
+      <h2 className="font-sans font-semibold text-xl text-chef">Recipes</h2>
       <div className="flex gap-2">
         {(['feed', 'mine'] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
-            className={`px-4 py-2 rounded-full text-sm font-medium ${tab === t ? 'bg-chef-500 text-white' : 'bg-white border border-sage-200'}`}
+            className={`px-4 py-2 rounded-full text-sm font-medium ${tab === t ? 'bg-chef text-white' : 'bg-white border border-steel'}`}
           >
             {t === 'feed' ? 'Community' : 'My Recipes'}
           </button>
         ))}
       </div>
       {recipes.length === 0 ? (
-        <div className="card text-center py-8 text-sage-500">
-          <Share2 className="mx-auto mb-2 text-sage-300" size={32} />
+        <div className="card text-center py-8 text-chef-subtle">
+          <Share2 className="mx-auto mb-2 text-steel" size={32} />
           <p>No recipes yet. Share a meal from Cook Log (V2 Sprint 3).</p>
         </div>
       ) : (
         recipes.map((r) => (
           <div key={r.id} className="card">
             <h3 className="font-semibold">{r.title}</h3>
-            {r.description && <p className="text-sm text-sage-600 mt-1">{r.description}</p>}
+            {r.description && <p className="text-sm text-chef-subtle mt-1">{r.description}</p>}
             <div className="flex justify-between items-center mt-3">
-              <span className="text-xs text-sage-400">{r.author_name || 'Chef'}</span>
-              <button onClick={() => toggleLike(r.id)} className="flex items-center gap-1 text-sm text-chef-600">
+              <span className="text-xs text-steel-dark">{r.author_name || 'Chef'}</span>
+              <button onClick={() => toggleLike(r.id)} className="flex items-center gap-1 text-sm text-copper-600">
                 <Heart size={16} /> {r.likes_count}
               </button>
             </div>

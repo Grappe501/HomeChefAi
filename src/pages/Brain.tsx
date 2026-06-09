@@ -47,10 +47,10 @@ export default function BrainPage() {
       <header className="flex items-start justify-between gap-3">
         <div>
           <h2 className="font-semibold text-lg flex items-center gap-2">
-            <Brain size={22} className="text-chef-600" />
+            <Brain size={22} className="text-copper-600" />
             Kitchen Brain
           </h2>
-          <p className="text-sm text-sage-600 mt-1">Recent learnings about your kitchen</p>
+          <p className="text-sm text-chef-subtle mt-1">Recent learnings about your kitchen</p>
         </div>
         <button
           type="button"
@@ -63,12 +63,12 @@ export default function BrainPage() {
       </header>
 
       {loading && (
-        <div className="card text-sm text-sage-500">Loading memories…</div>
+        <div className="card text-sm text-chef-subtle">Loading memories…</div>
       )}
 
       {!loading && insights.length === 0 && (
         <div className="card space-y-3">
-          <p className="text-sage-700">
+          <p className="text-chef-subtle">
             Chef, I'm still learning your kitchen. Scan a few receipts and log some meals — I'll start remembering patterns soon.
           </p>
           <div className="flex flex-wrap gap-2">
@@ -80,7 +80,7 @@ export default function BrainPage() {
 
       {!loading && insights.length > 0 && (
         <section className="space-y-3">
-          <h3 className="text-sm font-semibold text-sage-600">Recent Learnings</h3>
+          <h3 className="text-sm font-semibold text-chef-subtle">Recent Learnings</h3>
           {insights.map((insight) => (
             <BrainInsightCard key={insight.id} insight={insight} />
           ))}
@@ -88,7 +88,7 @@ export default function BrainPage() {
       )}
 
       {learning > 0 && (
-        <p className="text-xs text-sage-500 text-center">
+        <p className="text-xs text-chef-subtle text-center">
           {learning} more pattern{learning === 1 ? '' : 's'} building confidence…
         </p>
       )}

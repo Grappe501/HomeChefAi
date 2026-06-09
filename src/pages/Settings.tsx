@@ -23,20 +23,20 @@ export default function Settings() {
 
   return (
     <div className="space-y-5">
-      <h2 className="font-display text-xl text-chef-800">Settings</h2>
+      <h2 className="font-sans font-semibold text-xl text-chef">Settings</h2>
 
       <section className="card space-y-2">
         <h3 className="font-semibold">Account</h3>
-        <p className="text-sm text-sage-600">{user?.email}</p>
-        <p className="text-sm text-sage-600">{profile?.assistant_name} · Household of {profile?.household_size}</p>
+        <p className="text-sm text-chef-subtle">{user?.email}</p>
+        <p className="text-sm text-chef-subtle">{profile?.assistant_name} · Household of {profile?.household_size}</p>
       </section>
 
       {isFounder && (
-        <Link to="/admin/journal" className="card flex items-center gap-3 hover:border-chef-300 transition-colors">
-          <BookOpen className="text-chef-600" size={24} />
+        <Link to="/admin/journal" className="card flex items-center gap-3 hover:border-copper-500 transition-colors">
+          <BookOpen className="text-copper-600" size={24} />
           <div>
-            <p className="font-semibold text-chef-800">Product Journal</p>
-            <p className="text-xs text-sage-500">Founder observations · voice capture</p>
+            <p className="font-semibold text-chef">Product Journal</p>
+            <p className="text-xs text-chef-subtle">Founder observations · voice capture</p>
           </div>
         </Link>
       )}
@@ -45,15 +45,15 @@ export default function Settings() {
 
       <section className="card space-y-2">
         <h3 className="font-semibold">Location</h3>
-        <p className="text-xs text-sage-500">For local grocery estimates, neighbor swap, and future store recommendations.</p>
+        <p className="text-xs text-chef-subtle">For local grocery estimates, neighbor swap, and future store recommendations.</p>
         <div className="flex gap-2">
           <input value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))} placeholder="Zip code" className="input-field flex-1" maxLength={5} />
           <button onClick={saveZip} className="btn-secondary px-4">Save</button>
         </div>
       </section>
 
-      <section className="card bg-chef-50 border-chef-100">
-        <p className="text-sm text-chef-800">Full access during beta — payments coming later.</p>
+      <section className="card bg-stainless-200 border-steel">
+        <p className="text-sm text-chef">Full access during beta — payments coming later.</p>
       </section>
 
       <button onClick={signOut} className="btn-secondary w-full text-red-600 border-red-200">

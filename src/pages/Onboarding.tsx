@@ -11,6 +11,12 @@ interface OnboardingProps {
   mode: 'dietary';
 }
 
+interface Step {
+  title: string;
+  subtitle?: string;
+  content: React.ReactNode;
+}
+
 export default function Onboarding(_props: OnboardingProps) {
   const { updateProfile } = useApp();
   const toast = useToast();
@@ -65,9 +71,10 @@ export default function Onboarding(_props: OnboardingProps) {
     }
   };
 
-  const steps = [
+  const steps: Step[] = [
     {
-      title: 'Any dietary needs?',
+      title: 'Dietary needs',
+      subtitle: 'Help your Sous Chef respect how you eat.',
       content: (
         <div className="flex flex-wrap gap-2">
           {DIETARY_OPTIONS.map((d) => (
@@ -83,7 +90,8 @@ export default function Onboarding(_props: OnboardingProps) {
       ),
     },
     {
-      title: 'Favorite cuisines?',
+      title: 'Favorite cuisines',
+      subtitle: 'What flavors does your kitchen gravitate toward?',
       content: (
         <div className="flex flex-wrap gap-2">
           {CUISINE_OPTIONS.map((c) => (
@@ -99,45 +107,42 @@ export default function Onboarding(_props: OnboardingProps) {
       ),
     },
     {
-      title: 'Why are you here?',
+      title: 'Your priorities',
+      subtitle: 'Pick what matters most — SousChef will tailor recommendations.',
       content: (
-        <div>
-          <p className="text-sm text-sage-600 mb-3">Pick your top priorities — SousChef will tailor recommendations.</p>
-          <div className="flex flex-wrap gap-2">
-            {ONBOARDING_PRIORITIES.map(({ id, label, emoji }) => (
-              <button
-                key={id}
-                onClick={() => toggle(priorities, id, setPriorities)}
-                className={`tap-item ${priorities.includes(id) ? 'tap-item-selected' : ''}`}
-              >
-                {emoji} {label}
-              </button>
-            ))}
-          </div>
+        <div className="flex flex-wrap gap-2">
+          {ONBOARDING_PRIORITIES.map(({ id, label, emoji }) => (
+            <button
+              key={id}
+              onClick={() => toggle(priorities, id, setPriorities)}
+              className={`tap-item ${priorities.includes(id) ? 'tap-item-selected' : ''}`}
+            >
+              {emoji} {label}
+            </button>
+          ))}
         </div>
       ),
     },
     {
-      title: 'Buy & grow local?',
+      title: 'Local food',
+      subtitle: 'Farmers markets, home gardens, seasonal produce — optional.',
       content: (
-        <div>
-          <p className="text-sm text-sage-600 mb-3">We will gently encourage local food when it fits — farmers markets, home gardens, seasonal produce. Optional.</p>
-          <div className="flex flex-wrap gap-2">
-            {LOCAL_FOOD_OPTIONS.map(({ id, label, emoji }) => (
-              <button
-                key={id}
-                onClick={() => toggle(localFood, id, setLocalFood)}
-                className={`tap-item ${localFood.includes(id) ? 'tap-item-selected' : ''}`}
-              >
-                {emoji} {label}
-              </button>
-            ))}
-          </div>
+        <div className="flex flex-wrap gap-2">
+          {LOCAL_FOOD_OPTIONS.map(({ id, label, emoji }) => (
+            <button
+              key={id}
+              onClick={() => toggle(localFood, id, setLocalFood)}
+              className={`tap-item ${localFood.includes(id) ? 'tap-item-selected' : ''}`}
+            >
+              {emoji} {label}
+            </button>
+          ))}
         </div>
       ),
     },
     {
-      title: 'Household size?',
+      title: 'Household size',
+      subtitle: 'How many people does this kitchen feed?',
       content: (
         <div className="flex gap-3 justify-center">
           {[1, 2, 3, 4, 5, 6].map((n) => (
@@ -153,29 +158,27 @@ export default function Onboarding(_props: OnboardingProps) {
       ),
     },
     {
-      title: 'Who do you cook with?',
+      title: 'Who you cook with',
+      subtitle: 'SousChef works best when families cook together.',
       content: (
-        <div>
-          <p className="text-sm text-sage-600 mb-3">SousChef works best when families cook together. Tap all that apply.</p>
-          <div className="flex flex-wrap gap-2">
-            {COOKS_WITH_OPTIONS.map(({ id, label, emoji }) => (
-              <button
-                key={id}
-                onClick={() => toggle(cooksWith, id, setCooksWith)}
-                className={`tap-item ${cooksWith.includes(id) ? 'tap-item-selected' : ''}`}
-              >
-                {emoji} {label}
-              </button>
-            ))}
-          </div>
+        <div className="flex flex-wrap gap-2">
+          {COOKS_WITH_OPTIONS.map(({ id, label, emoji }) => (
+            <button
+              key={id}
+              onClick={() => toggle(cooksWith, id, setCooksWith)}
+              className={`tap-item ${cooksWith.includes(id) ? 'tap-item-selected' : ''}`}
+            >
+              {emoji} {label}
+            </button>
+          ))}
         </div>
       ),
     },
     {
-      title: 'Tell us about your cooking',
+      title: 'Your cooking level',
+      subtitle: 'Which sounds most like you? We will help you grow from here.',
       content: (
         <div className="space-y-3">
-          <p className="text-sm text-sage-600">Which sounds most like you? We'll help you grow from here.</p>
           {COOKING_SELF_ASSESSMENT.map((option) => (
             <button
               key={option}
@@ -189,38 +192,35 @@ export default function Onboarding(_props: OnboardingProps) {
       ),
     },
     {
-      title: 'Name your kitchen (optional)',
+      title: 'Name your kitchen',
+      subtitle: 'Family and friends can join this kitchen later. Optional.',
       content: (
-        <div>
-          <p className="text-sm text-sage-600 mb-3">Family and friends can join this kitchen later.</p>
-          <input
-            type="text"
-            value={kitchenName}
-            onChange={(e) => setKitchenName(e.target.value)}
-            placeholder="The Grappe Family Kitchen"
-            className="input-field"
-          />
-        </div>
+        <input
+          type="text"
+          value={kitchenName}
+          onChange={(e) => setKitchenName(e.target.value)}
+          placeholder="The Grappe Family Kitchen"
+          className="input-field"
+        />
       ),
     },
     {
-      title: 'Your zip code?',
+      title: 'Zip code',
+      subtitle: 'For local grocery estimates and neighbor swap. Optional.',
       content: (
-        <div>
-          <p className="text-sm text-sage-600 mb-3">For local grocery estimates and neighbor swap — optional.</p>
-          <input
-            type="text"
-            value={zip}
-            onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))}
-            placeholder="72701"
-            className="input-field"
-            maxLength={5}
-          />
-        </div>
+        <input
+          type="text"
+          value={zip}
+          onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))}
+          placeholder="72701"
+          className="input-field"
+          maxLength={5}
+        />
       ),
     },
     {
-      title: 'Any allergies? (optional)',
+      title: 'Allergies',
+      subtitle: 'Help your Sous Chef avoid ingredients that do not belong in your kitchen.',
       content: (
         <input
           type="text"
@@ -233,22 +233,39 @@ export default function Onboarding(_props: OnboardingProps) {
     },
   ];
 
+  const progress = ((step + 1) / steps.length) * 100;
+
   return (
-    <div className="min-h-dvh flex flex-col px-6 py-8 bg-gradient-to-b from-chef-50 to-white">
-      <p className="text-sm text-chef-600 font-medium mb-2">Welcome — full access during beta</p>
-      <div className="flex gap-1 mb-8">
-        {steps.map((_, i) => (
-          <div key={i} className={`h-1 flex-1 rounded-full ${i <= step ? 'bg-chef-500' : 'bg-sage-200'}`} />
-        ))}
+    <div className="min-h-dvh flex flex-col px-6 py-8 bg-stainless-100 max-w-content mx-auto w-full">
+      <p className="text-xs font-medium text-copper-600 uppercase tracking-wider mb-6">SousChef · Beta</p>
+
+      <div className="mb-8">
+        <div className="h-0.5 w-full rounded-full bg-steel overflow-hidden">
+          <div
+            className="h-full bg-copper-500 rounded-full transition-all duration-300 ease-out"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <p className="text-xs text-chef-subtle mt-2 tabular-nums">
+          Step {step + 1} of {steps.length}
+        </p>
       </div>
-      <h2 className="font-display text-2xl text-chef-800 mb-6">{steps[step].title}</h2>
+
+      <div className="mb-6">
+        <h2 className="step-title">{steps[step].title}</h2>
+        {steps[step].subtitle && (
+          <p className="step-subtitle mt-2">{steps[step].subtitle}</p>
+        )}
+      </div>
+
       <div className="flex-1">{steps[step].content}</div>
+
       <div className="flex gap-3 mt-8">
         {step > 0 && (
           <button onClick={() => setStep(step - 1)} className="btn-secondary flex-1">Back</button>
         )}
         {step < steps.length - 1 ? (
-          <button onClick={() => setStep(step + 1)} className="btn-primary flex-1">Next</button>
+          <button onClick={() => setStep(step + 1)} className="btn-primary flex-1">Continue</button>
         ) : (
           <button onClick={handleComplete} disabled={loading} className="btn-primary flex-1">
             {loading ? 'Saving...' : 'Start Cooking'}

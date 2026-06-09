@@ -21,10 +21,10 @@ interface ToastContextType {
 const ToastContext = createContext<ToastContextType | null>(null);
 
 const STYLES: Record<ToastType, string> = {
-  success: 'bg-green-600 text-white',
-  error: 'bg-red-600 text-white',
-  info: 'bg-chef-600 text-white',
-  loading: 'bg-sage-700 text-white',
+  success: 'bg-sage-600 text-white',
+  error: 'bg-burgundy-600 text-white',
+  info: 'bg-chef text-white',
+  loading: 'bg-chef-muted text-white',
 };
 
 const ICONS = {

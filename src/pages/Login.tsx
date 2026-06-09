@@ -29,12 +29,12 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-dvh flex flex-col items-center justify-center px-6 bg-gradient-to-b from-chef-50 via-white to-sage-50">
-      <div className="text-6xl mb-4">👨‍🍳</div>
-      <h1 className="font-display text-3xl text-chef-800 mb-2">HomeChef AI</h1>
-      <p className="text-sage-600 text-center mb-6 max-w-sm">
+    <div className="min-h-dvh flex flex-col items-center justify-center px-6 bg-stainless-100">
+      <p className="text-xs font-medium text-copper-600 uppercase tracking-wider mb-6">SousChef</p>
+      <h1 className="font-sans font-semibold text-3xl text-chef mb-2 tracking-tight">Your Kitchen Has A Memory</h1>
+      <p className="text-chef-subtle text-center mb-8 max-w-sm leading-relaxed">
         {mode === 'signup'
-          ? 'Start your 30-day Pro trial — scan receipts, plan meals, talk to your sous chef.'
+          ? 'Track inventory, plan meals, and cook with confidence.'
           : 'Welcome back, Chef.'}
       </p>
 
@@ -56,18 +56,18 @@ export default function Login() {
           minLength={6}
           className="input-field"
         />
-        {message && <p className="text-sm text-center text-sage-600">{message}</p>}
+        {message && <p className="text-sm text-center text-chef-subtle">{message}</p>}
         <button type="submit" disabled={loading} className="btn-primary w-full">
-          {loading ? '...' : mode === 'signup' ? 'Start Free Trial' : 'Sign In'}
+          {loading ? '...' : mode === 'signup' ? 'Create Account' : 'Sign In'}
         </button>
       </form>
 
       <button
         type="button"
         onClick={() => setMode(mode === 'signup' ? 'signin' : 'signup')}
-        className="mt-4 text-sm text-chef-600 font-medium"
+        className="mt-4 text-sm text-copper-600 font-medium"
       >
-        {mode === 'signup' ? 'Already have an account? Sign in' : 'New here? Start free trial'}
+        {mode === 'signup' ? 'Already have an account? Sign in' : 'New here? Create account'}
       </button>
     </div>
   );

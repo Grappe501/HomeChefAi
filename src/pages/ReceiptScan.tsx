@@ -101,8 +101,8 @@ export default function ReceiptScan() {
 
   return (
     <div className="space-y-5">
-      <h2 className="font-display text-xl text-chef-800">Scan Receipt</h2>
-      <p className="text-sage-600 text-sm">
+      <h2 className="font-sans font-semibold text-xl text-chef">Scan Receipt</h2>
+      <p className="text-chef-subtle text-sm">
         Review and edit each item before adding to your pantry. Ignored items won't be added.
       </p>
 
@@ -125,16 +125,16 @@ export default function ReceiptScan() {
             className="hidden"
             onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
           />
-          <div className="card text-center py-8 border-dashed border-2 border-sage-200">
-            <Upload className="mx-auto text-sage-300 mb-3" size={36} />
-            <p className="text-sm text-sage-500">Snap your receipt when you get home from the store</p>
+          <div className="card text-center py-8 border-dashed border-2 border-steel">
+            <Upload className="mx-auto text-steel mb-3" size={36} />
+            <p className="text-sm text-chef-subtle">Snap your receipt when you get home from the store</p>
           </div>
         </div>
       ) : (
         <div className="space-y-4">
-          <div className="card bg-chef-50 border-chef-200">
+          <div className="card bg-stainless-200 border-steel">
             <h3 className="font-semibold">{parsed.store_name || 'Receipt'}</h3>
-            <p className="text-sm text-sage-600 mt-1">
+            <p className="text-sm text-chef-subtle mt-1">
               {parsed.date} · ${parsed.total?.toFixed(2) || '0.00'} · {activeCount} of {items.length} items selected
             </p>
           </div>
@@ -155,12 +155,12 @@ export default function ReceiptScan() {
             {items.map((item) => (
               <div
                 key={item._id}
-                className={`card ${item.ignored ? 'opacity-50 bg-sage-50' : ''} ${editingId === item._id ? 'ring-2 ring-chef-400' : ''}`}
+                className={`card ${item.ignored ? 'opacity-50 bg-stainless-100' : ''} ${editingId === item._id ? 'ring-2 ring-copper-500' : ''}`}
               >
                 {editingId === item._id ? (
                   <div className="space-y-3">
                     <label className="block">
-                      <span className="text-xs font-medium text-sage-600">Name</span>
+                      <span className="text-xs font-medium text-chef-subtle">Name</span>
                       <input
                         value={item.name}
                         onChange={(e) => updateItem(item._id, { name: e.target.value })}
@@ -169,7 +169,7 @@ export default function ReceiptScan() {
                     </label>
                     <div className="grid grid-cols-2 gap-3">
                       <label className="block">
-                        <span className="text-xs font-medium text-sage-600">Qty</span>
+                        <span className="text-xs font-medium text-chef-subtle">Qty</span>
                         <input
                           type="number"
                           min={0}
@@ -180,7 +180,7 @@ export default function ReceiptScan() {
                         />
                       </label>
                       <label className="block">
-                        <span className="text-xs font-medium text-sage-600">Unit</span>
+                        <span className="text-xs font-medium text-chef-subtle">Unit</span>
                         <select
                           value={item.unit}
                           onChange={(e) => updateItem(item._id, { unit: e.target.value })}
@@ -192,7 +192,7 @@ export default function ReceiptScan() {
                     </div>
                     <div className="grid grid-cols-2 gap-3">
                       <label className="block">
-                        <span className="text-xs font-medium text-sage-600">Category</span>
+                        <span className="text-xs font-medium text-chef-subtle">Category</span>
                         <select
                           value={item.category || 'other'}
                           onChange={(e) => updateItem(item._id, { category: e.target.value })}
@@ -202,7 +202,7 @@ export default function ReceiptScan() {
                         </select>
                       </label>
                       <label className="block">
-                        <span className="text-xs font-medium text-sage-600">Location</span>
+                        <span className="text-xs font-medium text-chef-subtle">Location</span>
                         <select
                           value={item.location || 'pantry'}
                           onChange={(e) => updateItem(item._id, { location: e.target.value })}
@@ -213,7 +213,7 @@ export default function ReceiptScan() {
                       </label>
                     </div>
                     <label className="block">
-                      <span className="text-xs font-medium text-sage-600">Price ($)</span>
+                      <span className="text-xs font-medium text-chef-subtle">Price ($)</span>
                       <input
                         type="number"
                         min={0}
@@ -231,26 +231,26 @@ export default function ReceiptScan() {
                 ) : (
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1 min-w-0">
-                      <p className={`font-medium ${item.ignored ? 'line-through text-sage-400' : ''}`}>{item.name}</p>
-                      <p className="text-xs text-sage-500 mt-1">
+                      <p className={`font-medium ${item.ignored ? 'line-through text-steel-dark' : ''}`}>{item.name}</p>
+                      <p className="text-xs text-chef-subtle mt-1">
                         {item.quantity} {item.unit} · {item.category} · {item.location}
                       </p>
                     </div>
                     <div className="flex flex-col items-end gap-2 shrink-0">
                       {item.price != null && (
-                        <span className="text-sm font-medium text-sage-700">${item.price.toFixed(2)}</span>
+                        <span className="text-sm font-medium text-chef-subtle">${item.price.toFixed(2)}</span>
                       )}
                       <div className="flex gap-2">
                         <button
                           onClick={() => setEditingId(item._id)}
-                          className="btn-icon bg-chef-50 text-chef-600 min-w-[44px] min-h-[44px]"
+                          className="btn-icon bg-stainless-200 text-copper-600 min-w-[44px] min-h-[44px]"
                           title="Edit"
                         >
                           <Pencil size={18} />
                         </button>
                         <button
                           onClick={() => toggleIgnore(item._id)}
-                          className="btn-icon bg-sage-100 text-sage-600 min-w-[44px] min-h-[44px]"
+                          className="btn-icon bg-stainless-200 text-chef-subtle min-w-[44px] min-h-[44px]"
                           title={item.ignored ? 'Restore' : 'Ignore'}
                         >
                           {item.ignored ? <RotateCcw size={18} /> : <EyeOff size={18} />}

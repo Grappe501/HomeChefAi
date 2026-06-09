@@ -67,8 +67,8 @@ export default function PantryWizard() {
     return (
       <div className="text-center py-12 space-y-4">
         <div className="text-5xl">✅</div>
-        <h2 className="font-display text-xl text-chef-800">Pantry Updated!</h2>
-        <p className="text-sage-600">Your items are saved. Ready to plan some meals?</p>
+        <h2 className="font-sans font-semibold text-xl text-chef">Pantry Updated!</h2>
+        <p className="text-chef-subtle">Your items are saved. Ready to plan some meals?</p>
         <a href="/meals" className="btn-primary inline-flex">Plan Meals</a>
       </div>
     );
@@ -81,19 +81,19 @@ export default function PantryWizard() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="font-display text-xl text-chef-800">Pantry Wizard</h2>
-        <span className="text-sm text-sage-500">{catIdx + 1}/{categories.length}</span>
+        <h2 className="font-sans font-semibold text-xl text-chef">Pantry Wizard</h2>
+        <span className="text-sm text-chef-subtle">{catIdx + 1}/{categories.length}</span>
       </div>
-      <p className="text-sage-600 text-sm">Tap items you have. No typing needed!</p>
+      <p className="text-chef-subtle text-sm">Tap items you have. No typing needed!</p>
 
-      <div className="card bg-chef-50">
-        <h3 className="font-semibold text-chef-800">{catName}</h3>
-        <p className="text-xs text-sage-500 mt-1">📍 {catData.location}</p>
+      <div className="card bg-stainless-200">
+        <h3 className="font-semibold text-chef">{catName}</h3>
+        <p className="text-xs text-chef-subtle mt-1">📍 {catData.location}</p>
       </div>
 
       {quantityItem ? (
         <div className="space-y-3">
-          <p className="font-medium">How much <span className="text-chef-600">{quantityItem}</span>?</p>
+          <p className="font-medium">How much <span className="text-copper-600">{quantityItem}</span>?</p>
           <div className="grid grid-cols-2 gap-2">
             {qtyOptions.map((opt) => (
               <button key={opt} onClick={() => setQuantity(opt)} className="tap-item">
@@ -101,7 +101,7 @@ export default function PantryWizard() {
               </button>
             ))}
           </div>
-          <button onClick={() => setQuantityItem(null)} className="text-sm text-sage-500">Cancel</button>
+          <button onClick={() => setQuantityItem(null)} className="text-sm text-chef-subtle">Cancel</button>
         </div>
       ) : (
         <div className="grid grid-cols-2 gap-2">
@@ -111,10 +111,10 @@ export default function PantryWizard() {
               onClick={() => toggleItem(item)}
               className={`tap-item relative ${selected[item] ? 'tap-item-selected' : ''}`}
             >
-              {selected[item] && <Check size={14} className="absolute top-1 right-1 text-chef-600" />}
+              {selected[item] && <Check size={14} className="absolute top-1 right-1 text-copper-600" />}
               {item}
               {selected[item] && (
-                <span className="block text-xs text-chef-600 mt-0.5">
+                <span className="block text-xs text-copper-600 mt-0.5">
                   {selected[item].quantity} {selected[item].unit}
                 </span>
               )}

@@ -20,12 +20,12 @@ export default function UsageMeter({ billing }: { billing: UsageQuota }) {
         return (
           <div key={key}>
             <div className="flex justify-between text-sm mb-1">
-              <span className="text-sage-600">{label}</span>
+              <span className="text-chef-subtle">{label}</span>
               <span className="font-medium">{used}/{limit}</span>
             </div>
-            <div className="h-2 bg-sage-100 rounded-full">
+            <div className="h-2 bg-stainless-200 rounded-full">
               <div
-                className={`h-full rounded-full ${pct >= 100 ? 'bg-red-400' : 'bg-chef-400'}`}
+                className={`h-full rounded-full ${pct >= 100 ? 'bg-red-400' : 'bg-copper-500'}`}
                 style={{ width: `${pct}%` }}
               />
             </div>

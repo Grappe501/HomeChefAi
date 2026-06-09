@@ -158,9 +158,9 @@ export default function ProductJournal() {
   if (forbidden) {
     return (
       <div className="space-y-4">
-        <Link to="/settings" className="text-chef-600 text-sm flex items-center gap-1"><ArrowLeft size={16} /> Settings</Link>
+        <Link to="/settings" className="text-copper-600 text-sm flex items-center gap-1"><ArrowLeft size={16} /> Settings</Link>
         <div className="card">
-          <p className="text-sage-700">Founder access only. Your account is not in FOUNDER_EMAILS.</p>
+          <p className="text-chef-subtle">Founder access only. Your account is not in FOUNDER_EMAILS.</p>
         </div>
       </div>
     );
@@ -170,9 +170,9 @@ export default function ProductJournal() {
     <div className="space-y-4 pb-8">
       <div className="flex items-center justify-between gap-2">
         <div>
-          <Link to="/settings" className="text-chef-600 text-sm flex items-center gap-1 mb-1"><ArrowLeft size={16} /> Settings</Link>
+          <Link to="/settings" className="text-copper-600 text-sm flex items-center gap-1 mb-1"><ArrowLeft size={16} /> Settings</Link>
           <h2 className="font-semibold text-lg">Product Journal</h2>
-          <p className="text-xs text-sage-500">Founder intelligence · voice-first</p>
+          <p className="text-xs text-chef-subtle">Founder intelligence · voice-first</p>
         </div>
         <button type="button" onClick={exportMd} className="btn-secondary text-sm py-2 px-3 min-h-0" title="Export markdown">
           <Download size={18} />
@@ -230,7 +230,7 @@ export default function ProductJournal() {
 
       <div className="flex gap-2 flex-wrap">
         <div className="relative flex-1 min-w-[140px]">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-sage-400" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-dark" />
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -252,10 +252,10 @@ export default function ProductJournal() {
         </select>
       </div>
 
-      {loading && <div className="card text-sm text-sage-500">Loading…</div>}
+      {loading && <div className="card text-sm text-chef-subtle">Loading…</div>}
 
       {!loading && notes.length === 0 && (
-        <div className="card text-sm text-sage-600">No observations yet. Hit record or + to capture your first note.</div>
+        <div className="card text-sm text-chef-subtle">No observations yet. Hit record or + to capture your first note.</div>
       )}
 
       <div className="space-y-3">
@@ -263,35 +263,35 @@ export default function ProductJournal() {
           <article key={note.id} className="card space-y-2">
             <div className="flex justify-between items-start gap-2">
               <div>
-                <p className="text-xs text-sage-500 uppercase tracking-wide">
+                <p className="text-xs text-chef-subtle uppercase tracking-wide">
                   {NOTE_TYPES.find((t) => t.id === note.note_type)?.label || note.note_type}
                   {note.related_area ? ` · ${note.related_area}` : ''}
                 </p>
-                <h3 className="font-semibold text-chef-800">{note.title}</h3>
+                <h3 className="font-semibold text-chef">{note.title}</h3>
               </div>
               <span className={`text-xs px-2 py-0.5 rounded-lg shrink-0 ${
                 note.priority === 'high' ? 'bg-red-100 text-red-800' :
-                note.priority === 'low' ? 'bg-sage-100 text-sage-600' :
+                note.priority === 'low' ? 'bg-stainless-200 text-chef-subtle' :
                 'bg-amber-100 text-amber-800'
               }`}>{note.priority}</span>
             </div>
-            {note.body && <p className="text-sm text-sage-700 whitespace-pre-wrap">{note.body}</p>}
+            {note.body && <p className="text-sm text-chef-subtle whitespace-pre-wrap">{note.body}</p>}
             {note.tags.length > 0 && (
-              <p className="text-xs text-sage-500">{note.tags.map((t) => `#${t}`).join(' ')}</p>
+              <p className="text-xs text-chef-subtle">{note.tags.map((t) => `#${t}`).join(' ')}</p>
             )}
             <div className="flex items-center justify-between pt-1">
-              <span className="text-xs text-sage-400">{new Date(note.created_at).toLocaleString()} · {note.status}</span>
+              <span className="text-xs text-steel-dark">{new Date(note.created_at).toLocaleString()} · {note.status}</span>
               <div className="flex gap-2">
                 {note.status === 'open' && (
-                  <button type="button" onClick={() => resolveNote(note)} className="text-xs text-sage-600 font-medium">Resolve</button>
+                  <button type="button" onClick={() => resolveNote(note)} className="text-xs text-chef-subtle font-medium">Resolve</button>
                 )}
                 {!note.linked_feature_id && (
-                  <button type="button" onClick={() => convertNote(note.id)} className="text-xs text-chef-600 font-medium flex items-center gap-0.5">
+                  <button type="button" onClick={() => convertNote(note.id)} className="text-xs text-copper-600 font-medium flex items-center gap-0.5">
                     <GitBranchPlus size={14} /> Build item
                   </button>
                 )}
                 {note.linked_feature_id && (
-                  <span className="text-xs text-sage-500">→ feature request</span>
+                  <span className="text-xs text-chef-subtle">→ feature request</span>
                 )}
               </div>
             </div>
