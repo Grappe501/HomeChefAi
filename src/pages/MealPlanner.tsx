@@ -8,6 +8,7 @@ import { VoiceInput } from '@/components/VoiceButton';
 import { MealWhyPanel } from '@/components/MealWhyPanel';
 import type { MealPlan, MealPlanData, PlannedMeal } from '@/types';
 import type { MealDirection } from '@/types/mealDirections';
+import type { MealIntelligence } from '@/types/mealIntelligence';
 import {
   COOKING_STYLES,
   COVERAGE_PRESETS,
@@ -104,6 +105,8 @@ export default function MealPlanner() {
   const [directions, setDirections] = useState<MealDirection[] | null>(null);
   const [directionsNote, setDirectionsNote] = useState('');
   const [selectedDirectionId, setSelectedDirectionId] = useState<string | null>(null);
+  const [whyLoadingKey, setWhyLoadingKey] = useState<string | null>(null);
+  const [intelligenceCache, setIntelligenceCache] = useState<Record<string, MealIntelligence>>({});
 
   useEffect(() => {
     mealsApi.list().then((r) => {
@@ -229,6 +232,26 @@ export default function MealPlanner() {
     if (!activePlan) return;
     setReviewingKey(key);
     try {
+      if (action === 'replace') {
+        const { plan } = await mealsApi.replaceMeal({
+          plan_id: activePlan.id,
+          meal_key: key,
+          meal_name: meal.name,
+          day: meal.day,
+          meal_type: meal.meal_type,
+          meal,
+        });
+        setActivePlan(plan);
+        setPlans((prev) => prev.map((p) => (p.id === plan.id ? plan : p)));
+        setIntelligenceCache((prev) => {
+          const next = { ...prev };
+          delete next[key];
+          return next;
+        });
+        toast.success('Replaced — Clara generated a new meal and saved your feedback.');
+        return;
+      }
+
       const { plan } = await mealsApi.reviewMeal({
         plan_id: activePlan.id,
         meal_key: key,
@@ -252,8 +275,30 @@ export default function MealPlanner() {
     }
   };
 
-  const toggleExplainMeal = (key: string) => {
-    setExpandedWhyKey((prev) => (prev === key ? null : key));
+  const toggleExplainMeal = async (key: string, meal: PlannedMeal) => {
+    if (expandedWhyKey === key) {
+      setExpandedWhyKey(null);
+      return;
+    }
+    setExpandedWhyKey(key);
+
+    if (meal.intelligence || intelligenceCache[key]) return;
+
+    setWhyLoadingKey(key);
+    try {
+      const { intelligence } = await mealsApi.explainMeal({
+        meal,
+        coverage: activePlan?.plan_data?.coverage,
+        metrics: activePlan?.plan_data?.metrics,
+        all_meals: activePlan?.plan_data?.meals,
+      });
+      setIntelligenceCache((prev) => ({ ...prev, [key]: intelligence }));
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Could not explain this meal');
+      setExpandedWhyKey(null);
+    } finally {
+      setWhyLoadingKey(null);
+    }
   };
 
   return (
@@ -578,15 +623,21 @@ export default function MealPlanner() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => toggleExplainMeal(key)}
+                    onClick={() => toggleExplainMeal(key, m)}
+                    disabled={whyLoadingKey === key}
                     className={`tap-item flex-1 py-2 text-xs ${expandedWhyKey === key ? 'tap-item-selected' : ''}`}
                   >
-                    Why this?
+                    {whyLoadingKey === key ? 'Analyzing…' : 'Why this?'}
                   </button>
                 </div>
                 {expandedWhyKey === key && (
                   <div className="mt-3">
-                    <MealWhyPanel meal={m} onClose={() => setExpandedWhyKey(null)} />
+                    <MealWhyPanel
+                      meal={m}
+                      intelligence={intelligenceCache[key] ?? m.intelligence}
+                      loading={whyLoadingKey === key}
+                      onClose={() => setExpandedWhyKey(null)}
+                    />
                   </div>
                 )}
               </div>

@@ -2,19 +2,21 @@
  * Meal "Why This?" intelligence — deterministic reasoning from knowledge + household context.
  */
 
-import type { InventoryItem, PlannedMeal, Profile, MealPlanData } from '../../../src/types/index.js';
+import type { InventoryItem, PlannedMeal, Profile, MealPlanData } from '../../../../src/types/index.js';
 import type {
   MealIntelligence,
   MealRecommendationType,
   MealSpecialOccasion,
   MealSubstitutionHint,
-} from '../../../src/types/mealIntelligence.js';
+} from '../../../../src/types/mealIntelligence.js';
 import { resolveSubstitutions, parseSubstitutionReason } from './substitutionEngine.js';
 import { getKnowledgeNode } from './knowledgeLoader.js';
 import {
   resolveIngredientKnowledgeId,
   buildInventoryKnowledgeIndex,
 } from '../inventoryContext.js';
+import type { DecisionLedgerEntry } from './decisionLedger.js';
+import { processLedgerOutcomes, ledgerContextForMeal } from './outcomeProcessor.js';
 
 export interface MealExplainContext {
   meal: PlannedMeal;
@@ -23,6 +25,7 @@ export interface MealExplainContext {
   coverage?: MealPlanData['coverage'];
   metrics?: MealPlanData['metrics'];
   allMeals?: PlannedMeal[];
+  ledgerEntries?: DecisionLedgerEntry[];
 }
 
 function namesMatch(a: string, b: string): boolean {
@@ -246,6 +249,16 @@ function buildLikeability(ctx: MealExplainContext): string {
   const { meal, profile } = ctx;
   const type = inferRecommendationType(ctx);
 
+  if (ctx.ledgerEntries?.length) {
+    const ledgerNote = ledgerContextForMeal(meal.name, processLedgerOutcomes(ctx.ledgerEntries));
+    if (ledgerNote.similar_kept) {
+      return 'Similar to meals you kept before — Clara weighted this toward proven household wins.';
+    }
+    if (ledgerNote.was_replaced_before) {
+      return 'Adjusted from prior feedback — this version avoids patterns you recently replaced.';
+    }
+  }
+
   if (type === 'household_favorite') {
     return `Similar to a recent meal you cooked (${(profile.last_meal_memory as { meal?: string })?.meal}) — Clara favors patterns that worked before.`;
   }
@@ -302,6 +315,15 @@ function buildWhyChosen(ctx: MealExplainContext): string {
     parts.push(`This plan overall uses ~${metrics.inventory_utilization_score}% of tracked inventory.`);
   }
 
+  if (ctx.ledgerEntries?.length) {
+    const outcomes = processLedgerOutcomes(ctx.ledgerEntries);
+    const ledgerNote = ledgerContextForMeal(ctx.meal.name, outcomes);
+    if (ledgerNote.note) parts.push(ledgerNote.note);
+    if (outcomes.replaced_meals.length) {
+      parts.push(`Avoiding patterns from recent replaces: ${outcomes.replaced_meals.slice(0, 2).join(', ')}.`);
+    }
+  }
+
   return parts.join(' ');
 }
 
@@ -312,7 +334,10 @@ function collectEvidence(ctx: MealExplainContext): string[] {
     if (kid && getKnowledgeNode(kid)) evidence.push(kid);
   }
   if (ctx.coverage?.planning_goal) evidence.push(`goal.${ctx.coverage.planning_goal}`);
-  return [...new Set(evidence)].slice(0, 8);
+  if (ctx.ledgerEntries?.length) {
+    evidence.push(...processLedgerOutcomes(ctx.ledgerEntries).ledger_evidence.slice(0, 3));
+  }
+  return [...new Set(evidence)].slice(0, 10);
 }
 
 export function buildMealIntelligence(ctx: MealExplainContext): MealIntelligence {
@@ -321,6 +346,8 @@ export function buildMealIntelligence(ctx: MealExplainContext): MealIntelligence
   const complexity = buildComplexity(ctx.meal);
   const special = buildSpecialOccasion(ctx);
   const inPantryCount = ctx.meal.ingredients.filter((i) => i.in_inventory).length;
+  const outcomes = ctx.ledgerEntries?.length ? processLedgerOutcomes(ctx.ledgerEntries) : null;
+  const baseConfidence = substitutions.length ? 0.82 : 0.75;
 
   return {
     recommendation_type: type,
@@ -337,7 +364,7 @@ export function buildMealIntelligence(ctx: MealExplainContext): MealIntelligence
     complexity,
     special_occasion: special,
     evidence: collectEvidence(ctx),
-    confidence: substitutions.length ? 0.82 : 0.75,
+    confidence: Math.min(0.95, baseConfidence + (outcomes?.confidence_boost ?? 0)),
   };
 }
 
@@ -345,6 +372,7 @@ export function enrichMealsWithIntelligence(
   planData: MealPlanData,
   inventory: InventoryItem[],
   profile: Profile,
+  ledgerEntries?: DecisionLedgerEntry[],
 ): MealPlanData {
   const meals = (planData.meals ?? []).map((meal) => ({
     ...meal,
@@ -355,6 +383,7 @@ export function enrichMealsWithIntelligence(
       coverage: planData.coverage,
       metrics: planData.metrics,
       allMeals: planData.meals,
+      ledgerEntries,
     }),
   }));
   return { ...planData, meals };

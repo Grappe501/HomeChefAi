@@ -7,12 +7,22 @@ import type { MealIntelligence } from '@/types/mealIntelligence';
 interface MealWhyPanelProps {
   meal: PlannedMeal;
   intelligence?: MealIntelligence;
+  loading?: boolean;
   onClose: () => void;
 }
 
-export function MealWhyPanel({ meal, intelligence, onClose }: MealWhyPanelProps) {
+export function MealWhyPanel({ meal, intelligence, loading, onClose }: MealWhyPanelProps) {
   const [showSpecial, setShowSpecial] = useState(false);
   const intel = intelligence ?? meal.intelligence;
+
+  if (loading) {
+    return (
+      <div className="rounded-lg border border-steel bg-stainless-100 p-4 space-y-2">
+        <p className="font-semibold text-chef">Why this meal?</p>
+        <p className="text-sm text-chef-subtle animate-pulse">Clara is analyzing your pantry and plan context…</p>
+      </div>
+    );
+  }
 
   if (!intel) {
     return (

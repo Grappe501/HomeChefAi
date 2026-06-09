@@ -611,14 +611,119 @@ export const handler: Handler = withCors(async (event) => {
     if (body.action === 'explain-meal') {
       const meal = (body as { meal?: PlannedMeal }).meal;
       if (!meal) return errorResponse('meal required', 400);
+      const recentLedger = await getRecentLedger(userId, user.token, 'meal_plan', 20);
+      const allMeals = (body as { all_meals?: PlannedMeal[] }).all_meals;
       const intelligence = buildMealIntelligence({
         meal,
         inventory,
         profile,
         coverage: (body as { coverage?: MealPlanData['coverage'] }).coverage,
         metrics: (body as { metrics?: MealPlanData['metrics'] }).metrics,
+        allMeals,
+        ledgerEntries: recentLedger,
       });
       return jsonResponse({ intelligence });
+    }
+
+    if (body.action === 'replace-meal') {
+      const raw = body as {
+        plan_id: string;
+        meal_key: string;
+        meal_name: string;
+        day: number;
+        meal_type: string;
+        meal?: PlannedMeal;
+      };
+      if (!raw.plan_id || !raw.meal_key || !raw.meal_name || !raw.day || !raw.meal_type) {
+        return errorResponse('plan_id, meal_key, meal_name, day, meal_type required', 400);
+      }
+
+      const recentLedger = await getRecentLedger(userId, user.token, 'meal_plan', 20);
+      const ledgerFeedback = formatLedgerSummaryForPlanner(recentLedger);
+
+      let plan: import('../../src/types/index').MealPlan;
+      if (useDevStore()) {
+        const store = loadStore();
+        const idx = store.meal_plans.findIndex((p) => p.id === raw.plan_id && p.user_id === userId);
+        if (idx < 0) return errorResponse('Meal plan not found', 404);
+        plan = store.meal_plans[idx];
+      } else {
+        if (!user.token) return errorResponse('Missing token', 401);
+        const db = getSupabaseUserClient(user.token);
+        const { data, error } = await db.from('meal_plans').select('*').eq('id', raw.plan_id).eq('user_id', userId).single();
+        if (error || !data) return errorResponse('Meal plan not found', 404);
+        plan = data as import('../../src/types/index').MealPlan;
+      }
+
+      const mealCounts: MealCounts = {
+        breakfasts: raw.meal_type === 'breakfast' ? 1 : 0,
+        lunches: raw.meal_type === 'lunch' ? 1 : 0,
+        dinners: raw.meal_type === 'dinner' ? 1 : 0,
+        snacks: raw.meal_type === 'snack' ? 1 : 0,
+      };
+
+      const chunk = await generateMealPlanChunk(inventory, profile, {
+        startDay: raw.day,
+        dayCount: 1,
+        planDays: plan.days,
+        mealCounts,
+        message: `Replace "${raw.meal_name}" with a completely different ${raw.meal_type}. Avoid similar name, protein, and cuisine. Chef rejected the previous suggestion.`,
+        ledgerFeedback,
+        includeShoppingList: false,
+        fullPlanCounts: plan.plan_data.coverage ?? mealCounts,
+      });
+
+      const replacement = chunk.meals?.[0];
+      if (!replacement) return errorResponse('Could not generate replacement meal', 500);
+
+      const meals = [...(plan.plan_data.meals ?? [])];
+      const mealIndex = meals.findIndex((m, i) => `${m.day}-${m.meal_type}-${i}` === raw.meal_key);
+      if (mealIndex < 0) return errorResponse('Meal slot not found in plan', 404);
+
+      meals[mealIndex] = {
+        ...replacement,
+        day: raw.day,
+        meal_type: raw.meal_type as PlannedMeal['meal_type'],
+      };
+
+      const updatedPlanData = enrichMealsWithIntelligence(
+        { ...plan.plan_data, meals },
+        inventory,
+        profile,
+        recentLedger,
+      );
+
+      const updatedPlan = { ...plan, plan_data: updatedPlanData };
+
+      if (useDevStore()) {
+        const store = loadStore();
+        const idx = store.meal_plans.findIndex((p) => p.id === raw.plan_id);
+        if (idx >= 0) store.meal_plans[idx] = updatedPlan;
+        saveStore(store);
+      } else if (user.token) {
+        const db = getSupabaseUserClient(user.token);
+        await db.from('meal_plans').update({ plan_data: updatedPlanData }).eq('id', raw.plan_id).eq('user_id', userId);
+      }
+
+      const reviewResult = await persistMealPlanReview(
+        userId,
+        user.token,
+        {
+          plan_id: raw.plan_id,
+          meal_key: raw.meal_key,
+          meal_name: raw.meal_name,
+          day: raw.day,
+          meal_type: raw.meal_type,
+          action: 'replace',
+          meal: raw.meal,
+        },
+        profile.household_id,
+      );
+
+      return jsonResponse({
+        plan: reviewResult.plan,
+        replaced_meal: meals[mealIndex],
+      });
     }
 
     if (body.action === 'review-meal') {
@@ -664,7 +769,7 @@ export const handler: Handler = withCors(async (event) => {
       cook_nights: body.cook_nights,
       preset: body.coverage_preset,
     };
-    const enrichedPlanData = enrichMealsWithIntelligence(planData, inventory, profile);
+    const enrichedPlanData = enrichMealsWithIntelligence(planData, inventory, profile, recentLedger);
     const planId = uuidv4();
     const selectedDirection = body.direction_id
       ? findDirectionById(inventory, profile, body.direction_id, body.cooking_style)

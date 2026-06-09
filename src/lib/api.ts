@@ -115,10 +115,23 @@ export const mealsApi = {
     meal: import('@/types').PlannedMeal;
     coverage?: import('@/types').MealPlanData['coverage'];
     metrics?: import('@/types').MealPlanData['metrics'];
+    all_meals?: import('@/types').PlannedMeal[];
   }) =>
     api<{ intelligence: import('@/types/mealIntelligence').MealIntelligence }>('meals', {
       method: 'POST',
       body: JSON.stringify({ action: 'explain-meal', ...data }),
+    }),
+  replaceMeal: (data: {
+    plan_id: string;
+    meal_key: string;
+    meal_name: string;
+    day: number;
+    meal_type: string;
+    meal?: import('@/types').PlannedMeal;
+  }) =>
+    api<{ plan: import('@/types').MealPlan; replaced_meal: import('@/types').PlannedMeal }>('meals', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'replace-meal', ...data }),
     }),
   reviewMeal: (data: {
     plan_id: string;

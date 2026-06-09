@@ -12,7 +12,8 @@ import {
   classifyIntent,
   expertIdsForIntent,
 } from './utils/ai/orchestrator.js';
-import { logGenerationToLedger } from './utils/ai/ledgerStore.js';
+import { logGenerationToLedger, getRecentLedger } from './utils/ai/ledgerStore.js';
+import { formatRejectHistoryForAssistant, processLedgerOutcomes } from './utils/ai/outcomeProcessor.js';
 
 async function assistantReply(
   message: string,
@@ -74,6 +75,12 @@ async function assistantReply(
   const intent = classifyIntent(message);
   const expertIds = expertIdsForIntent(intent === 'general' || intent === 'chat' ? 'chat' : intent);
 
+  let ledgerHint = '';
+  if (intent === 'meal_plan' || intent === 'suggestion') {
+    const ledger = await getRecentLedger(profile.user_id, token, 'meal_plan', 10);
+    ledgerHint = formatRejectHistoryForAssistant(processLedgerOutcomes(ledger));
+  }
+
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -88,6 +95,7 @@ async function assistantReply(
           content: `You are ${profile.assistant_name}, a friendly kitchen sous chef. User dietary: ${profile.dietary_restrictions.join(', ')}. Cuisines: ${profile.cuisine_preferences.join(', ')}. Allergies: ${profile.allergies.join(', ')}.
 Pantry (${inventoryMeta}) — each line includes knowledge_id in brackets for ingredient intelligence:
 ${inventoryBlock}
+${ledgerHint ? `${ledgerHint}\n` : ''}
 When user asks what to cook, offer 2–3 distinct flavor directions (not one recipe) unless they pick a direction.
 When user says they cooked something, suggest ingredients used and ask for confirmation. For substitutions, prefer pantry items with matching knowledge ids. Return JSON: {"reply":"string","suggested_items":[{"name":"string","quantity":number,"unit":"string"}],"action":"confirm_usage|suggest_meal|pick_direction|general"}
 Be concise, warm, one-thumb friendly. Reference memory: last meals from context.`,
