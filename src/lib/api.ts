@@ -1,6 +1,6 @@
 const API_BASE = import.meta.env.VITE_API_BASE || '/.netlify/functions';
 
-import { getAccessToken } from './supabase';
+import { getAccessToken, refreshAccessToken } from './supabase';
 
 export class ApiError extends Error {
   constructor(
@@ -14,7 +14,11 @@ export class ApiError extends Error {
   }
 }
 
-async function api<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+async function api<T>(endpoint: string, options: RequestInit = {}, retried = false): Promise<T> {
+  if (!navigator.onLine) {
+    throw new ApiError('You appear to be offline. Check your connection and try again.', 0);
+  }
+
   const token = await getAccessToken();
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -22,7 +26,21 @@ async function api<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   };
   if (token) headers['Authorization'] = `Bearer ${token}`;
 
-  const res = await fetch(`${API_BASE}/${endpoint}`, { ...options, headers });
+  let res: Response;
+  try {
+    res = await fetch(`${API_BASE}/${endpoint}`, { ...options, headers });
+  } catch {
+    throw new ApiError('Network error — check your connection and try again.', 0);
+  }
+
+  if (res.status === 401 && !retried) {
+    const refreshed = await refreshAccessToken();
+    if (refreshed) {
+      return api<T>(endpoint, options, true);
+    }
+    throw new ApiError('Session expired — please sign in again.', 401);
+  }
+
   const raw = await res.text();
 
   let data: Record<string, unknown>;

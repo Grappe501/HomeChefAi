@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Send, Volume2 } from 'lucide-react';
-import { assistantApi, billingApi } from '@/lib/api';
+import { assistantApi, billingApi, ApiError } from '@/lib/api';
 import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
 import { assistantFirstName } from '@/lib/assistant';
@@ -33,6 +33,7 @@ export default function Assistant() {
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [voiceError, setVoiceError] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -66,9 +67,16 @@ export default function Assistant() {
       };
       if (result.credits_remaining !== undefined) setCreditsRemaining(result.credits_remaining);
       setMessages((m) => [...m, assistantMsg]);
-      speak(result.reply.replace(/\*\*/g, ''));
-    } catch {
-      setMessages((m) => [...m, { role: 'assistant', content: 'Sorry, I had trouble with that. Try again?' }]);
+      // iOS blocks speechSynthesis unless triggered directly by tap — skip auto-read
+      if (!/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        speak(result.reply.replace(/\*\*/g, ''));
+      }
+    } catch (err) {
+      const msg =
+        err instanceof ApiError
+          ? err.message
+          : 'Sorry, I had trouble with that. Try again?';
+      setMessages((m) => [...m, { role: 'assistant', content: msg }]);
     } finally {
       setLoading(false);
     }
@@ -82,8 +90,8 @@ export default function Assistant() {
   ];
 
   return (
-    <div className="flex flex-col h-[calc(100dvh-140px)]">
-      <div className="flex items-start justify-between gap-3 mb-4">
+    <div className="flex flex-col flex-1 min-h-0 -mx-4 px-4">
+      <div className="flex items-start justify-between gap-3 mb-3 shrink-0">
         <SousChefMark name={assistantName} className="mb-0" />
         {creditsRemaining !== undefined && (
           <p className="text-xs text-chef-subtle shrink-0 mt-1">
@@ -161,36 +169,52 @@ export default function Assistant() {
         <div ref={bottomRef} />
       </div>
 
-      <div className="flex flex-wrap gap-3 mb-4">
+      <div className="flex flex-wrap gap-2 mb-3 shrink-0">
         {quickPrompts.map((p) => (
           <button
             key={p}
+            type="button"
             onClick={() => send(p)}
-            className="text-sm bg-white border border-steel text-chef-subtle px-4 py-3 rounded-xl min-h-[52px]"
+            className="text-sm bg-white border border-steel text-chef-subtle px-3 py-2.5 rounded-xl min-h-[44px]"
           >
             {p}
           </button>
         ))}
       </div>
 
-      <div className="flex gap-3 items-center bg-white border border-steel rounded-xl p-2">
-        <VoiceButton onTranscript={(t) => send(t)} />
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Talk or type…"
-          className="flex-1 px-3 py-3 focus:outline-none text-base min-h-[52px]"
-          onKeyDown={(e) => e.key === 'Enter' && send(input)}
-        />
-        <button
-          onClick={() => send(input)}
-          disabled={loading || !input.trim()}
-          className="btn-icon bg-chef text-white disabled:opacity-40"
-          aria-label="Send"
-        >
-          <Send size={18} />
-        </button>
+      <div className="sticky bottom-0 z-10 -mx-4 px-4 pt-2 pb-1 bg-stainless-100 border-t border-steel/60 safe-area-pb">
+        <div className="flex gap-2 items-center bg-white border border-steel rounded-xl p-2 shadow-card">
+          <VoiceButton
+            onTranscript={(t) => {
+              setVoiceError(null);
+              send(t);
+            }}
+            onError={setVoiceError}
+          />
+          <input
+            type="text"
+            enterKeyHint="send"
+            autoComplete="off"
+            autoCorrect="on"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Talk or type…"
+            className="flex-1 px-2 py-3 focus:outline-none text-base min-h-[48px] bg-transparent"
+            onKeyDown={(e) => e.key === 'Enter' && send(input)}
+          />
+          <button
+            type="button"
+            onClick={() => send(input)}
+            disabled={loading || !input.trim()}
+            className="btn-icon bg-chef text-white disabled:opacity-40 shrink-0"
+            aria-label="Send"
+          >
+            <Send size={18} />
+          </button>
+        </div>
+        {voiceError && (
+          <p className="text-xs text-burgundy-600 mt-1 px-1">{voiceError}</p>
+        )}
       </div>
     </div>
   );

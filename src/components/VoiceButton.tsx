@@ -3,11 +3,12 @@ import { useSpeechRecognition } from '@/hooks/useSpeech';
 
 interface VoiceButtonProps {
   onTranscript: (text: string) => void;
+  onError?: (message: string) => void;
   className?: string;
 }
 
-export default function VoiceButton({ onTranscript, className = '' }: VoiceButtonProps) {
-  const { listening, supported, start, stop } = useSpeechRecognition(onTranscript);
+export default function VoiceButton({ onTranscript, onError, className = '' }: VoiceButtonProps) {
+  const { listening, supported, start, stop } = useSpeechRecognition(onTranscript, onError);
 
   if (!supported) return null;
 

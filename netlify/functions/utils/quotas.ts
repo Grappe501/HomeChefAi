@@ -134,7 +134,11 @@ export async function chargeCredits(userId: string, action: CreditAction): Promi
     saveStore(store as never);
   } else {
     const db = getSupabaseAdmin();
-    await db.from('usage_quotas').update({ ai_credits_used: newUsed }).eq('user_id', userId).eq('month_key', mk);
+    try {
+      await db.from('usage_quotas').update({ ai_credits_used: newUsed }).eq('user_id', userId).eq('month_key', mk);
+    } catch (err) {
+      console.warn('ai_credits_used update failed (column may be missing):', err);
+    }
   }
 
   const updated = await getCreditStatus(userId);
