@@ -1,0 +1,19 @@
+{
+  "id": "substitution.heavy_cream_vegan_coconut",
+  "type": "substitution",
+  "display_name": "ingredient.heavy_cream → ingredient.coconut_oil (vegan, dairy_free)",
+  "attributes": {
+    "from_id": "ingredient.heavy_cream",
+    "to_id": "ingredient.coconut_oil",
+    "reasons": [
+      "vegan",
+      "dairy_free"
+    ],
+    "note": "Full-fat coconut milk for sauces",
+    "confidence": 0.7
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

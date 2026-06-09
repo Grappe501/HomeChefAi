@@ -1,0 +1,47 @@
+{
+  "id": "ingredient.tomato",
+  "type": "ingredient",
+  "display_name": "Tomato",
+  "parent_id": "ingredient.produce",
+  "attributes": {
+    "variants": [
+      {
+        "id": "fresh",
+        "label": "Fresh"
+      },
+      {
+        "id": "diced_canned",
+        "label": "Diced (canned)"
+      },
+      {
+        "id": "sauce",
+        "label": "Sauce"
+      },
+      {
+        "id": "paste",
+        "label": "Paste"
+      }
+    ],
+    "pairings": [
+      "ingredient.garlic",
+      "ingredient.onion",
+      "ingredient.basil",
+      "ingredient.cheese"
+    ],
+    "cuisine_tags": [
+      "italian",
+      "mexican",
+      "mediterranean"
+    ],
+    "wizard_item": "Tomatoes",
+    "taxonomy_family": "tomato",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    }
+  },
+  "sources": [
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

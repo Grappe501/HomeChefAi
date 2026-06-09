@@ -1,0 +1,19 @@
+{
+  "id": "ingredient.black_beans",
+  "type": "ingredient",
+  "display_name": "Black Beans",
+  "parent_id": "ingredient.legumes",
+  "attributes": {
+    "wizard_item": "Black Beans",
+    "taxonomy_family": "beans",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

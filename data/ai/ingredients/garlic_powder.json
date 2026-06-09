@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.garlic_powder",
+  "type": "ingredient",
+  "display_name": "Garlic Powder",
+  "parent_id": "ingredient.spice",
+  "attributes": {
+    "wizard_item": "Garlic Powder",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "ingredient.oats",
+  "type": "ingredient",
+  "display_name": "Oats",
+  "parent_id": "ingredient.grains",
+  "attributes": {
+    "wizard_item": "Oats",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true,
+      "contains_gluten": false
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

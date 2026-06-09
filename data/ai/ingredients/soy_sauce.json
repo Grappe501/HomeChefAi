@@ -1,0 +1,19 @@
+{
+  "id": "ingredient.soy_sauce",
+  "type": "ingredient",
+  "display_name": "Soy Sauce",
+  "parent_id": "ingredient.condiments",
+  "attributes": {
+    "wizard_item": "Soy Sauce",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true,
+      "contains_gluten": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

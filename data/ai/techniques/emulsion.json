@@ -1,0 +1,11 @@
+{
+  "id": "technique.emulsion",
+  "type": "technique",
+  "display_name": "Emulsion",
+  "description": "Combining fat and water-based liquids into a stable sauce.",
+  "attributes": {
+    "micro_lesson": "Add oil slowly while whisking — one broken emulsion usually means you rushed.",
+    "cuisine_tags": ["french", "italian"]
+  },
+  "sources": ["curated"]
+}

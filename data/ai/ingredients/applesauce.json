@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.applesauce",
+  "type": "ingredient",
+  "display_name": "Applesauce",
+  "parent_id": "ingredient.produce",
+  "attributes": {
+    "wizard_item": "Applesauce",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

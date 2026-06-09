@@ -1,0 +1,19 @@
+{
+  "id": "substitution.chicken_vegan_chickpeas",
+  "type": "substitution",
+  "display_name": "ingredient.chicken → ingredient.beans (vegan, vegetarian)",
+  "attributes": {
+    "from_id": "ingredient.chicken",
+    "to_id": "ingredient.beans",
+    "reasons": [
+      "vegan",
+      "vegetarian"
+    ],
+    "note": "Roasted chickpeas in bowls and salads",
+    "confidence": 0.7
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

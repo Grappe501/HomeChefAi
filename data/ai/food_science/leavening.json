@@ -1,0 +1,11 @@
+{
+  "id": "food_science.leavening",
+  "type": "food_science",
+  "display_name": "Leavening",
+  "attributes": {
+    "micro_lesson": "Baking soda needs acid; baking powder is self-contained."
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "food_science.water_activity",
+  "type": "food_science",
+  "display_name": "Water Activity",
+  "attributes": {
+    "micro_lesson": "Low water activity preserves food — salt, sugar, and drying help."
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

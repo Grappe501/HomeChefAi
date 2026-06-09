@@ -1,0 +1,36 @@
+{
+  "id": "ingredient.chili.powder",
+  "type": "ingredient",
+  "display_name": "Chili Powder",
+  "parent_id": "ingredient.spice",
+  "attributes": {
+    "substitutes": [
+      {
+        "id": "ingredient.paprika",
+        "note": "Milder — add cayenne for heat"
+      },
+      {
+        "id": "ingredient.cayenne",
+        "note": "Much hotter — use sparingly"
+      }
+    ],
+    "pairings": [
+      "ingredient.cumin",
+      "ingredient.garlic",
+      "ingredient.tomato"
+    ],
+    "cuisine_tags": [
+      "mexican",
+      "cajun",
+      "tex_mex"
+    ],
+    "wizard_item": "Chili Powder",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    }
+  },
+  "sources": [
+    "curated"
+  ]
+}

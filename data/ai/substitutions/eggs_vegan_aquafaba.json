@@ -1,0 +1,20 @@
+{
+  "id": "substitution.eggs_vegan_aquafaba",
+  "type": "substitution",
+  "display_name": "ingredient.eggs → ingredient.aquafaba (vegan, vegetarian, egg_free)",
+  "attributes": {
+    "from_id": "ingredient.eggs",
+    "to_id": "ingredient.aquafaba",
+    "reasons": [
+      "vegan",
+      "vegetarian",
+      "egg_free"
+    ],
+    "note": "3 tbsp aquafaba ≈ 1 egg white",
+    "confidence": 0.75
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

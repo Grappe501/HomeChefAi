@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.heavy_cream",
+  "type": "ingredient",
+  "display_name": "Heavy Cream",
+  "parent_id": "ingredient.dairy",
+  "attributes": {
+    "wizard_item": "Heavy Cream",
+    "dietary": {
+      "vegetarian": true,
+      "contains_dairy": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

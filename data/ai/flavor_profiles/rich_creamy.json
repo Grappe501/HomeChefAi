@@ -1,0 +1,14 @@
+{
+  "id": "flavor_profile.rich_creamy",
+  "type": "flavor_profile",
+  "display_name": "Rich & Creamy",
+  "attributes": {
+    "cuisine_tags": [
+      "comfort",
+      "french"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "substitution.fish_vegan_tofu",
+  "type": "substitution",
+  "display_name": "ingredient.frozen_fish → ingredient.tofu (vegan, vegetarian)",
+  "attributes": {
+    "from_id": "ingredient.frozen_fish",
+    "to_id": "ingredient.tofu",
+    "reasons": [
+      "vegan",
+      "vegetarian"
+    ],
+    "note": "Crispy tofu for fish-style tacos",
+    "confidence": 0.6
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

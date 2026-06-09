@@ -1,0 +1,17 @@
+{
+  "id": "ingredient.frozen_fish",
+  "type": "ingredient",
+  "display_name": "Frozen Fish",
+  "parent_id": "ingredient.frozen",
+  "attributes": {
+    "wizard_item": "Frozen Fish",
+    "dietary": {
+      "contains_fish": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

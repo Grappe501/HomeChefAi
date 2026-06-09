@@ -1,0 +1,54 @@
+{
+  "id": "ingredient.butter",
+  "type": "ingredient",
+  "display_name": "Butter",
+  "parent_id": "ingredient.dairy",
+  "attributes": {
+    "substitutes": [
+      {
+        "id": "ingredient.oil",
+        "note": "Use 3/4 amount for sauté",
+        "reasons": [
+          "missing"
+        ]
+      },
+      {
+        "id": "ingredient.vegan_butter",
+        "note": "1:1 vegan swap",
+        "reasons": [
+          "vegan",
+          "dairy_free"
+        ],
+        "confidence": 0.9
+      },
+      {
+        "id": "ingredient.coconut_oil",
+        "note": "Baking — may add slight coconut note",
+        "reasons": [
+          "vegan",
+          "dairy_free"
+        ],
+        "confidence": 0.75
+      }
+    ],
+    "pairings": [
+      "ingredient.garlic",
+      "ingredient.flour",
+      "ingredient.onion"
+    ],
+    "cuisine_tags": [
+      "comfort",
+      "french",
+      "southern",
+      "italian"
+    ],
+    "wizard_item": "Butter",
+    "dietary": {
+      "vegetarian": true,
+      "contains_dairy": true
+    }
+  },
+  "sources": [
+    "curated"
+  ]
+}

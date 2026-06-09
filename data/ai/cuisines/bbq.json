@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.bbq",
+  "type": "cuisine",
+  "display_name": "BBQ",
+  "attributes": {
+    "staples": [
+      "ingredient.paprika",
+      "ingredient.garlic",
+      "ingredient.onion"
+    ],
+    "cuisine_tags": [
+      "bbq"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

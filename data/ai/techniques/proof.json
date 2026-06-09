@@ -1,0 +1,13 @@
+{
+  "id": "technique.proof",
+  "type": "technique",
+  "display_name": "Proof (dough)",
+  "attributes": {
+    "cuisine_tags": [
+      "baking"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

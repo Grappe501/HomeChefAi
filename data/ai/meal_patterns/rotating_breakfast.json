@@ -1,0 +1,14 @@
+{
+  "id": "meal_pattern.rotating_breakfast",
+  "type": "meal_pattern",
+  "display_name": "Rotating Breakfast",
+  "attributes": {
+    "description": "Repeat 2–4 simple breakfasts across the week instead of unique meals daily.",
+    "rules": [
+      "Rotate oatmeal, eggs, toast, yogurt, fruit",
+      "Do not invent 7 unique breakfasts unless Chef requests variety goal"
+    ],
+    "examples": ["Oatmeal with banana", "Scrambled eggs and toast", "Greek yogurt and fruit"]
+  },
+  "sources": ["meal_plan_coverage_1_0", "curated"]
+}

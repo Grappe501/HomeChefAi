@@ -1,0 +1,11 @@
+{
+  "id": "cuisine.mexican",
+  "type": "cuisine",
+  "display_name": "Mexican",
+  "attributes": {
+    "staples": ["ingredient.rice", "ingredient.beans", "ingredient.cumin", "ingredient.tomato"],
+    "regional_uses": ["Tacos", "Rice and beans", "Salsa", "Enchiladas"],
+    "cuisine_tags": ["mexican", "latin"]
+  },
+  "sources": ["curated"]
+}

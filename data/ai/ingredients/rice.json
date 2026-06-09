@@ -1,0 +1,20 @@
+{
+  "id": "ingredient.rice",
+  "type": "ingredient",
+  "display_name": "Rice",
+  "parent_id": "ingredient.grain",
+  "attributes": {
+    "variants": [
+      { "id": "white", "label": "White" },
+      { "id": "jasmine", "label": "Jasmine" },
+      { "id": "basmati", "label": "Basmati" },
+      { "id": "brown", "label": "Brown" }
+    ],
+    "substitutes": [
+      { "id": "ingredient.quinoa", "note": "Higher protein grain" }
+    ],
+    "pairings": ["ingredient.chicken", "ingredient.garlic", "ingredient.onion"],
+    "cuisine_tags": ["asian", "mexican", "cajun", "southern"]
+  },
+  "sources": ["curated", "food_taxonomy_1_0"]
+}

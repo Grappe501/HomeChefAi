@@ -1,0 +1,14 @@
+{
+  "id": "technique.deep_fry",
+  "type": "technique",
+  "display_name": "Deep Fry",
+  "attributes": {
+    "cuisine_tags": [
+      "comfort",
+      "southern"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "cuisine.southern",
+  "type": "cuisine",
+  "display_name": "Southern",
+  "attributes": {
+    "staples": ["ingredient.flour", "ingredient.butter", "ingredient.chicken", "ingredient.garlic"],
+    "regional_uses": ["Biscuits and gravy", "Fried chicken", "Collard greens", "Cornbread"],
+    "cuisine_tags": ["southern", "comfort", "american"]
+  },
+  "sources": ["curated"]
+}

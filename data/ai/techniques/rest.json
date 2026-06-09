@@ -1,0 +1,14 @@
+{
+  "id": "technique.rest",
+  "type": "technique",
+  "display_name": "Rest (meat)",
+  "attributes": {
+    "cuisine_tags": [
+      "bbq",
+      "american"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

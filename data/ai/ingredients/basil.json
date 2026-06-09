@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.basil",
+  "type": "ingredient",
+  "display_name": "Basil",
+  "parent_id": "ingredient.spice",
+  "attributes": {
+    "wizard_item": "Basil",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

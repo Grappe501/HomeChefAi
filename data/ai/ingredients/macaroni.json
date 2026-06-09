@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.macaroni",
+  "type": "ingredient",
+  "display_name": "Macaroni",
+  "parent_id": "ingredient.grains",
+  "attributes": {
+    "wizard_item": "Macaroni",
+    "dietary": {
+      "vegetarian": true,
+      "contains_gluten": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

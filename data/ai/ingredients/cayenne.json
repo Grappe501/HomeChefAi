@@ -1,0 +1,15 @@
+{
+  "id": "ingredient.cayenne",
+  "type": "ingredient",
+  "display_name": "Cayenne Pepper",
+  "parent_id": "ingredient.spice",
+  "attributes": {
+    "substitutes": [
+      { "id": "ingredient.paprika", "note": "Milder — add more for less heat" },
+      { "id": "ingredient.chili.powder", "note": "Blend — use less" }
+    ],
+    "pairings": ["ingredient.paprika", "ingredient.garlic", "ingredient.onion"],
+    "cuisine_tags": ["cajun", "southern", "mexican"]
+  },
+  "sources": ["curated"]
+}

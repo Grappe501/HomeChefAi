@@ -1,0 +1,19 @@
+{
+  "id": "substitution.ground_beef_vegan_tofu",
+  "type": "substitution",
+  "display_name": "ingredient.ground_beef → ingredient.tofu (vegan, vegetarian)",
+  "attributes": {
+    "from_id": "ingredient.ground_beef",
+    "to_id": "ingredient.tofu",
+    "reasons": [
+      "vegan",
+      "vegetarian"
+    ],
+    "note": "Crumbled firm tofu with spices",
+    "confidence": 0.7
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

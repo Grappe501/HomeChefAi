@@ -1,0 +1,19 @@
+{
+  "id": "substitution.chicken_vegan_tempeh",
+  "type": "substitution",
+  "display_name": "ingredient.chicken → ingredient.tempeh (vegan, vegetarian)",
+  "attributes": {
+    "from_id": "ingredient.chicken",
+    "to_id": "ingredient.tempeh",
+    "reasons": [
+      "vegan",
+      "vegetarian"
+    ],
+    "note": "Slice and sear — nutty flavor",
+    "confidence": 0.75
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.cocoa_powder",
+  "type": "ingredient",
+  "display_name": "Cocoa Powder",
+  "parent_id": "ingredient.baking",
+  "attributes": {
+    "wizard_item": "Cocoa Powder",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

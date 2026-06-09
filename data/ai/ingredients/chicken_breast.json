@@ -1,0 +1,17 @@
+{
+  "id": "ingredient.chicken_breast",
+  "type": "ingredient",
+  "display_name": "Chicken Breast",
+  "parent_id": "ingredient.poultry",
+  "attributes": {
+    "wizard_item": "Chicken Breast",
+    "dietary": {
+      "contains_meat": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

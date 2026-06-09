@@ -1,0 +1,14 @@
+{
+  "id": "flavor_profile.umami",
+  "type": "flavor_profile",
+  "display_name": "Umami-forward",
+  "attributes": {
+    "cuisine_tags": [
+      "asian",
+      "italian"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

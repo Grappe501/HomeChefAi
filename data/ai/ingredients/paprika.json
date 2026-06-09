@@ -5,24 +5,67 @@
   "parent_id": "ingredient.spice",
   "attributes": {
     "variants": [
-      { "id": "sweet", "label": "Sweet Paprika" },
-      { "id": "hot", "label": "Hot Paprika" },
-      { "id": "smoked", "label": "Smoked Paprika" },
-      { "id": "hungarian", "label": "Hungarian Paprika" },
-      { "id": "spanish", "label": "Spanish Paprika (Pimentón)" }
+      {
+        "id": "sweet",
+        "label": "Sweet Paprika"
+      },
+      {
+        "id": "hot",
+        "label": "Hot Paprika"
+      },
+      {
+        "id": "smoked",
+        "label": "Smoked Paprika"
+      },
+      {
+        "id": "hungarian",
+        "label": "Hungarian Paprika"
+      },
+      {
+        "id": "spanish",
+        "label": "Spanish Paprika (Pimentón)"
+      }
     ],
-    "flavor_compounds": ["capsanthin", "capsaicin"],
+    "flavor_compounds": [
+      "capsanthin",
+      "capsaicin"
+    ],
     "substitutes": [
-      { "id": "ingredient.chili.powder", "note": "Use half amount for heat" },
-      { "id": "ingredient.cayenne", "note": "Pinch only — much hotter" }
+      {
+        "id": "ingredient.chili.powder",
+        "note": "Use half amount for heat"
+      },
+      {
+        "id": "ingredient.cayenne",
+        "note": "Pinch only — much hotter"
+      }
     ],
-    "pairings": ["ingredient.garlic", "ingredient.tomato", "ingredient.onion", "ingredient.chicken"],
-    "cuisine_tags": ["hungarian", "spanish", "cajun", "southern", "bbq"],
+    "pairings": [
+      "ingredient.garlic",
+      "ingredient.tomato",
+      "ingredient.onion",
+      "ingredient.chicken"
+    ],
+    "cuisine_tags": [
+      "hungarian",
+      "spanish",
+      "cajun",
+      "southern",
+      "bbq"
+    ],
     "regional_uses": [
       "Hungarian goulash and chicken paprikash",
       "Spanish romesco and chorizo dishes",
       "Cajun and Louisiana blackened seasoning"
-    ]
+    ],
+    "wizard_item": "Paprika",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    }
   },
-  "sources": ["curated", "food_taxonomy_1_0"]
+  "sources": [
+    "curated",
+    "food_taxonomy_1_0"
+  ]
 }

@@ -1,0 +1,19 @@
+{
+  "id": "substitution.sour_cream_vegan_yogurt",
+  "type": "substitution",
+  "display_name": "ingredient.sour_cream → ingredient.oat_milk (vegan, dairy_free)",
+  "attributes": {
+    "from_id": "ingredient.sour_cream",
+    "to_id": "ingredient.oat_milk",
+    "reasons": [
+      "vegan",
+      "dairy_free"
+    ],
+    "note": "Thickened plant yogurt swap",
+    "confidence": 0.65
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

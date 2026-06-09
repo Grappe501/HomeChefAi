@@ -1,0 +1,12 @@
+{
+  "id": "substitution.cumin_chili_powder",
+  "type": "substitution",
+  "display_name": "Cumin in place of chili powder blend",
+  "attributes": {
+    "from_id": "ingredient.cumin",
+    "to_id": "ingredient.chili.powder",
+    "note": "Chili powder includes cumin — use less and add paprika for color.",
+    "ratio": "1 tsp cumin + 1 tsp paprika ≈ 2 tsp chili powder"
+  },
+  "sources": ["curated"]
+}

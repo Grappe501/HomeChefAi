@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.baking_soda",
+  "type": "ingredient",
+  "display_name": "Baking Soda",
+  "parent_id": "ingredient.baking",
+  "attributes": {
+    "wizard_item": "Baking Soda",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

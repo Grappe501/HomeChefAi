@@ -1,0 +1,17 @@
+{
+  "id": "ingredient.gluten_free_flour",
+  "type": "ingredient",
+  "display_name": "Gluten-Free Flour",
+  "parent_id": "ingredient.plant_based",
+  "attributes": {
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true,
+      "contains_gluten": false
+    }
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "substitution_engine"
+  ]
+}

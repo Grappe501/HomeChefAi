@@ -1,0 +1,42 @@
+{
+  "id": "ingredient.milk",
+  "type": "ingredient",
+  "display_name": "Milk",
+  "parent_id": "ingredient.dairy",
+  "attributes": {
+    "cuisine_tags": [
+      "american"
+    ],
+    "imported_from": "food_taxonomy_1_1",
+    "wizard_item": "Milk",
+    "taxonomy_family": "milk",
+    "dietary": {
+      "vegetarian": true,
+      "contains_dairy": true
+    },
+    "substitutes": [
+      {
+        "id": "ingredient.oat_milk",
+        "ratio": "1:1",
+        "reasons": [
+          "vegan",
+          "dairy_free"
+        ],
+        "confidence": 0.85
+      },
+      {
+        "id": "ingredient.almond_milk",
+        "ratio": "1:1",
+        "reasons": [
+          "vegan",
+          "dairy_free"
+        ],
+        "confidence": 0.8
+      }
+    ]
+  },
+  "sources": [
+    "import-taxonomy-to-knowledge",
+    "food_taxonomy_1_0"
+  ]
+}

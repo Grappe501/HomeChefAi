@@ -1,0 +1,11 @@
+{
+  "id": "cuisine.italian",
+  "type": "cuisine",
+  "display_name": "Italian",
+  "attributes": {
+    "staples": ["ingredient.tomato", "ingredient.garlic", "ingredient.cheese", "ingredient.olive_oil"],
+    "regional_uses": ["Pasta", "Risotto", "Marinara", "Parmesan finishing"],
+    "cuisine_tags": ["italian", "mediterranean"]
+  },
+  "sources": ["curated"]
+}

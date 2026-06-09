@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.cream_cheese",
+  "type": "ingredient",
+  "display_name": "Cream Cheese",
+  "parent_id": "ingredient.dairy",
+  "attributes": {
+    "wizard_item": "Cream Cheese",
+    "dietary": {
+      "vegetarian": true,
+      "contains_dairy": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.tex_mex",
+  "type": "cuisine",
+  "display_name": "Tex-Mex",
+  "attributes": {
+    "staples": [
+      "ingredient.beans",
+      "ingredient.cumin",
+      "ingredient.cheese"
+    ],
+    "cuisine_tags": [
+      "tex_mex"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

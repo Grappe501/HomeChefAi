@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.vinegar",
+  "type": "ingredient",
+  "display_name": "Vinegar",
+  "parent_id": "ingredient.condiments",
+  "attributes": {
+    "wizard_item": "Vinegar",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

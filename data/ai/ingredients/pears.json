@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.pears",
+  "type": "ingredient",
+  "display_name": "Pears",
+  "parent_id": "ingredient.produce",
+  "attributes": {
+    "wizard_item": "Pears",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

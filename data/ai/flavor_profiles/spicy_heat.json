@@ -1,0 +1,15 @@
+{
+  "id": "flavor_profile.spicy_heat",
+  "type": "flavor_profile",
+  "display_name": "Spicy Heat",
+  "attributes": {
+    "cuisine_tags": [
+      "cajun",
+      "mexican",
+      "thai"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.green_beans",
+  "type": "ingredient",
+  "display_name": "Green Beans",
+  "parent_id": "ingredient.produce",
+  "attributes": {
+    "wizard_item": "Green Beans",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "food_science.salt_timing",
+  "type": "food_science",
+  "display_name": "Salt Timing",
+  "attributes": {
+    "micro_lesson": "Salt early for penetration; finish salt for crunch and control."
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "meal_pattern.easy_night",
+  "type": "meal_pattern",
+  "display_name": "Easy Night",
+  "attributes": {
+    "description": "Low-effort dinner slot when the household is not cooking a full meal.",
+    "rules": [
+      "Use when cook_nights < dinner_slots",
+      "Label clearly: Leftover night, Sandwich night, Soup night, Pizza night, or Free night",
+      "Tag with easy_night"
+    ],
+    "examples": ["Sandwich night", "Pizza night", "Free night — fend for yourself"]
+  },
+  "sources": ["meal_planner_roadmap_2_0", "curated"]
+}

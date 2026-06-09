@@ -1,0 +1,11 @@
+{
+  "id": "cuisine.cajun",
+  "type": "cuisine",
+  "display_name": "Cajun / Creole",
+  "attributes": {
+    "staples": ["ingredient.paprika", "ingredient.cayenne", "ingredient.onion", "ingredient.garlic", "ingredient.rice"],
+    "regional_uses": ["Gumbo", "Jambalaya", "Étouffée", "Blackened fish"],
+    "cuisine_tags": ["cajun", "louisiana", "southern"]
+  },
+  "sources": ["curated", "meal_planner_roadmap_2_0"]
+}

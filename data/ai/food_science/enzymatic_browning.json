@@ -1,0 +1,11 @@
+{
+  "id": "food_science.enzymatic_browning",
+  "type": "food_science",
+  "display_name": "Enzymatic Browning",
+  "attributes": {
+    "micro_lesson": "Cut produce oxidizes — acid (lemon) slows browning."
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

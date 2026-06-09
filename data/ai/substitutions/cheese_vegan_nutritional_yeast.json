@@ -1,0 +1,19 @@
+{
+  "id": "substitution.cheese_vegan_nutritional_yeast",
+  "type": "substitution",
+  "display_name": "ingredient.cheese → ingredient.nutritional_yeast (vegan, dairy_free)",
+  "attributes": {
+    "from_id": "ingredient.cheese",
+    "to_id": "ingredient.nutritional_yeast",
+    "reasons": [
+      "vegan",
+      "dairy_free"
+    ],
+    "note": "For cheesy flavor in sauces — 2–4 tbsp",
+    "confidence": 0.65
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

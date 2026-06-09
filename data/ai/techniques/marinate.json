@@ -1,0 +1,14 @@
+{
+  "id": "technique.marinate",
+  "type": "technique",
+  "display_name": "Marinate",
+  "attributes": {
+    "cuisine_tags": [
+      "bbq",
+      "mexican"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

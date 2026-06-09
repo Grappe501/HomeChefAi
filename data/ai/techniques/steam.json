@@ -1,0 +1,14 @@
+{
+  "id": "technique.steam",
+  "type": "technique",
+  "display_name": "Steam",
+  "attributes": {
+    "cuisine_tags": [
+      "asian",
+      "healthy"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

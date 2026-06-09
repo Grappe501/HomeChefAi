@@ -1,0 +1,11 @@
+{
+  "id": "food_science.caramelization",
+  "type": "food_science",
+  "display_name": "Caramelization",
+  "attributes": {
+    "micro_lesson": "Sugars brown above ~320°F — distinct from Maillard."
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

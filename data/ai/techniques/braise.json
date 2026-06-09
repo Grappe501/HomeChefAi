@@ -1,0 +1,11 @@
+{
+  "id": "technique.braise",
+  "type": "technique",
+  "display_name": "Braise",
+  "description": "Sear then slow-cook in liquid until tender.",
+  "attributes": {
+    "micro_lesson": "Low and slow — collagen melts into silk after the sear built the flavor base.",
+    "cuisine_tags": ["french", "comfort", "southern"]
+  },
+  "sources": ["curated"]
+}

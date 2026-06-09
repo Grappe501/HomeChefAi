@@ -1,0 +1,11 @@
+{
+  "id": "food_science.gluten",
+  "type": "food_science",
+  "display_name": "Gluten Development",
+  "attributes": {
+    "micro_lesson": "Kneading aligns gluten proteins for chew in bread and pasta."
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

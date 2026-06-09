@@ -1,0 +1,11 @@
+{
+  "id": "food_science.fat_soluble",
+  "type": "food_science",
+  "display_name": "Fat-Soluble Flavor",
+  "attributes": {
+    "micro_lesson": "Many aromatics (pepper, cumin) bloom best in hot fat."
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

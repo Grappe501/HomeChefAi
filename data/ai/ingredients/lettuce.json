@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.lettuce",
+  "type": "ingredient",
+  "display_name": "Lettuce",
+  "parent_id": "ingredient.produce",
+  "attributes": {
+    "wizard_item": "Lettuce",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "technique.ferment",
+  "type": "technique",
+  "display_name": "Fermentation",
+  "attributes": {
+    "cuisine_tags": [
+      "preservation"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

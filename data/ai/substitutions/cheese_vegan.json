@@ -1,0 +1,19 @@
+{
+  "id": "substitution.cheese_vegan",
+  "type": "substitution",
+  "display_name": "ingredient.cheese → ingredient.vegan_cheese (vegan, dairy_free)",
+  "attributes": {
+    "from_id": "ingredient.cheese",
+    "to_id": "ingredient.vegan_cheese",
+    "reasons": [
+      "vegan",
+      "dairy_free"
+    ],
+    "ratio": "1:1",
+    "confidence": 0.7
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

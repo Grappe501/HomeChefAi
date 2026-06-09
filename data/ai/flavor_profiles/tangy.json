@@ -1,0 +1,14 @@
+{
+  "id": "flavor_profile.tangy",
+  "type": "flavor_profile",
+  "display_name": "Tangy",
+  "attributes": {
+    "cuisine_tags": [
+      "southern",
+      "cajun"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

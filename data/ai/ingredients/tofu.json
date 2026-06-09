@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.tofu",
+  "type": "ingredient",
+  "display_name": "Tofu",
+  "parent_id": "ingredient.protein",
+  "attributes": {
+    "wizard_item": "Tofu",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

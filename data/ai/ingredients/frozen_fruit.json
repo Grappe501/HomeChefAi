@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.frozen_fruit",
+  "type": "ingredient",
+  "display_name": "Frozen Fruit",
+  "parent_id": "ingredient.frozen",
+  "attributes": {
+    "wizard_item": "Frozen Fruit",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "ingredient.almond_milk",
+  "type": "ingredient",
+  "display_name": "Almond Milk",
+  "parent_id": "ingredient.plant_based",
+  "attributes": {
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true,
+      "contains_nuts": true
+    }
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "substitution_engine"
+  ]
+}

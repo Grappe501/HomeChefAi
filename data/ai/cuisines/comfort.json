@@ -1,0 +1,11 @@
+{
+  "id": "cuisine.comfort",
+  "type": "cuisine",
+  "display_name": "Comfort Food",
+  "attributes": {
+    "staples": ["ingredient.butter", "ingredient.flour", "ingredient.cheese", "ingredient.ground_beef"],
+    "regional_uses": ["Mac and cheese", "Meatloaf", "Mashed potatoes", "Casseroles"],
+    "cuisine_tags": ["comfort", "american"]
+  },
+  "sources": ["curated"]
+}

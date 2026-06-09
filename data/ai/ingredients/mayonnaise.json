@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.mayonnaise",
+  "type": "ingredient",
+  "display_name": "Mayonnaise",
+  "parent_id": "ingredient.condiments",
+  "attributes": {
+    "wizard_item": "Mayonnaise",
+    "dietary": {
+      "vegetarian": true,
+      "contains_eggs": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

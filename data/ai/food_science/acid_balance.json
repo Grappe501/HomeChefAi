@@ -1,0 +1,11 @@
+{
+  "id": "food_science.acid_balance",
+  "type": "food_science",
+  "display_name": "Acid Balance",
+  "attributes": {
+    "micro_lesson": "A splash of acid brightens rich or fatty dishes at the finish."
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "substitution.butter_vegan_oil",
+  "type": "substitution",
+  "display_name": "ingredient.butter → ingredient.coconut_oil (vegan, dairy_free)",
+  "attributes": {
+    "from_id": "ingredient.butter",
+    "to_id": "ingredient.coconut_oil",
+    "reasons": [
+      "vegan",
+      "dairy_free"
+    ],
+    "note": "Use 3/4 amount for sauté",
+    "ratio": "3/4",
+    "confidence": 0.75
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

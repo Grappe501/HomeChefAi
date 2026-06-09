@@ -1,0 +1,16 @@
+{
+  "id": "ingredient.flax_meal",
+  "type": "ingredient",
+  "display_name": "Flax Meal",
+  "parent_id": "ingredient.plant_based",
+  "attributes": {
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    }
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "substitution_engine"
+  ]
+}

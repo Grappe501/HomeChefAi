@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.fruit_cocktail",
+  "type": "ingredient",
+  "display_name": "Fruit Cocktail",
+  "parent_id": "ingredient.produce",
+  "attributes": {
+    "wizard_item": "Fruit Cocktail",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

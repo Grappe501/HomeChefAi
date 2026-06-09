@@ -1,0 +1,11 @@
+{
+  "id": "technique.roast",
+  "type": "technique",
+  "display_name": "Roast",
+  "description": "Dry heat in the oven for caramelization and even cooking.",
+  "attributes": {
+    "micro_lesson": "Give food space on the pan — crowding steams instead of roasts.",
+    "cuisine_tags": ["american", "comfort", "southern"]
+  },
+  "sources": ["curated"]
+}

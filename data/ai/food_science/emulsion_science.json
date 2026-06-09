@@ -1,0 +1,11 @@
+{
+  "id": "food_science.emulsion_science",
+  "type": "food_science",
+  "display_name": "Emulsion Science",
+  "attributes": {
+    "micro_lesson": "Lecithin in egg yolk bridges oil and water in sauces."
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

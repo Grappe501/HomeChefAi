@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.mediterranean",
+  "type": "cuisine",
+  "display_name": "Mediterranean",
+  "attributes": {
+    "staples": [
+      "ingredient.olive_oil",
+      "ingredient.tomato",
+      "ingredient.garlic"
+    ],
+    "cuisine_tags": [
+      "mediterranean"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

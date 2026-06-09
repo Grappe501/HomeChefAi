@@ -1,0 +1,19 @@
+{
+  "id": "ingredient.quinoa",
+  "type": "ingredient",
+  "display_name": "Quinoa",
+  "parent_id": "ingredient.grains",
+  "attributes": {
+    "wizard_item": "Quinoa",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true,
+      "contains_gluten": false
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

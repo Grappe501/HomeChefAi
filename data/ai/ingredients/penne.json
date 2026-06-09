@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.penne",
+  "type": "ingredient",
+  "display_name": "Penne",
+  "parent_id": "ingredient.grains",
+  "attributes": {
+    "wizard_item": "Penne",
+    "dietary": {
+      "vegetarian": true,
+      "contains_gluten": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

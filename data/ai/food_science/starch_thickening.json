@@ -1,0 +1,11 @@
+{
+  "id": "food_science.starch_thickening",
+  "type": "food_science",
+  "display_name": "Starch Thickening",
+  "attributes": {
+    "micro_lesson": "Flour or cornstarch slurry thickens sauces as starch gelatinizes."
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

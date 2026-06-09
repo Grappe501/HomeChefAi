@@ -1,0 +1,17 @@
+{
+  "id": "ingredient.frozen_chicken",
+  "type": "ingredient",
+  "display_name": "Frozen Chicken",
+  "parent_id": "ingredient.frozen",
+  "attributes": {
+    "wizard_item": "Frozen Chicken",
+    "dietary": {
+      "contains_meat": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

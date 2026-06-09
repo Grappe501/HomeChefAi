@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.yogurt",
+  "type": "ingredient",
+  "display_name": "Yogurt",
+  "parent_id": "ingredient.dairy",
+  "attributes": {
+    "wizard_item": "Yogurt",
+    "dietary": {
+      "vegetarian": true,
+      "contains_dairy": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

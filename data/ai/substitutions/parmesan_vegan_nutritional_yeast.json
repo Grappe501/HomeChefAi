@@ -1,0 +1,18 @@
+{
+  "id": "substitution.parmesan_vegan_nutritional_yeast",
+  "type": "substitution",
+  "display_name": "ingredient.cheese → ingredient.nutritional_yeast (vegan)",
+  "attributes": {
+    "from_id": "ingredient.cheese",
+    "to_id": "ingredient.nutritional_yeast",
+    "reasons": [
+      "vegan"
+    ],
+    "note": "Sprinkle for umami — not a melt swap",
+    "confidence": 0.6
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

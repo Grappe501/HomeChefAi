@@ -1,0 +1,20 @@
+{
+  "id": "substitution.milk_vegan_almond",
+  "type": "substitution",
+  "display_name": "ingredient.milk → ingredient.almond_milk (vegan, dairy_free)",
+  "attributes": {
+    "from_id": "ingredient.milk",
+    "to_id": "ingredient.almond_milk",
+    "reasons": [
+      "vegan",
+      "dairy_free"
+    ],
+    "note": "Nut allergy — use oat instead",
+    "ratio": "1:1",
+    "confidence": 0.8
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

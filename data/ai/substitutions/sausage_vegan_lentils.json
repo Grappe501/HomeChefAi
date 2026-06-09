@@ -1,0 +1,19 @@
+{
+  "id": "substitution.sausage_vegan_lentils",
+  "type": "substitution",
+  "display_name": "ingredient.sausage → ingredient.lentils (vegan, vegetarian)",
+  "attributes": {
+    "from_id": "ingredient.sausage",
+    "to_id": "ingredient.lentils",
+    "reasons": [
+      "vegan",
+      "vegetarian"
+    ],
+    "note": "Seasoned lentil crumble",
+    "confidence": 0.7
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

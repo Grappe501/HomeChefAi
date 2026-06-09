@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.bread_crumbs",
+  "type": "ingredient",
+  "display_name": "Bread Crumbs",
+  "parent_id": "ingredient.grains",
+  "attributes": {
+    "wizard_item": "Bread Crumbs",
+    "dietary": {
+      "vegetarian": true,
+      "contains_gluten": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

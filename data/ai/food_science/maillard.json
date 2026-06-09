@@ -1,0 +1,11 @@
+{
+  "id": "food_science.maillard",
+  "type": "food_science",
+  "display_name": "Maillard Reaction",
+  "attributes": {
+    "micro_lesson": "Heat + amino acids + sugars = browning and deep flavor."
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

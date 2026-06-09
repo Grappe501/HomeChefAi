@@ -1,0 +1,35 @@
+{
+  "id": "ingredient.garlic",
+  "type": "ingredient",
+  "display_name": "Garlic",
+  "parent_id": "ingredient.produce",
+  "attributes": {
+    "substitutes": [
+      {
+        "id": "ingredient.garlic_powder",
+        "note": "1 clove ≈ 1/8 tsp powder"
+      }
+    ],
+    "pairings": [
+      "ingredient.onion",
+      "ingredient.butter",
+      "ingredient.tomato",
+      "ingredient.chicken"
+    ],
+    "cuisine_tags": [
+      "italian",
+      "cajun",
+      "mexican",
+      "asian",
+      "southern"
+    ],
+    "wizard_item": "Garlic",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    }
+  },
+  "sources": [
+    "curated"
+  ]
+}

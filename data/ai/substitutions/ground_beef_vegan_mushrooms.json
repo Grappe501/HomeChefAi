@@ -1,0 +1,19 @@
+{
+  "id": "substitution.ground_beef_vegan_mushrooms",
+  "type": "substitution",
+  "display_name": "ingredient.ground_beef → ingredient.mushrooms (vegan, vegetarian)",
+  "attributes": {
+    "from_id": "ingredient.ground_beef",
+    "to_id": "ingredient.mushrooms",
+    "reasons": [
+      "vegan",
+      "vegetarian"
+    ],
+    "note": "Finely chopped mushrooms for umami",
+    "confidence": 0.75
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

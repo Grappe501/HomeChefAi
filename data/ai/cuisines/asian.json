@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.asian",
+  "type": "cuisine",
+  "display_name": "Asian",
+  "attributes": {
+    "staples": [
+      "ingredient.rice",
+      "ingredient.garlic",
+      "ingredient.soy_sauce"
+    ],
+    "cuisine_tags": [
+      "asian"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "ingredient.brown_rice",
+  "type": "ingredient",
+  "display_name": "Brown Rice",
+  "parent_id": "ingredient.grains",
+  "attributes": {
+    "wizard_item": "Brown Rice",
+    "taxonomy_family": "rice",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true,
+      "contains_gluten": false
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

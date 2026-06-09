@@ -1,0 +1,18 @@
+{
+  "id": "cuisine.indian",
+  "type": "cuisine",
+  "display_name": "Indian",
+  "attributes": {
+    "staples": [
+      "ingredient.rice",
+      "ingredient.cumin",
+      "ingredient.garlic"
+    ],
+    "cuisine_tags": [
+      "indian"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

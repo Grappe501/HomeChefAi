@@ -1,0 +1,14 @@
+{
+  "id": "technique.knead",
+  "type": "technique",
+  "display_name": "Knead",
+  "attributes": {
+    "cuisine_tags": [
+      "baking",
+      "italian"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

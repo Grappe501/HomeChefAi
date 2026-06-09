@@ -1,0 +1,14 @@
+{
+  "id": "technique.caramelize",
+  "type": "technique",
+  "display_name": "Caramelize",
+  "attributes": {
+    "cuisine_tags": [
+      "french",
+      "comfort"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

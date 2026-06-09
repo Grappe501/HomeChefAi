@@ -1,0 +1,11 @@
+{
+  "id": "food_science.protein_denature",
+  "type": "food_science",
+  "display_name": "Protein Denaturing",
+  "attributes": {
+    "micro_lesson": "Heat unfolds proteins — eggs set, meat firms, dairy curdles."
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

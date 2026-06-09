@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.chocolate_chips",
+  "type": "ingredient",
+  "display_name": "Chocolate Chips",
+  "parent_id": "ingredient.baking",
+  "attributes": {
+    "wizard_item": "Chocolate Chips",
+    "dietary": {
+      "vegetarian": true,
+      "contains_dairy": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

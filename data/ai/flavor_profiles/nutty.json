@@ -1,0 +1,14 @@
+{
+  "id": "flavor_profile.nutty",
+  "type": "flavor_profile",
+  "display_name": "Nutty",
+  "attributes": {
+    "cuisine_tags": [
+      "baking",
+      "asian"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

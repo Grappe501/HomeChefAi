@@ -1,0 +1,13 @@
+{
+  "id": "flavor_profile.fresh_light",
+  "type": "flavor_profile",
+  "display_name": "Fresh & Light",
+  "attributes": {
+    "cuisine_tags": [
+      "mediterranean"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

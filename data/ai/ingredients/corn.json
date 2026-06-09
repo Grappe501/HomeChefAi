@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.corn",
+  "type": "ingredient",
+  "display_name": "Corn",
+  "parent_id": "ingredient.produce",
+  "attributes": {
+    "wizard_item": "Corn",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

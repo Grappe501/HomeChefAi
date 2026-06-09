@@ -1,0 +1,20 @@
+{
+  "id": "substitution.butter_vegan",
+  "type": "substitution",
+  "display_name": "ingredient.butter → ingredient.vegan_butter (vegan, dairy_free)",
+  "attributes": {
+    "from_id": "ingredient.butter",
+    "to_id": "ingredient.vegan_butter",
+    "reasons": [
+      "vegan",
+      "dairy_free"
+    ],
+    "note": "1:1 in baking and sauté",
+    "ratio": "1:1",
+    "confidence": 0.9
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

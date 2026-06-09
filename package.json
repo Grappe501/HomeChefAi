@@ -10,6 +10,9 @@
     "preview": "vite preview",
     "netlify:dev": "netlify dev",
     "typecheck": "tsc --noEmit",
+    "test:knowledge": "npx tsx --test tests/knowledge.test.mjs",
+    "knowledge:import": "node scripts/import-taxonomy-to-knowledge.mjs",
+    "knowledge:generate": "node scripts/generate-pantry-knowledge.mjs",
     "db:init": "node scripts/init-db.mjs"
   },
   "dependencies": {

@@ -1,0 +1,74 @@
+{
+  "id": "ingredient.chicken",
+  "type": "ingredient",
+  "display_name": "Chicken",
+  "parent_id": "ingredient.poultry",
+  "attributes": {
+    "variants": [
+      {
+        "id": "breast",
+        "label": "Breast"
+      },
+      {
+        "id": "thigh",
+        "label": "Thigh"
+      },
+      {
+        "id": "whole",
+        "label": "Whole"
+      },
+      {
+        "id": "ground",
+        "label": "Ground"
+      }
+    ],
+    "substitutes": [
+      {
+        "id": "ingredient.turkey",
+        "note": "Similar lean protein",
+        "reasons": [
+          "missing"
+        ]
+      },
+      {
+        "id": "ingredient.tofu",
+        "note": "Plant-based swap",
+        "reasons": [
+          "vegan",
+          "vegetarian"
+        ],
+        "confidence": 0.85
+      },
+      {
+        "id": "ingredient.tempeh",
+        "note": "Firm texture",
+        "reasons": [
+          "vegan",
+          "vegetarian"
+        ],
+        "confidence": 0.75
+      }
+    ],
+    "pairings": [
+      "ingredient.garlic",
+      "ingredient.onion",
+      "ingredient.rice",
+      "ingredient.paprika",
+      "ingredient.butter"
+    ],
+    "cuisine_tags": [
+      "american",
+      "southern",
+      "cajun",
+      "italian",
+      "mexican"
+    ],
+    "dietary": {
+      "contains_meat": true
+    }
+  },
+  "sources": [
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

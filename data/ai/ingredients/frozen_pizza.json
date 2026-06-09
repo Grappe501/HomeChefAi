@@ -1,0 +1,19 @@
+{
+  "id": "ingredient.frozen_pizza",
+  "type": "ingredient",
+  "display_name": "Frozen Pizza",
+  "parent_id": "ingredient.frozen",
+  "attributes": {
+    "wizard_item": "Frozen Pizza",
+    "dietary": {
+      "vegetarian": true,
+      "contains_gluten": true,
+      "contains_dairy": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

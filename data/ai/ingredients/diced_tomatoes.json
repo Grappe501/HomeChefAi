@@ -1,0 +1,19 @@
+{
+  "id": "ingredient.diced_tomatoes",
+  "type": "ingredient",
+  "display_name": "Diced Tomatoes",
+  "parent_id": "ingredient.produce",
+  "attributes": {
+    "wizard_item": "Diced Tomatoes",
+    "taxonomy_family": "tomato",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

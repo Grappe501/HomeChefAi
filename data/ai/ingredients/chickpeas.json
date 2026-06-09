@@ -1,0 +1,19 @@
+{
+  "id": "ingredient.chickpeas",
+  "type": "ingredient",
+  "display_name": "Chickpeas",
+  "parent_id": "ingredient.legumes",
+  "attributes": {
+    "wizard_item": "Chickpeas",
+    "taxonomy_family": "beans",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

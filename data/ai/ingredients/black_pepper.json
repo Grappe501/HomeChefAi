@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.black_pepper",
+  "type": "ingredient",
+  "display_name": "Black Pepper",
+  "parent_id": "ingredient.spice",
+  "attributes": {
+    "wizard_item": "Black Pepper",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

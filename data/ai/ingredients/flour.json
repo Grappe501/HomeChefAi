@@ -1,0 +1,51 @@
+{
+  "id": "ingredient.flour",
+  "type": "ingredient",
+  "display_name": "Flour",
+  "parent_id": "ingredient.grain",
+  "attributes": {
+    "variants": [
+      {
+        "id": "all_purpose",
+        "label": "All Purpose"
+      },
+      {
+        "id": "bread",
+        "label": "Bread Flour"
+      },
+      {
+        "id": "whole_wheat",
+        "label": "Whole Wheat"
+      }
+    ],
+    "substitutes": [
+      {
+        "id": "ingredient.gluten_free_flour",
+        "ratio": "1:1",
+        "reasons": [
+          "gluten_free"
+        ],
+        "confidence": 0.85
+      }
+    ],
+    "pairings": [
+      "ingredient.butter",
+      "ingredient.egg",
+      "ingredient.milk"
+    ],
+    "cuisine_tags": [
+      "american",
+      "southern",
+      "comfort",
+      "italian"
+    ],
+    "dietary": {
+      "vegetarian": true,
+      "contains_gluten": true
+    }
+  },
+  "sources": [
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

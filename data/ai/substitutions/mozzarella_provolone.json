@@ -1,0 +1,12 @@
+{
+  "id": "substitution.mozzarella_provolone",
+  "type": "substitution",
+  "display_name": "Mozzarella ↔ Provolone",
+  "attributes": {
+    "from_id": "ingredient.cheese",
+    "to_id": "ingredient.cheese",
+    "note": "Both melt well on pizza and sandwiches; provolone is sharper.",
+    "ratio": "1:1"
+  },
+  "sources": ["curated"]
+}

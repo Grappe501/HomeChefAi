@@ -1,0 +1,14 @@
+{
+  "id": "technique.roux",
+  "type": "technique",
+  "display_name": "Roux",
+  "parent_id": "technique.base",
+  "description": "Equal parts fat and flour cooked together to thicken sauces and soups.",
+  "attributes": {
+    "micro_lesson": "Cook until the roux smells nutty — blond for béchamel, chocolate brown for gumbo.",
+    "steps": ["Melt fat", "Whisk in flour", "Cook to desired color", "Add liquid gradually"],
+    "pairings": ["ingredient.butter", "ingredient.flour", "ingredient.onion"],
+    "cuisine_tags": ["cajun", "southern", "french", "comfort"]
+  },
+  "sources": ["curated"]
+}

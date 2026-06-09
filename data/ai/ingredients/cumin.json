@@ -1,0 +1,32 @@
+{
+  "id": "ingredient.cumin",
+  "type": "ingredient",
+  "display_name": "Cumin",
+  "parent_id": "ingredient.spice",
+  "attributes": {
+    "substitutes": [
+      {
+        "id": "ingredient.chili.powder",
+        "note": "Different flavor — use sparingly"
+      }
+    ],
+    "pairings": [
+      "ingredient.beans",
+      "ingredient.garlic",
+      "ingredient.tomato"
+    ],
+    "cuisine_tags": [
+      "mexican",
+      "indian",
+      "middle_eastern"
+    ],
+    "wizard_item": "Cumin",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    }
+  },
+  "sources": [
+    "curated"
+  ]
+}

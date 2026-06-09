@@ -1,0 +1,19 @@
+{
+  "id": "substitution.ice_cream_vegan",
+  "type": "substitution",
+  "display_name": "ingredient.ice_cream → ingredient.frozen_fruit (vegan, dairy_free)",
+  "attributes": {
+    "from_id": "ingredient.ice_cream",
+    "to_id": "ingredient.frozen_fruit",
+    "reasons": [
+      "vegan",
+      "dairy_free"
+    ],
+    "note": "Blended frozen fruit nice cream",
+    "confidence": 0.6
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

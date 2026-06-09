@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.red_pepper_flakes",
+  "type": "ingredient",
+  "display_name": "Red Pepper Flakes",
+  "parent_id": "ingredient.spice",
+  "attributes": {
+    "wizard_item": "Red Pepper Flakes",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

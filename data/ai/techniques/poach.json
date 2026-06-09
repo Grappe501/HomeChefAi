@@ -1,0 +1,13 @@
+{
+  "id": "technique.poach",
+  "type": "technique",
+  "display_name": "Poach",
+  "attributes": {
+    "cuisine_tags": [
+      "french"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

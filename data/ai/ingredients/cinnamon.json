@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.cinnamon",
+  "type": "ingredient",
+  "display_name": "Cinnamon",
+  "parent_id": "ingredient.spice",
+  "attributes": {
+    "wizard_item": "Cinnamon",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

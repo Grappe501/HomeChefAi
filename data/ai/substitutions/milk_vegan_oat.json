@@ -1,0 +1,19 @@
+{
+  "id": "substitution.milk_vegan_oat",
+  "type": "substitution",
+  "display_name": "ingredient.milk → ingredient.oat_milk (vegan, dairy_free)",
+  "attributes": {
+    "from_id": "ingredient.milk",
+    "to_id": "ingredient.oat_milk",
+    "reasons": [
+      "vegan",
+      "dairy_free"
+    ],
+    "ratio": "1:1",
+    "confidence": 0.85
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

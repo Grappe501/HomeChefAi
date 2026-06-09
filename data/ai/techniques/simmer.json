@@ -1,0 +1,14 @@
+{
+  "id": "technique.simmer",
+  "type": "technique",
+  "display_name": "Simmer",
+  "attributes": {
+    "cuisine_tags": [
+      "comfort",
+      "southern"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

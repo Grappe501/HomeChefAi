@@ -1,0 +1,14 @@
+{
+  "id": "flavor_profile.smoky",
+  "type": "flavor_profile",
+  "display_name": "Smoky",
+  "attributes": {
+    "cuisine_tags": [
+      "bbq",
+      "southern"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "ingredient.vegan_butter",
+  "type": "ingredient",
+  "display_name": "Vegan Butter",
+  "parent_id": "ingredient.plant_based",
+  "attributes": {
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    }
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "substitution_engine"
+  ]
+}

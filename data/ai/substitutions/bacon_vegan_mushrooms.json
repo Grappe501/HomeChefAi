@@ -1,0 +1,19 @@
+{
+  "id": "substitution.bacon_vegan_mushrooms",
+  "type": "substitution",
+  "display_name": "ingredient.bacon → ingredient.mushrooms (vegan, vegetarian)",
+  "attributes": {
+    "from_id": "ingredient.bacon",
+    "to_id": "ingredient.mushrooms",
+    "reasons": [
+      "vegan",
+      "vegetarian"
+    ],
+    "note": "Smoked paprika + liquid smoke on mushrooms",
+    "confidence": 0.65
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

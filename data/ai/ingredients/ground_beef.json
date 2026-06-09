@@ -1,0 +1,64 @@
+{
+  "id": "ingredient.ground_beef",
+  "type": "ingredient",
+  "display_name": "Ground Beef",
+  "parent_id": "ingredient.meat",
+  "attributes": {
+    "variants": [
+      {
+        "id": "80_20",
+        "label": "80/20"
+      },
+      {
+        "id": "90_10",
+        "label": "90/10 lean"
+      }
+    ],
+    "substitutes": [
+      {
+        "id": "ingredient.turkey",
+        "note": "Leaner — may need extra fat",
+        "reasons": [
+          "missing"
+        ]
+      },
+      {
+        "id": "ingredient.lentils",
+        "note": "Vegan crumble for tacos",
+        "reasons": [
+          "vegan",
+          "vegetarian"
+        ],
+        "confidence": 0.8
+      },
+      {
+        "id": "ingredient.mushrooms",
+        "note": "Umami-rich chop",
+        "reasons": [
+          "vegan",
+          "vegetarian"
+        ],
+        "confidence": 0.75
+      }
+    ],
+    "pairings": [
+      "ingredient.onion",
+      "ingredient.garlic",
+      "ingredient.tomato"
+    ],
+    "cuisine_tags": [
+      "american",
+      "comfort",
+      "mexican"
+    ],
+    "wizard_item": "Ground Beef",
+    "taxonomy_family": "ground_beef",
+    "dietary": {
+      "contains_meat": true
+    }
+  },
+  "sources": [
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

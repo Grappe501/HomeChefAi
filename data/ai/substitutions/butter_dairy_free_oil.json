@@ -1,0 +1,19 @@
+{
+  "id": "substitution.butter_dairy_free_oil",
+  "type": "substitution",
+  "display_name": "ingredient.butter → ingredient.oil (dairy_free)",
+  "attributes": {
+    "from_id": "ingredient.butter",
+    "to_id": "ingredient.oil",
+    "reasons": [
+      "dairy_free"
+    ],
+    "note": "Neutral oil for cooking",
+    "ratio": "3/4",
+    "confidence": 0.8
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

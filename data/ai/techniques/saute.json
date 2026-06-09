@@ -1,0 +1,14 @@
+{
+  "id": "technique.saute",
+  "type": "technique",
+  "display_name": "Sauté",
+  "attributes": {
+    "cuisine_tags": [
+      "french",
+      "italian"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

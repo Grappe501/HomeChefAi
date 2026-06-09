@@ -1,0 +1,11 @@
+{
+  "id": "food_science.smoke_point",
+  "type": "food_science",
+  "display_name": "Smoke Point",
+  "attributes": {
+    "micro_lesson": "Oils break down above their smoke point — use high-smoke oils for sear."
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

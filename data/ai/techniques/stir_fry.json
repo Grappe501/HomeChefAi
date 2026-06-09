@@ -1,0 +1,13 @@
+{
+  "id": "technique.stir_fry",
+  "type": "technique",
+  "display_name": "Stir Fry",
+  "attributes": {
+    "cuisine_tags": [
+      "asian"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

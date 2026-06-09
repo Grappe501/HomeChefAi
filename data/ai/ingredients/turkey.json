@@ -1,0 +1,15 @@
+{
+  "id": "ingredient.turkey",
+  "type": "ingredient",
+  "display_name": "Turkey",
+  "parent_id": "ingredient.plant_based",
+  "attributes": {
+    "dietary": {
+      "contains_meat": true
+    }
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "substitution_engine"
+  ]
+}

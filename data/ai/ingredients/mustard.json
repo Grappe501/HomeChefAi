@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.mustard",
+  "type": "ingredient",
+  "display_name": "Mustard",
+  "parent_id": "ingredient.condiments",
+  "attributes": {
+    "wizard_item": "Mustard",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

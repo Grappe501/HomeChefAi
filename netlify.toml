@@ -9,6 +9,7 @@
 
 [functions]
   node_bundler = "esbuild"
+  included_files = ["data/ai/**"]
 
 [functions."meals"]
   timeout = 26
@@ -18,6 +19,9 @@
 
 [functions."assistant"]
   timeout = 26
+
+[functions."knowledge"]
+  timeout = 10
 
 [[redirects]]
   from = "/api/*"

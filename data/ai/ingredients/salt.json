@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.salt",
+  "type": "ingredient",
+  "display_name": "Salt",
+  "parent_id": "ingredient.spice",
+  "attributes": {
+    "wizard_item": "Salt",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

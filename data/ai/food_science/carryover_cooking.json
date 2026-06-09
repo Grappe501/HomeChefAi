@@ -1,0 +1,11 @@
+{
+  "id": "food_science.carryover_cooking",
+  "type": "food_science",
+  "display_name": "Carryover Cooking",
+  "attributes": {
+    "micro_lesson": "Meat temperature rises 5–10°F after resting off heat."
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

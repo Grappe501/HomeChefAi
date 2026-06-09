@@ -1,0 +1,62 @@
+{
+  "id": "ingredient.cheese",
+  "type": "ingredient",
+  "display_name": "Cheese",
+  "parent_id": "ingredient.dairy",
+  "attributes": {
+    "variants": [
+      {
+        "id": "cheddar",
+        "label": "Cheddar"
+      },
+      {
+        "id": "mozzarella",
+        "label": "Mozzarella"
+      },
+      {
+        "id": "parmesan",
+        "label": "Parmesan"
+      }
+    ],
+    "substitutes": [
+      {
+        "id": "ingredient.vegan_cheese",
+        "reasons": [
+          "vegan",
+          "dairy_free"
+        ],
+        "confidence": 0.7
+      },
+      {
+        "id": "ingredient.nutritional_yeast",
+        "note": "Cheesy flavor in sauces",
+        "reasons": [
+          "vegan",
+          "dairy_free"
+        ],
+        "confidence": 0.65
+      }
+    ],
+    "pairings": [
+      "ingredient.tomato",
+      "ingredient.bread",
+      "ingredient.pasta"
+    ],
+    "cuisine_tags": [
+      "american",
+      "italian",
+      "comfort",
+      "mexican"
+    ],
+    "wizard_item": "Cheese",
+    "taxonomy_family": "cheese",
+    "dietary": {
+      "vegetarian": true,
+      "contains_dairy": true
+    }
+  },
+  "sources": [
+    "curated",
+    "food_taxonomy_1_0"
+  ]
+}

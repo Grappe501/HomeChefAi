@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.sugar",
+  "type": "ingredient",
+  "display_name": "Sugar",
+  "parent_id": "ingredient.baking",
+  "attributes": {
+    "wizard_item": "Sugar",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

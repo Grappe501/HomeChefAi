@@ -1,0 +1,14 @@
+{
+  "id": "flavor_profile.earthy",
+  "type": "flavor_profile",
+  "display_name": "Earthy",
+  "attributes": {
+    "cuisine_tags": [
+      "comfort",
+      "southern"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

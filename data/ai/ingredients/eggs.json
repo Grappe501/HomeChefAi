@@ -1,0 +1,38 @@
+{
+  "id": "ingredient.eggs",
+  "type": "ingredient",
+  "display_name": "Eggs",
+  "parent_id": "ingredient.dairy",
+  "attributes": {
+    "wizard_item": "Eggs",
+    "dietary": {
+      "vegetarian": true,
+      "contains_eggs": true
+    },
+    "cuisine_tags": [],
+    "substitutes": [
+      {
+        "id": "ingredient.flax_meal",
+        "note": "1 tbsp + 3 tbsp water per egg",
+        "reasons": [
+          "vegan",
+          "egg_free"
+        ],
+        "confidence": 0.8
+      },
+      {
+        "id": "ingredient.aquafaba",
+        "note": "3 tbsp per egg white",
+        "reasons": [
+          "vegan",
+          "egg_free"
+        ],
+        "confidence": 0.75
+      }
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

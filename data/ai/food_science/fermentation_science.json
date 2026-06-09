@@ -1,0 +1,11 @@
+{
+  "id": "food_science.fermentation_science",
+  "type": "food_science",
+  "display_name": "Fermentation",
+  "attributes": {
+    "micro_lesson": "Microbes produce acid and CO₂ — preserves and builds flavor."
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

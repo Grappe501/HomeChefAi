@@ -1,0 +1,17 @@
+{
+  "id": "ingredient.bacon",
+  "type": "ingredient",
+  "display_name": "Bacon",
+  "parent_id": "ingredient.meat",
+  "attributes": {
+    "wizard_item": "Bacon",
+    "dietary": {
+      "contains_meat": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

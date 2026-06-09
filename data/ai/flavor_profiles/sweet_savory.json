@@ -1,0 +1,14 @@
+{
+  "id": "flavor_profile.sweet_savory",
+  "type": "flavor_profile",
+  "display_name": "Sweet-Savory",
+  "attributes": {
+    "cuisine_tags": [
+      "asian",
+      "american"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

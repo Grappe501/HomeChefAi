@@ -1,0 +1,23 @@
+{
+  "id": "ingredient.potato",
+  "type": "ingredient",
+  "display_name": "Potato",
+  "parent_id": "ingredient.produce",
+  "attributes": {
+    "cuisine_tags": [
+      "american",
+      "comfort"
+    ],
+    "imported_from": "food_taxonomy_1_1",
+    "wizard_item": "Potatoes",
+    "taxonomy_family": "potato",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    }
+  },
+  "sources": [
+    "import-taxonomy-to-knowledge",
+    "food_taxonomy_1_0"
+  ]
+}

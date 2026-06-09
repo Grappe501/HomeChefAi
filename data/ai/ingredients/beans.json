@@ -1,0 +1,11 @@
+{
+  "id": "ingredient.beans",
+  "type": "ingredient",
+  "display_name": "Beans",
+  "parent_id": "ingredient.legumes",
+  "attributes": {
+    "cuisine_tags": ["mexican", "southern", "latin"],
+    "pairings": ["ingredient.rice", "ingredient.cumin", "ingredient.tomato"]
+  },
+  "sources": ["curated"]
+}

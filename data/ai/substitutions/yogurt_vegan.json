@@ -1,0 +1,19 @@
+{
+  "id": "substitution.yogurt_vegan",
+  "type": "substitution",
+  "display_name": "ingredient.yogurt → ingredient.oat_milk (vegan, dairy_free)",
+  "attributes": {
+    "from_id": "ingredient.yogurt",
+    "to_id": "ingredient.oat_milk",
+    "reasons": [
+      "vegan",
+      "dairy_free"
+    ],
+    "note": "Plant yogurt 1:1",
+    "confidence": 0.75
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

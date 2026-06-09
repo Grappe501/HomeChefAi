@@ -1,0 +1,18 @@
+{
+  "id": "substitution.soy_sauce_gluten_free",
+  "type": "substitution",
+  "display_name": "ingredient.soy_sauce → ingredient.soy_sauce (gluten_free)",
+  "attributes": {
+    "from_id": "ingredient.soy_sauce",
+    "to_id": "ingredient.soy_sauce",
+    "reasons": [
+      "gluten_free"
+    ],
+    "note": "Use tamari (gluten-free soy sauce)",
+    "confidence": 0.9
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

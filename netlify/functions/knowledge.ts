@@ -1,0 +1,156 @@
+import type { Handler } from '@netlify/functions';
+import { withCors, jsonResponse, errorResponse, requireAuth } from './utils/response.js';
+import {
+  getKnowledgeNode,
+  searchKnowledge,
+  getSubstituteNodes,
+  getRelatedByPairing,
+  listKnowledgeNodes,
+  getKnowledgeStats,
+} from './utils/ai/knowledgeLoader.js';
+import {
+  resolveSubstitutions,
+  resolveMissingFromPantry,
+  parseSubstitutionReason,
+  formatSubstitutionContext,
+} from './utils/ai/substitutionEngine.js';
+import {
+  getPairings,
+  getCuisineStaples,
+  getNodesByCuisineTag,
+  searchAndSubstitute,
+} from './utils/ai/graphQueries.js';
+import type { KnowledgeNodeType, SubstitutionReason } from '../../src/types/knowledge.js';
+import { SUBSTITUTION_REASONS } from '../../src/types/knowledge.js';
+
+const VALID_TYPES = new Set([
+  'ingredient', 'technique', 'cuisine', 'meal_pattern', 'substitution',
+  'flavor_profile', 'food_science', 'nutrition', 'hosting', 'culture', 'tradition',
+]);
+
+export const handler: Handler = withCors(async (event) => {
+  if (event.httpMethod === 'OPTIONS') {
+    return jsonResponse({});
+  }
+
+  if (event.httpMethod !== 'GET') {
+    return errorResponse('Method not allowed', 405);
+  }
+
+  const user = await requireAuth(event);
+  if (!user) return errorResponse('Unauthorized', 401);
+
+  const params = event.queryStringParameters ?? {};
+  const action = params.action ?? 'get';
+
+  if (action === 'stats') {
+    return jsonResponse(getKnowledgeStats());
+  }
+
+  if (action === 'reasons') {
+    return jsonResponse({ reasons: SUBSTITUTION_REASONS });
+  }
+
+  if (action === 'list') {
+    const type = params.type as KnowledgeNodeType | undefined;
+    if (type && !VALID_TYPES.has(type)) {
+      return errorResponse('Invalid type', 400);
+    }
+    const nodes = listKnowledgeNodes(type);
+    return jsonResponse({ nodes, count: nodes.length });
+  }
+
+  if (action === 'search') {
+    const q = params.q?.trim();
+    if (!q) return errorResponse('Query q is required', 400);
+    const type = params.type as KnowledgeNodeType | undefined;
+    if (type && !VALID_TYPES.has(type)) return errorResponse('Invalid type', 400);
+    const results = searchKnowledge(q, type, Number(params.limit) || 20);
+    return jsonResponse({ results, query: q });
+  }
+
+  if (action === 'pairings') {
+    const id = params.id;
+    if (!id) return errorResponse('id required', 400);
+    return jsonResponse({ id, pairings: getPairings(id) });
+  }
+
+  if (action === 'cuisine_staples') {
+    const id = params.id ?? params.cuisine;
+    if (!id) return errorResponse('id or cuisine required', 400);
+    const cuisineId = id.startsWith('cuisine.') ? id : `cuisine.${id}`;
+    return jsonResponse({ cuisine_id: cuisineId, staples: getCuisineStaples(cuisineId) });
+  }
+
+  if (action === 'by_cuisine') {
+    const tag = params.tag ?? params.cuisine;
+    if (!tag) return errorResponse('tag required', 400);
+    const type = params.type as KnowledgeNodeType | undefined;
+    return jsonResponse({ tag, nodes: getNodesByCuisineTag(tag, type) });
+  }
+
+  if (action === 'substitute' || params.substitute) {
+    const id = params.id ?? params.substitute;
+    if (!id) return errorResponse('id or substitute param required', 400);
+    const source = getKnowledgeNode(id);
+    if (!source) return errorResponse('Knowledge node not found', 404);
+    const substitutes = getSubstituteNodes(id);
+    return jsonResponse({ node: source, substitutes });
+  }
+
+  if (action === 'substitutes') {
+    const id = params.id;
+    if (!id) return errorResponse('id required', 400);
+    const reason = parseSubstitutionReason(params.reason) as SubstitutionReason;
+    const limit = Number(params.limit) || 10;
+    const result = resolveSubstitutions(id, { reason, limit });
+    if (!result) return errorResponse(`Knowledge node not found: ${id}`, 404);
+    return jsonResponse(result);
+  }
+
+  if (action === 'substitute_context') {
+    const id = params.id;
+    if (!id) return errorResponse('id required', 400);
+    const reason = parseSubstitutionReason(params.reason) as SubstitutionReason;
+    return jsonResponse({ context: formatSubstitutionContext(id, reason) });
+  }
+
+  if (action === 'missing_from_pantry') {
+    const needed = params.needed?.split(',').map((s) => s.trim()).filter(Boolean) ?? [];
+    const available = params.available?.split(',').map((s) => s.trim()).filter(Boolean) ?? [];
+    if (!needed.length) return errorResponse('needed comma-separated ids required', 400);
+    const reason = parseSubstitutionReason(params.reason) as SubstitutionReason;
+    return jsonResponse({ results: resolveMissingFromPantry(needed, available, reason) });
+  }
+
+  if (action === 'search_substitute') {
+    const q = params.q?.trim();
+    if (!q) return errorResponse('Query q is required', 400);
+    const reason = parseSubstitutionReason(params.reason) as SubstitutionReason;
+    const bundle = searchAndSubstitute(q, { reason });
+    if (!bundle) return errorResponse('No matching ingredient', 404);
+    return jsonResponse(bundle);
+  }
+
+  const id = params.id;
+  if (!id) {
+    return errorResponse('id required (or use action=search|list|stats|substitutes)', 400);
+  }
+
+  const node = getKnowledgeNode(id);
+  if (!node) {
+    return errorResponse(`Knowledge node not found: ${id}`, 404);
+  }
+
+  const related = getRelatedByPairing(id);
+  const substitutes = getSubstituteNodes(id);
+  const reason = parseSubstitutionReason(params.reason ?? 'missing') as SubstitutionReason;
+  const substitution = resolveSubstitutions(id, { reason, limit: 5 });
+
+  return jsonResponse({
+    node,
+    substitutes,
+    related,
+    substitution,
+  });
+});

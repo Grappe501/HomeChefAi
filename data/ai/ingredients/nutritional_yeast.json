@@ -1,0 +1,16 @@
+{
+  "id": "ingredient.nutritional_yeast",
+  "type": "ingredient",
+  "display_name": "Nutritional Yeast",
+  "parent_id": "ingredient.plant_based",
+  "attributes": {
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    }
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "substitution_engine"
+  ]
+}

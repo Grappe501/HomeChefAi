@@ -1,0 +1,13 @@
+{
+  "id": "technique.deglaze",
+  "type": "technique",
+  "display_name": "Deglaze",
+  "attributes": {
+    "cuisine_tags": [
+      "french"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

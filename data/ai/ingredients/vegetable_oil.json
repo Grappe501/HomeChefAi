@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.vegetable_oil",
+  "type": "ingredient",
+  "display_name": "Vegetable Oil",
+  "parent_id": "ingredient.oil",
+  "attributes": {
+    "wizard_item": "Vegetable Oil",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

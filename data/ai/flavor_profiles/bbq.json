@@ -1,0 +1,15 @@
+{
+  "id": "flavor_profile.bbq",
+  "type": "flavor_profile",
+  "display_name": "BBQ",
+  "attributes": {
+    "cuisine_tags": [
+      "bbq",
+      "american",
+      "southern"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

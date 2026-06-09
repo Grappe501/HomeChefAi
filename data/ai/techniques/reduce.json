@@ -1,0 +1,14 @@
+{
+  "id": "technique.reduce",
+  "type": "technique",
+  "display_name": "Reduce (sauce)",
+  "attributes": {
+    "cuisine_tags": [
+      "french",
+      "italian"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

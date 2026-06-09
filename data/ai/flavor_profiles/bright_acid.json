@@ -1,0 +1,14 @@
+{
+  "id": "flavor_profile.bright_acid",
+  "type": "flavor_profile",
+  "display_name": "Bright & Acidic",
+  "attributes": {
+    "cuisine_tags": [
+      "mediterranean",
+      "mexican"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

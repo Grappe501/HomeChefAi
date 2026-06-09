@@ -1,0 +1,14 @@
+{
+  "id": "technique.grill",
+  "type": "technique",
+  "display_name": "Grill",
+  "attributes": {
+    "cuisine_tags": [
+      "bbq",
+      "american"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "flavor_profile.herbaceous",
+  "type": "flavor_profile",
+  "display_name": "Herbaceous",
+  "attributes": {
+    "cuisine_tags": [
+      "mediterranean",
+      "italian"
+    ]
+  },
+  "sources": [
+    "generate-pantry-knowledge"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "ingredient.lemons",
+  "type": "ingredient",
+  "display_name": "Lemons",
+  "parent_id": "ingredient.produce",
+  "attributes": {
+    "wizard_item": "Lemons",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

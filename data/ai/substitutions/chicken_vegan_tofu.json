@@ -1,0 +1,19 @@
+{
+  "id": "substitution.chicken_vegan_tofu",
+  "type": "substitution",
+  "display_name": "ingredient.chicken → ingredient.tofu (vegan, vegetarian)",
+  "attributes": {
+    "from_id": "ingredient.chicken",
+    "to_id": "ingredient.tofu",
+    "reasons": [
+      "vegan",
+      "vegetarian"
+    ],
+    "note": "Press and cube; marinate for flavor",
+    "confidence": 0.85
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

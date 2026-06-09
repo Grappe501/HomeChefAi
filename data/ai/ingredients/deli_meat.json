@@ -1,0 +1,17 @@
+{
+  "id": "ingredient.deli_meat",
+  "type": "ingredient",
+  "display_name": "Deli Meat",
+  "parent_id": "ingredient.meat",
+  "attributes": {
+    "wizard_item": "Deli Meat",
+    "dietary": {
+      "contains_meat": true
+    },
+    "cuisine_tags": []
+  },
+  "sources": [
+    "generate-pantry-knowledge",
+    "pantry_wizard_1_0"
+  ]
+}

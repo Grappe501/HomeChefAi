@@ -1,0 +1,43 @@
+{
+  "id": "ingredient.onion",
+  "type": "ingredient",
+  "display_name": "Onion",
+  "parent_id": "ingredient.produce",
+  "attributes": {
+    "variants": [
+      {
+        "id": "yellow",
+        "label": "Yellow"
+      },
+      {
+        "id": "red",
+        "label": "Red"
+      },
+      {
+        "id": "white",
+        "label": "White"
+      }
+    ],
+    "pairings": [
+      "ingredient.garlic",
+      "ingredient.butter",
+      "ingredient.chicken",
+      "ingredient.tomato"
+    ],
+    "cuisine_tags": [
+      "american",
+      "southern",
+      "cajun",
+      "mexican",
+      "italian"
+    ],
+    "wizard_item": "Onions",
+    "dietary": {
+      "vegan": true,
+      "vegetarian": true
+    }
+  },
+  "sources": [
+    "curated"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "substitution.mayonnaise_vegan",
+  "type": "substitution",
+  "display_name": "ingredient.mayonnaise → ingredient.aquafaba (vegan, egg_free)",
+  "attributes": {
+    "from_id": "ingredient.mayonnaise",
+    "to_id": "ingredient.aquafaba",
+    "reasons": [
+      "vegan",
+      "egg_free"
+    ],
+    "note": "Blend aquafaba with oil and acid for vegan mayo",
+    "confidence": 0.6
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "substitution.ground_beef_vegan_lentils",
+  "type": "substitution",
+  "display_name": "ingredient.ground_beef → ingredient.lentils (vegan, vegetarian)",
+  "attributes": {
+    "from_id": "ingredient.ground_beef",
+    "to_id": "ingredient.lentils",
+    "reasons": [
+      "vegan",
+      "vegetarian"
+    ],
+    "note": "Seasoned lentils for tacos and sauce",
+    "confidence": 0.8
+  },
+  "sources": [
+    "substitution_engine",
+    "generate-pantry-knowledge"
+  ]
+}
