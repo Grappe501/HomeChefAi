@@ -19,15 +19,39 @@ import type { MealReviewPayload } from './utils/ai/decisionLedger.js';
 import { buildMealDirections, findDirectionById, formatDirectionsForPrompt } from './utils/ai/reasoning.js';
 import { formatDishesForPlannerPrompt, matchDishesForPantry } from './utils/ai/dishMatcher.js';
 import { mealTagsForPlanContext } from './utils/ai/orchestrator.js';
+import {
+  courseDepthPrompt,
+  DEFAULT_COURSE_DEPTH,
+  normalizeCourse,
+  slotId,
+  type MealCourseDepthConfig,
+} from '../../src/types/mealCourses.js';
 
 type MealCounts = { breakfasts: number; lunches: number; dinners: number; snacks: number };
 
 const SYSTEM_PROMPT = `You are a kitchen sous chef meal planner. Return ONLY valid JSON:
-{"meals":[{"day":1,"meal_type":"breakfast|lunch|dinner|snack","name":"string","description":"string","ingredients":[{"name":"string","quantity":number,"unit":"string","in_inventory":boolean}],"prep_time_minutes":number,"tags":["weeknight|30_minutes|leftovers_friendly|easy_night|..."]}],"shopping_list":[{"name":"string","quantity":number,"unit":"string","estimated_price":number,"supply_group":"breakfast|lunch|dinner|snack|staple"}],"estimated_cost":number,"uses_inventory":["string"]}
-Prioritize inventory. Respect dietary restrictions. Keep breakfast/lunch entries concise.
-Plan ONLY the meal counts requested — do not add extra meals.
+{"meals":[{"day":1,"meal_type":"breakfast|lunch|dinner|snack","course":"appetizer|soup|salad|main|side|dessert|bread|beverage","slot_id":"d1-dinner","name":"string","description":"string","ingredients":[{"name":"string","quantity":number,"unit":"string","in_inventory":boolean}],"prep_time_minutes":number,"tags":["weeknight|30_minutes|leftovers_friendly|easy_night|..."]}],"shopping_list":[{"name":"string","quantity":number,"unit":"string","estimated_price":number,"supply_group":"breakfast|lunch|dinner|snack|staple"}],"estimated_cost":number,"uses_inventory":["string"]}
+Prioritize inventory. Respect dietary restrictions. Keep breakfast entries simple (single main course).
+Plan ONLY the meal counts requested — do not add extra meal slots.
+For multi-course dinners/lunches: emit ONE JSON meal object PER COURSE, sharing slot_id within the same day+meal_type.
 Tag meals when appropriate: weeknight, 30_minutes, leftovers_friendly, easy_night, crowd_favorite, freezer_friendly.
 Tag each shopping_list item with supply_group.`;
+
+function normalizePlannedMeals(meals: PlannedMeal[]): PlannedMeal[] {
+  return (meals ?? []).map((m) => ({
+    ...m,
+    course: normalizeCourse(m.course),
+    slot_id: m.slot_id ?? slotId(m.day, m.meal_type),
+  }));
+}
+
+function resolveCourseDepth(body: Record<string, unknown>): MealCourseDepthConfig {
+  return {
+    dinner: (Number(body.dinner_courses) || DEFAULT_COURSE_DEPTH.dinner) as MealCourseDepthConfig['dinner'],
+    lunch: (Number(body.lunch_courses) ?? DEFAULT_COURSE_DEPTH.lunch) as MealCourseDepthConfig['lunch'],
+    includeBreakfast: body.include_breakfast === true,
+  };
+}
 
 function normalizeProfile(prof: Partial<Profile> | null | undefined, userId: string): Profile {
   return {
@@ -298,7 +322,8 @@ async function callOpenAiMealPlan(userContent: string, maxTokens: number): Promi
       throw new Error('Meal planning service unavailable — try again shortly.');
     }
     const data = await response.json() as { choices: { message: { content: string } }[] };
-    return JSON.parse(data.choices[0].message.content) as MealPlanData;
+    const parsed = JSON.parse(data.choices[0].message.content) as MealPlanData;
+    return { ...parsed, meals: normalizePlannedMeals(parsed.meals ?? []) };
   } catch (err) {
     if (err instanceof Error && err.name === 'AbortError') {
       throw new Error('Meal planning timed out — try fewer days or dinners-only.');
@@ -327,6 +352,7 @@ async function generateMealPlanChunk(
     fullPlanCounts?: MealCounts;
     ledgerFeedback?: string;
     directionPrompt?: string;
+    courseDepth?: MealCourseDepthConfig;
   },
 ): Promise<MealPlanData> {
   const inventoryList = formatInventoryList(inventory);
@@ -351,6 +377,9 @@ async function generateMealPlanChunk(
   });
 
   const dishLibraryPrompt = formatDishesForPlannerPrompt(inventory, profile, 24, params.cookingStyle);
+  const courseLine = params.courseDepth
+    ? courseDepthPrompt(params.courseDepth, params.fullPlanCounts ?? params.mealCounts)
+    : '';
 
   const userContent = `${mealScope}
 Household: Plan all portions for exactly ${people} people.
@@ -362,6 +391,7 @@ ${goalLine ? `Planning goal: ${goalLine}` : ''}
 ${styleLine}
 ${realismLine}
 ${cookLine}
+${courseLine ? `\n${courseLine}` : ''}
 Inventory:
 ${inventoryList}
 (${formatInventorySummary(inventory)})
@@ -392,6 +422,7 @@ async function generateHeavyMealPlan(
     ledgerFeedback?: string;
     direction_id?: string;
     directionPrompt?: string;
+    courseDepth?: MealCourseDepthConfig;
   },
 ): Promise<MealPlanData> {
   const { days, mealCounts } = params;
@@ -414,6 +445,7 @@ async function generateHeavyMealPlan(
     fullPlanCounts: mealCounts,
     ledgerFeedback: params.ledgerFeedback,
     directionPrompt,
+    courseDepth: params.courseDepth,
   };
 
   if (mealCounts.breakfasts > 0) {
@@ -491,6 +523,7 @@ async function generateMealPlan(
     ledgerFeedback?: string;
     direction_id?: string;
     directionPrompt?: string;
+    courseDepth?: MealCourseDepthConfig;
   },
 ): Promise<MealPlanData> {
   const days = Math.min(Math.max(params.days, 1), 14);
@@ -505,7 +538,7 @@ async function generateMealPlan(
   );
 
   if (totalMeals(mealCounts) > 12) {
-    return generateHeavyMealPlan(inventory, profile, { ...params, days, mealCounts, directionPrompt });
+    return generateHeavyMealPlan(inventory, profile, { ...params, days, mealCounts, directionPrompt, courseDepth: params.courseDepth });
   }
 
   const chunkSize = Math.min(chunkSizeForCoverage(mealCounts, days), days);
@@ -528,6 +561,7 @@ async function generateMealPlan(
       fullPlanCounts: mealCounts,
       ledgerFeedback: params.ledgerFeedback,
       directionPrompt,
+      courseDepth: params.courseDepth,
     }));
   }
 
@@ -778,7 +812,20 @@ export const handler: Handler = withCors(async (event) => {
     const ledgerFeedback = formatLedgerSummaryForPlanner(recentLedger);
 
     const mealCounts = resolveMealCounts(days, body);
-    const planData = await generateMealPlan(inventory, profile, { ...body, days, ledgerFeedback });
+    const courseDepth = resolveCourseDepth(body);
+    if (!courseDepth.includeBreakfast) mealCounts.breakfasts = 0;
+    if (courseDepth.lunch === 0) mealCounts.lunches = 0;
+
+    const planData = await generateMealPlan(inventory, profile, {
+      ...body,
+      days,
+      ledgerFeedback,
+      courseDepth,
+      breakfasts: mealCounts.breakfasts,
+      lunches: mealCounts.lunches,
+      dinners: mealCounts.dinners,
+      snacks: mealCounts.snacks,
+    });
     const metrics = computePlanMetrics(planData, inventory);
     planData.metrics = {
       inventory_utilization_score: metrics.inventory_utilization_score,
@@ -794,6 +841,11 @@ export const handler: Handler = withCors(async (event) => {
       cooking_style: body.cooking_style,
       cook_nights: body.cook_nights,
       preset: body.coverage_preset,
+      course_depth: {
+        dinner: courseDepth.dinner,
+        lunch: courseDepth.lunch,
+        include_breakfast: courseDepth.includeBreakfast,
+      },
     };
     const enrichedPlanData = enrichMealsWithIntelligence(planData, inventory, profile, recentLedger);
     const planId = uuidv4();

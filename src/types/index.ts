@@ -107,6 +107,11 @@ export interface MealPlanData {
     cooking_style?: string;
     cook_nights?: number;
     preset?: string;
+    course_depth?: {
+      dinner: import('./mealCourses').DinnerCourseDepth;
+      lunch: import('./mealCourses').LunchCourseDepth;
+      include_breakfast: boolean;
+    };
   };
   metrics?: {
     inventory_utilization_score: number;
@@ -128,6 +133,9 @@ export interface PlannedMeal {
   description?: string;
   ingredients: { name: string; quantity: number; unit: string; in_inventory?: boolean }[];
   prep_time_minutes?: number;
+  /** Multi-course slot — see mealCourses.ts */
+  course?: import('./mealCourses').MealCourseId;
+  slot_id?: string;
   /** See src/types/mealTags.ts */
   tags?: string[];
   /** Deterministic Clara reasoning — populated at plan time or via explain-meal */

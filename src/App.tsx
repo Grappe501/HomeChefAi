@@ -10,6 +10,7 @@ import PantryScan from './pages/PantryScan';
 import HostingStudio from './pages/HostingStudio';
 import PantryWizard from './pages/PantryWizard';
 import MealPlanner from './pages/MealPlanner';
+import MealSlotDetail from './pages/MealSlotDetail';
 import RecipeIdeas from './pages/RecipeIdeas';
 import CookLog from './pages/CookLog';
 import Assistant from './pages/Assistant';
@@ -72,6 +73,7 @@ function AuthenticatedRoutes() {
         <Route path="/hosting" element={<HostingStudio />} />
         <Route path="/wizard" element={<PantryWizard />} />
         <Route path="/meals" element={<MealPlanner />} />
+        <Route path="/meals/:planId/slot/:slotId" element={<MealSlotDetail />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/cook" element={<CookLog />} />
         <Route path="/assistant" element={<Assistant />} />

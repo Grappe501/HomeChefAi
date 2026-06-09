@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { LogOut, BookOpen, Globe, Sparkles } from 'lucide-react';
+import { LogOut, BookOpen, Globe, Sparkles, Download } from 'lucide-react';
 import { MARKETING_HOME } from '@/lib/siteNav';
 import { useApp } from '@/hooks/useApp';
 import { productJournalApi, billingApi } from '@/lib/api';

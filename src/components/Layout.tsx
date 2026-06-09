@@ -3,6 +3,7 @@ import { Home, Package, Camera, CalendarDays, ChefHat, MessageCircle, Users, Set
 import { useApp } from '@/hooks/useApp';
 import { sousChefLabel } from '@/lib/assistant';
 import { MARKETING_HOME } from '@/lib/siteNav';
+import InstallPrompt from '@/components/InstallPrompt';
 
 const navItems = [
   { to: '/', icon: Home, label: 'Home' },
@@ -39,6 +40,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       </header>
+
+      <div className="max-w-lg mx-auto w-full">
+        <InstallPrompt />
+      </div>
 
       <main className="flex-1 flex flex-col min-h-0 max-w-lg mx-auto w-full px-4 py-4 pb-28">{children}</main>
 

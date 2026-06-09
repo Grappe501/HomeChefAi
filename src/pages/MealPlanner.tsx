@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Minus, Plus, Sparkles, ShoppingCart } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ChevronRight, Minus, Plus, Sparkles, ShoppingCart } from 'lucide-react';
 import { mealsApi, ApiError } from '@/lib/api';
 import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
@@ -29,6 +30,20 @@ import {
 import { groupSupplyList, SUPPLY_GROUP_ORDER } from '@/lib/supplyPlan';
 import { formatMetricsSummary } from '@/lib/planMetrics';
 import { mealTagLabel, type MealTagId } from '@/types/mealTags';
+import {
+  DEFAULT_COURSE_DEPTH,
+  DINNER_COURSE_DEPTH_OPTIONS,
+  LUNCH_COURSE_DEPTH_OPTIONS,
+  type DinnerCourseDepth,
+  type LunchCourseDepth,
+  type MealCourseDepthConfig,
+} from '@/types/mealCourses';
+import {
+  groupMealsIntoSlots,
+  slotDisplayTitle,
+  slotSubtitle,
+  dayName as slotDayName,
+} from '@/lib/mealSlots';
 
 function cookNightOptions(dinnerSlots: number): number[] {
   const opts = new Set<number>();
@@ -108,6 +123,12 @@ export default function MealPlanner() {
   const [selectedDirectionId, setSelectedDirectionId] = useState<string | null>(null);
   const [whyLoadingKey, setWhyLoadingKey] = useState<string | null>(null);
   const [intelligenceCache, setIntelligenceCache] = useState<Record<string, MealIntelligence>>({});
+  const [courseDepth, setCourseDepth] = useState<MealCourseDepthConfig>(DEFAULT_COURSE_DEPTH);
+
+  const planSlots = useMemo(
+    () => (activePlan?.plan_data?.meals ? groupMealsIntoSlots(activePlan.plan_data.meals) : []),
+    [activePlan],
+  );
 
   useEffect(() => {
     mealsApi.list().then((r) => {
@@ -146,6 +167,27 @@ export default function MealPlanner() {
     setCounts((c) => ({ ...c, [key]: value }));
   };
 
+  const setDinnerCourses = (d: DinnerCourseDepth) => {
+    setCourseDepth((c) => ({ ...c, dinner: d }));
+  };
+
+  const setLunchCourses = (l: LunchCourseDepth) => {
+    setCourseDepth((c) => ({ ...c, lunch: l }));
+    if (l === 0) {
+      setCounts((c) => ({ ...c, lunches: 0 }));
+      if (preset === 'lunch_dinner' || preset === 'all_meals') setPreset('dinners_only');
+    } else if (counts.lunches === 0) {
+      setCounts((c) => ({ ...c, lunches: days }));
+      setPreset('custom');
+    }
+  };
+
+  const toggleBreakfast = (on: boolean) => {
+    setCourseDepth((c) => ({ ...c, includeBreakfast: on }));
+    setCounts((c) => ({ ...c, breakfasts: on ? days : 0 }));
+    if (on) setPreset('custom');
+  };
+
   const handlePlan = async () => {
     if (totalMeals(counts) === 0) {
       toast.error('Select at least one meal to plan.');
@@ -167,6 +209,9 @@ export default function MealPlanner() {
         budget: budget ? parseFloat(budget) : undefined,
         message: message || undefined,
         direction_id: selectedDirectionId || undefined,
+        dinner_courses: courseDepth.dinner,
+        lunch_courses: courseDepth.lunch,
+        include_breakfast: courseDepth.includeBreakfast,
       });
       setActivePlan(res.plan);
       setPlans([res.plan, ...plans]);
@@ -386,7 +431,61 @@ export default function MealPlanner() {
         </div>
 
         <div>
-          <label className="text-sm text-chef-subtle">What should I plan for?</label>
+          <label className="text-sm text-chef-subtle">Dinner style</label>
+          <div className="grid grid-cols-2 gap-2 mt-2">
+            {DINNER_COURSE_DEPTH_OPTIONS.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => setDinnerCourses(opt.value)}
+                className={`tap-item py-2 text-left !items-start ${courseDepth.dinner === opt.value ? 'tap-item-selected' : ''}`}
+              >
+                <span className="font-medium text-sm block">{opt.label}</span>
+                <span className="text-[10px] text-chef-subtle block mt-0.5">{opt.hint}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <label className="text-sm text-chef-subtle">Lunch style</label>
+          <div className="grid grid-cols-3 gap-2 mt-2">
+            {LUNCH_COURSE_DEPTH_OPTIONS.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => setLunchCourses(opt.value)}
+                className={`tap-item py-2 text-sm ${courseDepth.lunch === opt.value ? 'tap-item-selected' : ''}`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+          {courseDepth.lunch > 0 && counts.lunches === 0 && (
+            <p className="text-xs text-chef-subtle mt-1">Lunch slots will be added to your plan.</p>
+          )}
+        </div>
+
+        <div className="flex items-center justify-between rounded-lg border border-steel bg-white px-3 py-3 min-h-[52px]">
+          <div>
+            <p className="text-sm font-medium text-chef">Include breakfast</p>
+            <p className="text-xs text-chef-subtle">Off by default — simple main-only when on</p>
+          </div>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={courseDepth.includeBreakfast}
+            onClick={() => toggleBreakfast(!courseDepth.includeBreakfast)}
+            className={`w-12 h-7 rounded-full transition-colors ${courseDepth.includeBreakfast ? 'bg-chef' : 'bg-stainless-300'}`}
+          >
+            <span
+              className={`block w-5 h-5 rounded-full bg-white shadow transition-transform mx-1 ${courseDepth.includeBreakfast ? 'translate-x-5' : ''}`}
+            />
+          </button>
+        </div>
+
+        <div>
+          <label className="text-sm text-chef-subtle">Which meals to plan?</label>
           <div className="grid grid-cols-1 gap-2 mt-2 sm:grid-cols-2">
             {COVERAGE_PRESETS.map((p) => (
               <button
@@ -411,7 +510,10 @@ export default function MealPlanner() {
 
         <div className="rounded-lg bg-stainless-200 px-3 py-2">
           <p className="text-sm font-medium text-chef">{formatPlanningLabel(counts)}</p>
-          <p className="text-xs text-chef-subtle mt-1">{formatPlannedFor(people)}</p>
+          <p className="text-xs text-chef-subtle mt-1">
+            {formatPlannedFor(people)} · Dinner {courseDepth.dinner === 1 ? 'main only' : `${courseDepth.dinner} courses`}
+            {courseDepth.lunch > 0 ? ` · Lunch ${courseDepth.lunch} courses` : ''}
+          </p>
           {showAddMealsHint && (
             <div className="mt-2 flex flex-wrap gap-2">
               <span className="text-xs text-chef-subtle">Add breakfasts or lunches?</span>
@@ -571,7 +673,35 @@ export default function MealPlanner() {
             )}
           </div>
 
-          <p className="text-xs font-semibold text-chef-subtle uppercase tracking-wide">Review your plan</p>
+          <p className="text-xs font-semibold text-chef-subtle uppercase tracking-wide">Your menus</p>
+          <p className="text-xs text-chef-subtle">Tap a menu for the full course breakdown</p>
+          {planSlots.map((slot) => (
+            <Link
+              key={slot.id}
+              to={`/meals/${activePlan.id}/slot/${slot.id}`}
+              className="card flex items-center justify-between gap-3 min-h-[52px] hover:border-chef/30 transition-colors"
+            >
+              <div className="min-w-0 flex-1">
+                <p className="text-xs text-chef-subtle">
+                  {slotDayName(slot.day)} · Day {slot.day} · {slot.meal_type}
+                </p>
+                <p className="font-medium truncate">{slotDisplayTitle(slot)}</p>
+                <p className="text-xs text-chef-subtle mt-0.5 truncate">{slotSubtitle(slot)}</p>
+                {slot.courseCount > 1 && (
+                  <span className="inline-block mt-1 text-[10px] font-semibold uppercase tracking-wide text-copper-600">
+                    {slot.courseCount} courses
+                  </span>
+                )}
+              </div>
+              <ChevronRight size={20} className="text-chef-subtle shrink-0" />
+            </Link>
+          ))}
+
+          <details className="card text-sm">
+            <summary className="font-medium text-chef cursor-pointer min-h-[44px] flex items-center">
+              All dishes ({activePlan.plan_data?.meals?.length ?? 0})
+            </summary>
+            <div className="mt-3 space-y-3 border-t border-steel pt-3">
           {activePlan.plan_data?.meals?.map((m, i) => {
             const key = mealReviewKey(m, i);
             const review = activePlan.plan_data.reviews?.[key]?.action;
@@ -655,6 +785,8 @@ export default function MealPlanner() {
               </div>
             );
           })}
+            </div>
+          </details>
           {groupedSupply && activePlan.plan_data?.shopping_list && activePlan.plan_data.shopping_list.length > 0 && (
             <div className="mt-4 pt-3 border-t border-steel">
               <h4 className="font-semibold text-sm flex items-center gap-1">
