@@ -1,0 +1,63 @@
+{
+  "id": "dish.cajun.baked_pork_green_beans",
+  "type": "dish",
+  "display_name": "Baked Pork with Green beans",
+  "description": "cajun baked pork with green beans and rice.",
+  "attributes": {
+    "cuisine_id": "cuisine.cajun",
+    "cuisine_tags": [
+      "cajun",
+      "louisiana"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 40,
+    "tags": [
+      "easy_night"
+    ],
+    "match_keywords": [
+      "baked pork with green beans",
+      "pork green beans",
+      "baked pork"
+    ],
+    "ingredients": [
+      {
+        "name": "Pork chops",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Green beans",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.pork"
+    ],
+    "steps": [
+      "Arrange in baking dish.",
+      "Bake at 375°F until done.",
+      "Garnish and serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

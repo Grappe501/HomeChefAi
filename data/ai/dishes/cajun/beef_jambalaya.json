@@ -1,0 +1,65 @@
+{
+  "id": "dish.cajun.beef_jambalaya",
+  "type": "dish",
+  "display_name": "Beef Jambalaya",
+  "description": "Beef Jambalaya — cajun home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.cajun",
+    "cuisine_tags": [
+      "cajun",
+      "louisiana"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 45,
+    "tags": [
+      "crowd_favorite",
+      "one_pot"
+    ],
+    "match_keywords": [
+      "beef jambalaya",
+      "jambalaya",
+      "beef jambalaya",
+      "beef"
+    ],
+    "ingredients": [
+      {
+        "name": "Ground beef",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Andouille sausage",
+        "quantity": 12,
+        "unit": "oz"
+      },
+      {
+        "name": "Bell pepper",
+        "quantity": 2,
+        "unit": "each"
+      },
+      {
+        "name": "Cajun seasoning",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ],
+    "required_staples": [
+      "ingredient.rice"
+    ],
+    "steps": [
+      "Brown sausage and vegetables.",
+      "Add rice, broth, seasoning; simmer.",
+      "Cover until rice is tender."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

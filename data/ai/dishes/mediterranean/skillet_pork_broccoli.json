@@ -1,0 +1,63 @@
+{
+  "id": "dish.mediterranean.skillet_pork_broccoli",
+  "type": "dish",
+  "display_name": "Skillet Pork with Broccoli",
+  "description": "mediterranean skillet pork with broccoli and rice.",
+  "attributes": {
+    "cuisine_id": "cuisine.mediterranean",
+    "cuisine_tags": [
+      "mediterranean"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 25,
+    "tags": [
+      "weeknight",
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "skillet pork with broccoli",
+      "pork broccoli",
+      "skillet pork"
+    ],
+    "ingredients": [
+      {
+        "name": "Pork chops",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Broccoli",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.pork"
+    ],
+    "steps": [
+      "Season protein.",
+      "Sear in hot skillet with aromatics.",
+      "Finish with sauce; serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

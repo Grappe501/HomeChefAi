@@ -1,0 +1,63 @@
+{
+  "id": "dish.southern.skillet_tofu_green_beans",
+  "type": "dish",
+  "display_name": "Skillet Tofu with Green beans",
+  "description": "southern skillet tofu with green beans and rice.",
+  "attributes": {
+    "cuisine_id": "cuisine.southern",
+    "cuisine_tags": [
+      "southern"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 25,
+    "tags": [
+      "weeknight",
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "skillet tofu with green beans",
+      "tofu green beans",
+      "skillet tofu"
+    ],
+    "ingredients": [
+      {
+        "name": "Tofu",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Green beans",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.tofu"
+    ],
+    "steps": [
+      "Season protein.",
+      "Sear in hot skillet with aromatics.",
+      "Finish with sauce; serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

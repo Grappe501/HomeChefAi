@@ -1,0 +1,64 @@
+{
+  "id": "dish.bbq.skillet_shrimp_zucchini",
+  "type": "dish",
+  "display_name": "Skillet Shrimp with Zucchini",
+  "description": "bbq skillet shrimp with zucchini and pasta.",
+  "attributes": {
+    "cuisine_id": "cuisine.bbq",
+    "cuisine_tags": [
+      "bbq",
+      "smoked"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 25,
+    "tags": [
+      "weeknight",
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "skillet shrimp with zucchini",
+      "shrimp zucchini",
+      "skillet shrimp"
+    ],
+    "ingredients": [
+      {
+        "name": "Shrimp",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Zucchini",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Pasta",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.shrimp"
+    ],
+    "steps": [
+      "Season protein.",
+      "Sear in hot skillet with aromatics.",
+      "Finish with sauce; serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

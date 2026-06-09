@@ -1,0 +1,63 @@
+{
+  "id": "dish.italian.grilled_beef_bell_peppers",
+  "type": "dish",
+  "display_name": "Grilled Beef with Bell peppers",
+  "description": "italian grilled beef with bell peppers and potatoes.",
+  "attributes": {
+    "cuisine_id": "cuisine.italian",
+    "cuisine_tags": [
+      "italian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 30,
+    "tags": [
+      "weeknight",
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "grilled beef with bell peppers",
+      "beef bell peppers",
+      "grilled beef"
+    ],
+    "ingredients": [
+      {
+        "name": "Ground beef",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Bell peppers",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Potatoes",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.beef"
+    ],
+    "steps": [
+      "Marinate protein 20 min.",
+      "Grill over medium-high heat.",
+      "Rest and slice."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

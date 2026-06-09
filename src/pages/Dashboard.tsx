@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Camera, Wand2, CalendarDays, Package, BookOpen, Sparkles, PartyPopper } from 'lucide-react';
+import { Camera, Wand2, CalendarDays, Package, BookOpen, Sparkles, PartyPopper, ChefHat } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
 import { inventoryApi, mealsApi, brainApi } from '@/lib/api';
 import type { InventoryItem, MealPlan } from '@/types';
@@ -223,6 +223,10 @@ export default function Dashboard() {
           <Link to="/meals" className="action-tile">
             <CalendarDays className="text-chef" size={24} />
             <span className="font-medium text-sm">Plan Meals</span>
+          </Link>
+          <Link to="/recipes" className="action-tile">
+            <ChefHat className="text-chef" size={24} />
+            <span className="font-medium text-sm">Recipe Ideas</span>
           </Link>
           <Link to="/inventory" className="action-tile">
             <Package className="text-chef" size={24} />

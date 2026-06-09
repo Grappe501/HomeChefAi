@@ -1,0 +1,59 @@
+{
+  "id": "dish.mexican.soup_mushroom_chicken",
+  "type": "dish",
+  "display_name": "Mushroom Soup with chicken",
+  "description": "Mushroom soup — mexican style.",
+  "attributes": {
+    "cuisine_id": "cuisine.mexican",
+    "cuisine_tags": [
+      "mexican"
+    ],
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "prep_time_minutes": 40,
+    "tags": [
+      "leftovers_friendly",
+      "freezer_friendly"
+    ],
+    "match_keywords": [
+      "mushroom soup with chicken",
+      "mushroom soup",
+      "mushroom"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken breast",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Broth",
+        "quantity": 6,
+        "unit": "cups"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "each"
+      },
+      {
+        "name": "Carrots",
+        "quantity": 2,
+        "unit": "each"
+      }
+    ],
+    "required_staples": [
+      "ingredient.chicken"
+    ],
+    "steps": [
+      "Sauté aromatics.",
+      "Simmer with broth 30 min.",
+      "Adjust seasoning; serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

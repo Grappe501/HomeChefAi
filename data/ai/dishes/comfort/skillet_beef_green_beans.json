@@ -1,0 +1,64 @@
+{
+  "id": "dish.comfort.skillet_beef_green_beans",
+  "type": "dish",
+  "display_name": "Skillet Beef with Green beans",
+  "description": "comfort skillet beef with green beans and rice.",
+  "attributes": {
+    "cuisine_id": "cuisine.comfort",
+    "cuisine_tags": [
+      "comfort",
+      "american"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 25,
+    "tags": [
+      "weeknight",
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "skillet beef with green beans",
+      "beef green beans",
+      "skillet beef"
+    ],
+    "ingredients": [
+      {
+        "name": "Ground beef",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Green beans",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.beef"
+    ],
+    "steps": [
+      "Season protein.",
+      "Sear in hot skillet with aromatics.",
+      "Finish with sauce; serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

@@ -14,7 +14,8 @@ export type KnowledgeNodeType =
   | 'nutrition'
   | 'hosting'
   | 'culture'
-  | 'tradition';
+  | 'tradition'
+  | 'dish';
 
 /** Why a substitute is suggested */
 export type SubstitutionReason =
@@ -93,6 +94,14 @@ export interface KnowledgeNode {
     note?: string;
     ratio?: string;
     confidence?: number;
+    /** Dish corpus fields */
+    cuisine_id?: string;
+    meal_types?: string[];
+    prep_time_minutes?: number;
+    match_keywords?: string[];
+    ingredients?: { name: string; quantity: number; unit: string }[];
+    required_staples?: string[];
+    tags?: string[];
   };
   sources?: string[];
 }

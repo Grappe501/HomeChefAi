@@ -1,0 +1,62 @@
+{
+  "id": "dish.mexican.pork_fajitas",
+  "type": "dish",
+  "display_name": "Pork Fajitas",
+  "description": "Pork Fajitas — mexican home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.mexican",
+    "cuisine_tags": [
+      "mexican"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 25,
+    "tags": [
+      "weeknight",
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "pork fajitas",
+      "fajitas",
+      "pork fajitas",
+      "pork"
+    ],
+    "ingredients": [
+      {
+        "name": "Pork chops",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Bell peppers",
+        "quantity": 3,
+        "unit": "each"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "each"
+      },
+      {
+        "name": "Tortillas",
+        "quantity": 8,
+        "unit": "each"
+      },
+      {
+        "name": "Lime",
+        "quantity": 1,
+        "unit": "each"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Slice peppers and onion.",
+      "Sear protein and vegetables.",
+      "Serve with warm tortillas."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

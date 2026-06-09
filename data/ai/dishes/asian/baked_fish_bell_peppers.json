@@ -1,0 +1,62 @@
+{
+  "id": "dish.asian.baked_fish_bell_peppers",
+  "type": "dish",
+  "display_name": "Baked Fish with Bell peppers",
+  "description": "asian baked fish with bell peppers and potatoes.",
+  "attributes": {
+    "cuisine_id": "cuisine.asian",
+    "cuisine_tags": [
+      "asian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 40,
+    "tags": [
+      "easy_night"
+    ],
+    "match_keywords": [
+      "baked fish with bell peppers",
+      "fish bell peppers",
+      "baked fish"
+    ],
+    "ingredients": [
+      {
+        "name": "White fish",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Bell peppers",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Potatoes",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.fish"
+    ],
+    "steps": [
+      "Arrange in baking dish.",
+      "Bake at 375°F until done.",
+      "Garnish and serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

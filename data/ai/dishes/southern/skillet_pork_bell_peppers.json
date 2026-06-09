@@ -1,0 +1,63 @@
+{
+  "id": "dish.southern.skillet_pork_bell_peppers",
+  "type": "dish",
+  "display_name": "Skillet Pork with Bell peppers",
+  "description": "southern skillet pork with bell peppers and potatoes.",
+  "attributes": {
+    "cuisine_id": "cuisine.southern",
+    "cuisine_tags": [
+      "southern"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 25,
+    "tags": [
+      "weeknight",
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "skillet pork with bell peppers",
+      "pork bell peppers",
+      "skillet pork"
+    ],
+    "ingredients": [
+      {
+        "name": "Pork chops",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Bell peppers",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Potatoes",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.pork"
+    ],
+    "steps": [
+      "Season protein.",
+      "Sear in hot skillet with aromatics.",
+      "Finish with sauce; serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

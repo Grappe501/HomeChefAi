@@ -1,0 +1,61 @@
+{
+  "id": "dish.mexican.skillet_sausage_green_beans",
+  "type": "dish",
+  "display_name": "Skillet Sausage with Green beans",
+  "description": "mexican skillet sausage with green beans and rice.",
+  "attributes": {
+    "cuisine_id": "cuisine.mexican",
+    "cuisine_tags": [
+      "mexican"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 25,
+    "tags": [
+      "weeknight",
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "skillet sausage with green beans",
+      "sausage green beans",
+      "skillet sausage"
+    ],
+    "ingredients": [
+      {
+        "name": "Sausage",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Green beans",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Season protein.",
+      "Sear in hot skillet with aromatics.",
+      "Finish with sauce; serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

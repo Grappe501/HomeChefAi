@@ -1,0 +1,67 @@
+{
+  "id": "dish.asian.shrimp_pad_thai",
+  "type": "dish",
+  "display_name": "Shrimp Pad Thai",
+  "description": "Shrimp Pad Thai — asian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.asian",
+    "cuisine_tags": [
+      "asian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 30,
+    "tags": [
+      "weeknight",
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "shrimp pad thai",
+      "pad thai",
+      "shrimp pad thai",
+      "shrimp"
+    ],
+    "ingredients": [
+      {
+        "name": "Shrimp",
+        "quantity": 12,
+        "unit": "oz"
+      },
+      {
+        "name": "Rice noodles",
+        "quantity": 8,
+        "unit": "oz"
+      },
+      {
+        "name": "Fish sauce",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Peanuts",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "Lime",
+        "quantity": 1,
+        "unit": "each"
+      },
+      {
+        "name": "Eggs",
+        "quantity": 2,
+        "unit": "each"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Soak noodles.",
+      "Stir-fry protein and eggs.",
+      "Toss with sauce, peanuts, lime."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "id": "dish.italian.soup_clam_chowder_chicken",
+  "type": "dish",
+  "display_name": "Clam Chowder Soup with chicken",
+  "description": "Clam Chowder soup — italian style.",
+  "attributes": {
+    "cuisine_id": "cuisine.italian",
+    "cuisine_tags": [
+      "italian"
+    ],
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "prep_time_minutes": 40,
+    "tags": [
+      "leftovers_friendly",
+      "freezer_friendly"
+    ],
+    "match_keywords": [
+      "clam chowder soup with chicken",
+      "clam chowder soup",
+      "clam chowder"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken breast",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Broth",
+        "quantity": 6,
+        "unit": "cups"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "each"
+      },
+      {
+        "name": "Carrots",
+        "quantity": 2,
+        "unit": "each"
+      }
+    ],
+    "required_staples": [
+      "ingredient.chicken"
+    ],
+    "steps": [
+      "Sauté aromatics.",
+      "Simmer with broth 30 min.",
+      "Adjust seasoning; serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

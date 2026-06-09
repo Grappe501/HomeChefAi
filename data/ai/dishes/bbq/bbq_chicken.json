@@ -1,0 +1,57 @@
+{
+  "id": "dish.bbq.bbq_chicken",
+  "type": "dish",
+  "display_name": "BBQ Chicken",
+  "description": "BBQ Chicken — bbq home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.bbq",
+    "cuisine_tags": [
+      "bbq",
+      "smoked"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 35,
+    "tags": [
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "bbq chicken",
+      "bbq chicken"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken thighs",
+        "quantity": 2,
+        "unit": "lb"
+      },
+      {
+        "name": "BBQ sauce",
+        "quantity": 1.5,
+        "unit": "cups"
+      },
+      {
+        "name": "Paprika",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic powder",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "required_staples": [
+      "ingredient.chicken"
+    ],
+    "steps": [
+      "Season chicken.",
+      "Grill or bake until done.",
+      "Glaze with BBQ sauce."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "id": "dish.italian.baked_tofu_zucchini",
+  "type": "dish",
+  "display_name": "Baked Tofu with Zucchini",
+  "description": "italian baked tofu with zucchini and pasta.",
+  "attributes": {
+    "cuisine_id": "cuisine.italian",
+    "cuisine_tags": [
+      "italian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 40,
+    "tags": [
+      "easy_night"
+    ],
+    "match_keywords": [
+      "baked tofu with zucchini",
+      "tofu zucchini",
+      "baked tofu"
+    ],
+    "ingredients": [
+      {
+        "name": "Tofu",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Zucchini",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Pasta",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.tofu"
+    ],
+    "steps": [
+      "Arrange in baking dish.",
+      "Bake at 375°F until done.",
+      "Garnish and serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

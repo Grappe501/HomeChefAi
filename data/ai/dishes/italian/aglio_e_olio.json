@@ -1,0 +1,59 @@
+{
+  "id": "dish.italian.aglio_e_olio",
+  "type": "dish",
+  "display_name": "Aglio e Olio",
+  "description": "Aglio e Olio — italian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.italian",
+    "cuisine_tags": [
+      "italian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 20,
+    "tags": [
+      "weeknight",
+      "30_minutes",
+      "vegetarian"
+    ],
+    "match_keywords": [
+      "aglio e olio",
+      "aglio e olio"
+    ],
+    "ingredients": [
+      {
+        "name": "Spaghetti",
+        "quantity": 8,
+        "unit": "oz"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 6,
+        "unit": "cloves"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "Red pepper flakes",
+        "quantity": 0.5,
+        "unit": "tsp"
+      }
+    ],
+    "required_staples": [
+      "ingredient.garlic",
+      "ingredient.olive_oil"
+    ],
+    "steps": [
+      "Cook pasta.",
+      "Sauté sliced garlic in oil until golden.",
+      "Toss with pasta and pepper flakes."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

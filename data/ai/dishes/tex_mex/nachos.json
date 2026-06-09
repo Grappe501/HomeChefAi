@@ -1,0 +1,59 @@
+{
+  "id": "dish.tex_mex.nachos",
+  "type": "dish",
+  "display_name": "Nachos",
+  "description": "Nachos — tex_mex home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.tex_mex",
+    "cuisine_tags": [
+      "tex_mex",
+      "mexican"
+    ],
+    "meal_types": [
+      "snack",
+      "dinner"
+    ],
+    "prep_time_minutes": 20,
+    "tags": [
+      "crowd_favorite",
+      "easy_night"
+    ],
+    "match_keywords": [
+      "nachos",
+      "nachos"
+    ],
+    "ingredients": [
+      {
+        "name": "Tortilla chips",
+        "quantity": 1,
+        "unit": "bag"
+      },
+      {
+        "name": "Cheese",
+        "quantity": 3,
+        "unit": "cups"
+      },
+      {
+        "name": "Jalapeños",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "Salsa",
+        "quantity": 0.5,
+        "unit": "cup"
+      }
+    ],
+    "required_staples": [
+      "ingredient.cheese"
+    ],
+    "steps": [
+      "Layer chips and cheese.",
+      "Bake until melted.",
+      "Top with salsa and jalapeños."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

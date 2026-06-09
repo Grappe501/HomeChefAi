@@ -1,0 +1,59 @@
+{
+  "id": "dish.bbq.bbq_meatballs",
+  "type": "dish",
+  "display_name": "BBQ Meatballs",
+  "description": "BBQ Meatballs — bbq home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.bbq",
+    "cuisine_tags": [
+      "bbq",
+      "smoked"
+    ],
+    "meal_types": [
+      "dinner",
+      "snack"
+    ],
+    "prep_time_minutes": 30,
+    "tags": [
+      "crowd_favorite",
+      "kid_friendly"
+    ],
+    "match_keywords": [
+      "bbq meatballs",
+      "bbq meatballs"
+    ],
+    "ingredients": [
+      {
+        "name": "Ground beef",
+        "quantity": 1.5,
+        "unit": "lb"
+      },
+      {
+        "name": "BBQ sauce",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Bread crumbs",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Eggs",
+        "quantity": 1,
+        "unit": "each"
+      }
+    ],
+    "required_staples": [
+      "ingredient.beef"
+    ],
+    "steps": [
+      "Mix and form meatballs.",
+      "Bake until browned.",
+      "Simmer in BBQ sauce."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

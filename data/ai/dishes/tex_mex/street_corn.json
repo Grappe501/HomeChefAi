@@ -1,0 +1,58 @@
+{
+  "id": "dish.tex_mex.street_corn",
+  "type": "dish",
+  "display_name": "Street Corn",
+  "description": "Street Corn — tex_mex home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.tex_mex",
+    "cuisine_tags": [
+      "tex_mex",
+      "mexican"
+    ],
+    "meal_types": [
+      "snack",
+      "dinner"
+    ],
+    "prep_time_minutes": 15,
+    "tags": [
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "street corn",
+      "street corn"
+    ],
+    "ingredients": [
+      {
+        "name": "Corn",
+        "quantity": 4,
+        "unit": "ears"
+      },
+      {
+        "name": "Mayonnaise",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "Cotija or cheese",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Lime",
+        "quantity": 2,
+        "unit": "each"
+      }
+    ],
+    "required_staples": [
+      "ingredient.cheese"
+    ],
+    "steps": [
+      "Grill corn.",
+      "Coat with mayo and cheese.",
+      "Sprinkle chili and lime."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "id": "dish.southern.skillet_shrimp_broccoli",
+  "type": "dish",
+  "display_name": "Skillet Shrimp with Broccoli",
+  "description": "southern skillet shrimp with broccoli and rice.",
+  "attributes": {
+    "cuisine_id": "cuisine.southern",
+    "cuisine_tags": [
+      "southern"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 25,
+    "tags": [
+      "weeknight",
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "skillet shrimp with broccoli",
+      "shrimp broccoli",
+      "skillet shrimp"
+    ],
+    "ingredients": [
+      {
+        "name": "Shrimp",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Broccoli",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.shrimp"
+    ],
+    "steps": [
+      "Season protein.",
+      "Sear in hot skillet with aromatics.",
+      "Finish with sauce; serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "id": "dish.italian.grilled_tofu_green_beans",
+  "type": "dish",
+  "display_name": "Grilled Tofu with Green beans",
+  "description": "italian grilled tofu with green beans and rice.",
+  "attributes": {
+    "cuisine_id": "cuisine.italian",
+    "cuisine_tags": [
+      "italian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 30,
+    "tags": [
+      "weeknight",
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "grilled tofu with green beans",
+      "tofu green beans",
+      "grilled tofu"
+    ],
+    "ingredients": [
+      {
+        "name": "Tofu",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Green beans",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.tofu"
+    ],
+    "steps": [
+      "Marinate protein 20 min.",
+      "Grill over medium-high heat.",
+      "Rest and slice."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

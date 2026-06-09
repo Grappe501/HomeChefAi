@@ -1,0 +1,59 @@
+{
+  "id": "dish.southern.chicken_fried_chicken",
+  "type": "dish",
+  "display_name": "Chicken Fried Chicken",
+  "description": "Chicken Fried Chicken — southern home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.southern",
+    "cuisine_tags": [
+      "southern"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 45,
+    "tags": [
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "chicken fried chicken",
+      "fried chicken",
+      "chicken fried chicken",
+      "chicken"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken pieces",
+        "quantity": 2,
+        "unit": "lb"
+      },
+      {
+        "name": "Buttermilk",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Flour",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Paprika",
+        "quantity": 1,
+        "unit": "tbsp"
+      }
+    ],
+    "required_staples": [
+      "ingredient.chicken",
+      "ingredient.flour"
+    ],
+    "steps": [
+      "Soak chicken in buttermilk.",
+      "Dredge in seasoned flour.",
+      "Fry until golden and cooked through."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

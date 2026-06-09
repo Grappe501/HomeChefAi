@@ -1,0 +1,61 @@
+{
+  "id": "dish.southern.pork_collard_greens",
+  "type": "dish",
+  "display_name": "Pork Collard Greens",
+  "description": "Pork Collard Greens — southern home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.southern",
+    "cuisine_tags": [
+      "southern"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 50,
+    "tags": [
+      "leftovers_friendly"
+    ],
+    "match_keywords": [
+      "pork collard greens",
+      "collard greens",
+      "pork collard greens",
+      "pork"
+    ],
+    "ingredients": [
+      {
+        "name": "Pork chops",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Collard greens",
+        "quantity": 2,
+        "unit": "bunches"
+      },
+      {
+        "name": "Bacon",
+        "quantity": 4,
+        "unit": "slices"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "each"
+      },
+      {
+        "name": "Chicken broth",
+        "quantity": 2,
+        "unit": "cups"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Render bacon; sauté onion.",
+      "Add greens and broth; simmer 40 min.",
+      "Season with vinegar."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

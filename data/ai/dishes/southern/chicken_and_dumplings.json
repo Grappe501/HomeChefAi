@@ -1,0 +1,57 @@
+{
+  "id": "dish.southern.chicken_and_dumplings",
+  "type": "dish",
+  "display_name": "Chicken and Dumplings",
+  "description": "Chicken and Dumplings — southern home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.southern",
+    "cuisine_tags": [
+      "southern"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 50,
+    "tags": [
+      "comfort",
+      "leftovers_friendly"
+    ],
+    "match_keywords": [
+      "chicken and dumplings",
+      "chicken and dumplings"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken thighs",
+        "quantity": 1.5,
+        "unit": "lb"
+      },
+      {
+        "name": "Flour",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Carrots",
+        "quantity": 2,
+        "unit": "each"
+      },
+      {
+        "name": "Celery",
+        "quantity": 2,
+        "unit": "stalks"
+      }
+    ],
+    "required_staples": [
+      "ingredient.chicken"
+    ],
+    "steps": [
+      "Simmer chicken with vegetables.",
+      "Shred chicken; return to pot.",
+      "Drop dumplings; cover and cook 15 min."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "id": "dish.mexican.shrimp_tacos",
+  "type": "dish",
+  "display_name": "Shrimp Tacos",
+  "description": "Shrimp Tacos — mexican home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.mexican",
+    "cuisine_tags": [
+      "mexican"
+    ],
+    "meal_types": [
+      "dinner",
+      "lunch"
+    ],
+    "prep_time_minutes": 25,
+    "tags": [
+      "weeknight",
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "shrimp tacos",
+      "tacos",
+      "shrimp tacos",
+      "shrimp"
+    ],
+    "ingredients": [
+      {
+        "name": "Shrimp",
+        "quantity": 12,
+        "unit": "oz"
+      },
+      {
+        "name": "Tortillas",
+        "quantity": 8,
+        "unit": "each"
+      },
+      {
+        "name": "Ground beef",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Lettuce",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Cheese",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Salsa",
+        "quantity": 0.5,
+        "unit": "cup"
+      }
+    ],
+    "required_staples": [
+      "ingredient.beef"
+    ],
+    "steps": [
+      "Season and cook protein.",
+      "Warm tortillas.",
+      "Assemble with toppings."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

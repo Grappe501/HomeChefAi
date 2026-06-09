@@ -1,0 +1,58 @@
+{
+  "id": "dish.mediterranean.hummus_bowl",
+  "type": "dish",
+  "display_name": "Hummus Bowl",
+  "description": "Hummus Bowl — mediterranean home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.mediterranean",
+    "cuisine_tags": [
+      "mediterranean"
+    ],
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "prep_time_minutes": 15,
+    "tags": [
+      "30_minutes",
+      "vegetarian"
+    ],
+    "match_keywords": [
+      "hummus bowl",
+      "hummus bowl"
+    ],
+    "ingredients": [
+      {
+        "name": "Chickpeas",
+        "quantity": 1,
+        "unit": "can"
+      },
+      {
+        "name": "Tahini",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Pita bread",
+        "quantity": 4,
+        "unit": "each"
+      },
+      {
+        "name": "Cucumber",
+        "quantity": 1,
+        "unit": "each"
+      }
+    ],
+    "required_staples": [
+      "ingredient.beans"
+    ],
+    "steps": [
+      "Blend chickpeas into hummus.",
+      "Warm pita.",
+      "Serve bowl with fresh vegetables."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "id": "dish.indian.chicken_tikka_masala",
+  "type": "dish",
+  "display_name": "Chicken Tikka Masala",
+  "description": "Chicken Tikka Masala — indian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.indian",
+    "cuisine_tags": [
+      "indian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 45,
+    "tags": [
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "chicken tikka masala",
+      "tikka masala",
+      "chicken tikka masala",
+      "chicken"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken breast",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Yogurt",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Tomato sauce",
+        "quantity": 1,
+        "unit": "can"
+      },
+      {
+        "name": "Garam masala",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      }
+    ],
+    "required_staples": [
+      "ingredient.tomato"
+    ],
+    "steps": [
+      "Marinate and cook protein.",
+      "Simmer in masala sauce.",
+      "Serve with rice."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

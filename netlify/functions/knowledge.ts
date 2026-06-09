@@ -25,10 +25,14 @@ import {
 import type { KnowledgeNodeType, SubstitutionReason } from '../../src/types/knowledge.js';
 import { SUBSTITUTION_REASONS } from '../../src/types/knowledge.js';
 import { getDeepEntry, listDeepEntries, searchDeep } from './utils/ai/deepLoader.js';
+import { matchDishesForPantry } from './utils/ai/dishMatcher.js';
+import { useDevStore, loadStore } from './utils/db.js';
+import { getSupabaseUserClient } from './utils/supabase.js';
+import type { InventoryItem, Profile } from '../../src/types/index.js';
 
 const VALID_TYPES = new Set([
   'ingredient', 'technique', 'cuisine', 'meal_pattern', 'substitution',
-  'flavor_profile', 'food_science', 'nutrition', 'hosting', 'culture', 'tradition',
+  'flavor_profile', 'food_science', 'nutrition', 'hosting', 'culture', 'tradition', 'dish',
 ]);
 
 export const handler: Handler = withCors(async (event) => {
@@ -80,6 +84,41 @@ export const handler: Handler = withCors(async (event) => {
 
   if (action === 'reasons') {
     return jsonResponse({ reasons: SUBSTITUTION_REASONS });
+  }
+
+  if (action === 'match_pantry') {
+    const needed = params.limit ? Number(params.limit) : 30;
+    let inventory: InventoryItem[] = [];
+    let profile: Profile = {
+      user_id: user.id,
+      dietary_restrictions: [],
+      cuisine_preferences: [],
+      allergies: [],
+      household_size: 2,
+      preferred_store: '',
+      gamification_level: 1,
+      gamification_xp: 0,
+      onboarding_complete: true,
+      assistant_name: 'Clara',
+      last_meal_memory: {},
+    };
+    if (useDevStore()) {
+      const store = loadStore();
+      inventory = store.inventory_items.filter((i) => i.user_id === user.id);
+      const prof = store.profiles.find((p) => p.user_id === user.id);
+      if (prof) profile = prof as Profile;
+    } else if (user.token) {
+      const db = getSupabaseUserClient(user.token);
+      const { data: items } = await db.from('inventory_items').select('*').eq('user_id', user.id);
+      inventory = (items ?? []) as InventoryItem[];
+      const { data: prof } = await db.from('profiles').select('*').eq('user_id', user.id).maybeSingle();
+      if (prof) profile = prof as Profile;
+    }
+    const dishes = matchDishesForPantry(inventory, profile, {
+      limit: Math.min(Math.max(needed, 1), 100),
+      meal_type: params.meal_type,
+    });
+    return jsonResponse({ dishes, count: dishes.length });
   }
 
   if (action === 'list') {

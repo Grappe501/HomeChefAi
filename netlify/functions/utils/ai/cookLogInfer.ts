@@ -5,6 +5,7 @@
 import type { InventoryItem } from '../../../../src/types/index.js';
 import { resolveWizardKnowledgeIdSimple } from '../../../../src/types/knowledgeIdCore.js';
 import type { CookInferResult } from '../../../../src/types/kitchenPredictions.js';
+import { matchDishByDescription } from './dishMatcher.js';
 
 interface MealTemplate {
   keywords: RegExp[];
@@ -156,6 +157,21 @@ export function inferCookLogIngredients(
       suggested_items: [],
       confidence: 0,
       source: 'graph',
+      credit_cost: 0,
+    };
+  }
+
+  const dishHit = matchDishByDescription(trimmed, inventory);
+  if (dishHit && dishHit.confidence >= 0.65) {
+    const mapped = mapToPantry(
+      dishHit.dish.ingredients.map((i) => ({ name: i.name, quantity: i.quantity, unit: i.unit })),
+      inventory,
+    );
+    return {
+      reply: `Matched "${dishHit.dish.title}" from the recipe library. Confirm these pantry deductions:`,
+      suggested_items: mapped,
+      confidence: dishHit.confidence,
+      source: 'template',
       credit_cost: 0,
     };
   }

@@ -1,0 +1,59 @@
+{
+  "id": "dish.indian.chicken_butter_chicken",
+  "type": "dish",
+  "display_name": "Chicken Butter Chicken",
+  "description": "Chicken Butter Chicken — indian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.indian",
+    "cuisine_tags": [
+      "indian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 40,
+    "tags": [
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "chicken butter chicken",
+      "butter chicken",
+      "chicken butter chicken",
+      "chicken"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken breast",
+        "quantity": 1.5,
+        "unit": "lb"
+      },
+      {
+        "name": "Tomato sauce",
+        "quantity": 1,
+        "unit": "can"
+      },
+      {
+        "name": "Heavy cream",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Garam masala",
+        "quantity": 1,
+        "unit": "tbsp"
+      }
+    ],
+    "required_staples": [
+      "ingredient.chicken",
+      "ingredient.tomato"
+    ],
+    "steps": [
+      "Simmer spiced tomato cream sauce.",
+      "Add cooked chicken.",
+      "Serve with rice."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

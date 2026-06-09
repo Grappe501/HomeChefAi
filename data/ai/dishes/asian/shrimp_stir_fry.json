@@ -1,0 +1,67 @@
+{
+  "id": "dish.asian.shrimp_stir_fry",
+  "type": "dish",
+  "display_name": "Shrimp Stir Fry",
+  "description": "Shrimp Stir Fry — asian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.asian",
+    "cuisine_tags": [
+      "asian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 25,
+    "tags": [
+      "weeknight",
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "shrimp stir fry",
+      "stir fry",
+      "shrimp stir fry",
+      "shrimp"
+    ],
+    "ingredients": [
+      {
+        "name": "Shrimp",
+        "quantity": 12,
+        "unit": "oz"
+      },
+      {
+        "name": "Mixed vegetables",
+        "quantity": 4,
+        "unit": "cups"
+      },
+      {
+        "name": "Soy sauce",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 3,
+        "unit": "cloves"
+      },
+      {
+        "name": "Ginger",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Prep sauce with soy, garlic, ginger.",
+      "High heat stir-fry protein.",
+      "Add vegetables; serve over rice."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

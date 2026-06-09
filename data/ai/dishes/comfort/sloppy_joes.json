@@ -1,0 +1,60 @@
+{
+  "id": "dish.comfort.sloppy_joes",
+  "type": "dish",
+  "display_name": "Sloppy Joes",
+  "description": "Sloppy Joes — comfort home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.comfort",
+    "cuisine_tags": [
+      "comfort",
+      "american"
+    ],
+    "meal_types": [
+      "dinner",
+      "lunch"
+    ],
+    "prep_time_minutes": 25,
+    "tags": [
+      "kid_friendly",
+      "weeknight"
+    ],
+    "match_keywords": [
+      "sloppy joes",
+      "sloppy joes"
+    ],
+    "ingredients": [
+      {
+        "name": "Ground beef",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Tomato sauce",
+        "quantity": 1,
+        "unit": "can"
+      },
+      {
+        "name": "Hamburger buns",
+        "quantity": 6,
+        "unit": "each"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "each"
+      }
+    ],
+    "required_staples": [
+      "ingredient.beef",
+      "ingredient.tomato"
+    ],
+    "steps": [
+      "Brown beef with onion.",
+      "Simmer with sauce 15 min.",
+      "Serve on buns."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

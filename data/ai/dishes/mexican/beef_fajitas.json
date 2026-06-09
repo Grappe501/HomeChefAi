@@ -1,0 +1,62 @@
+{
+  "id": "dish.mexican.beef_fajitas",
+  "type": "dish",
+  "display_name": "Beef Fajitas",
+  "description": "Beef Fajitas — mexican home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.mexican",
+    "cuisine_tags": [
+      "mexican"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 25,
+    "tags": [
+      "weeknight",
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "beef fajitas",
+      "fajitas",
+      "beef fajitas",
+      "beef"
+    ],
+    "ingredients": [
+      {
+        "name": "Ground beef",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Bell peppers",
+        "quantity": 3,
+        "unit": "each"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "each"
+      },
+      {
+        "name": "Tortillas",
+        "quantity": 8,
+        "unit": "each"
+      },
+      {
+        "name": "Lime",
+        "quantity": 1,
+        "unit": "each"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Slice peppers and onion.",
+      "Sear protein and vegetables.",
+      "Serve with warm tortillas."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

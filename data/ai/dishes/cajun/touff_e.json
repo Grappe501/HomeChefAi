@@ -1,0 +1,58 @@
+{
+  "id": "dish.cajun.touff_e",
+  "type": "dish",
+  "display_name": "Étouffée",
+  "description": "Étouffée — cajun home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.cajun",
+    "cuisine_tags": [
+      "cajun",
+      "louisiana"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 40,
+    "tags": [
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "étouffée",
+      "étouffée"
+    ],
+    "ingredients": [
+      {
+        "name": "Shrimp",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Flour",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "Bell pepper",
+        "quantity": 1,
+        "unit": "each"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      }
+    ],
+    "required_staples": [
+      "ingredient.shrimp",
+      "ingredient.rice"
+    ],
+    "steps": [
+      "Make blonde roux.",
+      "Add vegetables and stock.",
+      "Simmer shrimp; serve over rice."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

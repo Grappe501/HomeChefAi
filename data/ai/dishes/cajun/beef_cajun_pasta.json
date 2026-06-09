@@ -1,0 +1,63 @@
+{
+  "id": "dish.cajun.beef_cajun_pasta",
+  "type": "dish",
+  "display_name": "Beef Cajun Pasta",
+  "description": "Beef Cajun Pasta — cajun home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.cajun",
+    "cuisine_tags": [
+      "cajun",
+      "louisiana"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 30,
+    "tags": [
+      "weeknight",
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "beef cajun pasta",
+      "cajun pasta",
+      "beef cajun pasta",
+      "beef"
+    ],
+    "ingredients": [
+      {
+        "name": "Ground beef",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Penne",
+        "quantity": 12,
+        "unit": "oz"
+      },
+      {
+        "name": "Heavy cream",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Cajun seasoning",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Parmesan",
+        "quantity": 0.5,
+        "unit": "cup"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Cook pasta.",
+      "Sauté protein with Cajun spice.",
+      "Toss with cream sauce."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

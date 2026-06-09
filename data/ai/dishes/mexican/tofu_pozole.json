@@ -1,0 +1,64 @@
+{
+  "id": "dish.mexican.tofu_pozole",
+  "type": "dish",
+  "display_name": "Tofu Pozole",
+  "description": "Tofu Pozole — mexican home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.mexican",
+    "cuisine_tags": [
+      "mexican"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 60,
+    "tags": [
+      "crowd_favorite",
+      "leftovers_friendly"
+    ],
+    "match_keywords": [
+      "tofu pozole",
+      "pozole",
+      "tofu pozole",
+      "tofu"
+    ],
+    "ingredients": [
+      {
+        "name": "Tofu",
+        "quantity": 14,
+        "unit": "oz"
+      },
+      {
+        "name": "Hominy",
+        "quantity": 2,
+        "unit": "cans"
+      },
+      {
+        "name": "Pork shoulder",
+        "quantity": 1.5,
+        "unit": "lb"
+      },
+      {
+        "name": "Chili powder",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "each"
+      }
+    ],
+    "required_staples": [
+      "ingredient.pork"
+    ],
+    "steps": [
+      "Simmer pork with hominy and spices.",
+      "Shred pork; return to pot.",
+      "Serve with radish and lime."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

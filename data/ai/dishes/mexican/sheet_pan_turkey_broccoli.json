@@ -1,0 +1,61 @@
+{
+  "id": "dish.mexican.sheet_pan_turkey_broccoli",
+  "type": "dish",
+  "display_name": "Sheet Pan Turkey with Broccoli",
+  "description": "mexican sheet pan turkey with broccoli and rice.",
+  "attributes": {
+    "cuisine_id": "cuisine.mexican",
+    "cuisine_tags": [
+      "mexican"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 35,
+    "tags": [
+      "weeknight",
+      "one_pot"
+    ],
+    "match_keywords": [
+      "sheet pan turkey with broccoli",
+      "turkey broccoli",
+      "sheet pan turkey"
+    ],
+    "ingredients": [
+      {
+        "name": "Turkey breast",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Broccoli",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Arrange protein and vegetables on sheet pan.",
+      "Roast 25–30 min.",
+      "Serve directly from pan."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

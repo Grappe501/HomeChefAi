@@ -1,0 +1,59 @@
+{
+  "id": "dish.comfort.baked_ziti",
+  "type": "dish",
+  "display_name": "Baked Ziti",
+  "description": "Baked Ziti — comfort home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.comfort",
+    "cuisine_tags": [
+      "comfort",
+      "american"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 45,
+    "tags": [
+      "crowd_favorite",
+      "freezer_friendly"
+    ],
+    "match_keywords": [
+      "baked ziti",
+      "baked ziti"
+    ],
+    "ingredients": [
+      {
+        "name": "Ziti pasta",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Ricotta",
+        "quantity": 15,
+        "unit": "oz"
+      },
+      {
+        "name": "Marinara",
+        "quantity": 3,
+        "unit": "cups"
+      },
+      {
+        "name": "Mozzarella",
+        "quantity": 2,
+        "unit": "cups"
+      }
+    ],
+    "required_staples": [
+      "ingredient.tomato",
+      "ingredient.cheese"
+    ],
+    "steps": [
+      "Cook pasta.",
+      "Layer with sauce and cheeses.",
+      "Bake 25 min."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

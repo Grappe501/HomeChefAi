@@ -1,0 +1,67 @@
+{
+  "id": "dish.cajun.sausage_red_beans_and_rice",
+  "type": "dish",
+  "display_name": "Sausage Red Beans and Rice",
+  "description": "Sausage Red Beans and Rice — cajun home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.cajun",
+    "cuisine_tags": [
+      "cajun",
+      "louisiana"
+    ],
+    "meal_types": [
+      "dinner",
+      "lunch"
+    ],
+    "prep_time_minutes": 90,
+    "tags": [
+      "leftovers_friendly",
+      "budget"
+    ],
+    "match_keywords": [
+      "sausage red beans and rice",
+      "red beans and rice",
+      "sausage red beans and rice",
+      "sausage"
+    ],
+    "ingredients": [
+      {
+        "name": "Sausage",
+        "quantity": 12,
+        "unit": "oz"
+      },
+      {
+        "name": "Red kidney beans",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Andouille",
+        "quantity": 8,
+        "unit": "oz"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "each"
+      }
+    ],
+    "required_staples": [
+      "ingredient.beans",
+      "ingredient.rice"
+    ],
+    "steps": [
+      "Simmer beans with sausage and spices.",
+      "Mash some beans for thickness.",
+      "Serve over rice."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

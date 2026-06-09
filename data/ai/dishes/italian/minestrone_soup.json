@@ -1,0 +1,64 @@
+{
+  "id": "dish.italian.minestrone_soup",
+  "type": "dish",
+  "display_name": "Minestrone Soup",
+  "description": "Minestrone Soup — italian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.italian",
+    "cuisine_tags": [
+      "italian"
+    ],
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "prep_time_minutes": 40,
+    "tags": [
+      "leftovers_friendly",
+      "freezer_friendly"
+    ],
+    "match_keywords": [
+      "minestrone soup",
+      "minestrone soup"
+    ],
+    "ingredients": [
+      {
+        "name": "Diced tomatoes",
+        "quantity": 1,
+        "unit": "can"
+      },
+      {
+        "name": "Kidney beans",
+        "quantity": 1,
+        "unit": "can"
+      },
+      {
+        "name": "Pasta",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "each"
+      },
+      {
+        "name": "Carrots",
+        "quantity": 2,
+        "unit": "each"
+      }
+    ],
+    "required_staples": [
+      "ingredient.tomato",
+      "ingredient.beans"
+    ],
+    "steps": [
+      "Sauté onion and carrot.",
+      "Add tomatoes, beans, broth; simmer 25 min.",
+      "Add pasta; cook until tender."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

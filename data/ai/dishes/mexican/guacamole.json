@@ -1,0 +1,55 @@
+{
+  "id": "dish.mexican.guacamole",
+  "type": "dish",
+  "display_name": "Guacamole",
+  "description": "Guacamole — mexican home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.mexican",
+    "cuisine_tags": [
+      "mexican"
+    ],
+    "meal_types": [
+      "snack"
+    ],
+    "prep_time_minutes": 10,
+    "tags": [
+      "30_minutes",
+      "vegetarian"
+    ],
+    "match_keywords": [
+      "guacamole",
+      "guacamole"
+    ],
+    "ingredients": [
+      {
+        "name": "Avocado",
+        "quantity": 3,
+        "unit": "each"
+      },
+      {
+        "name": "Lime",
+        "quantity": 1,
+        "unit": "each"
+      },
+      {
+        "name": "Onion",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "Cilantro",
+        "quantity": 0.25,
+        "unit": "cup"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Mash avocados.",
+      "Mix in lime, onion, cilantro.",
+      "Season with salt."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "id": "dish.tex_mex.beef_chili_con_carne",
+  "type": "dish",
+  "display_name": "Beef Chili con Carne",
+  "description": "Beef Chili con Carne — tex_mex home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.tex_mex",
+    "cuisine_tags": [
+      "tex_mex",
+      "mexican"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 60,
+    "tags": [
+      "leftovers_friendly",
+      "freezer_friendly"
+    ],
+    "match_keywords": [
+      "beef chili con carne",
+      "chili con carne",
+      "beef chili con carne",
+      "beef"
+    ],
+    "ingredients": [
+      {
+        "name": "Ground beef",
+        "quantity": 1.5,
+        "unit": "lb"
+      },
+      {
+        "name": "Kidney beans",
+        "quantity": 1,
+        "unit": "can"
+      },
+      {
+        "name": "Crushed tomatoes",
+        "quantity": 1,
+        "unit": "can"
+      },
+      {
+        "name": "Chili powder",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ],
+    "required_staples": [
+      "ingredient.beef",
+      "ingredient.beans"
+    ],
+    "steps": [
+      "Brown beef with onion.",
+      "Simmer with beans and tomatoes 45 min.",
+      "Season to taste."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

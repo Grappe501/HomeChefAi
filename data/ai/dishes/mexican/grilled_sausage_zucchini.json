@@ -1,0 +1,61 @@
+{
+  "id": "dish.mexican.grilled_sausage_zucchini",
+  "type": "dish",
+  "display_name": "Grilled Sausage with Zucchini",
+  "description": "mexican grilled sausage with zucchini and pasta.",
+  "attributes": {
+    "cuisine_id": "cuisine.mexican",
+    "cuisine_tags": [
+      "mexican"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 30,
+    "tags": [
+      "weeknight",
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "grilled sausage with zucchini",
+      "sausage zucchini",
+      "grilled sausage"
+    ],
+    "ingredients": [
+      {
+        "name": "Sausage",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Zucchini",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Pasta",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Marinate protein 20 min.",
+      "Grill over medium-high heat.",
+      "Rest and slice."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

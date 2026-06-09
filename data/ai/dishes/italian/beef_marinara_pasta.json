@@ -1,0 +1,67 @@
+{
+  "id": "dish.italian.beef_marinara_pasta",
+  "type": "dish",
+  "display_name": "Beef Marinara Pasta",
+  "description": "Beef Marinara Pasta — italian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.italian",
+    "cuisine_tags": [
+      "italian"
+    ],
+    "meal_types": [
+      "dinner",
+      "lunch"
+    ],
+    "prep_time_minutes": 25,
+    "tags": [
+      "weeknight",
+      "30_minutes",
+      "vegetarian"
+    ],
+    "match_keywords": [
+      "beef marinara pasta",
+      "marinara pasta",
+      "beef marinara pasta",
+      "beef"
+    ],
+    "ingredients": [
+      {
+        "name": "Ground beef",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Spaghetti",
+        "quantity": 8,
+        "unit": "oz"
+      },
+      {
+        "name": "Tomato sauce",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 3,
+        "unit": "cloves"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ],
+    "required_staples": [
+      "ingredient.tomato",
+      "ingredient.garlic"
+    ],
+    "steps": [
+      "Boil pasta al dente.",
+      "Simmer garlic in oil, add sauce 10 min.",
+      "Toss pasta with sauce and serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

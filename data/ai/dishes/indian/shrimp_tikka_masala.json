@@ -1,0 +1,63 @@
+{
+  "id": "dish.indian.shrimp_tikka_masala",
+  "type": "dish",
+  "display_name": "Shrimp Tikka Masala",
+  "description": "Shrimp Tikka Masala — indian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.indian",
+    "cuisine_tags": [
+      "indian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 45,
+    "tags": [
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "shrimp tikka masala",
+      "tikka masala",
+      "shrimp tikka masala",
+      "shrimp"
+    ],
+    "ingredients": [
+      {
+        "name": "Shrimp",
+        "quantity": 12,
+        "unit": "oz"
+      },
+      {
+        "name": "Yogurt",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Tomato sauce",
+        "quantity": 1,
+        "unit": "can"
+      },
+      {
+        "name": "Garam masala",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      }
+    ],
+    "required_staples": [
+      "ingredient.tomato"
+    ],
+    "steps": [
+      "Marinate and cook protein.",
+      "Simmer in masala sauce.",
+      "Serve with rice."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

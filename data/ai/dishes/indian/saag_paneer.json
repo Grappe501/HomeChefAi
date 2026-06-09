@@ -1,0 +1,54 @@
+{
+  "id": "dish.indian.saag_paneer",
+  "type": "dish",
+  "display_name": "Saag Paneer",
+  "description": "Saag Paneer — indian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.indian",
+    "cuisine_tags": [
+      "indian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 35,
+    "tags": [
+      "vegetarian"
+    ],
+    "match_keywords": [
+      "saag paneer",
+      "saag paneer"
+    ],
+    "ingredients": [
+      {
+        "name": "Spinach",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Paneer or cheese",
+        "quantity": 8,
+        "unit": "oz"
+      },
+      {
+        "name": "Garam masala",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "name": "Cream",
+        "quantity": 0.25,
+        "unit": "cup"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Blanch and blend spinach.",
+      "Simmer with spices and cream.",
+      "Add paneer cubes."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

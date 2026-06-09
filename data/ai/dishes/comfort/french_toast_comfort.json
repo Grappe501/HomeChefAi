@@ -1,0 +1,56 @@
+{
+  "id": "dish.comfort.french_toast_comfort",
+  "type": "dish",
+  "display_name": "French Toast",
+  "description": "French Toast — comfort home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.comfort",
+    "cuisine_tags": [
+      "comfort",
+      "american"
+    ],
+    "meal_types": [
+      "breakfast"
+    ],
+    "prep_time_minutes": 15,
+    "tags": [
+      "30_minutes",
+      "kid_friendly"
+    ],
+    "match_keywords": [
+      "french toast",
+      "french toast"
+    ],
+    "ingredients": [
+      {
+        "name": "Bread",
+        "quantity": 6,
+        "unit": "slices"
+      },
+      {
+        "name": "Eggs",
+        "quantity": 2,
+        "unit": "each"
+      },
+      {
+        "name": "Milk",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Cinnamon",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Soak bread in egg mixture.",
+      "Cook in buttered skillet.",
+      "Serve with syrup."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

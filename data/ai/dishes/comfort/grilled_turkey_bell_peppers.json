@@ -1,0 +1,62 @@
+{
+  "id": "dish.comfort.grilled_turkey_bell_peppers",
+  "type": "dish",
+  "display_name": "Grilled Turkey with Bell peppers",
+  "description": "comfort grilled turkey with bell peppers and potatoes.",
+  "attributes": {
+    "cuisine_id": "cuisine.comfort",
+    "cuisine_tags": [
+      "comfort",
+      "american"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 30,
+    "tags": [
+      "weeknight",
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "grilled turkey with bell peppers",
+      "turkey bell peppers",
+      "grilled turkey"
+    ],
+    "ingredients": [
+      {
+        "name": "Turkey breast",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Bell peppers",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Potatoes",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Marinate protein 20 min.",
+      "Grill over medium-high heat.",
+      "Rest and slice."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

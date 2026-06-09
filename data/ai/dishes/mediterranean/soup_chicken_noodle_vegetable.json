@@ -1,0 +1,57 @@
+{
+  "id": "dish.mediterranean.soup_chicken_noodle_vegetable",
+  "type": "dish",
+  "display_name": "Chicken Noodle Soup",
+  "description": "Chicken Noodle soup — mediterranean style.",
+  "attributes": {
+    "cuisine_id": "cuisine.mediterranean",
+    "cuisine_tags": [
+      "mediterranean"
+    ],
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "prep_time_minutes": 40,
+    "tags": [
+      "leftovers_friendly",
+      "freezer_friendly"
+    ],
+    "match_keywords": [
+      "chicken noodle soup",
+      "chicken noodle soup",
+      "chicken noodle"
+    ],
+    "ingredients": [
+      {
+        "name": "Broth",
+        "quantity": 6,
+        "unit": "cups"
+      },
+      {
+        "name": "Diced tomatoes",
+        "quantity": 1,
+        "unit": "can"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "each"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Sauté aromatics.",
+      "Simmer with broth 30 min.",
+      "Adjust seasoning; serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

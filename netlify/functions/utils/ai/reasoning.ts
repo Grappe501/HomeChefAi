@@ -8,6 +8,7 @@ import type { MealDirection, MealDirectionsResult } from '../../../../src/types/
 import { listAvailableKnowledgeIds } from '../inventoryContext.js';
 import { getKnowledgeNode, listKnowledgeNodes } from './knowledgeLoader.js';
 import { getCuisineStaples, getTechniquesForCuisine } from './graphQueries.js';
+import { matchDishesForPantry, formatDishAsDirection } from './dishMatcher.js';
 
 const COOKING_STYLE_TO_CUISINE: Record<string, string> = {
   comfort: 'cuisine.comfort',
@@ -143,6 +144,26 @@ export function buildMealDirections(
   const kidSet = inventoryKnowledgeSet(inventory);
   const protein = pickPrimaryProtein(inventory, kidSet);
   const starch = pickPrimaryStarch(inventory, kidSet);
+
+  // Prefer structured dish corpus when pantry matches
+  const dishMatches = matchDishesForPantry(inventory, profile, {
+    limit: Math.max(count * 4, 12),
+    meal_type: options.meal_type,
+    cooking_style: options.cooking_style,
+  });
+
+  if (dishMatches.length >= count) {
+    const directions: MealDirection[] = dishMatches.slice(0, count).map((d, idx) => formatDishAsDirection(d, idx));
+    const inventorySummary = inventory.length
+      ? `${inventory.length} pantry items · ${dishMatches.length} recipes match your kitchen`
+      : 'Empty pantry';
+    return {
+      directions,
+      inventory_summary: inventorySummary,
+      reasoning_note: `${directions.length} recipes from the SousChef library (${dishMatches.length}+ matches in your pantry).`,
+    };
+  }
+
   const candidates = candidateCuisineIds(profile, options.cooking_style);
 
   const preferenceIds = new Set<string>();
@@ -181,17 +202,22 @@ export function buildMealDirections(
     picked.push(next);
   }
 
-  const directions: MealDirection[] = picked.slice(0, count).map((row, idx) => {
+  // Blend cuisine directions with any extra dish matches
+  const extraDishes = dishMatches.filter(
+    (d) => !picked.some((p) => p.cuisineId === d.cuisine_id),
+  );
+
+  const directions: MealDirection[] = [];
+  for (let idx = 0; idx < picked.length && directions.length < count; idx++) {
+    const row = picked[idx];
     const cuisine = getKnowledgeNode(row.cuisineId)!;
     const regionalUses = (cuisine.attributes?.regional_uses as string[] | undefined) ?? [];
     const techniques = getTechniquesForCuisine(row.cuisineId);
     const technique = techniques[0];
     const stapleIds = getCuisineStaples(row.cuisineId).map((s) => s.id);
     const evidence = [row.cuisineId, ...stapleIds.filter((id) => kidSet.has(id) || [...kidSet].some((k) => k.startsWith(id + '.')))].slice(0, 6);
-
     const confidence = Math.min(0.95, 0.45 + row.score * 0.5);
-
-    return {
+    directions.push({
       id: `dir_${idx + 1}_${row.cuisineId.replace(/\./g, '_')}`,
       title: buildDirectionTitle(cuisine.display_name, regionalUses, protein, starch),
       tagline: `${cuisine.display_name} — uses ${row.inPantry.slice(0, 3).join(', ')}${row.missing.length ? ` (+${row.missing.length} pantry staples to shop)` : ''}`,
@@ -203,19 +229,24 @@ export function buildMealDirections(
       flavor_profile: (cuisine.attributes?.cuisine_tags as string[] | undefined)?.[0],
       evidence,
       confidence: Math.round(confidence * 100) / 100,
-    };
-  });
+    });
+  }
+
+  for (const d of extraDishes) {
+    if (directions.length >= count) break;
+    directions.push(formatDishAsDirection(d, directions.length));
+  }
 
   const inventorySummary = inventory.length
-    ? `${inventory.length} pantry items · ${kidSet.size} linked to knowledge`
+    ? `${inventory.length} pantry items · ${dishMatches.length} recipe matches`
     : 'Empty pantry';
 
   return {
-    directions,
+    directions: directions.slice(0, count),
     inventory_summary: inventorySummary,
     reasoning_note: directions.length
-      ? `Three distinct flavor directions from your pantry and ${profile.assistant_name ?? 'Clara'}'s knowledge graph.`
-      : 'Add pantry items to unlock cuisine directions.',
+      ? `Recipe ideas from the SousChef library (${dishMatches.length}+ pantry matches).`
+      : 'Add pantry items to unlock recipe ideas.',
   };
 }
 
@@ -231,6 +262,7 @@ export function formatDirectionsForPrompt(direction: MealDirection): string {
   if (direction.missing_staples.length) {
     lines.push(`Optional shop items: ${direction.missing_staples.slice(0, 4).join(', ')}`);
   }
+  if (direction.steps?.length) lines.push(`Steps: ${direction.steps.slice(0, 3).join(' → ')}`);
   lines.push(`Knowledge evidence: ${direction.evidence.join(', ')}`);
   return lines.join('\n');
 }

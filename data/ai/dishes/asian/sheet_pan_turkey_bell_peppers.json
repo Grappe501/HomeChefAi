@@ -1,0 +1,61 @@
+{
+  "id": "dish.asian.sheet_pan_turkey_bell_peppers",
+  "type": "dish",
+  "display_name": "Sheet Pan Turkey with Bell peppers",
+  "description": "asian sheet pan turkey with bell peppers and potatoes.",
+  "attributes": {
+    "cuisine_id": "cuisine.asian",
+    "cuisine_tags": [
+      "asian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 35,
+    "tags": [
+      "weeknight",
+      "one_pot"
+    ],
+    "match_keywords": [
+      "sheet pan turkey with bell peppers",
+      "turkey bell peppers",
+      "sheet pan turkey"
+    ],
+    "ingredients": [
+      {
+        "name": "Turkey breast",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Bell peppers",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Potatoes",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Arrange protein and vegetables on sheet pan.",
+      "Roast 25–30 min.",
+      "Serve directly from pan."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

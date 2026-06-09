@@ -1,0 +1,56 @@
+{
+  "id": "dish.bbq.coleslaw",
+  "type": "dish",
+  "display_name": "Coleslaw",
+  "description": "Coleslaw — bbq home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.bbq",
+    "cuisine_tags": [
+      "bbq",
+      "smoked"
+    ],
+    "meal_types": [
+      "dinner",
+      "lunch"
+    ],
+    "prep_time_minutes": 15,
+    "tags": [
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "coleslaw",
+      "coleslaw"
+    ],
+    "ingredients": [
+      {
+        "name": "Cabbage",
+        "quantity": 0.5,
+        "unit": "head"
+      },
+      {
+        "name": "Carrots",
+        "quantity": 2,
+        "unit": "each"
+      },
+      {
+        "name": "Mayonnaise",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Vinegar",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Shred cabbage and carrot.",
+      "Whisk dressing.",
+      "Toss and chill."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

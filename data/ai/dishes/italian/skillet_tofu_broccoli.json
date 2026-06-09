@@ -1,0 +1,63 @@
+{
+  "id": "dish.italian.skillet_tofu_broccoli",
+  "type": "dish",
+  "display_name": "Skillet Tofu with Broccoli",
+  "description": "italian skillet tofu with broccoli and rice.",
+  "attributes": {
+    "cuisine_id": "cuisine.italian",
+    "cuisine_tags": [
+      "italian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 25,
+    "tags": [
+      "weeknight",
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "skillet tofu with broccoli",
+      "tofu broccoli",
+      "skillet tofu"
+    ],
+    "ingredients": [
+      {
+        "name": "Tofu",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Broccoli",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.tofu"
+    ],
+    "steps": [
+      "Season protein.",
+      "Sear in hot skillet with aromatics.",
+      "Finish with sauce; serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

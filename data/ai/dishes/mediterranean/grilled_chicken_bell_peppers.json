@@ -1,0 +1,63 @@
+{
+  "id": "dish.mediterranean.grilled_chicken_bell_peppers",
+  "type": "dish",
+  "display_name": "Grilled Chicken with Bell peppers",
+  "description": "mediterranean grilled chicken with bell peppers and potatoes.",
+  "attributes": {
+    "cuisine_id": "cuisine.mediterranean",
+    "cuisine_tags": [
+      "mediterranean"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 30,
+    "tags": [
+      "weeknight",
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "grilled chicken with bell peppers",
+      "chicken bell peppers",
+      "grilled chicken"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken breast",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Bell peppers",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Potatoes",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.chicken"
+    ],
+    "steps": [
+      "Marinate protein 20 min.",
+      "Grill over medium-high heat.",
+      "Rest and slice."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

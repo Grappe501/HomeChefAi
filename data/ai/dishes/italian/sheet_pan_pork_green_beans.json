@@ -1,0 +1,63 @@
+{
+  "id": "dish.italian.sheet_pan_pork_green_beans",
+  "type": "dish",
+  "display_name": "Sheet Pan Pork with Green beans",
+  "description": "italian sheet pan pork with green beans and rice.",
+  "attributes": {
+    "cuisine_id": "cuisine.italian",
+    "cuisine_tags": [
+      "italian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 35,
+    "tags": [
+      "weeknight",
+      "one_pot"
+    ],
+    "match_keywords": [
+      "sheet pan pork with green beans",
+      "pork green beans",
+      "sheet pan pork"
+    ],
+    "ingredients": [
+      {
+        "name": "Pork chops",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Green beans",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.pork"
+    ],
+    "steps": [
+      "Arrange protein and vegetables on sheet pan.",
+      "Roast 25–30 min.",
+      "Serve directly from pan."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "id": "dish.comfort.baked_turkey_zucchini",
+  "type": "dish",
+  "display_name": "Baked Turkey with Zucchini",
+  "description": "comfort baked turkey with zucchini and pasta.",
+  "attributes": {
+    "cuisine_id": "cuisine.comfort",
+    "cuisine_tags": [
+      "comfort",
+      "american"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 40,
+    "tags": [
+      "easy_night"
+    ],
+    "match_keywords": [
+      "baked turkey with zucchini",
+      "turkey zucchini",
+      "baked turkey"
+    ],
+    "ingredients": [
+      {
+        "name": "Turkey breast",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Zucchini",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Pasta",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Arrange in baking dish.",
+      "Bake at 375°F until done.",
+      "Garnish and serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

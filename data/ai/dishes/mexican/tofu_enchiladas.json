@@ -1,0 +1,63 @@
+{
+  "id": "dish.mexican.tofu_enchiladas",
+  "type": "dish",
+  "display_name": "Tofu Enchiladas",
+  "description": "Tofu Enchiladas — mexican home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.mexican",
+    "cuisine_tags": [
+      "mexican"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 40,
+    "tags": [
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "tofu enchiladas",
+      "enchiladas",
+      "tofu enchiladas",
+      "tofu"
+    ],
+    "ingredients": [
+      {
+        "name": "Tofu",
+        "quantity": 14,
+        "unit": "oz"
+      },
+      {
+        "name": "Tortillas",
+        "quantity": 8,
+        "unit": "each"
+      },
+      {
+        "name": "Enchilada sauce",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Cheese",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "each"
+      }
+    ],
+    "required_staples": [
+      "ingredient.cheese"
+    ],
+    "steps": [
+      "Fill tortillas with protein and cheese.",
+      "Roll and place in dish.",
+      "Cover with sauce; bake 20 min."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "id": "dish.southern.cornbread",
+  "type": "dish",
+  "display_name": "Cornbread",
+  "description": "Cornbread — southern home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.southern",
+    "cuisine_tags": [
+      "southern"
+    ],
+    "meal_types": [
+      "dinner",
+      "lunch"
+    ],
+    "prep_time_minutes": 30,
+    "tags": [
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "cornbread",
+      "cornbread"
+    ],
+    "ingredients": [
+      {
+        "name": "Cornmeal",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Flour",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Buttermilk",
+        "quantity": 1.5,
+        "unit": "cups"
+      },
+      {
+        "name": "Eggs",
+        "quantity": 2,
+        "unit": "each"
+      }
+    ],
+    "required_staples": [
+      "ingredient.flour"
+    ],
+    "steps": [
+      "Mix dry ingredients.",
+      "Whisk wet; combine.",
+      "Bake in cast iron 25 min."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

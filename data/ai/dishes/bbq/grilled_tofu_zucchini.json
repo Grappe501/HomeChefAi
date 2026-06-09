@@ -1,0 +1,64 @@
+{
+  "id": "dish.bbq.grilled_tofu_zucchini",
+  "type": "dish",
+  "display_name": "Grilled Tofu with Zucchini",
+  "description": "bbq grilled tofu with zucchini and pasta.",
+  "attributes": {
+    "cuisine_id": "cuisine.bbq",
+    "cuisine_tags": [
+      "bbq",
+      "smoked"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 30,
+    "tags": [
+      "weeknight",
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "grilled tofu with zucchini",
+      "tofu zucchini",
+      "grilled tofu"
+    ],
+    "ingredients": [
+      {
+        "name": "Tofu",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Zucchini",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Pasta",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.tofu"
+    ],
+    "steps": [
+      "Marinate protein 20 min.",
+      "Grill over medium-high heat.",
+      "Rest and slice."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

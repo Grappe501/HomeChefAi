@@ -10,6 +10,7 @@ import PantryScan from './pages/PantryScan';
 import HostingStudio from './pages/HostingStudio';
 import PantryWizard from './pages/PantryWizard';
 import MealPlanner from './pages/MealPlanner';
+import RecipeIdeas from './pages/RecipeIdeas';
 import CookLog from './pages/CookLog';
 import Assistant from './pages/Assistant';
 import Settings from './pages/Settings';
@@ -74,7 +75,7 @@ function AuthenticatedRoutes() {
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/cook" element={<CookLog />} />
         <Route path="/assistant" element={<Assistant />} />
-        <Route path="/recipes" element={<Navigate to="/" replace />} />
+        <Route path="/recipes" element={<RecipeIdeas />} />
         <Route path="/community" element={<Community />} />
         <Route path="/brain" element={<Brain />} />
         <Route path="/learn" element={<Learn />} />

@@ -1,0 +1,57 @@
+{
+  "id": "dish.italian.risotto",
+  "type": "dish",
+  "display_name": "Risotto",
+  "description": "Risotto — italian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.italian",
+    "cuisine_tags": [
+      "italian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 35,
+    "tags": [
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "risotto",
+      "risotto"
+    ],
+    "ingredients": [
+      {
+        "name": "Arborio rice",
+        "quantity": 1.5,
+        "unit": "cups"
+      },
+      {
+        "name": "Chicken broth",
+        "quantity": 4,
+        "unit": "cups"
+      },
+      {
+        "name": "Parmesan",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Butter",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ],
+    "required_staples": [
+      "ingredient.rice",
+      "ingredient.cheese"
+    ],
+    "steps": [
+      "Toast rice in butter.",
+      "Add broth ladle by ladle, stirring.",
+      "Finish with parmesan."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

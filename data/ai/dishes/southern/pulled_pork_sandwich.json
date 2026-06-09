@@ -1,0 +1,58 @@
+{
+  "id": "dish.southern.pulled_pork_sandwich",
+  "type": "dish",
+  "display_name": "Pulled Pork Sandwich",
+  "description": "Pulled Pork Sandwich — southern home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.southern",
+    "cuisine_tags": [
+      "southern"
+    ],
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "prep_time_minutes": 240,
+    "tags": [
+      "crowd_favorite",
+      "leftovers_friendly"
+    ],
+    "match_keywords": [
+      "pulled pork sandwich",
+      "pulled pork sandwich"
+    ],
+    "ingredients": [
+      {
+        "name": "Pork shoulder",
+        "quantity": 3,
+        "unit": "lb"
+      },
+      {
+        "name": "BBQ sauce",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Hamburger buns",
+        "quantity": 6,
+        "unit": "each"
+      },
+      {
+        "name": "Coleslaw mix",
+        "quantity": 2,
+        "unit": "cups"
+      }
+    ],
+    "required_staples": [
+      "ingredient.pork"
+    ],
+    "steps": [
+      "Slow cook pork with rub until tender.",
+      "Shred and mix with sauce.",
+      "Serve on buns with slaw."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

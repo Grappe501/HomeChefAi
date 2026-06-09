@@ -1,0 +1,57 @@
+{
+  "id": "dish.italian.eggplant_parmesan",
+  "type": "dish",
+  "display_name": "Eggplant Parmesan",
+  "description": "Eggplant Parmesan — italian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.italian",
+    "cuisine_tags": [
+      "italian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 50,
+    "tags": [
+      "crowd_favorite",
+      "vegetarian"
+    ],
+    "match_keywords": [
+      "eggplant parmesan",
+      "eggplant parmesan"
+    ],
+    "ingredients": [
+      {
+        "name": "Eggplant",
+        "quantity": 1,
+        "unit": "each"
+      },
+      {
+        "name": "Tomato sauce",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Mozzarella",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Bread crumbs",
+        "quantity": 1,
+        "unit": "cup"
+      }
+    ],
+    "required_staples": [
+      "ingredient.tomato"
+    ],
+    "steps": [
+      "Bread and bake eggplant slices.",
+      "Layer with sauce and cheese.",
+      "Bake until bubbly."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

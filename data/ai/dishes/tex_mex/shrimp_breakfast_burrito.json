@@ -1,0 +1,62 @@
+{
+  "id": "dish.tex_mex.shrimp_breakfast_burrito",
+  "type": "dish",
+  "display_name": "Shrimp Breakfast Burrito",
+  "description": "Shrimp Breakfast Burrito — tex_mex home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.tex_mex",
+    "cuisine_tags": [
+      "tex_mex",
+      "mexican"
+    ],
+    "meal_types": [
+      "breakfast"
+    ],
+    "prep_time_minutes": 20,
+    "tags": [
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "shrimp breakfast burrito",
+      "breakfast burrito",
+      "shrimp breakfast burrito",
+      "shrimp"
+    ],
+    "ingredients": [
+      {
+        "name": "Shrimp",
+        "quantity": 12,
+        "unit": "oz"
+      },
+      {
+        "name": "Tortillas",
+        "quantity": 4,
+        "unit": "each"
+      },
+      {
+        "name": "Eggs",
+        "quantity": 4,
+        "unit": "each"
+      },
+      {
+        "name": "Cheese",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Salsa",
+        "quantity": 0.5,
+        "unit": "cup"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Scramble eggs.",
+      "Fill tortillas with eggs, cheese, salsa.",
+      "Optional sear in skillet."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

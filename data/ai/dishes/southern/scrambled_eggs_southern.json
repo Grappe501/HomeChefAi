@@ -1,0 +1,54 @@
+{
+  "id": "dish.southern.scrambled_eggs_southern",
+  "type": "dish",
+  "display_name": "Scrambled Eggs",
+  "description": "Scrambled Eggs — southern home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.southern",
+    "cuisine_tags": [
+      "southern"
+    ],
+    "meal_types": [
+      "breakfast"
+    ],
+    "prep_time_minutes": 10,
+    "tags": [
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "scrambled eggs",
+      "scrambled eggs"
+    ],
+    "ingredients": [
+      {
+        "name": "Eggs",
+        "quantity": 4,
+        "unit": "each"
+      },
+      {
+        "name": "Butter",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Salt",
+        "quantity": 0.25,
+        "unit": "tsp"
+      },
+      {
+        "name": "Black pepper",
+        "quantity": 0.25,
+        "unit": "tsp"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Whisk eggs.",
+      "Cook low in butter.",
+      "Season and serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

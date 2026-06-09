@@ -14,6 +14,12 @@ export interface MealDirection {
   flavor_profile?: string;
   evidence: string[];
   confidence: number;
+  /** Linked dish corpus node */
+  dish_id?: string;
+  description?: string;
+  prep_time_minutes?: number;
+  ingredients_preview?: string[];
+  steps?: string[];
 }
 
 export interface MealDirectionsResult {

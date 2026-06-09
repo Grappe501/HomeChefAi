@@ -129,6 +129,11 @@ export const mealsApi = {
       method: 'POST',
       body: JSON.stringify({ action: 'what-can-i-make' }),
     }),
+  recipeIdeas: (params?: { limit?: number; meal_type?: string; cooking_style?: string }) =>
+    api<{ dishes: import('@/types/dish').DishMatch[]; count: number; inventory_summary: string }>('meals', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'recipe-ideas', ...params }),
+    }),
   explainMeal: (data: {
     meal: import('@/types').PlannedMeal;
     coverage?: import('@/types').MealPlanData['coverage'];

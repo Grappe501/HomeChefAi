@@ -1,0 +1,57 @@
+{
+  "id": "dish.asian.miso_soup",
+  "type": "dish",
+  "display_name": "Miso Soup",
+  "description": "Miso Soup — asian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.asian",
+    "cuisine_tags": [
+      "asian"
+    ],
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "prep_time_minutes": 15,
+    "tags": [
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "miso soup",
+      "miso soup"
+    ],
+    "ingredients": [
+      {
+        "name": "Miso paste",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Tofu",
+        "quantity": 8,
+        "unit": "oz"
+      },
+      {
+        "name": "Green onions",
+        "quantity": 2,
+        "unit": "each"
+      },
+      {
+        "name": "Dashi or broth",
+        "quantity": 4,
+        "unit": "cups"
+      }
+    ],
+    "required_staples": [
+      "ingredient.tofu"
+    ],
+    "steps": [
+      "Heat broth.",
+      "Dissolve miso off heat.",
+      "Add tofu and scallions."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

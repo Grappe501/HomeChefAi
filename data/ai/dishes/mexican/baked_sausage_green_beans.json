@@ -1,0 +1,60 @@
+{
+  "id": "dish.mexican.baked_sausage_green_beans",
+  "type": "dish",
+  "display_name": "Baked Sausage with Green beans",
+  "description": "mexican baked sausage with green beans and rice.",
+  "attributes": {
+    "cuisine_id": "cuisine.mexican",
+    "cuisine_tags": [
+      "mexican"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 40,
+    "tags": [
+      "easy_night"
+    ],
+    "match_keywords": [
+      "baked sausage with green beans",
+      "sausage green beans",
+      "baked sausage"
+    ],
+    "ingredients": [
+      {
+        "name": "Sausage",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Green beans",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Arrange in baking dish.",
+      "Bake at 375°F until done.",
+      "Garnish and serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

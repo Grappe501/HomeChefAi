@@ -1,0 +1,65 @@
+{
+  "id": "dish.tex_mex.pork_tex_mex_casserole",
+  "type": "dish",
+  "display_name": "Pork Tex-Mex Casserole",
+  "description": "Pork Tex-Mex Casserole — tex_mex home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.tex_mex",
+    "cuisine_tags": [
+      "tex_mex",
+      "mexican"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 45,
+    "tags": [
+      "crowd_favorite",
+      "freezer_friendly"
+    ],
+    "match_keywords": [
+      "pork tex-mex casserole",
+      "tex-mex casserole",
+      "pork tex-mex casserole",
+      "pork"
+    ],
+    "ingredients": [
+      {
+        "name": "Pork chops",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Tortillas",
+        "quantity": 8,
+        "unit": "each"
+      },
+      {
+        "name": "Ground beef",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Enchilada sauce",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Cheese",
+        "quantity": 2,
+        "unit": "cups"
+      }
+    ],
+    "required_staples": [
+      "ingredient.beef"
+    ],
+    "steps": [
+      "Layer tortillas, beef, sauce, cheese.",
+      "Repeat layers.",
+      "Bake 30 min."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

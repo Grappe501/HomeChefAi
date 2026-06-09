@@ -1,0 +1,58 @@
+{
+  "id": "dish.italian.meatball_sub",
+  "type": "dish",
+  "display_name": "Meatball Sub",
+  "description": "Meatball Sub — italian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.italian",
+    "cuisine_tags": [
+      "italian"
+    ],
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "prep_time_minutes": 30,
+    "tags": [
+      "crowd_favorite"
+    ],
+    "match_keywords": [
+      "meatball sub",
+      "meatball sub"
+    ],
+    "ingredients": [
+      {
+        "name": "Ground beef",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Marinara sauce",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Sub rolls",
+        "quantity": 4,
+        "unit": "each"
+      },
+      {
+        "name": "Mozzarella",
+        "quantity": 8,
+        "unit": "oz"
+      }
+    ],
+    "required_staples": [
+      "ingredient.tomato",
+      "ingredient.beef"
+    ],
+    "steps": [
+      "Form and brown meatballs.",
+      "Simmer in sauce.",
+      "Serve on rolls with cheese."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

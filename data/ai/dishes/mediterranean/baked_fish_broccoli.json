@@ -1,0 +1,62 @@
+{
+  "id": "dish.mediterranean.baked_fish_broccoli",
+  "type": "dish",
+  "display_name": "Baked Fish with Broccoli",
+  "description": "mediterranean baked fish with broccoli and rice.",
+  "attributes": {
+    "cuisine_id": "cuisine.mediterranean",
+    "cuisine_tags": [
+      "mediterranean"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 40,
+    "tags": [
+      "easy_night"
+    ],
+    "match_keywords": [
+      "baked fish with broccoli",
+      "fish broccoli",
+      "baked fish"
+    ],
+    "ingredients": [
+      {
+        "name": "White fish",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Broccoli",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Rice",
+        "quantity": 2,
+        "unit": "cups"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [
+      "ingredient.fish"
+    ],
+    "steps": [
+      "Arrange in baking dish.",
+      "Bake at 375°F until done.",
+      "Garnish and serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

@@ -23,6 +23,7 @@ const TYPE_DIRS: KnowledgeNodeType[] = [
   'hosting',
   'culture',
   'tradition',
+  'dish',
 ];
 
 let cachedNodes: Map<string, KnowledgeNode> | null = null;

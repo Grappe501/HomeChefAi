@@ -17,6 +17,7 @@ import {
 } from './utils/ai/ledgerStore.js';
 import type { MealReviewPayload } from './utils/ai/decisionLedger.js';
 import { buildMealDirections, findDirectionById, formatDirectionsForPrompt } from './utils/ai/reasoning.js';
+import { formatDishesForPlannerPrompt, matchDishesForPantry } from './utils/ai/dishMatcher.js';
 import { mealTagsForPlanContext } from './utils/ai/orchestrator.js';
 
 type MealCounts = { breakfasts: number; lunches: number; dinners: number; snacks: number };
@@ -349,6 +350,8 @@ async function generateMealPlanChunk(
     cooking_style: params.cookingStyle,
   });
 
+  const dishLibraryPrompt = formatDishesForPlannerPrompt(inventory, profile, 24, params.cookingStyle);
+
   const userContent = `${mealScope}
 Household: Plan all portions for exactly ${people} people.
 Budget: $${params.budget ?? 'flexible'}
@@ -364,6 +367,7 @@ ${inventoryList}
 (${formatInventorySummary(inventory)})
 ${params.message ? `Chef request: ${params.message}` : ''}
 ${params.directionPrompt ? `\nSelected cooking direction:\n${params.directionPrompt}` : ''}
+${dishLibraryPrompt ? `\n${dishLibraryPrompt}` : ''}
 ${params.ledgerFeedback ? `\n${params.ledgerFeedback}` : ''}
 ${shoppingNote}
 Use "day" field values ${params.startDay} through ${params.startDay + params.dayCount - 1}.
@@ -593,6 +597,21 @@ export const handler: Handler = withCors(async (event) => {
         profile.household_id,
       );
       return jsonResponse(result);
+    }
+
+    if (body.action === 'recipe-ideas') {
+      const limit = Math.min(Math.max(Number(body.limit) || 50, 1), 100);
+      const matches = matchDishesForPantry(inventory, profile, {
+        limit,
+        meal_type: body.meal_type,
+        cooking_style: body.cooking_style,
+        min_score: 0.2,
+      });
+      return jsonResponse({
+        dishes: matches,
+        count: matches.length,
+        inventory_summary: formatInventorySummary(inventory),
+      });
     }
 
     if (body.action === 'what-can-i-make') {

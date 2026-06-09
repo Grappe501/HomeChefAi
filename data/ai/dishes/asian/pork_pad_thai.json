@@ -1,0 +1,67 @@
+{
+  "id": "dish.asian.pork_pad_thai",
+  "type": "dish",
+  "display_name": "Pork Pad Thai",
+  "description": "Pork Pad Thai — asian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.asian",
+    "cuisine_tags": [
+      "asian"
+    ],
+    "meal_types": [
+      "dinner"
+    ],
+    "prep_time_minutes": 30,
+    "tags": [
+      "weeknight",
+      "30_minutes"
+    ],
+    "match_keywords": [
+      "pork pad thai",
+      "pad thai",
+      "pork pad thai",
+      "pork"
+    ],
+    "ingredients": [
+      {
+        "name": "Pork chops",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "Rice noodles",
+        "quantity": 8,
+        "unit": "oz"
+      },
+      {
+        "name": "Fish sauce",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Peanuts",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "Lime",
+        "quantity": 1,
+        "unit": "each"
+      },
+      {
+        "name": "Eggs",
+        "quantity": 2,
+        "unit": "each"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Soak noodles.",
+      "Stir-fry protein and eggs.",
+      "Toss with sauce, peanuts, lime."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

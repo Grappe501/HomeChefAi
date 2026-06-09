@@ -1,0 +1,59 @@
+{
+  "id": "dish.italian.caprese_salad",
+  "type": "dish",
+  "display_name": "Caprese Salad",
+  "description": "Caprese Salad — italian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.italian",
+    "cuisine_tags": [
+      "italian"
+    ],
+    "meal_types": [
+      "lunch",
+      "snack"
+    ],
+    "prep_time_minutes": 10,
+    "tags": [
+      "30_minutes",
+      "vegetarian"
+    ],
+    "match_keywords": [
+      "caprese salad",
+      "caprese salad"
+    ],
+    "ingredients": [
+      {
+        "name": "Tomatoes",
+        "quantity": 3,
+        "unit": "each"
+      },
+      {
+        "name": "Mozzarella",
+        "quantity": 8,
+        "unit": "oz"
+      },
+      {
+        "name": "Basil",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ],
+    "required_staples": [
+      "ingredient.tomato",
+      "ingredient.cheese"
+    ],
+    "steps": [
+      "Slice tomatoes and mozzarella.",
+      "Layer with basil.",
+      "Drizzle oil and season."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

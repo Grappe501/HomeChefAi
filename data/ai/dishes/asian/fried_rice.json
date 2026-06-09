@@ -1,0 +1,64 @@
+{
+  "id": "dish.asian.fried_rice",
+  "type": "dish",
+  "display_name": "Fried Rice",
+  "description": "Fried Rice — asian home-style template from the SousChef library.",
+  "attributes": {
+    "cuisine_id": "cuisine.asian",
+    "cuisine_tags": [
+      "asian"
+    ],
+    "meal_types": [
+      "dinner",
+      "lunch"
+    ],
+    "prep_time_minutes": 20,
+    "tags": [
+      "weeknight",
+      "30_minutes",
+      "leftovers_friendly"
+    ],
+    "match_keywords": [
+      "fried rice",
+      "fried rice"
+    ],
+    "ingredients": [
+      {
+        "name": "Cooked rice",
+        "quantity": 3,
+        "unit": "cups"
+      },
+      {
+        "name": "Eggs",
+        "quantity": 2,
+        "unit": "each"
+      },
+      {
+        "name": "Soy sauce",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Peas",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Carrots",
+        "quantity": 1,
+        "unit": "cup"
+      }
+    ],
+    "required_staples": [
+      "ingredient.rice"
+    ],
+    "steps": [
+      "Scramble eggs; set aside.",
+      "Stir-fry rice and vegetables.",
+      "Add soy sauce and eggs."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}

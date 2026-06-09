@@ -1,0 +1,57 @@
+{
+  "id": "dish.mexican.soup_vegetable_vegetable",
+  "type": "dish",
+  "display_name": "Vegetable Soup",
+  "description": "Vegetable soup — mexican style.",
+  "attributes": {
+    "cuisine_id": "cuisine.mexican",
+    "cuisine_tags": [
+      "mexican"
+    ],
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "prep_time_minutes": 40,
+    "tags": [
+      "leftovers_friendly",
+      "freezer_friendly"
+    ],
+    "match_keywords": [
+      "vegetable soup",
+      "vegetable soup",
+      "vegetable"
+    ],
+    "ingredients": [
+      {
+        "name": "Broth",
+        "quantity": 6,
+        "unit": "cups"
+      },
+      {
+        "name": "Diced tomatoes",
+        "quantity": 1,
+        "unit": "can"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "each"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves"
+      }
+    ],
+    "required_staples": [],
+    "steps": [
+      "Sauté aromatics.",
+      "Simmer with broth 30 min.",
+      "Adjust seasoning; serve."
+    ]
+  },
+  "sources": [
+    "generated"
+  ]
+}
