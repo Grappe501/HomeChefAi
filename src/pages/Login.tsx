@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
 
 export default function Login() {
@@ -30,7 +31,9 @@ export default function Login() {
 
   return (
     <div className="min-h-dvh flex flex-col items-center justify-center px-6 bg-stainless-100">
-      <p className="text-xs font-medium text-chef-subtle uppercase tracking-wider mb-6">SousChef</p>
+      <Link to="/landing" className="text-xs font-medium text-chef-subtle uppercase tracking-wider mb-6 hover:text-chef">
+        ← SousChef
+      </Link>
       <h1 className="font-sans font-semibold text-3xl text-chef mb-2 tracking-tight">Your Kitchen Has A Memory</h1>
       <p className="text-chef-subtle text-center mb-8 max-w-sm leading-relaxed">
         {mode === 'signup'

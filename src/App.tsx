@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useApp } from './hooks/useApp';
 import Layout from './components/Layout';
 import Login from './pages/Login';
+import Landing from './pages/Landing';
 import Onboarding from './pages/Onboarding';
 import Dashboard from './pages/Dashboard';
 import Inventory from './pages/Inventory';
@@ -17,17 +18,7 @@ import Brain from './pages/Brain';
 import ProductJournal from './pages/ProductJournal';
 import LoadingScreen from './components/LoadingScreen';
 
-export default function App() {
-  const { user, profile, loading } = useApp();
-
-  if (loading) return <LoadingScreen />;
-
-  if (!user) return <Login />;
-
-  if (!profile?.onboarding_complete) {
-    return <Onboarding mode="dietary" />;
-  }
-
+function AuthenticatedRoutes() {
   return (
     <Layout>
       <Routes>
@@ -44,8 +35,32 @@ export default function App() {
         <Route path="/brain" element={<Brain />} />
         <Route path="/admin/journal" element={<ProductJournal />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/landing" element={<Landing />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Layout>
+  );
+}
+
+export default function App() {
+  const { user, profile, loading } = useApp();
+
+  if (loading) return <LoadingScreen />;
+
+  return (
+    <Routes>
+      <Route path="/landing" element={<Landing />} />
+
+      {!user ? (
+        <>
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Navigate to="/landing" replace />} />
+        </>
+      ) : !profile?.onboarding_complete ? (
+        <Route path="*" element={<Onboarding mode="dietary" />} />
+      ) : (
+        <Route path="/*" element={<AuthenticatedRoutes />} />
+      )}
+    </Routes>
   );
 }

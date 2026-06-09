@@ -6,7 +6,8 @@ SousChef is a household food operating system — pantry inventory, receipt scan
 
 Consumer brand: **SousChef** · Legal entity: **HomeChef AI**
 
-Production: https://home-chef-ai.netlify.app
+Production: https://home-chef-ai.netlify.app  
+Launch page: https://home-chef-ai.netlify.app/landing
 
 ## Features (2.0)
 

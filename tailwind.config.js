@@ -45,6 +45,7 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'Manrope', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"Instrument Serif"', 'Georgia', 'serif'],
       },
       boxShadow: {
         card: '0 1px 3px rgba(17, 19, 21, 0.06)',

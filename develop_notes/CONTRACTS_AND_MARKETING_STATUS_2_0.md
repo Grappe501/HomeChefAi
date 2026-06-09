@@ -7,7 +7,8 @@
 
 | Surface | Status | Notes |
 |---------|--------|-------|
-| `marketing/index.html` | ✅ Rebuilt | SousChef branding, Kitchen Stack, Plus $9 / Family $18 |
+| `marketing/index.html` | ⚠️ Legacy static | **Use `/landing` on main app** — production launch page |
+| `src/pages/Landing.tsx` | ✅ Production | Apple-grade Why→How→What at `/landing` |
 | `public/legal/terms.html` | ✅ Draft live | Attorney review before first charge |
 | `public/legal/privacy.html` | ✅ Draft live | Privacy philosophy + data table |
 | `public/legal/ai-usage.html` | ✅ Draft live | Credit pools + fair use |
