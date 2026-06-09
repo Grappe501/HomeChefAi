@@ -117,8 +117,11 @@ export default function MealPlanner() {
           placeholder="Tell me what you want... (or tap mic)"
           onSubmit={handlePlan}
         />
+        {days >= 4 && (
+          <p className="text-xs text-chef-subtle">4+ day plans focus on dinners to keep planning fast.</p>
+        )}
         <button onClick={handlePlan} disabled={planning} className="btn-primary w-full">
-          {planning ? 'Planning meals…' : `Plan ${days} Days of Meals`}
+          {planning ? `Planning ${days} days…` : `Plan ${days} Days of Meals`}
         </button>
       </section>
 
