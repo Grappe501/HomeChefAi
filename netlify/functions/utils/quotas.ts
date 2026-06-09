@@ -9,7 +9,9 @@ import {
   normalizeTier,
   legacyActionToCredit,
   isBasicAssistantMessage,
-} from '../../src/types/credits.js'; = { receipt_scans: 5, meal_plans: 3, assistant_messages: 50 } as const;
+} from '../../src/types/credits.js';
+
+const FREE_LIMITS = { receipt_scans: 5, meal_plans: 3, assistant_messages: 50 } as const;
 
 export type QuotaAction = 'receipt_scans' | 'meal_plans' | 'assistant_messages';
 
