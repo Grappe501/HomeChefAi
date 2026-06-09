@@ -1,0 +1,154 @@
+export type CoveragePreset =
+  | 'dinners_only'
+  | 'breakfast_dinner'
+  | 'lunch_dinner'
+  | 'all_meals'
+  | 'custom';
+
+export type PlanningGoalId =
+  | 'save_money'
+  | 'use_inventory'
+  | 'quick_meals'
+  | 'healthy_light'
+  | 'big_family'
+  | 'variety'
+  | 'kid_friendly';
+
+export interface MealCounts {
+  breakfasts: number;
+  lunches: number;
+  dinners: number;
+  snacks: number;
+}
+
+export interface MealPlanCoverage {
+  days: number;
+  counts: MealCounts;
+  preset: CoveragePreset;
+  people: number;
+  planningGoal: PlanningGoalId;
+}
+
+export const PLAN_LENGTH_OPTIONS = [3, 5, 7, 14] as const;
+
+export const COVERAGE_PRESETS: { id: CoveragePreset; label: string }[] = [
+  { id: 'dinners_only', label: 'Dinners only' },
+  { id: 'breakfast_dinner', label: 'Breakfast + dinner' },
+  { id: 'lunch_dinner', label: 'Lunch + dinner' },
+  { id: 'all_meals', label: 'Breakfast + lunch + dinner' },
+  { id: 'custom', label: 'Custom' },
+];
+
+export const PLANNING_GOALS: { id: PlanningGoalId; label: string }[] = [
+  { id: 'save_money', label: 'Save money' },
+  { id: 'use_inventory', label: 'Use what we have' },
+  { id: 'quick_meals', label: 'Quick meals' },
+  { id: 'healthy_light', label: 'Healthy / light' },
+  { id: 'big_family', label: 'Big family meals' },
+  { id: 'variety', label: 'Variety' },
+  { id: 'kid_friendly', label: 'Kid-friendly' },
+];
+
+export function countsForPreset(preset: CoveragePreset, days: number): MealCounts {
+  switch (preset) {
+    case 'breakfast_dinner':
+      return { breakfasts: days, lunches: 0, dinners: days, snacks: 0 };
+    case 'lunch_dinner':
+      return { breakfasts: 0, lunches: days, dinners: days, snacks: 0 };
+    case 'all_meals':
+      return { breakfasts: days, lunches: days, dinners: days, snacks: 0 };
+    case 'custom':
+      return { breakfasts: 0, lunches: 0, dinners: days, snacks: 0 };
+    case 'dinners_only':
+    default:
+      return { breakfasts: 0, lunches: 0, dinners: days, snacks: 0 };
+  }
+}
+
+export function totalMeals(counts: MealCounts): number {
+  return counts.breakfasts + counts.lunches + counts.dinners + counts.snacks;
+}
+
+export function formatCoverageSummary(counts: MealCounts): string {
+  const parts: string[] = [];
+  if (counts.breakfasts) parts.push(`${counts.breakfasts} breakfast${counts.breakfasts === 1 ? '' : 's'}`);
+  if (counts.lunches) parts.push(`${counts.lunches} lunch${counts.lunches === 1 ? '' : 'es'}`);
+  if (counts.dinners) parts.push(`${counts.dinners} dinner${counts.dinners === 1 ? '' : 's'}`);
+  if (counts.snacks) parts.push(`${counts.snacks} snack${counts.snacks === 1 ? '' : 's'}`);
+  return parts.length ? parts.join(', ') : 'no meals selected';
+}
+
+export function formatPlanningLabel(counts: MealCounts): string {
+  return `Planning: ${formatCoverageSummary(counts)}`;
+}
+
+export function planningGoalPrompt(goal: PlanningGoalId): string {
+  const map: Record<PlanningGoalId, string> = {
+    save_money: 'Prioritize budget-friendly ingredients and minimize waste.',
+    use_inventory: 'Maximize use of current pantry inventory before suggesting purchases.',
+    quick_meals: 'Favor meals under 30 minutes prep time.',
+    healthy_light: 'Lean toward lighter, nutritious options.',
+    big_family: 'Generous portions suitable for a hungry household.',
+    variety: 'Avoid repeating the same proteins or cuisines back-to-back.',
+    kid_friendly: 'Include approachable, family-friendly options.',
+  };
+  return map[goal];
+}
+
+/** Meals allocated to a day-range chunk (days startDay..startDay+dayCount-1). */
+export function chunkMealCounts(
+  counts: MealCounts,
+  startDay: number,
+  dayCount: number,
+  planDays: number,
+): MealCounts {
+  const alloc = (total: number) => {
+    if (total <= 0) return 0;
+    if (total === planDays) return dayCount;
+    const endDay = startDay + dayCount - 1;
+    const allocatedBefore = Math.round(((startDay - 1) / planDays) * total);
+    const allocatedThrough = Math.round((endDay / planDays) * total);
+    return Math.max(0, allocatedThrough - allocatedBefore);
+  };
+
+  return {
+    breakfasts: alloc(counts.breakfasts),
+    lunches: alloc(counts.lunches),
+    dinners: alloc(counts.dinners),
+    snacks: alloc(counts.snacks),
+  };
+}
+
+export function chunkSizeForCoverage(counts: MealCounts, planDays: number): number {
+  const perDay = totalMeals(counts) / Math.max(planDays, 1);
+  if (perDay >= 3) return 1;
+  if (perDay >= 2) return 2;
+  return 3;
+}
+
+export function buildMealScopePrompt(counts: MealCounts, startDay: number, dayCount: number, planDays: number): string {
+  const chunk = chunkMealCounts(counts, startDay, dayCount, planDays);
+  const endDay = startDay + dayCount - 1;
+  const lines: string[] = [`Plan meals for days ${startDay} through ${endDay} (${dayCount} days).`];
+
+  const add = (type: string, n: number) => {
+    if (n <= 0) return;
+    const spread =
+      n === dayCount
+        ? `one ${type} per day on each of these days`
+        : `${n} ${type}${n === 1 ? '' : 's'} spread across these days`;
+    lines.push(`- Exactly ${n} ${type}${n === 1 ? '' : 's'} (${spread}).`);
+  };
+
+  add('breakfast', chunk.breakfasts);
+  add('lunch', chunk.lunches);
+  add('dinner', chunk.dinners);
+  add('snack', chunk.snacks);
+
+  if (totalMeals(chunk) === 0) {
+    lines.push('- No meals requested for this chunk.');
+  }
+
+  lines.push('Use correct meal_type values: breakfast, lunch, dinner, snack.');
+  return lines.join('\n');
+}

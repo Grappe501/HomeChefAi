@@ -1,18 +1,73 @@
 import { useEffect, useState } from 'react';
-import { Sparkles, ShoppingCart } from 'lucide-react';
+import { Minus, Plus, Sparkles, ShoppingCart } from 'lucide-react';
 import { mealsApi, ApiError } from '@/lib/api';
 import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
 import { useToast } from '@/hooks/useToast';
 import { VoiceInput } from '@/components/VoiceButton';
 import type { MealPlan, MealPlanData } from '@/types';
+import {
+  COVERAGE_PRESETS,
+  PLAN_LENGTH_OPTIONS,
+  PLANNING_GOALS,
+  countsForPreset,
+  formatCoverageSummary,
+  formatPlanningLabel,
+  totalMeals,
+  type CoveragePreset,
+  type MealCounts,
+  type PlanningGoalId,
+} from '@/types/mealPlanCoverage';
+
+function MealCountStepper({
+  label,
+  value,
+  onChange,
+  max,
+}: {
+  label: string;
+  value: number;
+  onChange: (n: number) => void;
+  max: number;
+}) {
+  return (
+    <div className="flex items-center justify-between py-2">
+      <span className="text-sm text-chef">{label}</span>
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          onClick={() => onChange(Math.max(0, value - 1))}
+          disabled={value <= 0}
+          className="tap-item !min-h-[44px] !py-2 px-3"
+          aria-label={`Decrease ${label}`}
+        >
+          <Minus size={16} />
+        </button>
+        <span className="w-8 text-center font-semibold tabular-nums">{value}</span>
+        <button
+          type="button"
+          onClick={() => onChange(Math.min(max, value + 1))}
+          disabled={value >= max}
+          className="tap-item !min-h-[44px] !py-2 px-3"
+          aria-label={`Increase ${label}`}
+        >
+          <Plus size={16} />
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function MealPlanner() {
-  const { refreshProfile } = useApp();
+  const { profile, refreshProfile } = useApp();
   const toast = useToast();
   const [plans, setPlans] = useState<MealPlan[]>([]);
   const [planning, setPlanning] = useState(false);
-  const [days, setDays] = useState(7);
+  const [days, setDays] = useState<number>(7);
+  const [preset, setPreset] = useState<CoveragePreset>('dinners_only');
+  const [counts, setCounts] = useState<MealCounts>(() => countsForPreset('dinners_only', 7));
+  const [people, setPeople] = useState(2);
+  const [planningGoal, setPlanningGoal] = useState<PlanningGoalId>('use_inventory');
   const [budget, setBudget] = useState('');
   const [message, setMessage] = useState('');
   const [suggestions, setSuggestions] = useState<MealPlanData | null>(null);
@@ -25,11 +80,48 @@ export default function MealPlanner() {
     }).catch(() => {});
   }, []);
 
+  useEffect(() => {
+    if (profile?.household_size) setPeople(profile.household_size);
+  }, [profile?.household_size]);
+
+  const applyDays = (d: number) => {
+    setDays(d);
+    if (preset !== 'custom') {
+      setCounts(countsForPreset(preset, d));
+    } else {
+      setCounts((c) => ({
+        ...c,
+        dinners: Math.min(c.dinners || d, d * 2),
+      }));
+    }
+  };
+
+  const applyPreset = (p: CoveragePreset) => {
+    setPreset(p);
+    if (p !== 'custom') setCounts(countsForPreset(p, days));
+  };
+
+  const setCustomCount = (key: keyof MealCounts, value: number) => {
+    setPreset('custom');
+    setCounts((c) => ({ ...c, [key]: value }));
+  };
+
   const handlePlan = async () => {
+    if (totalMeals(counts) === 0) {
+      toast.error('Select at least one meal to plan.');
+      return;
+    }
     setPlanning(true);
     try {
       const res = await mealsApi.plan({
         days,
+        breakfasts: counts.breakfasts,
+        lunches: counts.lunches,
+        dinners: counts.dinners,
+        snacks: counts.snacks,
+        people,
+        planning_goal: planningGoal,
+        coverage_preset: preset,
         budget: budget ? parseFloat(budget) : undefined,
         message: message || undefined,
       });
@@ -58,6 +150,9 @@ export default function MealPlanner() {
     }
   };
 
+  const showAddMealsHint =
+    preset === 'dinners_only' && counts.breakfasts === 0 && counts.lunches === 0;
+
   return (
     <div className="space-y-5">
       <h2 className="font-sans font-semibold text-xl text-chef">Meal Planning</h2>
@@ -75,7 +170,10 @@ export default function MealPlanner() {
               <p className="text-sm text-chef-subtle">{m.description}</p>
               <div className="flex flex-wrap gap-1 mt-1">
                 {m.ingredients?.map((ing, j) => (
-                  <span key={j} className={`text-xs px-2 py-0.5 rounded-full ${ing.in_inventory ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                  <span
+                    key={j}
+                    className={`text-xs px-2 py-0.5 rounded-full ${ing.in_inventory ? 'bg-stainless-200 text-chef' : 'bg-stainless-300 text-chef-subtle'}`}
+                  >
                     {ing.name}
                   </span>
                 ))}
@@ -87,13 +185,14 @@ export default function MealPlanner() {
 
       <section className="card space-y-4">
         <h3 className="font-semibold">Plan Ahead</h3>
+
         <div>
           <label className="text-sm text-chef-subtle">How many days?</label>
           <div className="flex gap-2 mt-2">
-            {[1, 3, 5, 7, 14].map((d) => (
+            {PLAN_LENGTH_OPTIONS.map((d) => (
               <button
                 key={d}
-                onClick={() => setDays(d)}
+                onClick={() => applyDays(d)}
                 className={`tap-item flex-1 py-2 ${days === d ? 'tap-item-selected' : ''}`}
               >
                 {d}
@@ -101,6 +200,92 @@ export default function MealPlanner() {
             ))}
           </div>
         </div>
+
+        <div>
+          <label className="text-sm text-chef-subtle">What should I plan for?</label>
+          <div className="grid grid-cols-1 gap-2 mt-2 sm:grid-cols-2">
+            {COVERAGE_PRESETS.map((p) => (
+              <button
+                key={p.id}
+                onClick={() => applyPreset(p.id)}
+                className={`tap-item py-2 text-sm ${preset === p.id ? 'tap-item-selected' : ''}`}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {preset === 'custom' && (
+          <div className="rounded-lg border border-steel bg-stainless-100 p-3 space-y-1">
+            <MealCountStepper label="Breakfasts" value={counts.breakfasts} onChange={(n) => setCustomCount('breakfasts', n)} max={days * 2} />
+            <MealCountStepper label="Lunches" value={counts.lunches} onChange={(n) => setCustomCount('lunches', n)} max={days * 2} />
+            <MealCountStepper label="Dinners" value={counts.dinners} onChange={(n) => setCustomCount('dinners', n)} max={days * 2} />
+            <MealCountStepper label="Snacks" value={counts.snacks} onChange={(n) => setCustomCount('snacks', n)} max={days * 2} />
+          </div>
+        )}
+
+        <div className="rounded-lg bg-stainless-200 px-3 py-2">
+          <p className="text-sm font-medium text-chef">{formatPlanningLabel(counts)}</p>
+          {showAddMealsHint && (
+            <div className="mt-2 flex flex-wrap gap-2">
+              <span className="text-xs text-chef-subtle">Add breakfasts or lunches?</span>
+              <button
+                type="button"
+                onClick={() => applyPreset('breakfast_dinner')}
+                className="text-xs font-medium text-chef-muted underline"
+              >
+                + Breakfasts
+              </button>
+              <button
+                type="button"
+                onClick={() => applyPreset('lunch_dinner')}
+                className="text-xs font-medium text-chef-muted underline"
+              >
+                + Lunches
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div>
+          <label className="text-sm text-chef-subtle">How many people should I plan for?</label>
+          <div className="flex items-center gap-3 mt-2">
+            <button
+              type="button"
+              onClick={() => setPeople(Math.max(1, people - 1))}
+              className="tap-item px-4"
+              aria-label="Fewer people"
+            >
+              <Minus size={16} />
+            </button>
+            <span className="font-semibold text-lg tabular-nums w-8 text-center">{people}</span>
+            <button
+              type="button"
+              onClick={() => setPeople(Math.min(12, people + 1))}
+              className="tap-item px-4"
+              aria-label="More people"
+            >
+              <Plus size={16} />
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label className="text-sm text-chef-subtle">Planning goal</label>
+          <div className="flex flex-wrap gap-2 mt-2">
+            {PLANNING_GOALS.map((g) => (
+              <button
+                key={g.id}
+                onClick={() => setPlanningGoal(g.id)}
+                className={`tap-item py-2 text-xs ${planningGoal === g.id ? 'tap-item-selected' : ''}`}
+              >
+                {g.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div>
           <label className="text-sm text-chef-subtle">Budget (optional)</label>
           <input
@@ -111,40 +296,57 @@ export default function MealPlanner() {
             className="input-field mt-1"
           />
         </div>
+
         <VoiceInput
           value={message}
           onChange={setMessage}
           placeholder="Tell me what you want... (or tap mic)"
           onSubmit={handlePlan}
         />
-        {days >= 4 && (
-          <p className="text-xs text-chef-subtle">4+ day plans focus on dinners to keep planning fast.</p>
-        )}
+
         <button onClick={handlePlan} disabled={planning} className="btn-primary w-full">
-          {planning ? `Planning ${days} days…` : `Plan ${days} Days of Meals`}
+          {planning
+            ? `Planning ${formatCoverageSummary(counts)}…`
+            : `Plan ${days} Days · ${formatCoverageSummary(counts)}`}
         </button>
       </section>
 
       {activePlan && (
         <section className="card space-y-3">
-          <h3 className="font-semibold">{activePlan.title}</h3>
+          <div>
+            <h3 className="font-semibold">{activePlan.title}</h3>
+            {activePlan.plan_data?.coverage && (
+              <p className="text-xs text-chef-subtle mt-1">
+                {formatCoverageSummary(activePlan.plan_data.coverage)}
+                {activePlan.plan_data.coverage.people
+                  ? ` · ${activePlan.plan_data.coverage.people} people`
+                  : ''}
+              </p>
+            )}
+          </div>
           {activePlan.plan_data?.meals?.map((m, i) => (
             <div key={i} className="flex justify-between items-start border-b border-steel pb-2">
               <div>
                 <p className="text-xs text-chef-subtle">Day {m.day} · {m.meal_type}</p>
                 <p className="font-medium">{m.name}</p>
-                {m.prep_time_minutes && <p className="text-xs text-steel-dark">{m.prep_time_minutes} min</p>}
+                {m.prep_time_minutes != null && (
+                  <p className="text-xs text-steel-dark">{m.prep_time_minutes} min</p>
+                )}
               </div>
             </div>
           ))}
           {activePlan.plan_data?.shopping_list && activePlan.plan_data.shopping_list.length > 0 && (
             <div className="mt-4 pt-3 border-t border-steel">
-              <h4 className="font-semibold text-sm flex items-center gap-1"><ShoppingCart size={14} /> Kitchen Supply Plan</h4>
+              <h4 className="font-semibold text-sm flex items-center gap-1">
+                <ShoppingCart size={14} /> Kitchen Supply Plan
+              </h4>
               <ul className="mt-2 space-y-1">
                 {activePlan.plan_data.shopping_list.map((s, i) => (
                   <li key={i} className="text-sm flex justify-between">
                     <span>{s.name} — {s.quantity} {s.unit}</span>
-                    {s.estimated_price != null && <span className="text-chef-subtle">${s.estimated_price.toFixed(2)}</span>}
+                    {s.estimated_price != null && (
+                      <span className="text-chef-subtle">${s.estimated_price.toFixed(2)}</span>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -162,7 +364,11 @@ export default function MealPlanner() {
         <section className="card">
           <h3 className="font-semibold text-sm text-chef-subtle">Previous Plans</h3>
           {plans.slice(1, 4).map((p) => (
-            <button key={p.id} onClick={() => setActivePlan(p)} className="block w-full text-left py-2 text-sm hover:text-chef-muted">
+            <button
+              key={p.id}
+              onClick={() => setActivePlan(p)}
+              className="block w-full text-left py-2 text-sm hover:text-chef-muted"
+            >
               {p.title} — {p.start_date}
             </button>
           ))}

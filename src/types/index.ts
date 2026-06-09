@@ -92,6 +92,15 @@ export interface MealPlanData {
   shopping_list?: ShoppingItem[];
   estimated_cost?: number;
   uses_inventory?: string[];
+  coverage?: {
+    breakfasts: number;
+    lunches: number;
+    dinners: number;
+    snacks: number;
+    people?: number;
+    planning_goal?: string;
+    preset?: string;
+  };
 }
 
 export interface PlannedMeal {

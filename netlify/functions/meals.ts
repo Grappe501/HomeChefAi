@@ -7,9 +7,12 @@ import { checkAndIncrementQuota, quotaErrorResponse } from './utils/quotas.js';
 import { awardXpDevStore, awardXpSupabase, XP_AWARDS } from './utils/gamification.js';
 import type { MealPlanData, InventoryItem, Profile, PlannedMeal, ShoppingItem } from '../../src/types/index';
 
+type MealCounts = { breakfasts: number; lunches: number; dinners: number; snacks: number };
+
 const SYSTEM_PROMPT = `You are a kitchen sous chef meal planner. Return ONLY valid JSON:
 {"meals":[{"day":1,"meal_type":"breakfast|lunch|dinner|snack","name":"string","description":"string","ingredients":[{"name":"string","quantity":number,"unit":"string","in_inventory":boolean}],"prep_time_minutes":number}],"shopping_list":[{"name":"string","quantity":number,"unit":"string","estimated_price":number}],"estimated_cost":number,"uses_inventory":["string"]}
-Prioritize inventory. Respect dietary restrictions. Keep descriptions short.`;
+Prioritize inventory. Respect dietary restrictions. Keep descriptions short.
+Plan ONLY the meal counts requested — do not add extra meals.`;
 
 function normalizeProfile(prof: Partial<Profile> | null | undefined, userId: string): Profile {
   return {
@@ -47,6 +50,87 @@ function formatInventoryList(inventory: InventoryItem[]): string {
   const lines = inventory.slice(0, 48).map((i) => `${i.name}: ${i.quantity} ${i.unit}`);
   if (inventory.length > 48) lines.push(`…and ${inventory.length - 48} more items`);
   return lines.join('\n') || 'Empty — suggest starter meals and shopping list';
+}
+
+function totalMeals(counts: MealCounts): number {
+  return counts.breakfasts + counts.lunches + counts.dinners + counts.snacks;
+}
+
+function chunkMealCounts(counts: MealCounts, startDay: number, dayCount: number, planDays: number): MealCounts {
+  const alloc = (total: number) => {
+    if (total <= 0) return 0;
+    if (total === planDays) return dayCount;
+    const endDay = startDay + dayCount - 1;
+    const allocatedBefore = Math.round(((startDay - 1) / planDays) * total);
+    const allocatedThrough = Math.round((endDay / planDays) * total);
+    return Math.max(0, allocatedThrough - allocatedBefore);
+  };
+  return {
+    breakfasts: alloc(counts.breakfasts),
+    lunches: alloc(counts.lunches),
+    dinners: alloc(counts.dinners),
+    snacks: alloc(counts.snacks),
+  };
+}
+
+function chunkSizeForCoverage(counts: MealCounts, planDays: number): number {
+  const perDay = totalMeals(counts) / Math.max(planDays, 1);
+  if (perDay >= 3) return 1;
+  if (perDay >= 2) return 2;
+  return 3;
+}
+
+function buildMealScopePrompt(counts: MealCounts, startDay: number, dayCount: number, planDays: number): string {
+  const chunk = chunkMealCounts(counts, startDay, dayCount, planDays);
+  const endDay = startDay + dayCount - 1;
+  const lines: string[] = [`Plan meals for days ${startDay} through ${endDay} (${dayCount} days).`];
+
+  const add = (type: string, n: number) => {
+    if (n <= 0) return;
+    const spread =
+      n === dayCount
+        ? `one ${type} per day on each of these days`
+        : `${n} ${type}${n === 1 ? '' : 's'} spread across these days`;
+    lines.push(`- Exactly ${n} ${type}${n === 1 ? '' : 's'} (${spread}).`);
+  };
+
+  add('breakfast', chunk.breakfasts);
+  add('lunch', chunk.lunches);
+  add('dinner', chunk.dinners);
+  add('snack', chunk.snacks);
+
+  lines.push('Use correct meal_type values: breakfast, lunch, dinner, snack.');
+  return lines.join('\n');
+}
+
+function planningGoalPrompt(goal?: string): string {
+  const map: Record<string, string> = {
+    save_money: 'Prioritize budget-friendly ingredients and minimize waste.',
+    use_inventory: 'Maximize use of current pantry inventory before suggesting purchases.',
+    quick_meals: 'Favor meals under 30 minutes prep time.',
+    healthy_light: 'Lean toward lighter, nutritious options.',
+    big_family: 'Generous portions suitable for a hungry household.',
+    variety: 'Avoid repeating the same proteins or cuisines back-to-back.',
+    kid_friendly: 'Include approachable, family-friendly options.',
+  };
+  return goal ? map[goal] ?? '' : '';
+}
+
+function resolveMealCounts(
+  days: number,
+  body: { breakfasts?: number; lunches?: number; dinners?: number; snacks?: number },
+): MealCounts {
+  const hasExplicit =
+    body.breakfasts != null || body.lunches != null || body.dinners != null || body.snacks != null;
+  if (!hasExplicit) {
+    return { breakfasts: 0, lunches: 0, dinners: days, snacks: 0 };
+  }
+  return {
+    breakfasts: Math.max(0, body.breakfasts ?? 0),
+    lunches: Math.max(0, body.lunches ?? 0),
+    dinners: Math.max(0, body.dinners ?? 0),
+    snacks: Math.max(0, body.snacks ?? 0),
+  };
 }
 
 function mergePlanChunks(chunks: MealPlanData[]): MealPlanData {
@@ -143,47 +227,61 @@ async function generateMealPlanChunk(
   params: {
     startDay: number;
     dayCount: number;
+    planDays: number;
+    mealCounts: MealCounts;
     budget?: number;
     people?: number;
     message?: string;
-    dinnersOnly?: boolean;
+    planningGoal?: string;
     includeShoppingList?: boolean;
   },
 ): Promise<MealPlanData> {
-  const endDay = params.startDay + params.dayCount - 1;
   const inventoryList = formatInventoryList(inventory);
-  const mealScope = params.dinnersOnly
-    ? 'Plan DINNER ONLY (one dinner per day).'
-    : 'Plan breakfast, lunch, and dinner each day.';
+  const mealScope = buildMealScopePrompt(params.mealCounts, params.startDay, params.dayCount, params.planDays);
+  const goalLine = planningGoalPrompt(params.planningGoal);
 
   const shoppingNote = params.includeShoppingList
     ? 'Include a consolidated shopping_list for missing ingredients.'
     : 'Return meals only — use an empty shopping_list [].';
 
-  const userContent = `${mealScope} Plan days ${params.startDay} through ${endDay} (${params.dayCount} days).
+  const chunkCounts = chunkMealCounts(params.mealCounts, params.startDay, params.dayCount, params.planDays);
+  const chunkMeals = totalMeals(chunkCounts);
+
+  const userContent = `${mealScope}
 People: ${params.people || profile.household_size}
 Budget: $${params.budget ?? 'flexible'}
 Dietary: ${profile.dietary_restrictions.join(', ') || 'none'}
 Cuisines: ${profile.cuisine_preferences.join(', ') || 'any'}
 Allergies: ${profile.allergies.join(', ') || 'none'}
+${goalLine ? `Planning goal: ${goalLine}` : ''}
 Inventory:
 ${inventoryList}
 ${params.message ? `Chef request: ${params.message}` : ''}
 ${shoppingNote}
-Use "day" field values ${params.startDay} through ${endDay}.`;
+Use "day" field values ${params.startDay} through ${params.startDay + params.dayCount - 1}.`;
 
-  const maxTokens = Math.min(400 + params.dayCount * 180, 1400);
+  const maxTokens = Math.min(400 + chunkMeals * 140, 2000);
   return callOpenAiMealPlan(userContent, maxTokens);
 }
 
 async function generateMealPlan(
   inventory: InventoryItem[],
   profile: Profile,
-  params: { days: number; budget?: number; breakfasts?: number; lunches?: number; dinners?: number; people?: number; message?: string },
+  params: {
+    days: number;
+    budget?: number;
+    breakfasts?: number;
+    lunches?: number;
+    dinners?: number;
+    snacks?: number;
+    people?: number;
+    message?: string;
+    planning_goal?: string;
+  },
 ): Promise<MealPlanData> {
   const days = Math.min(Math.max(params.days, 1), 14);
-  const dinnersOnly = days >= 4;
-  const chunkSize = days <= 3 ? days : 3;
+  const mealCounts = resolveMealCounts(days, params);
+  const chunkSize = Math.min(chunkSizeForCoverage(mealCounts, days), days);
   const chunks: Promise<MealPlanData>[] = [];
 
   for (let start = 1; start <= days; start += chunkSize) {
@@ -191,16 +289,28 @@ async function generateMealPlan(
     chunks.push(generateMealPlanChunk(inventory, profile, {
       startDay: start,
       dayCount,
+      planDays: days,
+      mealCounts,
       budget: params.budget,
       people: params.people,
       message: params.message,
-      dinnersOnly,
+      planningGoal: params.planning_goal,
       includeShoppingList: start === 1,
     }));
   }
 
   const results = await Promise.all(chunks);
   return mergePlanChunks(results);
+}
+
+function formatPlanTitle(days: number, counts: MealCounts): string {
+  const parts: string[] = [];
+  if (counts.breakfasts) parts.push(`${counts.breakfasts} breakfasts`);
+  if (counts.lunches) parts.push(`${counts.lunches} lunches`);
+  if (counts.dinners) parts.push(`${counts.dinners} dinners`);
+  if (counts.snacks) parts.push(`${counts.snacks} snacks`);
+  const coverage = parts.length ? parts.join(', ') : `${days} dinners`;
+  return `${days}-Day Plan · ${coverage}`;
 }
 
 export const handler: Handler = withCors(async (event) => {
@@ -224,7 +334,9 @@ export const handler: Handler = withCors(async (event) => {
   if (event.httpMethod === 'POST') {
     const body = parseBody<{
       days?: number; budget?: number; breakfasts?: number; lunches?: number;
-      dinners?: number; people?: number; message?: string; action?: string; plan_id?: string;
+      dinners?: number; snacks?: number; people?: number; message?: string;
+      planning_goal?: string; coverage_preset?: string;
+      action?: string; plan_id?: string;
     }>(event);
     if (!body) return errorResponse('Invalid body');
 
@@ -234,8 +346,9 @@ export const handler: Handler = withCors(async (event) => {
       const planData = await generateMealPlanChunk(inventory, profile, {
         startDay: 1,
         dayCount: 1,
+        planDays: 1,
+        mealCounts: { breakfasts: 0, lunches: 0, dinners: 3, snacks: 0 },
         message: 'Suggest 3 dinner ideas using ONLY inventory. Minimize missing ingredients.',
-        dinnersOnly: true,
         includeShoppingList: false,
       });
       return jsonResponse({ suggestions: planData });
@@ -245,7 +358,14 @@ export const handler: Handler = withCors(async (event) => {
     if (!quota.allowed) return quotaErrorResponse(quota.limits, quota.usage);
 
     const days = Math.min(body.days || 7, 14);
+    const mealCounts = resolveMealCounts(days, body);
     const planData = await generateMealPlan(inventory, profile, { ...body, days });
+    planData.coverage = {
+      ...mealCounts,
+      people: body.people ?? profile.household_size,
+      planning_goal: body.planning_goal,
+      preset: body.coverage_preset,
+    };
     const planId = uuidv4();
     const startDate = new Date();
     const endDate = new Date();
@@ -254,7 +374,7 @@ export const handler: Handler = withCors(async (event) => {
     const plan = {
       id: planId,
       user_id: userId,
-      title: `${days}-Day Meal Plan`,
+      title: formatPlanTitle(days, mealCounts),
       start_date: startDate.toISOString().split('T')[0],
       end_date: endDate.toISOString().split('T')[0],
       days,
