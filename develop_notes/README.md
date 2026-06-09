@@ -67,7 +67,31 @@
 
 **Paid launch:** 🔴 Not ready — see LAUNCH_READINESS_AUDIT_1_0  
 **Beta:** 🟡 Conditional on smoke test + Brain acceptance  
-**Business docs:** 🟢 Caught up
+**Business docs:** 🟢 Caught up  
+**Feature freeze:** 🔒 AI Foundation phase — see AI_SAVE_POINT_1_0
+
+---
+
+## AI Foundation (active — 4–6 week freeze)
+
+| File | Contents |
+|------|----------|
+| [AI_SAVE_POINT_1_0.md](./AI_SAVE_POINT_1_0.md) | Completed vs paused bookmark |
+| [SOUSCHEF_AI_FOUNDATION_1_0.md](./SOUSCHEF_AI_FOUNDATION_1_0.md) | Six layers, sprints, exit criteria |
+| [AI_ARCHITECTURE_MAP_1_0.md](./AI_ARCHITECTURE_MAP_1_0.md) | One brain — technical map |
+| [../data/ai/README.md](../data/ai/README.md) | Knowledge registry structure |
+
+**Code shells:** `netlify/functions/utils/ai/brainRegistry.ts`, `decisionLedger.ts`
+
+## Product / planner docs (recent)
+
+| File | Contents |
+|------|----------|
+| [MEAL_PLANNER_PRODUCTION_TEST_1_0.md](./MEAL_PLANNER_PRODUCTION_TEST_1_0.md) | Production test matrix |
+| [MEAL_PLANNER_ROADMAP_2_0.md](./MEAL_PLANNER_ROADMAP_2_0.md) | Planner roadmap + review |
+| [MEAL_PLAN_COVERAGE_1_0.md](./MEAL_PLAN_COVERAGE_1_0.md) | Coverage audit |
+| [FOOD_TAXONOMY_1_0.md](./FOOD_TAXONOMY_1_0.md) | Food hierarchy |
+| [PANTRY_WIZARD_UNITS_1_0.md](./PANTRY_WIZARD_UNITS_1_0.md) | Wizard units |
 
 ---
 

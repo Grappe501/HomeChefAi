@@ -1,0 +1,18 @@
+{
+  "id": "meal_pattern.leftover_lunch",
+  "type": "meal_pattern",
+  "display_name": "Leftover Lunch",
+  "attributes": {
+    "description": "Lunch built from prior dinner components — saves money and reduces waste.",
+    "rules": [
+      "At least half of planned lunches should reference a prior dinner in the same plan",
+      "Prefix meal name with Leftover when appropriate",
+      "Tag with leftovers_friendly"
+    ],
+    "examples": [
+      "Leftover BBQ chicken bowl",
+      "Leftover roast vegetable wrap"
+    ]
+  },
+  "sources": ["meal_planner_roadmap_2_0", "curated"]
+}
