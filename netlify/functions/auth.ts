@@ -38,19 +38,39 @@ export const handler: Handler = withCors(async (event) => {
 
     if (!user.token) return errorResponse('Missing token', 401);
     const db = getSupabaseUserClient(user.token);
-    await syncFounderFlag(db, user.id, user.email);
-    const { data: profile, error } = await db.from('profiles').select('*').eq('user_id', user.id).maybeSingle();
+
+    let { data: profile, error } = await db.from('profiles').select('*').eq('user_id', user.id).maybeSingle();
     if (error) return errorResponse(error.message, 500);
+
     if (!profile) {
       const founder = isFounderUser(user, false);
-      const { data: created, error: insertErr } = await db.from('profiles').insert({
-        user_id: user.id,
-        email: user.email,
-        is_founder: founder,
-      }).select().single();
-      if (insertErr) return errorResponse(insertErr.message, 500);
-      return jsonResponse({ user: { id: user.id, email: user.email, name: created?.name }, profile: created });
+      const { data: created, error: insertErr } = await db
+        .from('profiles')
+        .insert({ user_id: user.id, email: user.email, is_founder: founder })
+        .select()
+        .single();
+
+      if (insertErr) {
+        if (insertErr.code === '23505') {
+          const { data: existing, error: fetchErr } = await db.from('profiles').select('*').eq('user_id', user.id).single();
+          if (fetchErr || !existing) return errorResponse(insertErr.message, 500);
+          profile = existing;
+        } else {
+          return errorResponse(insertErr.message, 500);
+        }
+      } else {
+        profile = created;
+      }
     }
+
+    try {
+      await syncFounderFlag(db, user.id, user.email);
+      const { data: refreshed } = await db.from('profiles').select('*').eq('user_id', user.id).maybeSingle();
+      if (refreshed) profile = refreshed;
+    } catch (err) {
+      console.warn('syncFounderFlag skipped:', err);
+    }
+
     return jsonResponse({ user: { id: user.id, email: user.email, name: profile?.name }, profile });
   }
 

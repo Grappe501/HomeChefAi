@@ -22,11 +22,12 @@ export function isFounderUser(user: { id: string; email?: string | null }, devMo
 }
 
 export async function syncFounderFlag(
-  db: { from: (t: string) => { update: (d: object) => { eq: (c: string, v: string) => Promise<{ error: unknown }> } } },
+  db: { from: (t: string) => { update: (d: object) => { eq: (c: string, v: string) => Promise<{ error: { message?: string } | null }> } } },
   userId: string,
   email?: string | null
 ): Promise<boolean> {
   const founder = isFounderEmail(email);
-  await db.from('profiles').update({ is_founder: founder, updated_at: new Date().toISOString() }).eq('user_id', userId);
+  const { error } = await db.from('profiles').update({ is_founder: founder, updated_at: new Date().toISOString() }).eq('user_id', userId);
+  if (error) console.warn('syncFounderFlag:', error.message);
   return founder;
 }

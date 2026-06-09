@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useApp } from '@/hooks/useApp';
+import { useToast } from '@/hooks/useToast';
+import { ApiError } from '@/lib/api';
 import { DIETARY_OPTIONS, CUISINE_OPTIONS } from '@/types';
 import { speak } from '@/lib/utils';
 import { COOKS_WITH_OPTIONS, COOKING_SELF_ASSESSMENT, ONBOARDING_PRIORITIES, LOCAL_FOOD_OPTIONS } from '@/types/platform';
@@ -11,6 +13,7 @@ interface OnboardingProps {
 
 export default function Onboarding(_props: OnboardingProps) {
   const { updateProfile } = useApp();
+  const toast = useToast();
   const [step, setStep] = useState(0);
   const [dietary, setDietary] = useState<string[]>([]);
   const [cuisines, setCuisines] = useState<string[]>([]);
@@ -33,26 +36,33 @@ export default function Onboarding(_props: OnboardingProps) {
 
   const handleComplete = async () => {
     setLoading(true);
-    const culinaryProfile: CulinaryProfile = {
-      cooks_with: cooksWith as CulinaryProfile['cooks_with'],
-      cooking_self_assessment: cookingAssessment || undefined,
-      priorities: priorities as FoodPriority[],
-      local_food: localFood as LocalFoodPreference[],
-    };
-    await updateProfile({
-      dietary_restrictions: dietary,
-      cuisine_preferences: cuisines,
-      allergies: allergies ? allergies.split(',').map((a) => a.trim()) : [],
-      household_size: household,
-      zip_code: zip || undefined,
-      household_display_name: kitchenName || undefined,
-      culinary_profile: culinaryProfile,
-      food_priorities: priorities,
-      onboarding_complete: true,
-    } as never);
-    const localHint = localFood.length > 0 ? ' We will help you buy and grow local when it fits.' : '';
-    speak(`Perfect! Your kitchen is ready.${localHint} Invite family from Settings to cook together.`);
-    setLoading(false);
+    try {
+      const culinaryProfile: CulinaryProfile = {
+        cooks_with: cooksWith as CulinaryProfile['cooks_with'],
+        cooking_self_assessment: cookingAssessment || undefined,
+        priorities: priorities as FoodPriority[],
+        local_food: localFood as LocalFoodPreference[],
+      };
+      await updateProfile({
+        dietary_restrictions: dietary.length ? dietary : [],
+        cuisine_preferences: cuisines.length ? cuisines : [],
+        allergies: allergies ? allergies.split(',').map((a) => a.trim()).filter(Boolean) : [],
+        household_size: household,
+        zip_code: zip || undefined,
+        household_display_name: kitchenName || undefined,
+        culinary_profile: culinaryProfile,
+        food_priorities: priorities.length ? priorities : [],
+        onboarding_complete: true,
+      } as never);
+      const localHint = localFood.length > 0 ? ' We will help you buy and grow local when it fits.' : '';
+      speak(`Perfect! Your kitchen is ready.${localHint} Invite family from Settings to cook together.`);
+      toast.success('Your kitchen is ready, Chef.');
+    } catch (err) {
+      const msg = err instanceof ApiError ? err.message : 'Could not save your profile. Please try again.';
+      toast.error(msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const steps = [
