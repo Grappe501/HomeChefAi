@@ -1,17 +1,24 @@
 import { useState } from 'react';
 import { ChevronRight, Check } from 'lucide-react';
-import { PANTRY_CATEGORIES, QUICK_QUANTITIES } from '@/types';
+import { PANTRY_CATEGORIES } from '@/types';
+import { getWizardItemConfig, type WizardQuantityOption } from '@/types/pantryWizard';
 import { inventoryApi } from '@/lib/api';
-import { parseQuantityOption, speak } from '@/lib/utils';
+import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
 import { useToast } from '@/hooks/useToast';
+
+interface SelectedItem {
+  quantity: number;
+  unit: string;
+  label: string;
+}
 
 export default function PantryWizard() {
   const { refreshProfile } = useApp();
   const toast = useToast();
   const categories = Object.entries(PANTRY_CATEGORIES);
   const [catIdx, setCatIdx] = useState(0);
-  const [selected, setSelected] = useState<Record<string, { quantity: number; unit: string }>>({});
+  const [selected, setSelected] = useState<Record<string, SelectedItem>>({});
   const [quantityItem, setQuantityItem] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [done, setDone] = useState(false);
@@ -28,10 +35,16 @@ export default function PantryWizard() {
     }
   };
 
-  const setQuantity = (option: string) => {
+  const setQuantity = (option: WizardQuantityOption) => {
     if (!quantityItem) return;
-    const { quantity, unit } = parseQuantityOption(option);
-    setSelected({ ...selected, [quantityItem]: { quantity, unit } });
+    setSelected({
+      ...selected,
+      [quantityItem]: {
+        quantity: option.quantity,
+        unit: option.unit,
+        label: option.label,
+      },
+    });
     setQuantityItem(null);
   };
 
@@ -66,17 +79,14 @@ export default function PantryWizard() {
   if (done) {
     return (
       <div className="text-center py-12 space-y-4">
-        <div className="text-5xl">✅</div>
-        <h2 className="font-sans font-semibold text-xl text-chef">Pantry Updated!</h2>
+        <h2 className="font-sans font-semibold text-xl text-chef">Kitchen Inventory Updated</h2>
         <p className="text-chef-subtle">Your items are saved. Ready to plan some meals?</p>
         <a href="/meals" className="btn-primary inline-flex">Plan Meals</a>
       </div>
     );
   }
 
-  const qtyOptions = quantityItem
-    ? QUICK_QUANTITIES[quantityItem] || QUICK_QUANTITIES.default
-    : [];
+  const itemConfig = quantityItem ? getWizardItemConfig(quantityItem) : null;
 
   return (
     <div className="space-y-4">
@@ -84,24 +94,28 @@ export default function PantryWizard() {
         <h2 className="font-sans font-semibold text-xl text-chef">Pantry Wizard</h2>
         <span className="text-sm text-chef-subtle">{catIdx + 1}/{categories.length}</span>
       </div>
-      <p className="text-chef-subtle text-sm">Tap items you have. No typing needed!</p>
+      <p className="text-chef-subtle text-sm">Tap what you have — pick a sensible size. No typing needed.</p>
 
       <div className="card bg-stainless-200">
         <h3 className="font-semibold text-chef">{catName}</h3>
-        <p className="text-xs text-chef-subtle mt-1">📍 {catData.location}</p>
+        <p className="text-xs text-chef-subtle mt-1">{catData.location}</p>
       </div>
 
-      {quantityItem ? (
+      {quantityItem && itemConfig ? (
         <div className="space-y-3">
-          <p className="font-medium">How much <span className="text-chef-muted">{quantityItem}</span>?</p>
-          <div className="grid grid-cols-2 gap-2">
-            {qtyOptions.map((opt) => (
-              <button key={opt} onClick={() => setQuantity(opt)} className="tap-item">
-                {opt}
+          <p className="font-medium text-chef">
+            How much <span className="text-chef-muted">{quantityItem}</span>?
+          </p>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {itemConfig.level1Options.map((opt) => (
+              <button key={opt.label} onClick={() => setQuantity(opt)} className="tap-item">
+                {opt.label}
               </button>
             ))}
           </div>
-          <button onClick={() => setQuantityItem(null)} className="text-sm text-chef-subtle">Cancel</button>
+          <button onClick={() => setQuantityItem(null)} className="text-sm text-chef-subtle min-h-[52px]">
+            Cancel
+          </button>
         </div>
       ) : (
         <div className="grid grid-cols-2 gap-2">
@@ -111,12 +125,10 @@ export default function PantryWizard() {
               onClick={() => toggleItem(item)}
               className={`tap-item relative ${selected[item] ? 'tap-item-selected' : ''}`}
             >
-              {selected[item] && <Check size={14} className="absolute top-1 right-1 text-chef-muted" />}
-              {item}
+              {selected[item] && <Check size={14} className="absolute top-2 right-2 text-chef-muted" />}
+              <span className="font-medium">{item}</span>
               {selected[item] && (
-                <span className="block text-xs text-chef-muted mt-0.5">
-                  {selected[item].quantity} {selected[item].unit}
-                </span>
+                <span className="block text-xs text-chef-subtle mt-1">{selected[item].label}</span>
               )}
             </button>
           ))}
@@ -131,7 +143,7 @@ export default function PantryWizard() {
           {saving ? 'Saving...' : catIdx < categories.length - 1 ? (
             <>Next <ChevronRight size={18} /></>
           ) : (
-            <>Save Pantry ({Object.keys(selected).length} items)</>
+            <>Save Inventory ({Object.keys(selected).length} items)</>
           )}
         </button>
       </div>

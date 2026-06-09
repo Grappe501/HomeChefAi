@@ -189,12 +189,9 @@ export const PANTRY_CATEGORIES: Record<string, { items: string[]; location: stri
   },
 };
 
+/** @deprecated Use getWizardItemConfig from @/types/pantryWizard */
 export const QUICK_QUANTITIES: Record<string, string[]> = {
-  Milk: ['1/4 gallon', '1/2 gallon', '1 gallon'],
-  Butter: ['1/2 stick', '1 stick', '2 sticks', '1 lb'],
-  Eggs: ['3', '6', '12', '18'],
-  Cheese: ['4 oz', '8 oz', '16 oz'],
-  default: ['1', '2', '3', '4', '5', '6'],
+  default: ['1 package', '2 packages'],
 };
 
 export const DIETARY_OPTIONS = [
