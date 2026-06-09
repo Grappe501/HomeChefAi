@@ -5,8 +5,9 @@ import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
 import { useToast } from '@/hooks/useToast';
 import { VoiceInput } from '@/components/VoiceButton';
-import type { MealPlan, MealPlanData } from '@/types';
+import type { MealPlan, MealPlanData, PlannedMeal } from '@/types';
 import {
+  COOKING_STYLES,
   COVERAGE_PRESETS,
   PLAN_LENGTH_OPTIONS,
   PLANNING_GOALS,
@@ -16,11 +17,30 @@ import {
   formatPlanningLabel,
   shouldWarnHeavyPlan,
   totalMeals,
+  type CookingStyleId,
   type CoveragePreset,
   type MealCounts,
   type PlanningGoalId,
 } from '@/types/mealPlanCoverage';
 import { groupSupplyList, SUPPLY_GROUP_ORDER } from '@/lib/supplyPlan';
+import { formatMetricsSummary } from '@/lib/planMetrics';
+import { mealTagLabel, type MealTagId } from '@/types/mealTags';
+
+function cookNightOptions(dinnerSlots: number): number[] {
+  const opts = new Set<number>();
+  if (dinnerSlots >= 3) opts.add(3);
+  if (dinnerSlots >= 5) opts.add(5);
+  opts.add(Math.max(dinnerSlots, 1));
+  return [...opts].sort((a, b) => a - b);
+}
+
+function mealReviewKey(m: PlannedMeal, index: number): string {
+  return `${m.day}-${m.meal_type}-${index}`;
+}
+
+function dayName(day: number): string {
+  return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][(day - 1) % 7];
+}
 
 function MealCountStepper({
   label,
@@ -71,6 +91,8 @@ export default function MealPlanner() {
   const [counts, setCounts] = useState<MealCounts>(() => countsForPreset('dinners_only', 7));
   const [people, setPeople] = useState(2);
   const [planningGoal, setPlanningGoal] = useState<PlanningGoalId>('use_inventory');
+  const [cookingStyle, setCookingStyle] = useState<CookingStyleId>('profile_default');
+  const [cookNights, setCookNights] = useState(7);
   const [budget, setBudget] = useState('');
   const [message, setMessage] = useState('');
   const [suggestions, setSuggestions] = useState<MealPlanData | null>(null);
@@ -86,6 +108,10 @@ export default function MealPlanner() {
   useEffect(() => {
     if (profile?.household_size) setPeople(profile.household_size);
   }, [profile?.household_size]);
+
+  useEffect(() => {
+    setCookNights(counts.dinners || days);
+  }, [counts.dinners, days]);
 
   const applyDays = (d: number) => {
     setDays(d);
@@ -124,6 +150,8 @@ export default function MealPlanner() {
         snacks: counts.snacks,
         people,
         planning_goal: planningGoal,
+        cooking_style: cookingStyle,
+        cook_nights: counts.dinners > 0 ? cookNights : undefined,
         coverage_preset: preset,
         budget: budget ? parseFloat(budget) : undefined,
         message: message || undefined,
@@ -159,9 +187,36 @@ export default function MealPlanner() {
   const showHeavyPlanWarning = shouldWarnHeavyPlan(counts);
 
   const planPeople = activePlan?.plan_data?.coverage?.people;
+  const planMetrics = activePlan?.plan_data?.metrics;
   const groupedSupply = activePlan?.plan_data?.shopping_list
     ? groupSupplyList(activePlan.plan_data.shopping_list)
     : null;
+
+  const recordReview = (key: string, action: 'keep' | 'replace') => {
+    if (!activePlan) return;
+    const reviews = {
+      ...(activePlan.plan_data.reviews ?? {}),
+      [key]: { action, at: new Date().toISOString() },
+    };
+    const updated = {
+      ...activePlan,
+      plan_data: { ...activePlan.plan_data, reviews },
+    };
+    setActivePlan(updated);
+    setPlans((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
+    toast.success(action === 'keep' ? 'Kept — Clara notes what works for you.' : 'Replace noted — Clara will learn from this.');
+  };
+
+  const explainMeal = (m: PlannedMeal) => {
+    const parts = [m.description || 'Uses your inventory and household preferences.'];
+    if (m.tags?.length) {
+      parts.push(`Tags: ${m.tags.map((t) => mealTagLabel(t as MealTagId)).join(', ')}.`);
+    }
+    if (m.name.toLowerCase().startsWith('leftover')) {
+      parts.push('Leftover from a prior dinner — saves money and reduces waste.');
+    }
+    toast.info(parts.join(' '));
+  };
 
   return (
     <div className="space-y-5">
@@ -265,6 +320,29 @@ export default function MealPlanner() {
           </p>
         )}
 
+        {counts.dinners > 0 && (
+          <div>
+            <label className="text-sm text-chef-subtle">How many dinners do you want to cook?</label>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {cookNightOptions(counts.dinners).map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => setCookNights(n)}
+                  className={`tap-item py-2 text-sm ${cookNights === n ? 'tap-item-selected' : ''}`}
+                >
+                  {n >= counts.dinners ? `Every night (${counts.dinners})` : `Cook ${n} nights`}
+                </button>
+              ))}
+            </div>
+            {cookNights < counts.dinners && (
+              <p className="text-xs text-chef-subtle mt-2">
+                Other nights: leftovers, sandwich, soup, pizza, or free night.
+              </p>
+            )}
+          </div>
+        )}
+
         <div>
           <label className="text-sm text-chef-subtle">How many people should I plan for?</label>
           <div className="flex items-center gap-3 mt-2">
@@ -285,6 +363,21 @@ export default function MealPlanner() {
             >
               <Plus size={16} />
             </button>
+          </div>
+        </div>
+
+        <div>
+          <label className="text-sm text-chef-subtle">Cooking style (this plan)</label>
+          <div className="flex flex-wrap gap-2 mt-2">
+            {COOKING_STYLES.map((s) => (
+              <button
+                key={s.id}
+                onClick={() => setCookingStyle(s.id)}
+                className={`tap-item py-2 text-xs ${cookingStyle === s.id ? 'tap-item-selected' : ''}`}
+              >
+                {s.label}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -340,26 +433,85 @@ export default function MealPlanner() {
                 {formatCoverageSummary(activePlan.plan_data.coverage)}
               </p>
             )}
-          </div>
-          {activePlan.plan_data?.meals?.map((m, i) => (
-            <div key={i} className="flex justify-between items-start border-b border-steel pb-2">
-              <div>
-                <p className="text-xs text-chef-subtle">Day {m.day} · {m.meal_type}</p>
-                <p className="font-medium">
-                  {m.name}
-                  {m.name.toLowerCase().startsWith('leftover') && (
-                    <span className="ml-2 text-xs font-normal text-chef-subtle">· uses prior dinner</span>
-                  )}
+            {planMetrics && (
+              <div className="mt-3 rounded-lg bg-stainless-100 border border-steel px-3 py-2 space-y-1">
+                <p className="text-xs font-semibold text-chef-subtle uppercase tracking-wide">Clara&apos;s Notes</p>
+                <p className="text-sm text-chef">
+                  This plan uses {planMetrics.inventory_utilization_score}% of your current inventory.
                 </p>
-                {m.description && (
-                  <p className="text-xs text-chef-subtle mt-0.5">{m.description}</p>
+                {planMetrics.expiring_items_total > 0 && (
+                  <p className="text-sm text-chef">
+                    Should prevent {planMetrics.expiring_items_used} item
+                    {planMetrics.expiring_items_used === 1 ? '' : 's'} from expiring.
+                  </p>
                 )}
-                {m.prep_time_minutes != null && (
-                  <p className="text-xs text-steel-dark">{m.prep_time_minutes} min</p>
-                )}
+                <p className="text-sm text-chef-subtle">
+                  {formatMetricsSummary(planMetrics).grocery}
+                </p>
               </div>
-            </div>
-          ))}
+            )}
+          </div>
+
+          <p className="text-xs font-semibold text-chef-subtle uppercase tracking-wide">Review your plan</p>
+          {activePlan.plan_data?.meals?.map((m, i) => {
+            const key = mealReviewKey(m, i);
+            const review = activePlan.plan_data.reviews?.[key]?.action;
+            return (
+              <div
+                key={key}
+                className={`border-b border-steel pb-3 ${review === 'keep' ? 'opacity-100' : ''}`}
+              >
+                <div className="flex justify-between items-start gap-2">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs text-chef-subtle">
+                      {dayName(m.day)} · Day {m.day} · {m.meal_type}
+                    </p>
+                    <p className="font-medium">
+                      {m.name}
+                      {m.name.toLowerCase().startsWith('leftover') && (
+                        <span className="ml-2 text-xs font-normal text-chef-subtle">· uses prior dinner</span>
+                      )}
+                    </p>
+                    {m.tags && m.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {m.tags.map((tag) => (
+                          <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-stainless-200 text-chef-subtle">
+                            {mealTagLabel(tag as MealTagId)}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {m.description && (
+                      <p className="text-xs text-chef-subtle mt-0.5 line-clamp-2">{m.description}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="flex gap-2 mt-2">
+                  <button
+                    type="button"
+                    onClick={() => recordReview(key, 'keep')}
+                    className={`tap-item flex-1 py-2 text-xs ${review === 'keep' ? 'tap-item-selected' : ''}`}
+                  >
+                    Keep
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => recordReview(key, 'replace')}
+                    className={`tap-item flex-1 py-2 text-xs ${review === 'replace' ? 'tap-item-selected' : ''}`}
+                  >
+                    Replace
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => explainMeal(m)}
+                    className="tap-item flex-1 py-2 text-xs"
+                  >
+                    Why this?
+                  </button>
+                </div>
+              </div>
+            );
+          })}
           {groupedSupply && activePlan.plan_data?.shopping_list && activePlan.plan_data.shopping_list.length > 0 && (
             <div className="mt-4 pt-3 border-t border-steel">
               <h4 className="font-semibold text-sm flex items-center gap-1">

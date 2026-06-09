@@ -99,8 +99,19 @@ export interface MealPlanData {
     snacks: number;
     people?: number;
     planning_goal?: string;
+    cooking_style?: string;
+    cook_nights?: number;
     preset?: string;
   };
+  metrics?: {
+    inventory_utilization_score: number;
+    waste_prevention_score: number;
+    estimated_grocery_cost: number;
+    expiring_items_used: number;
+    expiring_items_total: number;
+  };
+  /** Plan review feedback — Brain fuel (MVP local + persisted on plan) */
+  reviews?: Record<string, { action: 'keep' | 'replace'; at: string }>;
 }
 
 export interface PlannedMeal {
@@ -110,6 +121,8 @@ export interface PlannedMeal {
   description?: string;
   ingredients: { name: string; quantity: number; unit: string; in_inventory?: boolean }[];
   prep_time_minutes?: number;
+  /** See src/types/mealTags.ts */
+  tags?: string[];
 }
 
 export interface ShoppingItem {

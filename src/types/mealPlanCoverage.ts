@@ -12,7 +12,41 @@ export type PlanningGoalId =
   | 'healthy_light'
   | 'big_family'
   | 'variety'
-  | 'kid_friendly';
+  | 'kid_friendly'
+  | 'pantry_challenge';
+
+/** Temporary per-plan style override (profile cuisines are the default hint). */
+export type CookingStyleId =
+  | 'profile_default'
+  | 'comfort'
+  | 'southern'
+  | 'cajun'
+  | 'italian'
+  | 'mexican'
+  | 'asian'
+  | 'bbq_smoked'
+  | 'homestead'
+  | 'meal_prep'
+  | 'entertaining';
+
+export const COOKING_STYLES: { id: CookingStyleId; label: string }[] = [
+  { id: 'profile_default', label: 'From my profile' },
+  { id: 'comfort', label: 'Comfort Food' },
+  { id: 'southern', label: 'Southern' },
+  { id: 'cajun', label: 'Cajun / Creole' },
+  { id: 'italian', label: 'Italian' },
+  { id: 'mexican', label: 'Mexican' },
+  { id: 'asian', label: 'Asian-Inspired' },
+  { id: 'bbq_smoked', label: 'BBQ & Smoked' },
+  { id: 'homestead', label: 'Homestead' },
+  { id: 'meal_prep', label: 'Meal Prep' },
+  { id: 'entertaining', label: 'Entertaining' },
+];
+
+export const COOK_NIGHT_PRESETS = [
+  { value: 3, label: 'Cook 3 nights' },
+  { value: 5, label: 'Cook 5 nights' },
+] as const;
 
 export interface MealCounts {
   breakfasts: number;
@@ -42,6 +76,7 @@ export const COVERAGE_PRESETS: { id: CoveragePreset; label: string }[] = [
 export const PLANNING_GOALS: { id: PlanningGoalId; label: string }[] = [
   { id: 'save_money', label: 'Save money' },
   { id: 'use_inventory', label: 'Use what we have' },
+  { id: 'pantry_challenge', label: 'Pantry challenge' },
   { id: 'quick_meals', label: 'Quick meals' },
   { id: 'healthy_light', label: 'Healthy / light' },
   { id: 'big_family', label: 'Big family meals' },
@@ -100,6 +135,7 @@ export function planningGoalPrompt(goal: PlanningGoalId): string {
   const map: Record<PlanningGoalId, string> = {
     save_money: 'Prioritize budget-friendly ingredients and minimize waste.',
     use_inventory: 'Maximize use of current pantry inventory before suggesting purchases.',
+    pantry_challenge: 'Pantry Challenge: use inventory first, minimize grocery spend, reduce waste. Favor items already on hand.',
     quick_meals: 'Favor meals under 30 minutes prep time.',
     healthy_light: 'Lean toward lighter, nutritious options.',
     big_family: 'Generous portions suitable for a hungry household.',
@@ -107,6 +143,35 @@ export function planningGoalPrompt(goal: PlanningGoalId): string {
     kid_friendly: 'Include approachable, family-friendly options.',
   };
   return map[goal];
+}
+
+export function cookingStylePrompt(style: CookingStyleId, profileCuisines: string[]): string {
+  if (style === 'profile_default') {
+    return profileCuisines.length
+      ? `Cooking style from profile: ${profileCuisines.join(', ')}.`
+      : 'General American home cooking.';
+  }
+  const map: Record<Exclude<CookingStyleId, 'profile_default'>, string> = {
+    comfort: 'Comfort food — hearty, familiar, satisfying.',
+    southern: 'Southern home cooking — biscuits, greens, classic comfort.',
+    cajun: 'Cajun / Creole — bold spice, roux, Louisiana flavors.',
+    italian: 'Italian — pasta, tomatoes, olive oil, herbs.',
+    mexican: 'Mexican — beans, rice, cumin, chiles, tortillas.',
+    asian: 'Asian-inspired — soy, ginger, rice, stir-fry balance.',
+    bbq_smoked: 'BBQ & smoked — low-and-slow, grilled, smoky flavors.',
+    homestead: 'Homestead — from-scratch, pantry staples, practical.',
+    meal_prep: 'Meal prep — batch-friendly, stores well, efficient.',
+    entertaining: 'Entertaining — crowd-pleasing, a step above weeknight.',
+  };
+  return map[style];
+}
+
+export function cookNightsPrompt(cookNights: number, dinnerSlots: number): string {
+  if (dinnerSlots <= 0 || cookNights >= dinnerSlots) {
+    return 'Every dinner slot is a home-cooked meal.';
+  }
+  const easy = dinnerSlots - cookNights;
+  return `Of ${dinnerSlots} dinner slots: plan exactly ${cookNights} home-cooked dinners. The other ${easy} slot(s) are easy nights — use labels like "Leftover night", "Sandwich night", "Soup night", "Pizza night", or "Free night". Tag easy nights with "easy_night".`;
 }
 
 /** Meals allocated to a day-range chunk (days startDay..startDay+dayCount-1). */

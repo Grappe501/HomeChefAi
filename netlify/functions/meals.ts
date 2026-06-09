@@ -6,14 +6,16 @@ import { getSupabaseUserClient } from './utils/supabase.js';
 import { checkAndIncrementQuota, quotaErrorResponse } from './utils/quotas.js';
 import { awardXpDevStore, awardXpSupabase, XP_AWARDS } from './utils/gamification.js';
 import type { MealPlanData, InventoryItem, Profile, PlannedMeal, ShoppingItem } from '../../src/types/index';
+import { computePlanMetrics } from './utils/planMetrics.js';
 
 type MealCounts = { breakfasts: number; lunches: number; dinners: number; snacks: number };
 
 const SYSTEM_PROMPT = `You are a kitchen sous chef meal planner. Return ONLY valid JSON:
-{"meals":[{"day":1,"meal_type":"breakfast|lunch|dinner|snack","name":"string","description":"string","ingredients":[{"name":"string","quantity":number,"unit":"string","in_inventory":boolean}],"prep_time_minutes":number}],"shopping_list":[{"name":"string","quantity":number,"unit":"string","estimated_price":number,"supply_group":"breakfast|lunch|dinner|snack|staple"}],"estimated_cost":number,"uses_inventory":["string"]}
+{"meals":[{"day":1,"meal_type":"breakfast|lunch|dinner|snack","name":"string","description":"string","ingredients":[{"name":"string","quantity":number,"unit":"string","in_inventory":boolean}],"prep_time_minutes":number,"tags":["weeknight|30_minutes|leftovers_friendly|easy_night|..."]}],"shopping_list":[{"name":"string","quantity":number,"unit":"string","estimated_price":number,"supply_group":"breakfast|lunch|dinner|snack|staple"}],"estimated_cost":number,"uses_inventory":["string"]}
 Prioritize inventory. Respect dietary restrictions. Keep breakfast/lunch entries concise.
 Plan ONLY the meal counts requested — do not add extra meals.
-Tag each shopping_list item with supply_group for the meal type that needs it; items used across meals use "staple".`;
+Tag meals when appropriate: weeknight, 30_minutes, leftovers_friendly, easy_night, crowd_favorite, freezer_friendly.
+Tag each shopping_list item with supply_group.`;
 
 function normalizeProfile(prof: Partial<Profile> | null | undefined, userId: string): Profile {
   return {
@@ -108,6 +110,7 @@ function planningGoalPrompt(goal?: string): string {
   const map: Record<string, string> = {
     save_money: 'Prioritize budget-friendly ingredients and minimize waste.',
     use_inventory: 'Maximize use of current pantry inventory before suggesting purchases.',
+    pantry_challenge: 'Pantry Challenge: use inventory first, minimize grocery spend, reduce waste.',
     quick_meals: 'Favor meals under 30 minutes prep time.',
     healthy_light: 'Lean toward lighter, nutritious options.',
     big_family: 'Generous portions suitable for a hungry household.',
@@ -132,6 +135,35 @@ function resolveMealCounts(
     dinners: Math.max(0, body.dinners ?? 0),
     snacks: Math.max(0, body.snacks ?? 0),
   };
+}
+
+function cookingStylePrompt(style: string | undefined, profile: Profile): string {
+  if (!style || style === 'profile_default') {
+    const c = profile.cuisine_preferences?.join(', ');
+    return c ? `Cooking style from profile: ${c}.` : 'General American home cooking.';
+  }
+  const map: Record<string, string> = {
+    comfort: 'Comfort food — hearty, familiar, satisfying.',
+    southern: 'Southern home cooking.',
+    cajun: 'Cajun / Creole — bold spice, Louisiana flavors.',
+    italian: 'Italian home cooking.',
+    mexican: 'Mexican — beans, rice, chiles, tortillas.',
+    asian: 'Asian-inspired flavors.',
+    bbq_smoked: 'BBQ & smoked — grilled, smoky flavors.',
+    homestead: 'Homestead — from-scratch, pantry staples.',
+    meal_prep: 'Meal prep — batch-friendly, stores well.',
+    entertaining: 'Entertaining — crowd-pleasing dishes.',
+  };
+  return map[style] ?? style;
+}
+
+function cookNightsPrompt(cookNights: number | undefined, dinnerSlots: number): string {
+  const cook = cookNights ?? dinnerSlots;
+  if (dinnerSlots <= 0 || cook >= dinnerSlots) {
+    return 'Every dinner slot is a home-cooked meal.';
+  }
+  const easy = dinnerSlots - cook;
+  return `Of ${dinnerSlots} dinner slots: exactly ${cook} home-cooked dinners. The other ${easy} slot(s) are easy nights — "Leftover night", "Sandwich night", "Soup night", "Pizza night", or "Free night". Tag easy nights with easy_night.`;
 }
 
 function buildRealismPrompt(planningGoal: string | undefined, counts: MealCounts): string {
@@ -279,6 +311,8 @@ async function generateMealPlanChunk(
     people?: number;
     message?: string;
     planningGoal?: string;
+    cookingStyle?: string;
+    cookNights?: number;
     includeShoppingList?: boolean;
     fullPlanCounts?: MealCounts;
   },
@@ -287,6 +321,9 @@ async function generateMealPlanChunk(
   const mealScope = buildMealScopePrompt(params.mealCounts, params.startDay, params.dayCount, params.planDays);
   const goalLine = planningGoalPrompt(params.planningGoal);
   const realismLine = buildRealismPrompt(params.planningGoal, params.fullPlanCounts ?? params.mealCounts);
+  const styleLine = cookingStylePrompt(params.cookingStyle, profile);
+  const dinnerSlots = params.fullPlanCounts?.dinners ?? params.mealCounts.dinners;
+  const cookLine = cookNightsPrompt(params.cookNights, dinnerSlots);
   const people = params.people || profile.household_size;
 
   const shoppingNote = params.includeShoppingList
@@ -303,7 +340,9 @@ Dietary: ${profile.dietary_restrictions.join(', ') || 'none'}
 Cuisines: ${profile.cuisine_preferences.join(', ') || 'any'}
 Allergies: ${profile.allergies.join(', ') || 'none'}
 ${goalLine ? `Planning goal: ${goalLine}` : ''}
+${styleLine}
 ${realismLine}
+${cookLine}
 Inventory:
 ${inventoryList}
 ${params.message ? `Chef request: ${params.message}` : ''}
@@ -324,6 +363,8 @@ async function generateHeavyMealPlan(
     people?: number;
     message?: string;
     planning_goal?: string;
+    cooking_style?: string;
+    cook_nights?: number;
   },
 ): Promise<MealPlanData> {
   const { days, mealCounts } = params;
@@ -333,6 +374,8 @@ async function generateHeavyMealPlan(
     people: params.people,
     message: params.message,
     planningGoal: params.planning_goal,
+    cookingStyle: params.cooking_style,
+    cookNights: params.cook_nights,
     fullPlanCounts: mealCounts,
   };
 
@@ -406,6 +449,8 @@ async function generateMealPlan(
     people?: number;
     message?: string;
     planning_goal?: string;
+    cooking_style?: string;
+    cook_nights?: number;
   },
 ): Promise<MealPlanData> {
   const days = Math.min(Math.max(params.days, 1), 14);
@@ -429,6 +474,8 @@ async function generateMealPlan(
       people: params.people,
       message: params.message,
       planningGoal: params.planning_goal,
+      cookingStyle: params.cooking_style,
+      cookNights: params.cook_nights,
       includeShoppingList: start === 1,
       fullPlanCounts: mealCounts,
     }));
@@ -471,6 +518,7 @@ export const handler: Handler = withCors(async (event) => {
       days?: number; budget?: number; breakfasts?: number; lunches?: number;
       dinners?: number; snacks?: number; people?: number; message?: string;
       planning_goal?: string; coverage_preset?: string;
+      cooking_style?: string; cook_nights?: number;
       action?: string; plan_id?: string;
     }>(event);
     if (!body) return errorResponse('Invalid body');
@@ -495,10 +543,20 @@ export const handler: Handler = withCors(async (event) => {
     const days = Math.min(body.days || 7, 14);
     const mealCounts = resolveMealCounts(days, body);
     const planData = await generateMealPlan(inventory, profile, { ...body, days });
+    const metrics = computePlanMetrics(planData, inventory);
+    planData.metrics = {
+      inventory_utilization_score: metrics.inventory_utilization_score,
+      waste_prevention_score: metrics.waste_prevention_score,
+      estimated_grocery_cost: metrics.estimated_grocery_cost,
+      expiring_items_used: metrics.expiring_items_used,
+      expiring_items_total: metrics.expiring_items_total,
+    };
     planData.coverage = {
       ...mealCounts,
       people: body.people ?? profile.household_size,
       planning_goal: body.planning_goal,
+      cooking_style: body.cooking_style,
+      cook_nights: body.cook_nights,
       preset: body.coverage_preset,
     };
     const planId = uuidv4();
