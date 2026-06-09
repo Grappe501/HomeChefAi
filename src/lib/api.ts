@@ -112,6 +112,28 @@ export const mealsApi = {
       method: 'POST',
       body: JSON.stringify({ action: 'explain-meal', ...data }),
     }),
+  reviewMeal: (data: {
+    plan_id: string;
+    meal_key: string;
+    meal_name: string;
+    day: number;
+    meal_type: string;
+    action: 'keep' | 'replace';
+    meal?: import('@/types').PlannedMeal;
+  }) =>
+    api<{ plan: import('@/types').MealPlan; ledger_entry: Record<string, unknown> }>('meals', {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'review-meal',
+        plan_id: data.plan_id,
+        meal_key: data.meal_key,
+        meal_name: data.meal_name,
+        day: data.day,
+        meal_type: data.meal_type,
+        review_action: data.action,
+        meal: data.meal,
+      }),
+    }),
 };
 
 export const calendarApi = {
@@ -188,6 +210,10 @@ export const brainApi = {
     api<{ insights: import('@/types/brain').BrainInsight[]; learning: number }>('brain'),
   memory: (id: string) =>
     api<{ memory: import('@/types/brain').BrainInsight }>(`brain?id=${id}`),
+  getRecentLedger: (domain?: string, limit = 20) =>
+    api<{ ledger: Record<string, unknown>[]; count: number }>(
+      `brain?action=ledger${domain ? `&domain=${domain}` : ''}&limit=${limit}`,
+    ),
   sync: () =>
     api<{ synced: boolean; insights_count: number }>('brain', { method: 'POST', body: JSON.stringify({}) }),
 };

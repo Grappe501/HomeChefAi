@@ -8,6 +8,24 @@ import type {
   CalendarEvent,
 } from '../../../src/types/index';
 
+export interface DecisionLedgerRow {
+  id: string;
+  user_id: string;
+  household_id?: string;
+  subject_key: string;
+  domain: string;
+  recommendation: string;
+  why?: string;
+  evidence: string[];
+  confidence: number;
+  expert_ids: string[];
+  outcome: string;
+  outcome_at?: string;
+  metadata?: Record<string, unknown>;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export interface DevStore {
   users: User[];
   profiles: Profile[];
@@ -19,6 +37,7 @@ export interface DevStore {
   achievements: { id: string; user_id: string; achievement_key: string; unlocked_at: string }[];
   household_memories?: BrainStoredMemory[];
   waste_events?: BrainWasteRow[];
+  decision_ledger?: DecisionLedgerRow[];
 }
 
 export interface BrainStoredMemory {

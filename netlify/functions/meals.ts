@@ -9,6 +9,12 @@ import type { MealPlanData, InventoryItem, Profile, PlannedMeal, ShoppingItem } 
 import { computePlanMetrics } from './utils/planMetrics.js';
 import { formatInventoryForAI, formatInventorySummary } from './utils/inventoryContext.js';
 import { enrichMealsWithIntelligence, buildMealIntelligence } from './utils/ai/mealExplain.js';
+import {
+  persistMealPlanReview,
+  getRecentLedger,
+  formatLedgerSummaryForPlanner,
+} from './utils/ai/ledgerStore.js';
+import type { MealReviewPayload } from './utils/ai/decisionLedger.js';
 
 type MealCounts = { breakfasts: number; lunches: number; dinners: number; snacks: number };
 
@@ -315,6 +321,7 @@ async function generateMealPlanChunk(
     cookNights?: number;
     includeShoppingList?: boolean;
     fullPlanCounts?: MealCounts;
+    ledgerFeedback?: string;
   },
 ): Promise<MealPlanData> {
   const inventoryList = formatInventoryList(inventory);
@@ -347,6 +354,7 @@ Inventory:
 ${inventoryList}
 (${formatInventorySummary(inventory)})
 ${params.message ? `Chef request: ${params.message}` : ''}
+${params.ledgerFeedback ? `\n${params.ledgerFeedback}` : ''}
 ${shoppingNote}
 Use "day" field values ${params.startDay} through ${params.startDay + params.dayCount - 1}.`;
 
@@ -366,6 +374,7 @@ async function generateHeavyMealPlan(
     planning_goal?: string;
     cooking_style?: string;
     cook_nights?: number;
+    ledgerFeedback?: string;
   },
 ): Promise<MealPlanData> {
   const { days, mealCounts } = params;
@@ -378,6 +387,7 @@ async function generateHeavyMealPlan(
     cookingStyle: params.cooking_style,
     cookNights: params.cook_nights,
     fullPlanCounts: mealCounts,
+    ledgerFeedback: params.ledgerFeedback,
   };
 
   if (mealCounts.breakfasts > 0) {
@@ -452,6 +462,7 @@ async function generateMealPlan(
     planning_goal?: string;
     cooking_style?: string;
     cook_nights?: number;
+    ledgerFeedback?: string;
   },
 ): Promise<MealPlanData> {
   const days = Math.min(Math.max(params.days, 1), 14);
@@ -479,6 +490,7 @@ async function generateMealPlan(
       cookNights: params.cook_nights,
       includeShoppingList: start === 1,
       fullPlanCounts: mealCounts,
+      ledgerFeedback: params.ledgerFeedback,
     }));
   }
 
@@ -551,12 +563,33 @@ export const handler: Handler = withCors(async (event) => {
       return jsonResponse({ intelligence });
     }
 
+    if (body.action === 'review-meal') {
+      const raw = body as MealReviewPayload & { meal?: PlannedMeal; review_action?: 'keep' | 'replace' };
+      const review: MealReviewPayload & { meal?: PlannedMeal } = {
+        ...raw,
+        action: raw.review_action ?? raw.action,
+      };
+      if (!review.plan_id || !review.meal_key || !review.action || !review.meal_name) {
+        return errorResponse('plan_id, meal_key, meal_name, and review_action required', 400);
+      }
+      const result = await persistMealPlanReview(
+        userId,
+        user.token,
+        review,
+        profile.household_id,
+      );
+      return jsonResponse(result);
+    }
+
     const quota = await checkAndIncrementQuota(userId, 'meal_plans');
     if (!quota.allowed) return quotaErrorResponse(quota.limits, quota.usage);
 
+    const recentLedger = await getRecentLedger(userId, user.token, 'meal_plan', 15);
+    const ledgerFeedback = formatLedgerSummaryForPlanner(recentLedger);
+
     const days = Math.min(body.days || 7, 14);
     const mealCounts = resolveMealCounts(days, body);
-    const planData = await generateMealPlan(inventory, profile, { ...body, days });
+    const planData = await generateMealPlan(inventory, profile, { ...body, days, ledgerFeedback });
     const metrics = computePlanMetrics(planData, inventory);
     planData.metrics = {
       inventory_utilization_score: metrics.inventory_utilization_score,

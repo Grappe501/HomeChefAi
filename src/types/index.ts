@@ -114,8 +114,8 @@ export interface MealPlanData {
     expiring_items_used: number;
     expiring_items_total: number;
   };
-  /** Plan review feedback — Brain fuel (MVP local + persisted on plan) */
-  reviews?: Record<string, { action: 'keep' | 'replace'; at: string }>;
+  /** Plan review feedback — synced to decision_ledger (Phase 3) */
+  reviews?: Record<string, { action: 'keep' | 'replace'; at: string; ledger_id?: string }>;
 }
 
 import type { MealIntelligence } from './mealIntelligence';

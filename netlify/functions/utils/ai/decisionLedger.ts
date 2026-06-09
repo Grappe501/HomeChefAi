@@ -1,9 +1,10 @@
 /**
  * AI Decision Ledger — every recommendation learns from outcomes.
- * SOUSCHEF-AI-FOUNDATION-1.0 · S4 target
- *
- * Seed: meal plan Keep / Replace / Why (MealPlanner.tsx)
+ * SOUSCHEF-AI-FOUNDATION-1.0 · Phase 3
  */
+
+import type { PlannedMeal } from '../../../src/types/index.js';
+import { expertsForIntent } from './brainRegistry.js';
 
 export type DecisionDomain =
   | 'meal_plan'
@@ -20,11 +21,8 @@ export interface DecisionLedgerEntry {
   user_id: string;
   timestamp: string;
   domain: DecisionDomain;
-  /** What Clara recommended */
   recommendation: string;
-  /** Plain-language rationale */
   why: string;
-  /** graph node ids, memory ids, inventory refs */
   evidence: string[];
   confidence: number;
   expert_ids: string[];
@@ -41,28 +39,66 @@ export interface MealReviewPayload {
   day: number;
   meal_type: string;
   action: 'keep' | 'replace';
+  meal?: PlannedMeal;
   why_requested?: boolean;
 }
 
-/** Build ledger entry from meal plan review (MVP). */
+export function mealReviewSubjectKey(planId: string, mealKey: string): string {
+  return `plan:${planId}:meal:${mealKey}`;
+}
+
+/** Build ledger entry from meal plan review with intelligence evidence */
 export function mealReviewToLedgerEntry(
   userId: string,
   review: MealReviewPayload,
+  householdId?: string,
 ): DecisionLedgerEntry {
+  const intel = review.meal?.intelligence;
+  const experts = expertsForIntent('meal_plan').map((e) => e.id);
+  if (review.action === 'replace') {
+    experts.push('flavor_architect');
+  }
+
+  const evidence: string[] = [
+    `plan:${review.plan_id}`,
+    `meal:${review.meal_key}`,
+    `day:${review.day}`,
+    `type:${review.meal_type}`,
+  ];
+  if (intel?.recommendation_type) evidence.push(`rec:${intel.recommendation_type}`);
+  if (intel?.evidence?.length) evidence.push(...intel.evidence);
+
+  const whyParts: string[] = [];
+  if (intel?.why_chosen) whyParts.push(intel.why_chosen);
+  if (intel?.likeability) whyParts.push(intel.likeability);
+  if (review.action === 'keep') {
+    whyParts.push('Chef kept this meal — reinforce similar choices.');
+  } else {
+    whyParts.push('Chef wants a replacement — avoid this pattern next plan.');
+  }
+
   return {
     id: `dl_${review.plan_id}_${review.meal_key}`,
     user_id: userId,
+    household_id: householdId,
     timestamp: new Date().toISOString(),
     domain: 'meal_plan',
     recommendation: review.meal_name,
-    why: review.why_requested
-      ? 'Chef asked why this meal was suggested.'
-      : 'Meal plan generation',
-    evidence: [`plan:${review.plan_id}`, `meal:${review.meal_key}`, `day:${review.day}`, `type:${review.meal_type}`],
-    confidence: 0.7,
-    expert_ids: ['executive_chef', 'budget_analyst'],
+    why: whyParts.join(' '),
+    evidence: [...new Set(evidence)],
+    confidence: intel?.confidence ?? 0.75,
+    expert_ids: [...new Set(experts)],
     outcome: review.action === 'keep' ? 'accepted' : 'replaced',
     outcome_at: new Date().toISOString(),
-    metadata: { meal_key: review.meal_key },
+    metadata: {
+      meal_key: review.meal_key,
+      plan_id: review.plan_id,
+      day: review.day,
+      meal_type: review.meal_type,
+      action: review.action,
+      recommendation_type: intel?.recommendation_type,
+      recommendation_label: intel?.recommendation_label,
+      complexity: intel?.complexity,
+    },
   };
 }

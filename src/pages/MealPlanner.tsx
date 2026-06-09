@@ -99,6 +99,7 @@ export default function MealPlanner() {
   const [suggestions, setSuggestions] = useState<MealPlanData | null>(null);
   const [activePlan, setActivePlan] = useState<MealPlan | null>(null);
   const [expandedWhyKey, setExpandedWhyKey] = useState<string | null>(null);
+  const [reviewingKey, setReviewingKey] = useState<string | null>(null);
 
   useEffect(() => {
     mealsApi.list().then((r) => {
@@ -194,19 +195,31 @@ export default function MealPlanner() {
     ? groupSupplyList(activePlan.plan_data.shopping_list)
     : null;
 
-  const recordReview = (key: string, action: 'keep' | 'replace') => {
+  const recordReview = async (key: string, meal: PlannedMeal, action: 'keep' | 'replace') => {
     if (!activePlan) return;
-    const reviews = {
-      ...(activePlan.plan_data.reviews ?? {}),
-      [key]: { action, at: new Date().toISOString() },
-    };
-    const updated = {
-      ...activePlan,
-      plan_data: { ...activePlan.plan_data, reviews },
-    };
-    setActivePlan(updated);
-    setPlans((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
-    toast.success(action === 'keep' ? 'Kept — Clara notes what works for you.' : 'Replace noted — Clara will learn from this.');
+    setReviewingKey(key);
+    try {
+      const { plan } = await mealsApi.reviewMeal({
+        plan_id: activePlan.id,
+        meal_key: key,
+        meal_name: meal.name,
+        day: meal.day,
+        meal_type: meal.meal_type,
+        action,
+        meal,
+      });
+      setActivePlan(plan);
+      setPlans((prev) => prev.map((p) => (p.id === plan.id ? plan : p)));
+      toast.success(
+        action === 'keep'
+          ? 'Kept — Clara saved this to your decision ledger.'
+          : 'Replace noted — Clara will avoid this pattern next plan.',
+      );
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Could not save review');
+    } finally {
+      setReviewingKey(null);
+    }
   };
 
   const toggleExplainMeal = (key: string) => {
@@ -484,14 +497,16 @@ export default function MealPlanner() {
                 <div className="flex gap-2 mt-2">
                   <button
                     type="button"
-                    onClick={() => recordReview(key, 'keep')}
+                    onClick={() => recordReview(key, m, 'keep')}
+                    disabled={reviewingKey === key}
                     className={`tap-item flex-1 py-2 text-xs ${review === 'keep' ? 'tap-item-selected' : ''}`}
                   >
                     Keep
                   </button>
                   <button
                     type="button"
-                    onClick={() => recordReview(key, 'replace')}
+                    onClick={() => recordReview(key, m, 'replace')}
+                    disabled={reviewingKey === key}
                     className={`tap-item flex-1 py-2 text-xs ${review === 'replace' ? 'tap-item-selected' : ''}`}
                   >
                     Replace

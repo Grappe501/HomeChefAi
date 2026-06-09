@@ -15,6 +15,14 @@ export const handler: Handler = withCors(async (event) => {
     const type = event.queryStringParameters?.type;
     const action = event.queryStringParameters?.action || 'insights';
 
+    if (action === 'ledger' || action === 'ledger-recent') {
+      const domain = event.queryStringParameters?.domain;
+      const limit = Number(event.queryStringParameters?.limit) || 20;
+      const { getRecentLedger } = await import('./utils/ai/ledgerStore.js');
+      const entries = await getRecentLedger(userId, user.token, domain, limit);
+      return jsonResponse({ ledger: entries, count: entries.length });
+    }
+
     if (useDevStore()) {
       const store = loadStore() as DevStore & { household_memories?: StoredMemory[] };
       const memories = (store.household_memories ?? []).filter((m) => m.user_id === userId);
