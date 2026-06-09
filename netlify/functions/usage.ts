@@ -7,6 +7,7 @@ import { awardXpDevStore, awardXpSupabase, XP_AWARDS } from './utils/gamificatio
 import { runBrainSyncDevStore, runBrainSyncSupabase, getBrainScopeDevStore, getBrainScopeSupabase } from './utils/brain/runBrainSync.js';
 import { inferTechniquesFromText } from './utils/ai/skills.js';
 import { recordSkillPractice } from './utils/ai/skillJourneyStore.js';
+import { buildBehaviorProfileForUser } from './utils/learning/behaviorStore.js';
 
 async function incrementRecipeServeCount(
   db: import('@supabase/supabase-js').SupabaseClient,
@@ -108,6 +109,7 @@ export const handler: Handler = withCors(async (event) => {
       await recordSkillPractice(userId, undefined, inferredTechniques);
       incrementRecipeServeCountDevStore(store, userId, body.meal_name);
       saveStore(store);
+      await buildBehaviorProfileForUser(userId, undefined);
       return jsonResponse({ log, inventory_updated: true, xp_gained: XP_AWARDS.cook_log }, 201);
     }
 
@@ -156,6 +158,7 @@ export const handler: Handler = withCors(async (event) => {
     await runBrainSyncSupabase(db, scope);
     await recordSkillPractice(userId, user.token, inferredTechniques);
     await incrementRecipeServeCount(db, userId, body.meal_name);
+    await buildBehaviorProfileForUser(userId, user.token);
 
     let recipe = null;
     if (body.share_recipe && body.meal_name) {

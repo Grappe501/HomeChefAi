@@ -41,6 +41,7 @@ const TOOL_LABELS: Record<string, string> = {
   get_brain_context: 'Reading kitchen memory',
   skill_coach: 'Coaching technique',
   get_taste_profile: 'Reading taste profile',
+  get_kitchen_rhythm: 'Reading kitchen rhythm',
   remember_preference: 'Staging preference',
   reconcile_inventory: 'Reconciling pantry',
   audit_pantry: 'Auditing pantry',

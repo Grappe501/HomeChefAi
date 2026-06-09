@@ -6,6 +6,11 @@ import {
   saveMealOutcome,
   savePreference,
 } from './utils/learning/tasteStore.js';
+import {
+  buildBehaviorProfileForUser,
+  getRhythmBundle,
+  updateTimeBudget,
+} from './utils/learning/behaviorStore.js';
 import type { MealOutcomeRating, PendingPreference, PreferenceKind } from '../../src/types/tasteLearning.js';
 import { formatTasteProfileForPrompt } from './utils/learning/tasteProfileEngine.js';
 
@@ -17,6 +22,7 @@ export const handler: Handler = withCors(async (event) => {
 
   if (event.httpMethod === 'GET') {
     const action = event.queryStringParameters?.action ?? 'profile';
+
     if (action === 'profile') {
       const taste_profile = await getTasteProfileSummary(user.id, user.token);
       return jsonResponse({
@@ -24,6 +30,26 @@ export const handler: Handler = withCors(async (event) => {
         summary: formatTasteProfileForPrompt(taste_profile),
       });
     }
+
+    if (action === 'rhythm') {
+      const bundle = await getRhythmBundle(user.id, user.token);
+      return jsonResponse(bundle);
+    }
+
+    if (action === 'full') {
+      const [taste_profile, rhythm] = await Promise.all([
+        getTasteProfileSummary(user.id, user.token),
+        getRhythmBundle(user.id, user.token),
+      ]);
+      return jsonResponse({
+        taste_profile,
+        taste_summary: formatTasteProfileForPrompt(taste_profile),
+        behavior_profile: rhythm.behavior_profile,
+        rhythm_summary: rhythm.summary,
+        nudges: rhythm.nudges,
+      });
+    }
+
     return errorResponse('Unknown action', 400);
   }
 
@@ -39,6 +65,8 @@ export const handler: Handler = withCors(async (event) => {
       rating?: MealOutcomeRating;
       usage_log_id?: string;
       notes?: string;
+      weeknight_max_minutes?: number;
+      weekend_project_ok?: boolean;
     }>(event);
 
     const action = body?.action ?? 'save-preference';
@@ -73,12 +101,27 @@ export const handler: Handler = withCors(async (event) => {
         usage_log_id: body.usage_log_id,
         notes: body.notes,
       });
+      await buildBehaviorProfileForUser(user.id, user.token);
       return jsonResponse(result, 201);
     }
 
     if (action === 'refresh-profile') {
       const taste_profile = await buildTasteProfileForUser(user.id, user.token);
       return jsonResponse({ taste_profile, summary: formatTasteProfileForPrompt(taste_profile) });
+    }
+
+    if (action === 'refresh-rhythm') {
+      const behavior_profile = await buildBehaviorProfileForUser(user.id, user.token);
+      const bundle = await getRhythmBundle(user.id, user.token);
+      return jsonResponse({ behavior_profile, ...bundle });
+    }
+
+    if (action === 'set-time-budget') {
+      const behavior_profile = await updateTimeBudget(user.id, user.token, {
+        weeknight_max_minutes: body?.weeknight_max_minutes,
+        weekend_project_ok: body?.weekend_project_ok,
+      });
+      return jsonResponse({ behavior_profile });
     }
 
     return errorResponse('Unknown action', 400);

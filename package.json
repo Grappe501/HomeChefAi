@@ -1,8 +1,8 @@
 {
   "name": "homechef-ai",
-  "version": "7.1.0",
+  "version": "7.2.0",
   "private": true,
-  "description": "SousChef v7.1 — Inventory Steward Phase 1: AI-managed pantry lifecycle.",
+  "description": "SousChef v7.2 — KLE Pillar 2: Behavior & Rhythm Learner.",
   "type": "module",
   "scripts": {
     "dev": "vite",

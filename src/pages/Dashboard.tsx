@@ -2,15 +2,17 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Camera, Wand2, CalendarDays, Package, BookOpen, Sparkles, PartyPopper, ChefHat, ShoppingCart } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
-import { inventoryApi, mealsApi, brainApi, supplyApi } from '@/lib/api';
+import { inventoryApi, mealsApi, brainApi, supplyApi, learningApi } from '@/lib/api';
 import type { InventoryItem, MealPlan } from '@/types';
 import type { BrainInsight } from '@/types/brain';
 import type { KitchenPrediction } from '@/types/kitchenPredictions';
 import type { RunningSupplyList } from '@/types/supplyList';
+import type { BehaviorProfile, KitchenRhythmNudge } from '@/types/behaviorLearning';
 import { supplyProgress } from '@/lib/supplyListOps';
 import CookTogetherCard from '@/components/CookTogetherCard';
 import BrainInsightCard from '@/components/BrainInsightCard';
 import ProactiveKitchenCards from '@/components/ProactiveKitchenCards';
+import KitchenRhythmCard from '@/components/KitchenRhythmCard';
 import SousChefMark from '@/components/SousChefMark';
 import { assistantFirstName } from '@/lib/assistant';
 
@@ -84,6 +86,9 @@ export default function Dashboard() {
   const [predictions, setPredictions] = useState<KitchenPrediction[]>([]);
   const [supplyList, setSupplyList] = useState<RunningSupplyList | null>(null);
   const [predictionsLoading, setPredictionsLoading] = useState(true);
+  const [behaviorProfile, setBehaviorProfile] = useState<BehaviorProfile | null>(null);
+  const [rhythmNudges, setRhythmNudges] = useState<KitchenRhythmNudge[]>([]);
+  const [rhythmLoading, setRhythmLoading] = useState(true);
   const assistantName = assistantFirstName(profile?.assistant_name);
   const kitchenName = profile?.household_display_name || 'Your Kitchen';
 
@@ -97,6 +102,14 @@ export default function Dashboard() {
       .then((r) => setPredictions(r.predictions))
       .catch(() => {})
       .finally(() => setPredictionsLoading(false));
+    learningApi
+      .rhythm()
+      .then((r) => {
+        setBehaviorProfile(r.behavior_profile);
+        setRhythmNudges(r.nudges);
+      })
+      .catch(() => {})
+      .finally(() => setRhythmLoading(false));
   }, []);
 
   const expiring = items.filter((i) => {
@@ -141,6 +154,8 @@ export default function Dashboard() {
       </section>
 
       <ProactiveKitchenCards predictions={predictions} loading={predictionsLoading} />
+
+      <KitchenRhythmCard profile={behaviorProfile} nudges={rhythmNudges} loading={rhythmLoading} />
 
       <section className="card border-copper-200/80 bg-copper-50/20">
         <div className="flex items-start justify-between gap-3">

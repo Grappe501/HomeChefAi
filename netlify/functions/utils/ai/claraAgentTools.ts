@@ -16,6 +16,7 @@ import { searchKnowledge, getKnowledgeNode, formatIngredientDepth } from './know
 import { getDeepByKnowledgeId, searchDeep } from './deepLoader.js';
 import { getTasteProfileSummary } from '../learning/tasteStore.js';
 import { formatTasteProfileForPrompt } from '../learning/tasteProfileEngine.js';
+import { getRhythmBundle } from '../learning/behaviorStore.js';
 import { ensureSearchPack } from './dishSearchPack.js';
 import type { PendingPreference, PreferenceKind } from '../../../../src/types/tasteLearning.js';
 import type { InventoryDelta, PendingInventoryDelta } from '../../../../src/types/inventorySteward.js';
@@ -32,6 +33,7 @@ export type AgentToolName =
   | 'local_sourcing'
   | 'get_taste_profile'
   | 'remember_preference'
+  | 'get_kitchen_rhythm'
   | 'reconcile_inventory'
   | 'audit_pantry'
   | 'apply_inventory_delta';
@@ -161,6 +163,15 @@ export const CLARA_AGENT_TOOLS = [
         required: ['subject', 'kind'],
         additionalProperties: false,
       },
+    },
+  },
+  {
+    type: 'function' as const,
+    function: {
+      name: 'get_kitchen_rhythm',
+      description:
+        'Read learned household rhythm — cook nights, shop day, leftover style, budget band, weeknight time budget.',
+      parameters: { type: 'object', properties: {}, additionalProperties: false },
     },
   },
   {
@@ -362,6 +373,20 @@ export async function executeAgentTool(
         output: `Staged preference — ask Chef to confirm saving "${label}" for future plans.`,
         evidence: [`pending_pref:${kind}:${subject}`],
         pending_preference: pending,
+      };
+    }
+
+    case 'get_kitchen_rhythm': {
+      const bundle = await getRhythmBundle(ctx.userId, ctx.token);
+      evidence.push('behavior_profile:v7');
+      if (bundle.behavior_profile.shop_day) evidence.push(`shop_day:${bundle.behavior_profile.shop_day.day_name}`);
+      if (bundle.behavior_profile.cook_nights[0]) {
+        evidence.push(`cook_night:${bundle.behavior_profile.cook_nights[0].day_name}`);
+      }
+      return {
+        tool: name,
+        output: bundle.summary || 'No rhythm profile yet — cook logs and receipts will build it over time.',
+        evidence,
       };
     }
 

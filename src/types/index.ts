@@ -29,6 +29,8 @@ export interface Profile {
   is_founder?: boolean;
   /** KLE v7 — inferred taste vector + explicit preferences */
   taste_profile?: import('./tasteLearning').TasteProfile;
+  /** KLE v7 Pillar 2 — cook rhythm, shop day, budget, time budget */
+  behavior_profile?: import('./behaviorLearning').BehaviorProfile;
 }
 
 export interface InventoryItem {

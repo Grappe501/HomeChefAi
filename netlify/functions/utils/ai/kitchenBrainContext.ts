@@ -15,12 +15,15 @@ import { buildHouseholdGraph } from './graphWriter.js';
 import type { DecisionLedgerEntry } from './decisionLedger.js';
 import { formatTasteProfileForPrompt } from '../learning/tasteProfileEngine.js';
 import { getTasteProfileSummary } from '../learning/tasteStore.js';
+import { getBehaviorProfileSummary } from '../learning/behaviorStore.js';
+import { formatBehaviorProfileForPrompt } from '../learning/behaviorProfileEngine.js';
 
 export interface KitchenBrainContext {
   memory_lines: string[];
   ledger_lines: string[];
   pattern_lines: string[];
   taste_lines: string[];
+  rhythm_lines: string[];
   prefers_tags: string[];
   avoids_tags: string[];
   evidence: string[];
@@ -108,6 +111,10 @@ export async function buildKitchenBrainContext(
   const tasteBlock = formatTasteProfileForPrompt(tasteProfile);
   const taste_lines = tasteBlock ? [tasteBlock] : [];
 
+  const behaviorProfile = await getBehaviorProfileSummary(userId, token);
+  const rhythmBlock = formatBehaviorProfileForPrompt(behaviorProfile);
+  const rhythm_lines = rhythmBlock ? [rhythmBlock] : [];
+
   const memory_lines = memories.map(
     (m) => `Memory (${m.memory_type}): ${m.headline ?? m.content?.slice(0, 120) ?? m.id}`,
   );
@@ -141,6 +148,7 @@ export async function buildKitchenBrainContext(
     ...memories.slice(0, 3).map((m) => `memory:${m.id}`),
     ...outcomes.ledger_evidence.slice(0, 4),
     ...(taste_lines.length ? ['taste_profile:v7'] : []),
+    ...(rhythm_lines.length ? ['behavior_profile:v7'] : []),
   ];
 
   return {
@@ -148,6 +156,7 @@ export async function buildKitchenBrainContext(
     ledger_lines,
     pattern_lines,
     taste_lines,
+    rhythm_lines,
     prefers_tags: [...new Set([...outcomes.prefers_tags, ...prefOutcomes.prefers_tags])],
     avoids_tags: [...new Set([...outcomes.avoids_tags, ...prefOutcomes.avoids_tags])],
     evidence,
@@ -158,6 +167,7 @@ export function formatKitchenBrainContextForPrompt(ctx: KitchenBrainContext): st
   const lines = [
     ...ctx.memory_lines,
     ...ctx.taste_lines,
+    ...ctx.rhythm_lines,
     ...ctx.ledger_lines,
     ...ctx.pattern_lines,
   ].filter(Boolean);
@@ -175,6 +185,9 @@ export function formatPlannerTagDirectives(ctx: KitchenBrainContext): string {
   }
   if (ctx.memory_lines.length) {
     parts.push(ctx.memory_lines.slice(0, 3).join(' '));
+  }
+  if (ctx.rhythm_lines.length) {
+    parts.push(ctx.rhythm_lines.join(' '));
   }
   return parts.join('\n');
 }

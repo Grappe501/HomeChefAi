@@ -310,6 +310,34 @@ export const learningApi = {
       'learning',
       { method: 'POST', body: JSON.stringify({ action: 'refresh-profile' }) },
     ),
+  rhythm: () =>
+    api<{
+      behavior_profile: import('@/types/behaviorLearning').BehaviorProfile;
+      summary: string;
+      nudges: import('@/types/behaviorLearning').KitchenRhythmNudge[];
+    }>('learning?action=rhythm'),
+  full: () =>
+    api<{
+      taste_profile: import('@/types/tasteLearning').TasteProfile;
+      taste_summary: string;
+      behavior_profile: import('@/types/behaviorLearning').BehaviorProfile;
+      rhythm_summary: string;
+      nudges: import('@/types/behaviorLearning').KitchenRhythmNudge[];
+    }>('learning?action=full'),
+  refreshRhythm: () =>
+    api<{
+      behavior_profile: import('@/types/behaviorLearning').BehaviorProfile;
+      summary: string;
+      nudges: import('@/types/behaviorLearning').KitchenRhythmNudge[];
+    }>('learning', { method: 'POST', body: JSON.stringify({ action: 'refresh-rhythm' }) }),
+  setTimeBudget: (data: {
+    weeknight_max_minutes?: number;
+    weekend_project_ok?: boolean;
+  }) =>
+    api<{ behavior_profile: import('@/types/behaviorLearning').BehaviorProfile }>(
+      'learning',
+      { method: 'POST', body: JSON.stringify({ action: 'set-time-budget', ...data }) },
+    ),
 };
 
 export const experienceApi = {

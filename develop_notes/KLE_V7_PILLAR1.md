@@ -28,7 +28,7 @@ Closes the learning loop: preferences and meal ratings write back to the househo
 
 ### Next pillars (v7.x)
 
-- Pillar 2: Behavior & Rhythm Learner
+- Pillar 2: Behavior & Rhythm Learner — **shipped in v7.2.0** (`KLE_V7_PILLAR2.md`)
 - Pillar 3: Skill & Growth Learner
 - Pillar 4: Household Identity Learner
 - Pillar 5: Outcome & Success Learner

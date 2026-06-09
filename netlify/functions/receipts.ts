@@ -8,6 +8,7 @@ import { awardXpDevStore, awardXpSupabase, XP_AWARDS } from './utils/gamificatio
 import { runBrainSyncDevStore, runBrainSyncSupabase, getBrainScopeDevStore, getBrainScopeSupabase } from './utils/brain/runBrainSync.js';
 import type { ReceiptParseResult, InventoryItem } from '../../src/types/index';
 import { normalizeScanItem } from './utils/inventoryNormalize.js';
+import { buildBehaviorProfileForUser } from './utils/learning/behaviorStore.js';
 
 async function parseReceiptWithOpenAI(imageBase64: string): Promise<ReceiptParseResult> {
   const apiKey = process.env.OPENAI_API_KEY;
@@ -118,6 +119,7 @@ export const handler: Handler = withCors(async (event) => {
         const scope = getBrainScopeDevStore(store, userId);
         runBrainSyncDevStore(store, scope);
         saveStore(store);
+        await buildBehaviorProfileForUser(userId, undefined);
         return jsonResponse({ receipt, items_added: items.length, xp_gained: xp?.gained ?? XP_AWARDS.receipt_verify });
       }
       if (!user.token) return errorResponse('Missing token', 401);
@@ -157,6 +159,7 @@ export const handler: Handler = withCors(async (event) => {
       const xp = await awardXpSupabase(db, userId, XP_AWARDS.receipt_verify);
       const scope = await getBrainScopeSupabase(db, userId);
       await runBrainSyncSupabase(db, scope);
+      await buildBehaviorProfileForUser(userId, user.token);
       return jsonResponse({
         receipt: { ...receipt, verified: true },
         items_added: rows.length,
