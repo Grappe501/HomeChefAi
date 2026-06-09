@@ -43,6 +43,9 @@ export function getSupabaseAdmin(): SupabaseClient {
   const url = supabaseUrl();
   const key = serviceKey() || anonKey();
   if (!url || !key) throw new Error('Supabase admin credentials not configured');
+  if (!serviceKey()) {
+    console.warn('SUPABASE_SERVICE_ROLE_KEY not set — usage_quotas writes may fail (using anon key)');
+  }
   if (!adminClient || serviceKey()) {
     adminClient = createClient(url, key, clientOptions());
   }

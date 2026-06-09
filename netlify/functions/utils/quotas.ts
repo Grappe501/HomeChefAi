@@ -15,6 +15,38 @@ const FREE_LIMITS = { receipt_scans: 5, meal_plans: 3, assistant_messages: 50 } 
 
 export type QuotaAction = 'receipt_scans' | 'meal_plans' | 'assistant_messages';
 
+export interface UsageQuotaRow {
+  user_id: string;
+  month_key: string;
+  receipt_scans: number;
+  meal_plans: number;
+  assistant_messages: number;
+  ai_credits_used: number;
+}
+
+function defaultUsageRow(userId: string, mk: string): UsageQuotaRow {
+  return {
+    user_id: userId,
+    month_key: mk,
+    receipt_scans: 0,
+    meal_plans: 0,
+    assistant_messages: 0,
+    ai_credits_used: 0,
+  };
+}
+
+function normalizeUsageRow(userId: string, mk: string, raw: Record<string, unknown> | null | undefined): UsageQuotaRow {
+  if (!raw) return defaultUsageRow(userId, mk);
+  return {
+    user_id: userId,
+    month_key: mk,
+    receipt_scans: Number(raw.receipt_scans ?? 0),
+    meal_plans: Number(raw.meal_plans ?? 0),
+    assistant_messages: Number(raw.assistant_messages ?? 0),
+    ai_credits_used: Number(raw.ai_credits_used ?? 0),
+  };
+}
+
 function monthKey(): string {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
@@ -50,7 +82,7 @@ export function hasProAccess(sub: { tier?: string; status?: string; trial_ends_a
   return false;
 }
 
-export async function getUsage(userId: string) {
+export async function getUsage(userId: string): Promise<UsageQuotaRow> {
   const mk = monthKey();
   if (useDevStore()) {
     const store = loadStore() as {
@@ -78,25 +110,66 @@ export async function getUsage(userId: string) {
       saveStore(store as never);
     }
     if (q.ai_credits_used === undefined) q.ai_credits_used = 0;
-    return q;
+    return normalizeUsageRow(userId, mk, q as Record<string, unknown>);
   }
+
   const db = getSupabaseAdmin();
-  const { data } = await db.from('usage_quotas').select('*').eq('user_id', userId).eq('month_key', mk).maybeSingle();
-  if (data) return data;
-  const { data: created } = await db
+  const { data: existing, error: readError } = await db
     .from('usage_quotas')
-    .insert({ user_id: userId, month_key: mk, ai_credits_used: 0 })
+    .select('*')
+    .eq('user_id', userId)
+    .eq('month_key', mk)
+    .maybeSingle();
+
+  if (readError) {
+    console.warn('usage_quotas read failed:', readError.message);
+  }
+  if (existing) {
+    return normalizeUsageRow(userId, mk, existing as Record<string, unknown>);
+  }
+
+  const seed = {
+    user_id: userId,
+    month_key: mk,
+    receipt_scans: 0,
+    meal_plans: 0,
+    assistant_messages: 0,
+    ai_credits_used: 0,
+  };
+
+  const { data: upserted, error: upsertError } = await db
+    .from('usage_quotas')
+    .upsert(seed, { onConflict: 'user_id,month_key' })
     .select()
-    .single();
-  return created;
+    .maybeSingle();
+
+  if (upsertError) {
+    console.warn('usage_quotas upsert failed:', upsertError.message);
+  }
+  if (upserted) {
+    return normalizeUsageRow(userId, mk, upserted as Record<string, unknown>);
+  }
+
+  const { data: retry } = await db
+    .from('usage_quotas')
+    .select('*')
+    .eq('user_id', userId)
+    .eq('month_key', mk)
+    .maybeSingle();
+
+  if (retry) {
+    return normalizeUsageRow(userId, mk, retry as Record<string, unknown>);
+  }
+
+  // Fallback — never throw; Clara must work even if quota row cannot be persisted
+  return defaultUsageRow(userId, mk);
 }
 
 export async function getCreditStatus(userId: string): Promise<CreditStatus> {
   const sub = await getSubscription(userId);
   const usage = await getUsage(userId);
-  const tier = normalizeTier(sub?.tier as string | undefined);
   const pool = creditPoolForTier(sub?.tier as string | undefined);
-  const used = Number((usage as { ai_credits_used?: number }).ai_credits_used ?? 0);
+  const used = usage.ai_credits_used;
   return {
     tier: (sub?.tier as CreditStatus['tier']) ?? 'free',
     pool,
@@ -125,7 +198,7 @@ export async function chargeCredits(userId: string, action: CreditAction): Promi
 
   const mk = monthKey();
   const usage = await getUsage(userId);
-  const newUsed = Number((usage as { ai_credits_used?: number }).ai_credits_used ?? 0) + cost;
+  const newUsed = usage.ai_credits_used + cost;
 
   if (useDevStore()) {
     const store = loadStore() as { usage_quotas?: Record<string, unknown>[] };
@@ -134,10 +207,19 @@ export async function chargeCredits(userId: string, action: CreditAction): Promi
     saveStore(store as never);
   } else {
     const db = getSupabaseAdmin();
-    try {
-      await db.from('usage_quotas').update({ ai_credits_used: newUsed }).eq('user_id', userId).eq('month_key', mk);
-    } catch (err) {
-      console.warn('ai_credits_used update failed (column may be missing):', err);
+    const { error: upsertErr } = await db.from('usage_quotas').upsert(
+      {
+        user_id: userId,
+        month_key: mk,
+        receipt_scans: usage.receipt_scans,
+        meal_plans: usage.meal_plans,
+        assistant_messages: usage.assistant_messages,
+        ai_credits_used: newUsed,
+      },
+      { onConflict: 'user_id,month_key' },
+    );
+    if (upsertErr) {
+      console.warn('ai_credits_used upsert failed:', upsertErr.message);
     }
   }
 
@@ -171,9 +253,10 @@ export async function checkAndIncrementQuota(
     const status = creditResult.status;
 
     if (!creditResult.allowed) {
+      const usageRow = await getUsage(userId);
       return {
         allowed: false,
-        usage: { ai_credits_used: status.used, ...((await getUsage(userId)) as Record<string, number>) },
+        usage: { ...usageRow, ai_credits_used: status.used },
         limits: { ai_credits_used: status.pool } as Record<string, number>,
         upgrade_required: true,
         credits: status,
@@ -201,13 +284,13 @@ export async function checkAndIncrementQuota(
     : { ...FREE_LIMITS };
 
   const usage = await getUsage(userId);
-  const current = (usage as Record<string, number>)[action] ?? 0;
+  const current = Number(usage[action] ?? 0);
   const limit = limits[action as keyof typeof limits] as number;
 
   if (current >= limit) {
     return {
       allowed: false,
-      usage: usage as Record<string, number>,
+      usage: { ...usage },
       limits: limits as Record<string, number>,
       upgrade_required: !pro,
       credits: status,
@@ -229,7 +312,7 @@ export async function checkAndIncrementQuota(
 
   return {
     allowed: true,
-    usage: { ...(usage as Record<string, number>), [action]: newVal },
+    usage: { ...usage, [action]: newVal },
     limits: limits as Record<string, number>,
     credits: await getCreditStatus(userId),
     credit_cost: options?.skipCredit ? 0 : CREDIT_COSTS[creditAction],
