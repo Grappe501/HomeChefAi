@@ -9,7 +9,10 @@ export type CreditAction =
   | 'meal_plan_long'
   | 'suggestion'
   | 'meal_explain'
-  | 'hosting_plan';
+  | 'hosting_plan'
+  | 'pantry_vision'
+  | 'expert_synthesis'
+  | 'cook_log_infer';
 
 export const CREDIT_COSTS: Record<CreditAction, number> = {
   assistant_basic: 0,
@@ -21,6 +24,9 @@ export const CREDIT_COSTS: Record<CreditAction, number> = {
   suggestion: 1,
   meal_explain: 1,
   hosting_plan: 5,
+  pantry_vision: 2,
+  expert_synthesis: 1,
+  cook_log_infer: 0,
 };
 
 export type BillingTier = 'free' | 'trial' | 'plus' | 'pro' | 'family';

@@ -26,6 +26,12 @@
 [functions."experience-plan"]
   timeout = 26
 
+[functions."pantry-scan"]
+  timeout = 26
+
+[functions."cook-infer"]
+  timeout = 20
+
 [functions."knowledge"]
   timeout = 10
 

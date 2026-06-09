@@ -1,8 +1,8 @@
 {
   "name": "homechef-ai",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "private": true,
-  "description": "SousChef v3 — Clara Brain orchestration, unified AI credits, substitution pipeline.",
+  "description": "SousChef v4 — Brain 4.0 Clara Tool Router, proactive intelligence, pantry vision, hosting studio.",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Check, Share2 } from 'lucide-react';
-import { usageApi, assistantApi, skillsApi } from '@/lib/api';
+import { usageApi, cookInferApi, assistantApi, skillsApi } from '@/lib/api';
 import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
 import { useToast } from '@/hooks/useToast';
@@ -40,13 +40,23 @@ export default function CookLog() {
     setLoading(true);
     setCoachTips([]);
     try {
-      const result = await assistantApi.chat(input);
+      let result = await cookInferApi.infer(input);
+      if (!result.suggested_items?.length && result.confidence < 0.55) {
+        const ai = await assistantApi.chat(input);
+        result = {
+          reply: ai.reply,
+          suggested_items: ai.suggested_items ?? [],
+          confidence: 0.75,
+          source: 'graph',
+          credit_cost: ai.credit_cost ?? 1,
+        };
+      }
       setMealName(input);
       if (result.suggested_items?.length) {
         setSuggested(result.suggested_items);
         await loadCoaching(input, result.suggested_items.map((i) => i.name));
-        speak(result.reply);
-      } else {
+        speak(result.reply || 'Confirm these ingredients.');
+      } else if (result.reply) {
         await loadCoaching(input, []);
         speak(result.reply);
       }

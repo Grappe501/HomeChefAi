@@ -23,6 +23,12 @@ export const handler: Handler = withCors(async (event) => {
       return jsonResponse({ ledger: entries, count: entries.length });
     }
 
+    if (action === 'predictions') {
+      const { buildKitchenPredictions } = await import('./utils/ai/kitchenPredictions.js');
+      const result = await buildKitchenPredictions(userId, user.token);
+      return jsonResponse(result);
+    }
+
     if (useDevStore()) {
       const store = loadStore() as DevStore & { household_memories?: StoredMemory[] };
       const memories = (store.household_memories ?? []).filter((m) => m.user_id === userId);

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Send, Volume2 } from 'lucide-react';
 import { assistantApi, billingApi, ApiError } from '@/lib/api';
 import { speak } from '@/lib/utils';
@@ -23,6 +24,7 @@ interface Message {
 
 export default function Assistant() {
   const { profile } = useApp();
+  const [searchParams] = useSearchParams();
   const assistantName = assistantFirstName(profile?.assistant_name);
   const [creditsRemaining, setCreditsRemaining] = useState<number | undefined>();
   const [messages, setMessages] = useState<Message[]>([
@@ -45,6 +47,11 @@ export default function Assistant() {
       if (s.credits) setCreditsRemaining(s.credits.remaining);
     }).catch(() => {});
   }, []);
+
+  useEffect(() => {
+    const q = searchParams.get('q');
+    if (q) setInput(q);
+  }, [searchParams]);
 
   const send = async (text: string) => {
     if (!text.trim() || loading) return;

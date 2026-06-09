@@ -5,7 +5,9 @@ import { brainApi } from '@/lib/api';
 import { useApp } from '@/hooks/useApp';
 import type { BrainInsight } from '@/types/brain';
 import type { InferredCookingStyle } from '@/types/householdGraph';
+import type { KitchenPrediction } from '@/types/kitchenPredictions';
 import BrainInsightCard from '@/components/BrainInsightCard';
+import ProactiveKitchenCards from '@/components/ProactiveKitchenCards';
 import SousChefMark from '@/components/SousChefMark';
 import { assistantFirstName } from '@/lib/assistant';
 import { useToast } from '@/hooks/useToast';
@@ -16,12 +18,15 @@ export default function BrainPage() {
   const [insights, setInsights] = useState<BrainInsight[]>([]);
   const [learning, setLearning] = useState(0);
   const [cookingStyle, setCookingStyle] = useState<InferredCookingStyle | null>(null);
+  const [predictions, setPredictions] = useState<KitchenPrediction[]>([]);
+  const [predictionsLoading, setPredictionsLoading] = useState(true);
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
   const toast = useToast();
 
   const load = () => {
     setLoading(true);
+    setPredictionsLoading(true);
     brainApi
       .insights()
       .then((r) => {
@@ -31,6 +36,11 @@ export default function BrainPage() {
       })
       .catch(() => toast.error(`Could not load ${assistantName}'s notes`))
       .finally(() => setLoading(false));
+    brainApi
+      .predictions()
+      .then((r) => setPredictions(r.predictions))
+      .catch(() => {})
+      .finally(() => setPredictionsLoading(false));
   };
 
   useEffect(() => {
@@ -79,6 +89,8 @@ export default function BrainPage() {
           )}
         </section>
       )}
+
+      <ProactiveKitchenCards predictions={predictions} loading={predictionsLoading} />
 
       {loading && (
         <div className="card text-sm text-chef-subtle min-h-[52px] flex items-center">Loading…</div>

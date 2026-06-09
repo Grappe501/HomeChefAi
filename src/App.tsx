@@ -6,6 +6,8 @@ import Onboarding from './pages/Onboarding';
 import Dashboard from './pages/Dashboard';
 import Inventory from './pages/Inventory';
 import ReceiptScan from './pages/ReceiptScan';
+import PantryScan from './pages/PantryScan';
+import HostingStudio from './pages/HostingStudio';
 import PantryWizard from './pages/PantryWizard';
 import MealPlanner from './pages/MealPlanner';
 import CookLog from './pages/CookLog';
@@ -65,6 +67,8 @@ function AuthenticatedRoutes() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/receipt" element={<ReceiptScan />} />
+        <Route path="/pantry-scan" element={<PantryScan />} />
+        <Route path="/hosting" element={<HostingStudio />} />
         <Route path="/wizard" element={<PantryWizard />} />
         <Route path="/meals" element={<MealPlanner />} />
         <Route path="/calendar" element={<Calendar />} />

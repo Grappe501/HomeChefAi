@@ -83,6 +83,7 @@ export async function buildClaraContext(
 
 export function formatClaraContextForPrompt(ctx: ClaraContextBundle): string {
   const parts = [
+    ctx.pantry_summary ? `Pantry: ${ctx.pantry_summary}` : '',
     ctx.expiring_block,
     ctx.memory_block,
     ctx.ledger_hint,

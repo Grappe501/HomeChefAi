@@ -242,6 +242,31 @@ export const skillsApi = {
     api<{ techniques: { id: string; name: string; micro_lesson?: string }[] }>('skills?action=list'),
 };
 
+export const pantryScanApi = {
+  scan: (image: string) =>
+    api<{
+      parsed: import('@/types/kitchenPredictions').PantryScanResult;
+      credit_cost?: number;
+      credits_remaining?: number;
+    }>('pantry-scan', {
+      method: 'POST',
+      body: JSON.stringify({ image }),
+    }),
+  confirm: (items: import('@/types/kitchenPredictions').PantryScanItem[]) =>
+    api<{ items_added: number }>('pantry-scan', {
+      method: 'POST',
+      body: JSON.stringify({ action: 'confirm', items }),
+    }),
+};
+
+export const cookInferApi = {
+  infer: (meal_description: string, force_ai?: boolean) =>
+    api<import('@/types/kitchenPredictions').CookInferResult & { credits_remaining?: number }>('cook-infer', {
+      method: 'POST',
+      body: JSON.stringify({ meal_description, force_ai }),
+    }),
+};
+
 export const assistantApi = {
   chat: (message: string, history?: { role: string; content: string }[]) =>
     api<{
@@ -298,6 +323,8 @@ export const brainApi = {
       kitchen_identity?: import('@/types/platform').KitchenIdentity | null;
       inferred_cooking_style?: import('@/types/householdGraph').InferredCookingStyle | null;
     }>('brain'),
+  predictions: () =>
+    api<import('@/types/kitchenPredictions').KitchenPredictionsResult>('brain?action=predictions'),
   memory: (id: string) =>
     api<{ memory: import('@/types/brain').BrainInsight }>(`brain?id=${id}`),
   getRecentLedger: (domain?: string, limit = 20) =>

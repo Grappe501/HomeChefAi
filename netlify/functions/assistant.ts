@@ -15,9 +15,9 @@ import {
 } from './utils/ai/orchestrator.js';
 import { buildExperiencePlan, type ExperienceType } from './utils/ai/experienceTimeline.js';
 import { logGenerationToLedger } from './utils/ai/ledgerStore.js';
-import { buildClaraContext, formatClaraContextForPrompt } from './utils/ai/buildClaraContext.js';
 import { runSubstitutionPipeline } from './utils/ai/substitutionPipeline.js';
-import { expertsForIntent } from './utils/ai/brainRegistry.js';
+import { routeClaraReply } from './utils/ai/claraToolRouter.js';
+import { needsExpertSynthesis } from './utils/ai/expertSynthesis.js';
 
 function detectExperienceType(message: string): ExperienceType {
   if (/\bgame\s*day\b/i.test(message)) return 'game_day';
@@ -166,58 +166,7 @@ async function assistantReply(
     };
   }
 
-  const ctx = await buildClaraContext(
-    profile.user_id,
-    token,
-    inventory,
-    profile,
-    intent === 'general' ? 'chat' : intent,
-  );
-  const contextBlock = formatClaraContextForPrompt(ctx);
-  const experts = expertsForIntent(intent === 'general' ? 'chat' : intent);
-  const expertBrief = experts
-    .filter((e) => e.id !== 'sous_chef')
-    .map((e) => `${e.displayName}: ${e.role}`)
-    .join('; ');
-
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini',
-      messages: [
-        {
-          role: 'system',
-          content: `${experts.find((e) => e.id === 'sous_chef')?.systemPromptPrefix ?? 'You are Clara, a kitchen sous chef.'}
-User dietary: ${profile.dietary_restrictions.join(', ') || 'none'}. Cuisines: ${profile.cuisine_preferences.join(', ') || 'any'}. Allergies: ${profile.allergies.join(', ') || 'none'}.
-Expert advisors active: ${expertBrief}.
-Pantry — each line includes knowledge_id in brackets:
-${inventoryBlock}
-${contextBlock ? `\nKitchen context:\n${contextBlock}` : ''}
-When user asks what to cook, offer 2–3 distinct flavor directions unless they picked one.
-When user says they cooked something, suggest ingredients used and ask for confirmation.
-For substitutions, prefer pantry items with matching knowledge ids.
-Return JSON: {"reply":"string","suggested_items":[{"name":"string","quantity":number,"unit":"string"}],"action":"confirm_usage|suggest_meal|pick_direction|general"}
-Be concise, warm, evidence-based. Never invent cook history not in context.`,
-        },
-        ...history.slice(-6),
-        { role: 'user', content: message },
-      ],
-      max_tokens: 500,
-      response_format: { type: 'json_object' },
-    }),
-  });
-
-  if (!response.ok) throw new Error('Assistant failed');
-  const data = (await response.json()) as { choices: { message: { content: string } }[] };
-  const parsed = JSON.parse(data.choices[0].message.content) as {
-    reply: string;
-    suggested_items?: { name: string; quantity: number; unit: string }[];
-    action?: string;
-  };
+  const routed = await routeClaraReply(message, inventory, profile, history, token);
 
   await logGenerationToLedger(
     profile.user_id,
@@ -225,21 +174,29 @@ Be concise, warm, evidence-based. Never invent cook history not in context.`,
     `generation:chat:${Date.now()}`,
     {
       domain: 'chat',
-      recommendation: parsed.reply.slice(0, 200),
-      why: `Assistant reply for intent: ${intent}`,
-      evidence: ctx.evidence,
-      confidence: 0.65,
-      expert_ids: ctx.expert_ids,
-      metadata: { intent, action: parsed.action },
+      recommendation: routed.reply.slice(0, 200),
+      why: routed.synthesis ? 'Expert synthesis + tool router' : `Tool router · ${(routed.tools_used ?? []).join(', ')}`,
+      evidence: routed.evidence ?? [],
+      confidence: routed.synthesis ? 0.78 : 0.68,
+      expert_ids: routed.expert_ids ?? [],
+      metadata: {
+        intent: routed.intent,
+        action: routed.action,
+        tools_used: routed.tools_used,
+        synthesis: routed.synthesis,
+      },
     },
     profile.household_id,
   );
 
   return {
-    ...parsed,
-    intent,
-    evidence: ctx.evidence,
-    expert_ids: ctx.expert_ids,
+    reply: routed.reply,
+    suggested_items: routed.suggested_items,
+    action: routed.action,
+    directions: routed.directions,
+    intent: routed.intent,
+    evidence: routed.evidence,
+    expert_ids: routed.expert_ids,
   };
 }
 
@@ -258,6 +215,7 @@ export const handler: Handler = withCors(async (event) => {
     else if (intent === 'substitution') creditAction = 'assistant_basic';
     else if (intent === 'hosting') creditAction = 'hosting_plan';
     else if (intent === 'suggestion' || wantsDirectionsFirst(body.message)) creditAction = 'suggestion';
+    else if (needsExpertSynthesis(body.message, intent)) creditAction = 'expert_synthesis';
 
     const credit = await chargeCredits(userId, creditAction);
     if (!credit.allowed) {

@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Camera, Wand2, CalendarDays, Package, BookOpen } from 'lucide-react';
+import { Camera, Wand2, CalendarDays, Package, BookOpen, Sparkles, PartyPopper } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
 import { inventoryApi, mealsApi, brainApi } from '@/lib/api';
 import type { InventoryItem, MealPlan } from '@/types';
 import type { BrainInsight } from '@/types/brain';
+import type { KitchenPrediction } from '@/types/kitchenPredictions';
 import CookTogetherCard from '@/components/CookTogetherCard';
 import BrainInsightCard from '@/components/BrainInsightCard';
+import ProactiveKitchenCards from '@/components/ProactiveKitchenCards';
 import SousChefMark from '@/components/SousChefMark';
 import { assistantFirstName } from '@/lib/assistant';
 
@@ -77,6 +79,8 @@ export default function Dashboard() {
   const [items, setItems] = useState<InventoryItem[]>([]);
   const [plans, setPlans] = useState<MealPlan[]>([]);
   const [insights, setInsights] = useState<BrainInsight[]>([]);
+  const [predictions, setPredictions] = useState<KitchenPrediction[]>([]);
+  const [predictionsLoading, setPredictionsLoading] = useState(true);
   const assistantName = assistantFirstName(profile?.assistant_name);
   const kitchenName = profile?.household_display_name || 'Your Kitchen';
 
@@ -84,6 +88,11 @@ export default function Dashboard() {
     inventoryApi.list().then((r) => setItems(r.items)).catch(() => {});
     mealsApi.list().then((r) => setPlans(r.plans)).catch(() => {});
     brainApi.insights().then((r) => setInsights(r.insights.slice(0, 3))).catch(() => {});
+    brainApi
+      .predictions()
+      .then((r) => setPredictions(r.predictions))
+      .catch(() => {})
+      .finally(() => setPredictionsLoading(false));
   }, []);
 
   const expiring = items.filter((i) => {
@@ -124,6 +133,8 @@ export default function Dashboard() {
           {action.label}
         </Link>
       </section>
+
+      <ProactiveKitchenCards predictions={predictions} loading={predictionsLoading} />
 
       <section className="space-y-3">
         <div className="flex items-center justify-between gap-4">
@@ -196,6 +207,14 @@ export default function Dashboard() {
           <Link to="/receipt" className="action-tile">
             <Camera className="text-chef" size={24} />
             <span className="font-medium text-sm">Scan Receipt</span>
+          </Link>
+          <Link to="/pantry-scan" className="action-tile">
+            <Sparkles className="text-chef" size={24} />
+            <span className="font-medium text-sm">Pantry Photo</span>
+          </Link>
+          <Link to="/hosting" className="action-tile">
+            <PartyPopper className="text-chef" size={24} />
+            <span className="font-medium text-sm">Hosting</span>
           </Link>
           <Link to="/wizard" className="action-tile">
             <Wand2 className="text-chef" size={24} />
