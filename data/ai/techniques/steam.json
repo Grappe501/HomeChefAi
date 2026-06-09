@@ -6,7 +6,8 @@
     "cuisine_tags": [
       "asian",
       "healthy"
-    ]
+    ],
+    "micro_lesson": "Keep the lid on; escaping steam is lost cooking power."
   },
   "sources": [
     "generate-pantry-knowledge"

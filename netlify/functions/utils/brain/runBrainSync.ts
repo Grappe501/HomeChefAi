@@ -335,6 +335,7 @@ function loadBrainContextDevStore(
           id: l.id,
           meal_name: l.meal_name,
           items_used: l.items_used,
+          technique_ids: l.technique_ids,
           created_at: l.created_at ?? new Date().toISOString(),
         })),
       wasteEvents: store.waste_events ?? [],

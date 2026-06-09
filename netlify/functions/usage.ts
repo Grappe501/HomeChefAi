@@ -5,6 +5,8 @@ import { useDevStore, loadStore, saveStore } from './utils/db.js';
 import { getSupabaseUserClient } from './utils/supabase.js';
 import { awardXpDevStore, awardXpSupabase, XP_AWARDS } from './utils/gamification.js';
 import { runBrainSyncDevStore, runBrainSyncSupabase, getBrainScopeDevStore, getBrainScopeSupabase } from './utils/brain/runBrainSync.js';
+import { inferTechniquesFromText } from './utils/ai/skills.js';
+import { recordSkillPractice } from './utils/ai/skillJourneyStore.js';
 
 export const handler: Handler = withCors(async (event) => {
   const user = await requireAuth(event);
@@ -18,8 +20,17 @@ export const handler: Handler = withCors(async (event) => {
       items_used: { item_id?: string; name: string; quantity: number; unit: string }[];
       share_recipe?: boolean;
       recipe_public?: boolean;
+      technique_ids?: string[];
     }>(event);
     if (!body?.items_used) return errorResponse('Missing items_used');
+
+    const inferredTechniques =
+      body.technique_ids?.length
+        ? body.technique_ids
+        : inferTechniquesFromText(
+            body.meal_name ?? body.description ?? '',
+            body.items_used.map((i) => i.name),
+          );
 
     const logId = uuidv4();
     const log = {
@@ -28,6 +39,8 @@ export const handler: Handler = withCors(async (event) => {
       description: body.description,
       meal_name: body.meal_name,
       items_used: body.items_used,
+      technique_ids: inferredTechniques,
+      skill_metadata: { source: 'cook_log' },
       created_at: new Date().toISOString(),
     };
 
@@ -54,6 +67,7 @@ export const handler: Handler = withCors(async (event) => {
       }
       const scope = getBrainScopeDevStore(store, userId);
       runBrainSyncDevStore(store, scope);
+      await recordSkillPractice(userId, undefined, inferredTechniques);
       saveStore(store);
       return jsonResponse({ log, inventory_updated: true }, 201);
     }
@@ -67,6 +81,8 @@ export const handler: Handler = withCors(async (event) => {
       description: body.description,
       meal_name: body.meal_name,
       items_used: body.items_used,
+      technique_ids: inferredTechniques,
+      skill_metadata: { source: 'cook_log' },
     });
 
     for (const used of body.items_used) {
@@ -99,6 +115,7 @@ export const handler: Handler = withCors(async (event) => {
 
     const scope = await getBrainScopeSupabase(db, userId);
     await runBrainSyncSupabase(db, scope);
+    await recordSkillPractice(userId, user.token, inferredTechniques);
 
     let recipe = null;
     if (body.share_recipe && body.meal_name) {

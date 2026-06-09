@@ -6,9 +6,11 @@
     "cuisine_tags": [
       "french",
       "italian"
-    ]
+    ],
+    "micro_lesson": "Cook until onions turn translucent — that sweetness is your flavor base."
   },
   "sources": [
     "generate-pantry-knowledge"
-  ]
+  ],
+  "description": "Quick cooking in a small amount of fat over medium-high heat."
 }

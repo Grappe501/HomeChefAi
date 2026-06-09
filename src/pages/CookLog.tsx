@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Check, Share2 } from 'lucide-react';
-import { usageApi, assistantApi } from '@/lib/api';
+import { usageApi, assistantApi, skillsApi } from '@/lib/api';
 import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
 import { useToast } from '@/hooks/useToast';
 import { VoiceInput } from '@/components/VoiceButton';
+import { CookTogetherCoach } from '@/components/CookTogetherCoach';
+import type { TechniqueCoachTip } from '@/types/journey';
 
 interface SuggestedItem {
   name: string;
@@ -22,17 +24,30 @@ export default function CookLog() {
   const [shareRecipe, setShareRecipe] = useState(true);
   const [confirmed, setConfirmed] = useState(false);
   const [shared, setShared] = useState(false);
+  const [coachTips, setCoachTips] = useState<TechniqueCoachTip[]>([]);
+
+  const loadCoaching = async (meal: string, ingredients: string[]) => {
+    try {
+      const { tips } = await skillsApi.coach(meal, ingredients);
+      setCoachTips(tips);
+    } catch {
+      setCoachTips([]);
+    }
+  };
 
   const handleSubmit = async () => {
     if (!input.trim()) return;
     setLoading(true);
+    setCoachTips([]);
     try {
       const result = await assistantApi.chat(input);
       setMealName(input);
       if (result.suggested_items?.length) {
         setSuggested(result.suggested_items);
+        await loadCoaching(input, result.suggested_items.map((i) => i.name));
         speak(result.reply);
       } else {
+        await loadCoaching(input, []);
         speak(result.reply);
       }
     } catch (err) {
@@ -52,6 +67,7 @@ export default function CookLog() {
         items_used: suggested,
         share_recipe: shareRecipe,
         recipe_public: true,
+        technique_ids: coachTips.map((t) => t.technique_id),
       });
       await refreshProfile();
       const xp = (result as { xp_gained?: number }).xp_gained ?? 25;
@@ -65,6 +81,7 @@ export default function CookLog() {
         setMealName('');
         setConfirmed(false);
         setShared(false);
+        setCoachTips([]);
       }, 2500);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Failed to update pantry');
@@ -109,6 +126,7 @@ export default function CookLog() {
               </div>
             </div>
           ))}
+          <CookTogetherCoach tips={coachTips} />
           <label className="flex items-center gap-3 text-sm text-chef-subtle min-h-[52px] py-2">
             <input type="checkbox" checked={shareRecipe} onChange={(e) => setShareRecipe(e.target.checked)} className="w-5 h-5 rounded" />
             Share this meal as a community recipe

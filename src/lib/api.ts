@@ -185,9 +185,28 @@ interface CalEvent {
 }
 
 export const usageApi = {
-  log: (data: { description?: string; meal_name?: string; items_used: { name: string; quantity: number; unit: string; item_id?: string }[]; share_recipe?: boolean; recipe_public?: boolean }) =>
+  log: (data: {
+    description?: string;
+    meal_name?: string;
+    items_used: { name: string; quantity: number; unit: string; item_id?: string }[];
+    share_recipe?: boolean;
+    recipe_public?: boolean;
+    technique_ids?: string[];
+  }) =>
     api<{ log: unknown; inventory_updated?: boolean; recipe?: unknown }>('usage', { method: 'POST', body: JSON.stringify(data) }),
   list: () => api<{ logs: import('@/types').UsageLog[] }>('usage'),
+};
+
+export const skillsApi = {
+  coach: (meal: string, ingredients?: string[]) => {
+    const qs = new URLSearchParams({ meal });
+    if (ingredients?.length) qs.set('ingredients', ingredients.join(','));
+    return api<{ tips: import('@/types/journey').TechniqueCoachTip[]; inferred_technique_ids: string[] }>(
+      `skills?${qs.toString()}`,
+    );
+  },
+  listTechniques: () =>
+    api<{ techniques: { id: string; name: string; micro_lesson?: string }[] }>('skills?action=list'),
 };
 
 export const assistantApi = {

@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { computeCountConfidence, computeCycleConfidence, meetsThreshold } from './confidence.js';
+import { generateSkillObservedMemories } from './skillMemories.js';
 import {
   type BrainContext,
   type GeneratedMemory,
@@ -31,6 +32,7 @@ export function generateMemories(ctx: BrainContext): GeneratedMemory[] {
   memories.push(...generatePreferenceMemories(ctx));
   memories.push(...generateCookingDayMemories(ctx));
   memories.push(...generateShoppingMemories(ctx));
+  memories.push(...generateSkillObservedMemories(ctx));
   return memories;
 }
 

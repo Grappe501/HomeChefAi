@@ -149,6 +149,8 @@ export interface UsageLog {
   description?: string;
   meal_name?: string;
   items_used: { item_id?: string; name: string; quantity: number; unit: string }[];
+  technique_ids?: string[];
+  skill_metadata?: Record<string, unknown>;
   created_at?: string;
 }
 

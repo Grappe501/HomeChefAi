@@ -5,7 +5,8 @@
   "attributes": {
     "cuisine_tags": [
       "french"
-    ]
+    ],
+    "micro_lesson": "Scrape the fond — that brown layer is concentrated flavor."
   },
   "sources": [
     "generate-pantry-knowledge"

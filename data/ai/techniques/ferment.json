@@ -5,7 +5,8 @@
   "attributes": {
     "cuisine_tags": [
       "preservation"
-    ]
+    ],
+    "micro_lesson": "Salt and time control safety — follow tested ratios for pickles."
   },
   "sources": [
     "generate-pantry-knowledge"

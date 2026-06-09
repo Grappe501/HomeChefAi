@@ -39,6 +39,18 @@ export interface DevStore {
   waste_events?: BrainWasteRow[];
   decision_ledger?: DecisionLedgerRow[];
   household_graph_edges?: HouseholdGraphEdgeRow[];
+  skill_journey_progress?: SkillProgressRow[];
+}
+
+export interface SkillProgressRow {
+  id: string;
+  user_id: string;
+  technique_id: string;
+  practice_count: number;
+  comfort_level: string;
+  last_practiced_at: string;
+  milestones_unlocked: string[];
+  updated_at: string;
 }
 
 export interface HouseholdGraphEdgeRow {

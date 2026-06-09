@@ -5,7 +5,8 @@
   "attributes": {
     "cuisine_tags": [
       "french"
-    ]
+    ],
+    "micro_lesson": "Liquid should shimmer, never boil — perfect for eggs and delicate fish."
   },
   "sources": [
     "generate-pantry-knowledge"

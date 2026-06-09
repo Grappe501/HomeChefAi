@@ -6,7 +6,8 @@
     "cuisine_tags": [
       "baking",
       "italian"
-    ]
+    ],
+    "micro_lesson": "Stop when dough is smooth and springs back — over-kneading toughens bread."
   },
   "sources": [
     "generate-pantry-knowledge"
