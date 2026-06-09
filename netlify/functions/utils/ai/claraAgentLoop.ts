@@ -76,6 +76,7 @@ export async function runClaraAgentLoop(
   let agent_steps = 0;
   let search_mode: ClaraRoutedReply['search_mode'];
   let pending_preference: ClaraRoutedReply['pending_preference'];
+  let pending_inventory_deltas: ClaraRoutedReply['pending_inventory_deltas'];
 
   const emit = (event: AgentStreamEvent) => onProgress?.(event);
 
@@ -104,8 +105,9 @@ export async function runClaraAgentLoop(
       content: `You are ${profile.assistant_name}, Sous Chef Clara (Agent Suite v6 ${phaseLabel}).
 Use tools to gather evidence before answering. Call tools when you need pantry, dish search, knowledge, or brain context.
 User dietary: ${profile.dietary_restrictions.join(', ') || 'none'}. Allergies: ${profile.allergies.join(', ') || 'none'}.
-After tools, respond with JSON only: {"reply":"string","suggested_items":[{"name":"string","quantity":number,"unit":"string"}],"action":"confirm_usage|confirm_preference|suggest_meal|pick_direction|general"}
-When remember_preference was used, set action to confirm_preference and ask Chef to confirm saving the preference.
+After tools, respond with JSON only: {"reply":"string","suggested_items":[{"name":"string","quantity":number,"unit":"string"}],"action":"confirm_usage|confirm_preference|confirm_inventory_delta|suggest_meal|pick_direction|general"}
+When remember_preference was used, set action to confirm_preference. When apply_inventory_delta was used, set action to confirm_inventory_delta.
+When suggesting pantry deductions from cooking, set action to confirm_usage with suggested_items.
 Never invent cook history. Prefer dish library IDs when recommending recipes.`,
     },
     ...history.slice(-4),
@@ -154,6 +156,7 @@ Never invent cook history. Prefer dish library IDs when recommending recipes.`,
         const result = await executeAgentTool(toolName, args, toolCtx);
         if (result.search_mode) search_mode = result.search_mode;
         if (result.pending_preference) pending_preference = result.pending_preference;
+        if (result.pending_inventory_deltas) pending_inventory_deltas = result.pending_inventory_deltas;
 
         tools_used.push(toolName);
         toolOutputs.push(`[${toolName}]\n${result.output}`);
@@ -212,17 +215,36 @@ Never invent cook history. Prefer dish library IDs when recommending recipes.`,
         agent_steps,
         search_mode,
         pending_preference,
-        action: pending_preference ? 'confirm_preference' : merged.action,
+        pending_inventory_deltas,
+        action: pending_inventory_deltas
+          ? 'confirm_inventory_delta'
+          : pending_preference
+            ? 'confirm_preference'
+            : merged.action,
       };
       emit({ type: 'reply', reply });
       return reply;
     }
 
+    const usageConfirm =
+      parsed.suggested_items?.length && (parsed.action === 'confirm_usage' || !parsed.action)
+        ? 'confirm_usage'
+        : parsed.action;
+
     const reply: ClaraRoutedReply = {
       reply: parsed.reply,
       suggested_items: parsed.suggested_items,
-      action: pending_preference ? 'confirm_preference' : parsed.action,
+      action: pending_inventory_deltas
+        ? 'confirm_inventory_delta'
+        : pending_preference
+          ? 'confirm_preference'
+          : usageConfirm,
       pending_preference,
+      pending_inventory_deltas,
+      pending_usage:
+        parsed.suggested_items?.length
+          ? { items: parsed.suggested_items, meal_label: message.slice(0, 80) }
+          : undefined,
       intent,
       evidence: [...new Set(evidence)].slice(0, 14),
       expert_ids: [],

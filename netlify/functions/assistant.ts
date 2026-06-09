@@ -221,6 +221,8 @@ async function assistantReply(
     suggested_items: routed.suggested_items,
     action: routed.action,
     pending_preference: routed.pending_preference,
+    pending_inventory_deltas: routed.pending_inventory_deltas,
+    pending_usage: routed.pending_usage,
     directions: routed.directions,
     intent: routed.intent,
     evidence: routed.evidence,

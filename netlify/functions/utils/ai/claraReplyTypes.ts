@@ -5,12 +5,15 @@
 import type { MealDirection } from '../../../../src/types/mealDirections.js';
 import type { ExpertOutput } from './expertSynthesis.js';
 import type { PendingPreference } from '../../../../src/types/tasteLearning.js';
+import type { PendingInventoryDelta, PendingUsageConfirm } from '../../../../src/types/inventorySteward.js';
 
 export interface ClaraRoutedReply {
   reply: string;
   suggested_items?: { name: string; quantity: number; unit: string }[];
   action?: string;
   pending_preference?: PendingPreference;
+  pending_inventory_deltas?: PendingInventoryDelta;
+  pending_usage?: PendingUsageConfirm;
   directions?: MealDirection[];
   intent?: string;
   evidence?: string[];

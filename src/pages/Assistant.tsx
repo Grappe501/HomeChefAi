@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Send, Volume2 } from 'lucide-react';
-import { assistantApi, billingApi, learningApi, ApiError } from '@/lib/api';
+import { assistantApi, billingApi, learningApi, inventoryStewardApi, ApiError } from '@/lib/api';
 import { speak } from '@/lib/utils';
 import { useApp } from '@/hooks/useApp';
 import { assistantFirstName } from '@/lib/assistant';
@@ -9,7 +9,9 @@ import VoiceButton from '@/components/VoiceButton';
 import SousChefMark from '@/components/SousChefMark';
 import { ClaraEvidenceChips } from '@/components/ClaraEvidenceChips';
 import { PreferenceConfirmCard } from '@/components/TasteLearningCards';
+import { InventoryDeltaConfirmCard, UsageConfirmCard } from '@/components/InventoryStewardCards';
 import type { PendingPreference } from '@/types/tasteLearning';
+import type { PendingInventoryDelta, PendingUsageConfirm } from '@/types/inventorySteward';
 
 import type { MealDirection } from '@/types/mealDirections';
 
@@ -24,6 +26,9 @@ interface Message {
   credits_remaining?: number;
   tools_used?: string[];
   pending_preference?: PendingPreference;
+  pending_inventory_deltas?: PendingInventoryDelta;
+  pending_usage?: PendingUsageConfirm;
+  suggested_items?: { name: string; quantity: number; unit: string }[];
   action?: string;
 }
 
@@ -37,6 +42,9 @@ const TOOL_LABELS: Record<string, string> = {
   skill_coach: 'Coaching technique',
   get_taste_profile: 'Reading taste profile',
   remember_preference: 'Staging preference',
+  reconcile_inventory: 'Reconciling pantry',
+  audit_pantry: 'Auditing pantry',
+  apply_inventory_delta: 'Staging pantry update',
 };
 
 function shouldUseAgentStream(message: string): boolean {
@@ -69,6 +77,7 @@ export default function Assistant() {
   const [synthesisDraft, setSynthesisDraft] = useState('');
   const [voiceError, setVoiceError] = useState<string | null>(null);
   const [savingPreference, setSavingPreference] = useState(false);
+  const [savingInventory, setSavingInventory] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -141,6 +150,13 @@ export default function Assistant() {
         credits_remaining: result.credits_remaining,
         tools_used: result.tools_used,
         pending_preference: result.pending_preference,
+        pending_inventory_deltas: result.pending_inventory_deltas,
+        pending_usage: result.pending_usage ?? (
+          result.suggested_items?.length && result.action === 'confirm_usage'
+            ? { items: result.suggested_items }
+            : undefined
+        ),
+        suggested_items: result.suggested_items,
         action: result.action,
       };
       if (result.credits_remaining !== undefined) setCreditsRemaining(result.credits_remaining);
@@ -187,11 +203,65 @@ export default function Assistant() {
     }
   };
 
+  const confirmInventoryDelta = async (pending: PendingInventoryDelta, msgIndex: number) => {
+    setSavingInventory(true);
+    try {
+      const result = await inventoryStewardApi.applyDelta(pending.deltas);
+      setMessages((m) =>
+        m.map((msg, i) =>
+          i === msgIndex
+            ? {
+                ...msg,
+                pending_inventory_deltas: undefined,
+                action: undefined,
+                content: `${msg.content}\n\nPantry updated${result.errors.length ? ` (${result.errors.join(', ')})` : ''}.`,
+              }
+            : msg,
+        ),
+      );
+    } catch {
+      setMessages((m) => [...m, { role: 'assistant', content: 'Could not update pantry. Try again from Inventory.' }]);
+    } finally {
+      setSavingInventory(false);
+    }
+  };
+
+  const confirmUsage = async (pending: PendingUsageConfirm, msgIndex: number) => {
+    setSavingInventory(true);
+    try {
+      const deltas = pending.items.map((item) => ({
+        action: 'subtract' as const,
+        name: item.name,
+        quantity: item.quantity,
+        unit: item.unit,
+      }));
+      await inventoryStewardApi.applyDelta(deltas);
+      setMessages((m) =>
+        m.map((msg, i) =>
+          i === msgIndex
+            ? {
+                ...msg,
+                pending_usage: undefined,
+                suggested_items: undefined,
+                action: undefined,
+                content: `${msg.content}\n\nGot it — pantry updated.`,
+              }
+            : msg,
+        ),
+      );
+    } catch {
+      setMessages((m) => [...m, { role: 'assistant', content: 'Could not deduct those items.' }]);
+    } finally {
+      setSavingInventory(false);
+    }
+  };
+
   const quickPrompts = [
     'What can I make for dinner?',
     "I'm out of eggs — what can I use?",
     "What's expiring soon?",
-    'Substitute for butter',
+    'What expires this week?',
+    'Audit my pantry',
   ];
 
   return (
@@ -247,6 +317,34 @@ export default function Assistant() {
                       </button>
                     ))}
                   </div>
+                )}
+                {msg.role === 'assistant' && msg.pending_usage && msg.action === 'confirm_usage' && (
+                  <UsageConfirmCard
+                    pending={msg.pending_usage}
+                    saving={savingInventory}
+                    onConfirm={() => confirmUsage(msg.pending_usage!, i)}
+                    onDismiss={() =>
+                      setMessages((m) =>
+                        m.map((row, idx) =>
+                          idx === i ? { ...row, pending_usage: undefined, action: undefined } : row,
+                        ),
+                      )
+                    }
+                  />
+                )}
+                {msg.role === 'assistant' && msg.pending_inventory_deltas && msg.action === 'confirm_inventory_delta' && (
+                  <InventoryDeltaConfirmCard
+                    pending={msg.pending_inventory_deltas}
+                    saving={savingInventory}
+                    onConfirm={() => confirmInventoryDelta(msg.pending_inventory_deltas!, i)}
+                    onDismiss={() =>
+                      setMessages((m) =>
+                        m.map((row, idx) =>
+                          idx === i ? { ...row, pending_inventory_deltas: undefined, action: undefined } : row,
+                        ),
+                      )
+                    }
+                  />
                 )}
                 {msg.role === 'assistant' && msg.pending_preference && msg.action === 'confirm_preference' && (
                   <PreferenceConfirmCard

@@ -12,7 +12,8 @@ export type DecisionDomain =
   | 'suggestion'
   | 'substitution'
   | 'hosting'
-  | 'preference';
+  | 'preference'
+  | 'inventory';
 
 export type DecisionOutcome = 'accepted' | 'rejected' | 'replaced' | 'pending';
 

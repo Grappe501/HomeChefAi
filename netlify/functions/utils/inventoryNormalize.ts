@@ -4,6 +4,7 @@
 
 import { searchKnowledge } from './ai/knowledgeLoader.js';
 import { resolveWizardKnowledgeIdSimple } from '../../../src/types/knowledgeIdCore.js';
+import { predictExpirationDate, shouldInferExpiration } from './inventory/expirationPredict.js';
 
 const VALID_CATEGORIES = new Set([
   'produce', 'dairy', 'meat', 'pantry', 'frozen', 'beverage', 'other', 'spice',
@@ -137,7 +138,10 @@ export function normalizeScanItem(
   const category = normalizeCategory(item.category, name);
   const unit = inferInventoryUnit(name, item.unit);
   const location = normalizeLocation(item.location, name, category);
-  const expiration = sanitizeExpirationDate(item.suggested_expiration ?? (item as { expiration_date?: string }).expiration_date);
+  let expiration = sanitizeExpirationDate(item.suggested_expiration ?? (item as { expiration_date?: string }).expiration_date);
+  if (!expiration && shouldInferExpiration(name, item.needs_expiration)) {
+    expiration = predictExpirationDate(name, location);
+  }
 
   return {
     name,

@@ -18,6 +18,8 @@ import { getTasteProfileSummary } from '../learning/tasteStore.js';
 import { formatTasteProfileForPrompt } from '../learning/tasteProfileEngine.js';
 import { ensureSearchPack } from './dishSearchPack.js';
 import type { PendingPreference, PreferenceKind } from '../../../../src/types/tasteLearning.js';
+import type { InventoryDelta, PendingInventoryDelta } from '../../../../src/types/inventorySteward.js';
+import { buildStewardPreview, findLowStock } from '../inventory/stewardEngine.js';
 
 export type AgentToolName =
   | 'lookup_pantry'
@@ -29,7 +31,10 @@ export type AgentToolName =
   | 'skill_coach'
   | 'local_sourcing'
   | 'get_taste_profile'
-  | 'remember_preference';
+  | 'remember_preference'
+  | 'reconcile_inventory'
+  | 'audit_pantry'
+  | 'apply_inventory_delta';
 
 export interface AgentToolContext {
   userId: string;
@@ -45,6 +50,7 @@ export interface AgentToolResult {
   evidence: string[];
   search_mode?: 'hybrid' | 'bm25' | 'pantry';
   pending_preference?: PendingPreference;
+  pending_inventory_deltas?: PendingInventoryDelta;
 }
 
 export const CLARA_AGENT_TOOLS = [
@@ -153,6 +159,42 @@ export const CLARA_AGENT_TOOLS = [
           member_label: { type: 'string', description: 'Optional household member — e.g. kids, partner' },
         },
         required: ['subject', 'kind'],
+        additionalProperties: false,
+      },
+    },
+  },
+  {
+    type: 'function' as const,
+    function: {
+      name: 'reconcile_inventory',
+      description: 'Find duplicate pantry items, unit mismatches, and mislocated items. Returns merge suggestions (0 credits).',
+      parameters: { type: 'object', properties: {}, additionalProperties: false },
+    },
+  },
+  {
+    type: 'function' as const,
+    function: {
+      name: 'audit_pantry',
+      description: 'Run pantry audit — expiring, low stock, duplicates, mislocated items.',
+      parameters: { type: 'object', properties: {}, additionalProperties: false },
+    },
+  },
+  {
+    type: 'function' as const,
+    function: {
+      name: 'apply_inventory_delta',
+      description:
+        'Stage pantry quantity changes for user confirmation — add, subtract, set, or remove items. Does not apply until confirmed.',
+      parameters: {
+        type: 'object',
+        properties: {
+          action: { type: 'string', enum: ['add', 'subtract', 'set', 'remove'] },
+          name: { type: 'string' },
+          quantity: { type: 'number' },
+          unit: { type: 'string' },
+          reason: { type: 'string' },
+        },
+        required: ['action', 'name'],
         additionalProperties: false,
       },
     },
@@ -320,6 +362,64 @@ export async function executeAgentTool(
         output: `Staged preference — ask Chef to confirm saving "${label}" for future plans.`,
         evidence: [`pending_pref:${kind}:${subject}`],
         pending_preference: pending,
+      };
+    }
+
+    case 'reconcile_inventory': {
+      const preview = buildStewardPreview(ctx.inventory);
+      const lines: string[] = ['Pantry reconcile:'];
+      if (preview.duplicates.length) {
+        lines.push(
+          `Duplicates (${preview.duplicates.length}): ${preview.duplicates
+            .slice(0, 3)
+            .map((d) => `${d.names.join(' / ')} → keep ${d.names[0]}`)
+            .join('; ')}`,
+        );
+        evidence.push(...preview.duplicates.slice(0, 3).map((d) => `dup:${d.id}`));
+      }
+      if (preview.mislocated.length) {
+        lines.push(
+          `Mislocated: ${preview.mislocated
+            .slice(0, 4)
+            .map((m) => `${m.name} (${m.current}→${m.suggested})`)
+            .join(', ')}`,
+        );
+      }
+      if (!preview.duplicates.length && !preview.mislocated.length) {
+        lines.push('No duplicates or location fixes needed.');
+      }
+      return { tool: name, output: lines.join('\n'), evidence };
+    }
+
+    case 'audit_pantry': {
+      const preview = buildStewardPreview(ctx.inventory);
+      const low = findLowStock(ctx.inventory);
+      const lines = preview.findings.map((f) => `${f.title}: ${f.message}`);
+      if (!lines.length) lines.push('Pantry looks healthy — no urgent audit items.');
+      evidence.push(...preview.findings.slice(0, 4).map((f) => `audit:${f.id}`));
+      if (low.length) evidence.push(`low_stock:${low.length}`);
+      return { tool: name, output: lines.join('\n'), evidence };
+    }
+
+    case 'apply_inventory_delta': {
+      const action = String(args.action ?? 'subtract') as InventoryDelta['action'];
+      const itemName = String(args.name ?? '').trim();
+      if (!itemName) {
+        return { tool: name, output: 'Need an item name for the pantry change.', evidence: [] };
+      }
+      const delta: InventoryDelta = {
+        action,
+        name: itemName,
+        quantity: args.quantity != null ? Number(args.quantity) : 1,
+        unit: args.unit ? String(args.unit) : undefined,
+        reason: args.reason ? String(args.reason).slice(0, 120) : undefined,
+      };
+      const summary = `${action} ${delta.quantity ?? 1}${delta.unit ? ` ${delta.unit}` : ''} ${itemName}`;
+      return {
+        tool: name,
+        output: `Staged pantry change — ask Chef to confirm: ${summary}`,
+        evidence: [`pending_delta:${action}:${itemName}`],
+        pending_inventory_deltas: { deltas: [delta], summary },
       };
     }
 

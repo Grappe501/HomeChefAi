@@ -14,7 +14,9 @@ export type CreditAction =
   | 'hosting_plan'
   | 'pantry_vision'
   | 'expert_synthesis'
-  | 'cook_log_infer';
+  | 'cook_log_infer'
+  | 'inventory_audit'
+  | 'inventory_reconcile';
 
 export const CREDIT_COSTS: Record<CreditAction, number> = {
   assistant_basic: 0,
@@ -31,6 +33,8 @@ export const CREDIT_COSTS: Record<CreditAction, number> = {
   pantry_vision: 2,
   expert_synthesis: 2,
   cook_log_infer: 0,
+  inventory_audit: 1,
+  inventory_reconcile: 1,
 };
 
 export type BillingTier = 'free' | 'trial' | 'plus' | 'pro' | 'family';

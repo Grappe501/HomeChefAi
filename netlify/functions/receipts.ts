@@ -7,6 +7,7 @@ import { checkAndIncrementQuota, quotaErrorResponse } from './utils/quotas.js';
 import { awardXpDevStore, awardXpSupabase, XP_AWARDS } from './utils/gamification.js';
 import { runBrainSyncDevStore, runBrainSyncSupabase, getBrainScopeDevStore, getBrainScopeSupabase } from './utils/brain/runBrainSync.js';
 import type { ReceiptParseResult, InventoryItem } from '../../src/types/index';
+import { normalizeScanItem } from './utils/inventoryNormalize.js';
 
 async function parseReceiptWithOpenAI(imageBase64: string): Promise<ReceiptParseResult> {
   const apiKey = process.env.OPENAI_API_KEY;
@@ -86,20 +87,31 @@ export const handler: Handler = withCors(async (event) => {
         if (!receipt) return errorResponse('Receipt not found', 404);
         receipt.verified = true;
         const sourceItems = body.items ?? receipt.raw_parse?.items ?? [];
-        const items = sourceItems.map((item) => ({
-          id: uuidv4(),
-          user_id: userId,
-          name: item.name,
-          category: item.category || 'other',
-          quantity: item.quantity || 1,
-          unit: item.unit || 'each',
-          expiration_date: item.suggested_expiration,
-          location: (item.location || 'pantry') as InventoryItem['location'],
-          added_via: 'receipt',
-          estimated_unit_price: item.price ? Number(item.price) / Math.max(1, Number(item.quantity || 1)) : 0,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        }));
+        const items = sourceItems.map((item) => {
+          const normalized = normalizeScanItem(
+            {
+              ...item,
+              suggested_expiration: item.suggested_expiration,
+              needs_expiration: item.needs_expiration,
+            },
+            'receipt',
+          );
+          return {
+            id: uuidv4(),
+            user_id: userId,
+            name: normalized.name,
+            category: normalized.category,
+            quantity: normalized.quantity,
+            unit: normalized.unit,
+            expiration_date: normalized.expiration_date ?? undefined,
+            location: normalized.location,
+            added_via: 'receipt',
+            knowledge_id: normalized.knowledge_id,
+            estimated_unit_price: item.price ? Number(item.price) / Math.max(1, Number(item.quantity || 1)) : 0,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          };
+        });
         store.inventory_items.push(...items);
         if (body.items) receipt.raw_parse = { ...receipt.raw_parse, items: body.items } as ReceiptParseResult;
         const xp = awardXpDevStore(store, userId, XP_AWARDS.receipt_verify);
@@ -119,17 +131,28 @@ export const handler: Handler = withCors(async (event) => {
       } else {
         await db.from('receipts').update({ verified: true }).eq('id', body.receipt_id);
       }
-      const rows = sourceItems.map((item) => ({
-        user_id: userId,
-        name: item.name,
-        category: item.category || 'other',
-        quantity: item.quantity || 1,
-        unit: item.unit || 'each',
-        expiration_date: item.suggested_expiration || null,
-        location: item.location || 'pantry',
-        added_via: 'receipt',
-        estimated_unit_price: item.price ? Number(item.price) / Math.max(1, Number(item.quantity || 1)) : 0,
-      }));
+      const rows = sourceItems.map((item) => {
+        const normalized = normalizeScanItem(
+          {
+            ...item,
+            suggested_expiration: item.suggested_expiration,
+            needs_expiration: item.needs_expiration,
+          },
+          'receipt',
+        );
+        return {
+          user_id: userId,
+          name: normalized.name,
+          category: normalized.category,
+          quantity: normalized.quantity,
+          unit: normalized.unit,
+          expiration_date: normalized.expiration_date,
+          location: normalized.location,
+          added_via: 'receipt',
+          knowledge_id: normalized.knowledge_id ?? null,
+          estimated_unit_price: item.price ? Number(item.price) / Math.max(1, Number(item.quantity || 1)) : 0,
+        };
+      });
       if (rows.length) await db.from('inventory_items').insert(rows);
       const xp = await awardXpSupabase(db, userId, XP_AWARDS.receipt_verify);
       const scope = await getBrainScopeSupabase(db, userId);

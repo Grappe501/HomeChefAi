@@ -1,23 +1,35 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Trash2 } from 'lucide-react';
-import { inventoryApi } from '@/lib/api';
+import { Trash2, Sparkles, Merge } from 'lucide-react';
+import { inventoryApi, inventoryStewardApi } from '@/lib/api';
 import { LOCATION_EMOJI } from '@/lib/utils';
 import { inferWizardItemLocation, type InventoryItem } from '@/types';
+import type { DuplicateGroup, StewardPreview } from '@/types/inventorySteward';
 import { useToast } from '@/hooks/useToast';
 
 const LOCATIONS = ['all', 'pantry', 'fridge', 'freezer'] as const;
 const STORAGE_LOCATIONS = ['pantry', 'fridge', 'freezer'] as const;
 
+function isLowStock(item: InventoryItem): boolean {
+  const threshold = Number(item.low_stock_threshold ?? 0);
+  if (threshold > 0) return Number(item.quantity) <= threshold;
+  return Number(item.quantity) <= 1;
+}
+
 export default function Inventory() {
   const toast = useToast();
   const [items, setItems] = useState<InventoryItem[]>([]);
+  const [preview, setPreview] = useState<StewardPreview | null>(null);
   const [filter, setFilter] = useState<string>('all');
   const [loading, setLoading] = useState(true);
+  const [merging, setMerging] = useState<string | null>(null);
 
   const load = () => {
     setLoading(true);
-    inventoryApi.list().then((r) => setItems(r.items)).finally(() => setLoading(false));
+    Promise.all([
+      inventoryApi.list().then((r) => setItems(r.items)),
+      inventoryStewardApi.preview().then((r) => setPreview(r.preview)).catch(() => setPreview(null)),
+    ]).finally(() => setLoading(false));
   };
 
   useEffect(() => { load(); }, []);
@@ -29,6 +41,8 @@ export default function Inventory() {
     const days = (new Date(i.expiration_date).getTime() - Date.now()) / 86400000;
     return days >= 0 && days <= 3;
   });
+
+  const lowStockIds = useMemo(() => new Set(preview?.low_stock.map((l) => l.item_id) ?? []), [preview]);
 
   const adjustQty = async (item: InventoryItem, delta: number) => {
     const newQty = Math.max(0, Number(item.quantity) + delta);
@@ -57,6 +71,19 @@ export default function Inventory() {
       load();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Could not update location');
+    }
+  };
+
+  const mergeGroup = async (group: DuplicateGroup) => {
+    setMerging(group.id);
+    try {
+      await inventoryStewardApi.merge(group.suggested_keep_id, group.item_ids);
+      toast.success('Merged duplicate items');
+      load();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Merge failed');
+    } finally {
+      setMerging(null);
     }
   };
 
@@ -100,9 +127,42 @@ export default function Inventory() {
           {expiring.length > 0 && (
             <> · <span className="text-burgundy-600 font-medium">{expiring.length} need attention</span></>
           )}
+          {preview?.low_stock.length ? (
+            <> · <span className="text-amber-700 font-medium">{preview.low_stock.length} low stock</span></>
+          ) : null}
         </p>
+        <div className="flex flex-wrap gap-2 mt-3">
+          <Link to="/assistant?q=Audit%20my%20pantry" className="btn-secondary text-sm inline-flex items-center gap-1.5 min-h-[44px]">
+            <Sparkles size={16} /> Ask Clara to audit
+          </Link>
+          {expiring[0] && (
+            <Link
+              to={`/assistant?q=${encodeURIComponent(`What can I cook with ${expiring[0].name} before it expires?`)}`}
+              className="text-link text-sm min-h-[44px] inline-flex items-center"
+            >
+              Use {expiring[0].name} soon →
+            </Link>
+          )}
+        </div>
         <Link to="/" className="text-link !min-h-0 text-xs mt-2 inline-flex">← Kitchen Status</Link>
       </header>
+
+      {preview?.duplicates.map((group) => (
+        <div key={group.id} className="card bg-copper-50 border-copper-200 space-y-2">
+          <p className="text-sm font-medium text-chef flex items-center gap-2">
+            <Merge size={16} /> Possible duplicate
+          </p>
+          <p className="text-sm text-chef-subtle">{group.names.join(' · ')}</p>
+          <button
+            type="button"
+            disabled={merging === group.id}
+            onClick={() => mergeGroup(group)}
+            className="btn-secondary text-sm"
+          >
+            {merging === group.id ? 'Merging…' : 'Merge into one item'}
+          </button>
+        </div>
+      ))}
 
       <div className="flex gap-2 overflow-x-auto pb-1">
         {LOCATIONS.map((loc) => (
@@ -144,7 +204,14 @@ export default function Inventory() {
           {catItems.map((item) => (
             <div key={item.id} className="card flex items-center justify-between gap-3 min-h-[52px]">
               <div className="flex-1 min-w-0">
-                <p className="font-medium truncate">{item.name}</p>
+                <p className="font-medium truncate flex items-center gap-2">
+                  {item.name}
+                  {lowStockIds.has(item.id) || isLowStock(item) ? (
+                    <span className="text-[10px] uppercase tracking-wide font-semibold text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded">
+                      Low
+                    </span>
+                  ) : null}
+                </p>
                 <p className="text-xs text-chef-subtle">
                   {item.quantity} {item.unit}
                   {item.expiration_date && ` · exp ${item.expiration_date}`}

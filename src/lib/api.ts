@@ -98,6 +98,26 @@ export const inventoryApi = {
     api<{ success: boolean }>(`inventory?id=${id}`, { method: 'DELETE' }),
 };
 
+export const inventoryStewardApi = {
+  preview: () =>
+    api<{ preview: import('@/types/inventorySteward').StewardPreview }>('inventory-steward'),
+  applyDelta: (deltas: import('@/types/inventorySteward').InventoryDelta[]) =>
+    api<{ applied: import('@/types/inventorySteward').InventoryDelta[]; items: import('@/types').InventoryItem[]; errors: string[] }>(
+      'inventory-steward',
+      { method: 'POST', body: JSON.stringify({ action: 'apply-delta', deltas }) },
+    ),
+  merge: (keep_id: string, merge_ids: string[]) =>
+    api<{ item: import('@/types').InventoryItem; removed: string[] }>(
+      'inventory-steward',
+      { method: 'POST', body: JSON.stringify({ action: 'merge', keep_id, merge_ids }) },
+    ),
+  audit: (use_ai = false) =>
+    api<import('@/types/inventorySteward').StewardAuditResult & { credits_remaining?: number }>(
+      'inventory-steward',
+      { method: 'POST', body: JSON.stringify({ action: 'audit', use_ai }) },
+    ),
+};
+
 export const receiptsApi = {
   list: () => api<{ receipts: import('@/types').Receipt[] }>('receipts'),
   scan: (image: string) =>
@@ -349,6 +369,8 @@ export type AssistantChatResult = {
   suggested_items?: { name: string; quantity: number; unit: string }[];
   action?: string;
   pending_preference?: import('@/types/tasteLearning').PendingPreference;
+  pending_inventory_deltas?: import('@/types/inventorySteward').PendingInventoryDelta;
+  pending_usage?: import('@/types/inventorySteward').PendingUsageConfirm;
   directions?: import('@/types/mealDirections').MealDirection[];
   intent?: string;
   evidence?: string[];
