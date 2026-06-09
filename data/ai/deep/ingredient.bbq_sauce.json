@@ -1,0 +1,22 @@
+{
+  "id": "ingredient.bbq_sauce",
+  "kind": "ingredient",
+  "title": "BBQ Sauce",
+  "knowledge_id": "ingredient.bbq_sauce",
+  "match_keywords": ["bbq sauce", "barbecue sauce"],
+  "summary": "American condiment family — sweet Kansas City to vinegar Carolina to pepper Texas.",
+  "origins": "American barbecue sauce evolved regionally from British colonists' vinegar-and-pepper basting liquids, German immigrant mustard traditions in the Carolinas, and Kansas City meatpackers' sweet tomato-based glazes in the early 1900s. There is no single original recipe — geography defines the bottle.",
+  "history": "Commercial bottled sauce took off after WWII when suburban grills met supermarket convenience. Heinz and Kraft popularized thick tomato-molasses styles; regional pitmasters kept vinegar-pepper and white Alabama sauces alive. Today most pantry bottles lean Kansas City sweet — great on bowls, not historically what Texas brisket pits use at the table.",
+  "first_known": "Regional styles crystallize ~early 1900s",
+  "timeline": [
+    { "when": "1700s", "event": "Vinegar-pepper baste in Carolina pits" },
+    { "when": "1920s", "event": "Kansas City sweet tomato-molasses style" },
+    { "when": "1940s+", "event": "Mass-market bottled sauces" }
+  ],
+  "teaching": [
+    "Most bottles are Kansas City sweet — balance with acid (lime, vinegar) in bowls.",
+    "Add sauce last on high heat — sugars burn above ~325°F.",
+    "Thin with stock or bean liquid instead of water for deeper flavor."
+  ],
+  "fun_fact": "Most BBQ sauces are Kansas City sweet, Carolina vinegar, or Texas bold — this meal leans bowl, not pit."
+}

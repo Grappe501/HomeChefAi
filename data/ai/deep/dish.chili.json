@@ -1,0 +1,21 @@
+{
+  "id": "dish.chili",
+  "kind": "dish",
+  "title": "Chili",
+  "match_keywords": ["chili", "chilli", "chile con carne"],
+  "summary": "Texas-born stew of meat and chiles — beans debate included.",
+  "origins": "Chili con carne emerges from San Antonio's chili queens street vendors in the late 1800s — a working-class Tex-Mex market food, not a Mexican import. The International Chili Society and Texas purists insist on no beans; Midwest home cooks often add kidney beans anyway.",
+  "history": "Chili spread via cattle trails and World's Fair booths (1893 Chicago). Canned chili (1920s) and chili powder blends made it a national pantry meal. Regional forks include Cincinnati five-way, New Mexico green chile stew, and vegetarian bean-heavy bowls far from Lone Star orthodoxy.",
+  "first_known": "San Antonio street food ~1880s",
+  "timeline": [
+    { "when": "1880s", "event": "Chili queens of San Antonio" },
+    { "when": "1893", "event": "San Antonio chili at Chicago World's Fair" },
+    { "when": "1920s", "event": "Canned chili commercialized" }
+  ],
+  "teaching": [
+    "Bloom dried chiles in hot oil 30 seconds before liquid — unlocks depth.",
+    "Simmer uncovered to reduce; skimming fat tames greasiness.",
+    "Day-two chili tastes better — flavors meld overnight."
+  ],
+  "fun_fact": "Texas chili purists say no beans. The rest of America politely ignores them."
+}

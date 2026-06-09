@@ -1,0 +1,22 @@
+{
+  "id": "ingredient.chicken.breast",
+  "kind": "ingredient",
+  "title": "Chicken Breast",
+  "knowledge_id": "ingredient.chicken.breast",
+  "match_keywords": ["chicken breast", "chicken"],
+  "summary": "Lean poultry cut — America's default weeknight protein since the 1980s.",
+  "origins": "Chickens were domesticated from red junglefowl in Southeast Asia around 8,000 years ago. Breast meat dominance is modern: selective breeding for fast-growing broilers and diet culture pushed boneless skinless breast to U.S. center plate in the late 20th century.",
+  "history": "Before industrial farming, older stewing hens and flavorful dark meat ruled home kitchens. Broiler revolution (1940s–60s) made chicken cheaper than beef. Skinless breast became a health-food icon in the 1980s–90s despite being easier to overcook than thighs.",
+  "first_known": "~8000 years ago (domestication)",
+  "timeline": [
+    { "when": "~6000 BCE", "event": "Domestication in Southeast Asia" },
+    { "when": "1940s", "event": "Broiler industry scales in U.S." },
+    { "when": "1980s", "event": "Skinless breast becomes diet staple" }
+  ],
+  "teaching": [
+    "Dark meat stays juicier — breast needs lower heat or brine 30 min.",
+    "Pull at 165°F internal; rest 5 min — carryover cooking finishes the job.",
+    "Pound to even thickness before pan-searing — eliminates dry edges."
+  ],
+  "fun_fact": "Dark meat stays juicier than breast because it has more fat and collagen — science, not opinion."
+}

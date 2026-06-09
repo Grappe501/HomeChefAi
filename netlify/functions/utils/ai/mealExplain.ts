@@ -1,5 +1,6 @@
 /**
- * Meal "Why This?" intelligence — deterministic reasoning from knowledge + household context.
+ * Meal "Why This?" intelligence — deterministic reasoning from real pantry + household data only.
+ * Never claims history the user has not actually created.
  */
 
 import type { InventoryItem, PlannedMeal, Profile, MealPlanData } from '../../../../src/types/index.js';
@@ -17,6 +18,8 @@ import {
 } from '../inventoryContext.js';
 import type { DecisionLedgerEntry } from './decisionLedger.js';
 import { processLedgerOutcomes, ledgerContextForMeal } from './outcomeProcessor.js';
+import { buildIngredientTrivia } from './ingredientTrivia.js';
+import { buildMealDeepContext } from './ingredientDeepDive.js';
 
 export interface MealExplainContext {
   meal: PlannedMeal;
@@ -28,10 +31,12 @@ export interface MealExplainContext {
   ledgerEntries?: DecisionLedgerEntry[];
 }
 
-function namesMatch(a: string, b: string): boolean {
-  const x = a.toLowerCase().trim();
-  const y = b.toLowerCase().trim();
-  return x === y || x.includes(y) || y.includes(x);
+function normalizeMealName(name: string): string {
+  return name.toLowerCase().trim().replace(/\s+/g, ' ');
+}
+
+function exactNameMatch(a: string, b: string): boolean {
+  return normalizeMealName(a) === normalizeMealName(b);
 }
 
 function dietaryReasonFromProfile(profile: Profile): ReturnType<typeof parseSubstitutionReason> {
@@ -54,9 +59,27 @@ function recommendationLabel(type: MealRecommendationType): string {
     variety: 'Adds variety',
     nutrition_goal: 'Fits nutrition goals',
     new_suggestion: 'New for your kitchen',
-    household_favorite: 'Household favorite pattern',
+    household_favorite: 'Repeat from your cook log',
   };
   return map[type];
+}
+
+function findPriorDinnerForLeftover(meal: PlannedMeal, allMeals?: PlannedMeal[]): PlannedMeal | null {
+  if (!allMeals?.length) return null;
+  const sameOrPriorDay = allMeals.filter(
+    (m) => m.meal_type === 'dinner' && m.day < meal.day && m.day >= meal.day - 2,
+  );
+  return sameOrPriorDay.sort((a, b) => b.day - a.day)[0] ?? null;
+}
+
+function matchedCuisinePreferences(meal: PlannedMeal, profile: Profile): string[] {
+  const prefs = profile.cuisine_preferences.filter((c) => c.toLowerCase() !== 'none');
+  if (!prefs.length) return [];
+  const blob = `${meal.name} ${meal.description ?? ''}`.toLowerCase();
+  return prefs.filter((p) => {
+    const token = p.split('/')[0].toLowerCase().trim();
+    return token.length > 2 && blob.includes(token);
+  });
 }
 
 function inferRecommendationType(ctx: MealExplainContext): MealRecommendationType {
@@ -78,23 +101,12 @@ function inferRecommendationType(ctx: MealExplainContext): MealRecommendationTyp
   const ratio = meal.ingredients.length ? inPantry / meal.ingredients.length : 0;
   if (ratio >= 0.7) return 'inventory_match';
 
-  if (isHouseholdFavorite(ctx)) return 'household_favorite';
-  if (matchesCuisineStyle(meal, ctx.profile)) return 'style_match';
+  const memory = ctx.profile.last_meal_memory as { meal?: string } | undefined;
+  if (memory?.meal && exactNameMatch(meal.name, memory.meal)) return 'household_favorite';
+
+  if (matchedCuisinePreferences(meal, ctx.profile).length) return 'style_match';
 
   return 'new_suggestion';
-}
-
-function isHouseholdFavorite(ctx: MealExplainContext): boolean {
-  const memory = ctx.profile.last_meal_memory as { meal?: string; items?: string[] } | undefined;
-  if (!memory?.meal) return false;
-  return namesMatch(ctx.meal.name, memory.meal);
-}
-
-function matchesCuisineStyle(meal: PlannedMeal, profile: Profile): boolean {
-  const prefs = profile.cuisine_preferences.map((c) => c.toLowerCase());
-  if (!prefs.length) return false;
-  const blob = `${meal.name} ${meal.description ?? ''}`.toLowerCase();
-  return prefs.some((p) => blob.includes(p.split('/')[0].toLowerCase()));
 }
 
 function buildSubstitutions(ctx: MealExplainContext): MealSubstitutionHint[] {
@@ -113,7 +125,7 @@ function buildSubstitutions(ctx: MealExplainContext): MealSubstitutionHint[] {
 
     for (const s of result.suggestions) {
       const inPantry = [...invIndex.values()].some(
-        (e) => e.knowledge_id === s.id || namesMatch(e.name, s.display_name),
+        (e) => e.knowledge_id === s.id || exactNameMatch(e.name, s.display_name),
       );
       hints.push({
         missing: ing.name,
@@ -218,109 +230,153 @@ function buildNutritionFit(ctx: MealExplainContext): string {
   const { meal, profile, coverage } = ctx;
   const restrictions = profile.dietary_restrictions.filter((r) => r.toLowerCase() !== 'none');
   const goal = coverage?.planning_goal;
-
   const parts: string[] = [];
+
   if (goal === 'healthy_light') {
-    parts.push('Aligned with your lighter, balanced plan — reasonable portions for the household.');
+    parts.push('This plan asked for lighter meals — reasonable portions, not diet-clinic strict.');
   } else if (goal === 'big_family') {
-    parts.push('Scaled for a hungry household with satisfying portions.');
-  } else if (meal.meal_type === 'breakfast' || meal.meal_type === 'snack') {
-    parts.push('Light slot in the day — keeps energy steady without heavy prep.');
+    parts.push(`Sized for ${profile.household_size ?? coverage?.people ?? 2} people with satisfying portions.`);
+  } else if (meal.meal_type === 'breakfast') {
+    parts.push('Morning slot — quick energy without heavy prep.');
+  } else if (meal.meal_type === 'snack') {
+    parts.push('Light snack slot between main meals.');
+  } else if (meal.meal_type === 'lunch') {
+    parts.push('Midday meal — balanced against your other dinners this week.');
   } else {
-    parts.push('Balanced slot in your weekly mix — not every meal needs to be health-forward.');
+    parts.push('Dinner slot in a mixed week — not every plate needs to be health-forward.');
   }
 
   if (restrictions.length) {
-    parts.push(`Respects your restrictions: ${restrictions.join(', ')}.`);
+    parts.push(`Your profile lists: ${restrictions.join(', ')} — verify labels when you shop.`);
   }
   if (profile.allergies?.length) {
-    parts.push(`Allergies noted: ${profile.allergies.join(', ')} — verify labels when shopping.`);
+    parts.push(`Allergies on file: ${profile.allergies.join(', ')} — double-check every ingredient.`);
   }
 
   const subs = buildSubstitutions(ctx);
-  if (subs.some((s) => s.in_pantry)) {
-    parts.push('Missing items have pantry swaps available if you prefer not to shop.');
+  const pantrySwaps = subs.filter((s) => s.in_pantry);
+  if (pantrySwaps.length) {
+    parts.push(`Missing items can swap to pantry: ${pantrySwaps.map((s) => `${s.missing} → ${s.swap}`).join('; ')}.`);
   }
 
   return parts.join(' ');
 }
 
 function buildLikeability(ctx: MealExplainContext): string {
-  const { meal, profile } = ctx;
+  const { meal, profile, coverage } = ctx;
   const type = inferRecommendationType(ctx);
+  const cuisines = matchedCuisinePreferences(meal, profile);
+  const household = profile.household_size ?? coverage?.people ?? 2;
 
   if (ctx.ledgerEntries?.length) {
     const ledgerNote = ledgerContextForMeal(meal.name, processLedgerOutcomes(ctx.ledgerEntries));
-    if (ledgerNote.similar_kept) {
-      return 'Similar to meals you kept before — Clara weighted this toward proven household wins.';
+    if (ledgerNote.exact_kept_before && ledgerNote.exact_kept_name) {
+      return `You kept "${ledgerNote.exact_kept_name}" on a previous plan review — you already said yes to this one.`;
     }
     if (ledgerNote.was_replaced_before) {
-      return 'Adjusted from prior feedback — this version avoids patterns you recently replaced.';
+      return 'This is a fresh pick — not the same meal you replaced before.';
     }
   }
 
-  if (type === 'household_favorite') {
-    return `Similar to a recent meal you cooked (${(profile.last_meal_memory as { meal?: string })?.meal}) — Clara favors patterns that worked before.`;
+  const memory = profile.last_meal_memory as { meal?: string; date?: string } | undefined;
+  if (type === 'household_favorite' && memory?.meal) {
+    return `Matches "${memory.meal}" from your recent cook log — a meal your kitchen already knows.`;
   }
+
   if (type === 'leftover_chain') {
-    return 'Practical and satisfying — repurposes prior dinner so nothing goes to waste.';
+    const prior = findPriorDinnerForLeftover(meal, ctx.allMeals);
+    if (prior) {
+      return `Practical follow-up to ${prior.name} — less waste, less decision fatigue at lunch.`;
+    }
+    return 'Built around repurposing food you already cooked — practical, not fancy.';
   }
+
   if (type === 'easy_night') {
-    return 'Low effort by design — saves cook energy for nights you chose to go all-in.';
+    return 'Low-effort by design for a night you chose not to cook from scratch.';
   }
-  if (meal.tags?.includes('crowd_favorite')) {
-    return 'Tagged crowd-pleaser — broad appeal for mixed tastes at the table.';
+
+  if (meal.tags?.includes('crowd_favorite') || meal.tags?.includes('dinner_party')) {
+    return `Tagged for ${household > 4 ? 'a larger table' : 'broad appeal'} — flavors that tend to land with mixed tastes.`;
   }
+
+  if (cuisines.length) {
+    return `Name and ingredients align with your saved cuisine prefs: ${cuisines.join(', ')}.`;
+  }
+
+  if (type === 'inventory_match') {
+    return 'Low shopping friction — uses what you already bought, which usually means less stress at cook time.';
+  }
+
   if (type === 'new_suggestion') {
-    return 'Something new for rotation — expands your repertoire without repeating last week.';
+    return 'New to this week\'s rotation — expands options without repeating last plan\'s mains.';
   }
-  if (type === 'style_match') {
-    return `Fits your preferred cuisines (${profile.cuisine_preferences.join(', ') || 'home cooking'}).`;
+
+  if (type === 'pantry_challenge') {
+    return 'Pantry Challenge mode — built to burn down what you have before buying more.';
   }
-  return 'Chosen for practical fit — flavor, effort, and pantry overlap balanced for your household.';
+
+  return 'Balanced for effort, flavor, and what is actually in your kitchen right now.';
 }
 
 function buildWhyChosen(ctx: MealExplainContext): string {
-  const { meal, coverage, metrics } = ctx;
-  const type = inferRecommendationType(ctx);
+  const { meal, coverage, metrics, allMeals } = ctx;
   const parts: string[] = [];
 
-  switch (type) {
-    case 'inventory_match':
-      parts.push('Most ingredients are already in your kitchen — minimal shopping, maximum use of what you have.');
-      break;
-    case 'pantry_challenge':
-      parts.push('Pantry Challenge mode — Clara prioritized on-hand items before suggesting purchases.');
-      break;
-    case 'leftover_chain':
-      parts.push('Connects to an earlier dinner in this plan — realistic lunch, not a brand-new recipe every midday.');
-      break;
-    case 'easy_night':
-      parts.push(`One of your ${coverage?.cook_nights != null ? 'planned easy' : 'low-effort'} nights — intentional break from full cooking.`);
-      break;
-    case 'variety':
-      parts.push('Adds protein/cuisine variety so the week does not feel repetitive.');
-      break;
-    case 'nutrition_goal':
-      parts.push('Supports your lighter eating goal while staying family-realistic.');
-      break;
-    default:
-      parts.push(meal.description || 'Selected to fit your plan coverage and household preferences.');
+  const inPantry = meal.ingredients.filter((i) => i.in_inventory);
+  const missing = meal.ingredients.filter((i) => !i.in_inventory);
+
+  if (meal.ingredients.length === 0) {
+    parts.push(meal.description || 'Selected for this week\'s coverage mix.');
+  } else if (inPantry.length === meal.ingredients.length) {
+    parts.push(
+      `Every ingredient is in your pantry now: ${inPantry.map((i) => i.name).join(', ')}.`,
+    );
+  } else if (inPantry.length > 0) {
+    parts.push(
+      `${inPantry.length} of ${meal.ingredients.length} ingredients on hand — ${inPantry.map((i) => i.name).join(', ')}.`,
+    );
+    if (missing.length) {
+      parts.push(`Still need: ${missing.map((i) => i.name).join(', ')}.`);
+    }
+  } else {
+    parts.push(`Would require shopping for: ${missing.map((i) => i.name).join(', ')}.`);
+  }
+
+  const goal = coverage?.planning_goal;
+  if (goal === 'use_inventory') {
+    parts.push('Planning goal: use inventory first — this slot prioritizes on-hand items.');
+  } else if (goal === 'pantry_challenge') {
+    parts.push('Planning goal: pantry challenge — minimize new purchases.');
+  } else if (goal === 'quick_meals') {
+    parts.push('Planning goal: quick meals — prep time kept reasonable.');
+  } else if (goal === 'variety') {
+    parts.push('Planning goal: variety — different proteins and flavors across the week.');
+  } else if (goal === 'healthy_light') {
+    parts.push('Planning goal: lighter eating this week.');
+  } else if (goal === 'big_family') {
+    parts.push(`Planning goal: feed ${coverage?.people ?? ctx.profile.household_size ?? 2} people well.`);
+  }
+
+  if (meal.name.toLowerCase().startsWith('leftover') || meal.tags?.includes('leftovers_friendly')) {
+    const prior = findPriorDinnerForLeftover(meal, allMeals);
+    if (prior) {
+      parts.push(`Chains to ${prior.name} on day ${prior.day} — intentional leftover flow, not a random recipe.`);
+    }
   }
 
   if (coverage?.cooking_style && coverage.cooking_style !== 'profile_default') {
     parts.push(`Cooking style for this plan: ${coverage.cooking_style.replace(/_/g, ' ')}.`);
   }
-  if (metrics?.inventory_utilization_score != null) {
-    parts.push(`This plan overall uses ~${metrics.inventory_utilization_score}% of tracked inventory.`);
+
+  if (metrics?.inventory_utilization_score != null && metrics.inventory_utilization_score > 0) {
+    parts.push(`Whole plan uses ~${metrics.inventory_utilization_score}% of tracked inventory.`);
   }
 
   if (ctx.ledgerEntries?.length) {
     const outcomes = processLedgerOutcomes(ctx.ledgerEntries);
-    const ledgerNote = ledgerContextForMeal(ctx.meal.name, outcomes);
-    if (ledgerNote.note) parts.push(ledgerNote.note);
-    if (outcomes.replaced_meals.length) {
-      parts.push(`Avoiding patterns from recent replaces: ${outcomes.replaced_meals.slice(0, 2).join(', ')}.`);
+    const avoids = outcomes.replaced_meals.slice(0, 2);
+    if (avoids.length) {
+      parts.push(`Recent replaces on your ledger: ${avoids.join(', ')} — this meal is not one of those.`);
     }
   }
 
@@ -348,6 +404,7 @@ export function buildMealIntelligence(ctx: MealExplainContext): MealIntelligence
   const inPantryCount = ctx.meal.ingredients.filter((i) => i.in_inventory).length;
   const outcomes = ctx.ledgerEntries?.length ? processLedgerOutcomes(ctx.ledgerEntries) : null;
   const baseConfidence = substitutions.length ? 0.82 : 0.75;
+  const deep = buildMealDeepContext(ctx.meal, ctx.inventory);
 
   return {
     recommendation_type: type,
@@ -359,12 +416,18 @@ export function buildMealIntelligence(ctx: MealExplainContext): MealIntelligence
     inventory_story:
       inPantryCount > 0
         ? `${inPantryCount} of ${ctx.meal.ingredients.length} ingredients already in your pantry.`
-        : 'Most ingredients need a shop run — substitutions below use what you may already have.',
+        : ctx.meal.ingredients.length
+          ? 'None of these ingredients are flagged in your pantry — check stock or shop.'
+          : 'Ingredient list not attached — verify pantry before cook day.',
     substitutions,
     complexity,
     special_occasion: special,
     evidence: collectEvidence(ctx),
     confidence: Math.min(0.95, baseConfidence + (outcomes?.confidence_boost ?? 0)),
+    ingredient_trivia: deep.ingredient_trivia ?? buildIngredientTrivia(ctx.meal, ctx.inventory),
+    deep_dives: deep.deep_dives.length ? deep.deep_dives : undefined,
+    dish_context: deep.dish_context,
+    teaching_moments: deep.teaching_moments.length ? deep.teaching_moments : undefined,
   };
 }
 

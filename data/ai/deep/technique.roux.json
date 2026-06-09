@@ -1,0 +1,22 @@
+{
+  "id": "technique.roux",
+  "kind": "technique",
+  "title": "Roux",
+  "knowledge_id": "technique.roux",
+  "match_keywords": ["roux"],
+  "summary": "Equal fat + flour cooked together — Louisiana gravies and French mother sauces.",
+  "origins": "French technique documented in Marie-Antoine Carême's 19th-century sauce work; Louisiana Creole and Cajun cooks adapted it for gumbo, étouffée, and dark gravies. Each color — white, blond, brown, chocolate — adds nuttier flavor and thickening power.",
+  "history": "Roux-thickened sauces define French classical cuisine and Gulf Coast cooking alike. Cajun dark roux can take 45+ minutes of stirring — a ritual, not a shortcut. Instant roux products appeared in Louisiana groceries in the late 1900s for weeknight gumbo.",
+  "first_known": "Documented ~1800s French haute cuisine; Gulf Coast parallel traditions",
+  "timeline": [
+    { "when": "1800s", "event": "Carême codifies roux in French sauce theory" },
+    { "when": "1900s", "event": "Cajun dark roux tradition formalizes in Louisiana home kitchens" },
+    { "when": "Late 1900s", "event": "Jarred dry roux for faster gumbo" }
+  ],
+  "teaching": [
+    "Equal parts fat and flour by weight — not volume.",
+    "Stir constantly once flour hits fat; burnt roux is bitter beyond saving.",
+    "Dark roux thickens less but flavors more — add okra or filé if too thin."
+  ],
+  "fun_fact": "A chocolate-dark roux can take 45 minutes of stirring — Cajun cooks call it patience you can taste."
+}

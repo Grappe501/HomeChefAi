@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, Wine, UtensilsCrossed, ShoppingBag, Package } from 'lucide-react';
+import { ChevronDown, ChevronUp, Wine, UtensilsCrossed, ShoppingBag, Package, BookOpen, GraduationCap, Clock } from 'lucide-react';
 import type { PlannedMeal } from '@/types';
 import type { MealIntelligence } from '@/types/mealIntelligence';
 
@@ -13,6 +13,7 @@ interface MealWhyPanelProps {
 
 export function MealWhyPanel({ meal, intelligence, loading, onClose }: MealWhyPanelProps) {
   const [showSpecial, setShowSpecial] = useState(false);
+  const [showDeep, setShowDeep] = useState(true);
   const intel = intelligence ?? meal.intelligence;
 
   if (loading) {
@@ -106,10 +107,72 @@ export function MealWhyPanel({ meal, intelligence, loading, onClose }: MealWhyPa
         </div>
       )}
 
+      {(intel.dish_context || (intel.deep_dives && intel.deep_dives.length > 0)) && (
+        <div className="border-t border-steel pt-2">
+          <button
+            type="button"
+            onClick={() => setShowDeep(!showDeep)}
+            className="flex items-center gap-1 text-xs font-semibold text-chef-muted w-full"
+          >
+            {showDeep ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+            <BookOpen size={14} /> History & origins
+          </button>
+          {showDeep && (
+            <div className="mt-2 space-y-3 pl-1">
+              {intel.dish_context && (
+                <div className="rounded-md bg-stainless-200/80 px-3 py-2 space-y-1">
+                  <p className="text-xs font-semibold text-chef-subtle">{intel.dish_context.title}</p>
+                  {intel.dish_context.approximate_age && (
+                    <p className="text-[11px] text-chef-muted flex items-center gap-1">
+                      <Clock size={11} /> Around for {intel.dish_context.approximate_age}
+                    </p>
+                  )}
+                  <p className="text-xs text-chef leading-relaxed">{intel.dish_context.origins_summary}</p>
+                  {intel.dish_context.history && (
+                    <p className="text-xs text-chef-subtle leading-relaxed">{intel.dish_context.history}</p>
+                  )}
+                </div>
+              )}
+              {intel.deep_dives?.map((dive, i) => (
+                <div key={i} className="rounded-md border border-steel/60 px-3 py-2 space-y-1">
+                  <p className="text-xs font-semibold text-chef">{dive.title}</p>
+                  {dive.first_known && (
+                    <p className="text-[11px] text-chef-muted">Known ~{dive.first_known}</p>
+                  )}
+                  {dive.origins && <p className="text-xs text-chef-subtle">{dive.origins}</p>}
+                  {dive.teaching?.[0] && (
+                    <p className="text-[11px] text-copper-700 italic">{dive.teaching[0]}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {intel.teaching_moments && intel.teaching_moments.length > 0 && (
+        <div className="rounded-md bg-copper-50/60 border border-copper-200/60 px-3 py-2">
+          <p className="text-xs font-semibold text-copper-800 uppercase tracking-wide flex items-center gap-1 mb-1">
+            <GraduationCap size={12} /> Teach me
+          </p>
+          <ul className="space-y-1">
+            {intel.teaching_moments.map((tip, i) => (
+              <li key={i} className="text-xs text-chef">{tip}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {intel.evidence.length > 0 && (
         <p className="text-xs text-chef-subtle">
           Knowledge: {intel.evidence.slice(0, 3).join(', ')}
           {intel.evidence.length > 3 ? '…' : ''}
+        </p>
+      )}
+
+      {intel.ingredient_trivia && (
+        <p className="text-[11px] leading-snug text-chef-subtle/80 italic border-t border-steel/60 pt-2 mt-1">
+          {intel.ingredient_trivia}
         </p>
       )}
     </div>

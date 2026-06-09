@@ -1,0 +1,22 @@
+{
+  "id": "ingredient.rice.white",
+  "kind": "ingredient",
+  "title": "White Rice",
+  "knowledge_id": "ingredient.rice.white",
+  "match_keywords": ["white rice", "rice"],
+  "summary": "Domesticated grass seed — feeds half the planet.",
+  "origins": "Rice (Oryza sativa) was domesticated independently in the Yangtze River valley of China and the Ganges floodplains of India roughly 8,000–9,000 years ago. Milling removes bran to create white rice — longer shelf life, softer texture, fewer nutrients.",
+  "history": "Rice terracing spread through Southeast Asia; Islamic trade brought it to Spain and then the Americas. Carolina Gold rice made Charleston wealthy in the 1700s. Modern enrichment (vitamins added back to milled rice) began in the U.S. in the 1940s to prevent deficiency diseases.",
+  "first_known": "~8000 BCE in Asia",
+  "timeline": [
+    { "when": "~8000 BCE", "event": "Domestication in China and India" },
+    { "when": "1700s", "event": "Carolina Gold rice in American South" },
+    { "when": "1940s", "event": "U.S. mandatory rice enrichment" }
+  ],
+  "teaching": [
+    "Rinse until water runs clear for fluffy grains — skips excess starch.",
+    "1:1.5 rice-to-water for stovetop; rest covered 10 min off heat.",
+    "Day-old cold rice fries best — fresh rice steams instead of crisps."
+  ],
+  "fun_fact": "White rice has been cultivated for roughly 8,000 years — still undefeated as a blank canvas."
+}

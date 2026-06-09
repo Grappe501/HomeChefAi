@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { LogOut, BookOpen } from 'lucide-react';
+import { LogOut, BookOpen, Globe } from 'lucide-react';
+import { MARKETING_HOME } from '@/lib/siteNav';
 import { useApp } from '@/hooks/useApp';
 import { productJournalApi } from '@/lib/api';
 import CookTogetherSection from '@/components/CookTogetherSection';
@@ -42,6 +43,14 @@ export default function Settings() {
       )}
 
       <CookTogetherSection />
+
+      <section className="card space-y-2">
+        <h3 className="font-semibold">Website</h3>
+        <p className="text-xs text-chef-subtle">Platform overview, pricing, Kitchen Academy, and roadmap.</p>
+        <Link to={MARKETING_HOME} className="btn-secondary w-full inline-flex items-center justify-center gap-2 text-sm">
+          <Globe size={16} /> Open SousChef website
+        </Link>
+      </section>
 
       <section className="card space-y-2">
         <h3 className="font-semibold">Location</h3>

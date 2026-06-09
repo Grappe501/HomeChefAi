@@ -1,0 +1,21 @@
+{
+  "id": "style.texas_brisket",
+  "kind": "style",
+  "title": "Texas Brisket",
+  "match_keywords": ["brisket", "texas bbq", "smoked brisket"],
+  "summary": "Central Texas pit tradition — salt, pepper, smoke, time.",
+  "origins": "German and Czech immigrants brought smoking traditions to Central Texas meat markets in the late 1800s. Brisket — a tough, cheap cut — became the icon after post-war barbecue joints standardized offset smokers and all-beef menus.",
+  "history": "Aaron Franklin and the Austin barbecue boom (2000s–2010s) turned brisket into a national pilgrimage food. Purist rub is often just salt and coarse pepper (Dalmatian rub). Sauce on the side, if at all — the meat is the point.",
+  "first_known": "Central Texas meat markets ~late 1800s",
+  "timeline": [
+    { "when": "1870s", "event": "Czech/German smokehouses in Central Texas" },
+    { "when": "1950s", "event": "Brisket dominates barbecue joint menus" },
+    { "when": "2000s", "event": "Austin barbecue tourism globalizes brisket culture" }
+  ],
+  "teaching": [
+    "Plan 1–1.5 hours per pound at 225–250°F — no shortcuts without quality loss.",
+    "Wrap at bark set (~165°F internal) in butcher paper, not foil, for Texas style.",
+    "Rest wrapped in cooler 1–4 hours — carryover tenderizes collagen."
+  ],
+  "fun_fact": "Texas brisket was once a cheap cut smoked by immigrants — now people fly in for it."
+}

@@ -24,6 +24,7 @@ import {
 } from './utils/ai/graphQueries.js';
 import type { KnowledgeNodeType, SubstitutionReason } from '../../src/types/knowledge.js';
 import { SUBSTITUTION_REASONS } from '../../src/types/knowledge.js';
+import { getDeepEntry, listDeepEntries, searchDeep } from './utils/ai/deepLoader.js';
 
 const VALID_TYPES = new Set([
   'ingredient', 'technique', 'cuisine', 'meal_pattern', 'substitution',
@@ -47,6 +48,34 @@ export const handler: Handler = withCors(async (event) => {
 
   if (action === 'stats') {
     return jsonResponse(getKnowledgeStats());
+  }
+
+  if (action === 'deep_catalog') {
+    const kind = params.kind as 'ingredient' | 'technique' | 'dish' | 'style' | 'tradition' | undefined;
+    const entries = listDeepEntries(kind).map((e) => ({
+      id: e.id,
+      kind: e.kind,
+      title: e.title,
+      summary: e.summary,
+      first_known: e.first_known,
+      knowledge_id: e.knowledge_id,
+    }));
+    return jsonResponse({ entries, count: entries.length });
+  }
+
+  if (action === 'deep_search') {
+    const q = params.q?.trim();
+    if (!q) return errorResponse('Query q is required', 400);
+    const results = searchDeep(q, Number(params.limit) || 20);
+    return jsonResponse({ results, query: q });
+  }
+
+  if (action === 'deep') {
+    const id = params.id;
+    if (!id) return errorResponse('id required', 400);
+    const entry = getDeepEntry(id);
+    if (!entry) return errorResponse(`Deep entry not found: ${id}`, 404);
+    return jsonResponse({ entry });
   }
 
   if (action === 'reasons') {

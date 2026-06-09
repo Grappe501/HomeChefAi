@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { RefreshCw } from 'lucide-react';
+import { RefreshCw, BookOpen } from 'lucide-react';
 import { brainApi } from '@/lib/api';
 import { useApp } from '@/hooks/useApp';
 import type { BrainInsight } from '@/types/brain';
@@ -109,6 +109,14 @@ export default function BrainPage() {
           {learning} more pattern{learning === 1 ? '' : 's'} building confidence…
         </p>
       )}
+
+      <Link
+        to="/learn"
+        className="flex items-center justify-center gap-2 rounded-xl border border-steel bg-white px-4 py-3 text-sm font-semibold text-chef hover:border-copper-400/50 transition min-h-[52px]"
+      >
+        <BookOpen size={18} className="text-copper-600" />
+        Kitchen Academy — history & teach-me moments
+      </Link>
     </div>
   );
 }

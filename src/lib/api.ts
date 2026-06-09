@@ -284,6 +284,25 @@ export const brainApi = {
     api<{ synced: boolean; insights_count: number }>('brain', { method: 'POST', body: JSON.stringify({}) }),
 };
 
+export const knowledgeApi = {
+  deepCatalog: (kind?: import('@/types/knowledgeDeep').DeepEntryKind) => {
+    const qs = new URLSearchParams({ action: 'deep_catalog' });
+    if (kind) qs.set('kind', kind);
+    return api<{ entries: import('@/types/knowledgeDeep').DeepKnowledgeEntry[]; count: number }>(
+      `knowledge?${qs.toString()}`,
+    );
+  },
+  deepSearch: (q: string, limit = 20) =>
+    api<{ results: import('@/types/knowledgeDeep').DeepKnowledgeEntry[]; query: string }>(
+      `knowledge?action=deep_search&q=${encodeURIComponent(q)}&limit=${limit}`,
+    ),
+  deep: (id: string) =>
+    api<{ entry: import('@/types/knowledgeDeep').DeepKnowledgeEntry }>(
+      `knowledge?action=deep&id=${encodeURIComponent(id)}`,
+    ),
+  stats: () => api<{ node_count: number; types: Record<string, number> }>('knowledge?action=stats'),
+};
+
 export const productJournalApi = {
   list: (params?: { q?: string; note_type?: string; status?: string; tag?: string; related_area?: string }) => {
     const qs = new URLSearchParams();

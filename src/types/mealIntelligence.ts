@@ -2,6 +2,8 @@
  * Meal intelligence — structured "Why this?" output for plan review.
  */
 
+import type { DishContext, IngredientDeepDive } from './knowledgeDeep';
+
 export type MealRecommendationType =
   | 'inventory_match'
   | 'pantry_challenge'
@@ -60,4 +62,12 @@ export interface MealIntelligence {
   special_occasion: MealSpecialOccasion;
   evidence: string[];
   confidence: number;
+  /** Small-print fun fact — grounded in knowledge graph or curated trivia */
+  ingredient_trivia?: string;
+  /** History & origins for star ingredients in this meal */
+  deep_dives?: IngredientDeepDive[];
+  /** Dish-level history when meal matches a known pattern */
+  dish_context?: DishContext;
+  /** Actionable teaching moments Clara can walk you through */
+  teaching_moments?: string[];
 }

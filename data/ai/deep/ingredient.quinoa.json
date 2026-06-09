@@ -1,0 +1,23 @@
+{
+  "id": "ingredient.quinoa",
+  "kind": "ingredient",
+  "title": "Quinoa",
+  "knowledge_id": "ingredient.quinoa",
+  "match_keywords": ["quinoa"],
+  "summary": "Andean seed prized for complete protein — not a true grain.",
+  "origins": "Domesticated in the Lake Titicaca basin of the Andes (modern Peru and Bolivia). The Quechua and Aymara peoples called it chisaya mama — \"mother of all grains\" — though botanically it is a chenopod seed, cousin to spinach and beets.",
+  "history": "Quinoa sustained high-altitude civilizations for millennia before Spanish colonization disrupted its cultivation in favor of wheat. It nearly vanished as a staple until Bolivian and Peruvian farmers revived export markets in the late 20th century. NASA studied it in the 1980s for closed ecological life-support systems because of its protein profile and low water needs.",
+  "first_known": "~3000 BCE in the Andes",
+  "timeline": [
+    { "when": "~3000 BCE", "event": "Domesticated around Lake Titicaca" },
+    { "when": "1530s", "event": "Colonial suppression of native crops" },
+    { "when": "1980s", "event": "NASA evaluates quinoa for space agriculture" },
+    { "when": "2013", "event": "UN International Year of Quinoa" }
+  ],
+  "teaching": [
+    "Rinse unless the package says pre-washed — saponins taste soapy.",
+    "Use 1:2 quinoa-to-water; simmer covered 15 min, rest 5 min, fluff.",
+    "Toast dry quinoa 2 minutes before adding liquid for nuttier flavor."
+  ],
+  "fun_fact": "Quinoa isn't a grain — it's a seed. NASA studied it as a space crop because it's protein-dense and water-efficient."
+}

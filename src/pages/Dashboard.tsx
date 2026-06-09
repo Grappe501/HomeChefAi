@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Camera, Wand2, CalendarDays, Package } from 'lucide-react';
+import { Camera, Wand2, CalendarDays, Package, BookOpen } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
 import { inventoryApi, mealsApi, brainApi } from '@/lib/api';
 import type { InventoryItem, MealPlan } from '@/types';
@@ -175,6 +175,19 @@ export default function Dashboard() {
         )}
       </section>
 
+      <section className="card bg-copper-50/30 border-copper-200/60">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-copper-700">Kitchen Academy</p>
+            <p className="text-sm text-chef mt-1 leading-relaxed">
+              History, origins, and teach-me moments — the same depth behind Why this? on your meal cards.
+            </p>
+          </div>
+          <BookOpen className="text-copper-600 shrink-0" size={22} />
+        </div>
+        <Link to="/learn" className="btn-secondary w-full mt-4 text-sm">Browse lessons</Link>
+      </section>
+
       <CookTogetherCard />
 
       <section>
@@ -195,6 +208,10 @@ export default function Dashboard() {
           <Link to="/inventory" className="action-tile">
             <Package className="text-chef" size={24} />
             <span className="font-medium text-sm">Inventory ({items.length})</span>
+          </Link>
+          <Link to="/learn" className="action-tile col-span-2">
+            <BookOpen className="text-chef" size={24} />
+            <span className="font-medium text-sm">Kitchen Academy</span>
           </Link>
         </div>
       </section>

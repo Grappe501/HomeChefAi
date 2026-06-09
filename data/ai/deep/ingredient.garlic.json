@@ -1,0 +1,22 @@
+{
+  "id": "ingredient.garlic",
+  "kind": "ingredient",
+  "title": "Garlic",
+  "knowledge_id": "ingredient.garlic",
+  "match_keywords": ["garlic"],
+  "summary": "Central Asian allium — global flavor base for 5,000+ years.",
+  "origins": "Wild garlic (Allium longicuspis) originated in Central Asia; cultivation spread through Mesopotamia, Egypt, and the Mediterranean. Ancient Egyptians fed garlic to pyramid laborers; Greeks and Romans used it medicinally and in cuisine.",
+  "history": "Garlic traveled the Silk Road and Columbian exchange routes until it appeared in nearly every major cuisine. Louis Pasteur documented its antibacterial properties in 1858. Modern research focuses on allicin — the compound released when cloves are crushed.",
+  "first_known": "~5000 years ago in Central Asia",
+  "timeline": [
+    { "when": "~3000 BCE", "event": "Cultivation in Egypt and Mesopotamia" },
+    { "when": "1858", "event": "Pasteur studies garlic antimicrobial effects" },
+    { "when": "1900s", "event": "California becomes major U.S. producer" }
+  ],
+  "teaching": [
+    "Crushing releases allicin — sharp bite. Mince early, cook gently for sweetness.",
+    "Green sprout inside clove is bitter but safe — remove for milder flavor.",
+    "Roast whole heads at 400°F for 45 min — squeezeable sweet paste."
+  ],
+  "fun_fact": "Crushing garlic releases allicin — that's the sharp bite. Mince early, cook gently for sweetness."
+}

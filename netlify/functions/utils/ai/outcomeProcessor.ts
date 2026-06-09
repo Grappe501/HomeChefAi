@@ -15,8 +15,12 @@ export interface ProcessedOutcomes {
 
 export function processLedgerOutcomes(entries: DecisionLedgerEntry[], domain = 'meal_plan'): ProcessedOutcomes {
   const mealEntries = entries.filter((e) => e.domain === domain);
-  const kept = mealEntries.filter((e) => e.outcome === 'accepted');
-  const replaced = mealEntries.filter((e) => e.outcome === 'replaced');
+  /** Only explicit user Keep/Replace actions — never pending generation rows */
+  const reviewed = mealEntries.filter(
+    (e) => e.outcome_at && (e.metadata?.action === 'keep' || e.metadata?.action === 'replace'),
+  );
+  const kept = reviewed.filter((e) => e.outcome === 'accepted');
+  const replaced = reviewed.filter((e) => e.outcome === 'replaced');
 
   const prefers_tags = new Set<string>();
   const avoids_tags = new Set<string>();
@@ -46,26 +50,34 @@ export function processLedgerOutcomes(entries: DecisionLedgerEntry[], domain = '
   };
 }
 
+function normalizeMealName(name: string): string {
+  return name.toLowerCase().trim().replace(/\s+/g, ' ');
+}
+
+function exactMealMatch(a: string, b: string): boolean {
+  return normalizeMealName(a) === normalizeMealName(b);
+}
+
 export function ledgerContextForMeal(
   mealName: string,
   outcomes: ProcessedOutcomes,
-): { note?: string; was_replaced_before: boolean; similar_kept: boolean } {
-  const lower = mealName.toLowerCase();
-  const was_replaced_before = outcomes.replaced_meals.some(
-    (m) => m.toLowerCase().includes(lower) || lower.includes(m.toLowerCase()),
-  );
-  const similar_kept = outcomes.kept_meals.some(
-    (m) => m.toLowerCase().includes(lower) || lower.includes(m.toLowerCase()),
-  );
+): { note?: string; was_replaced_before: boolean; exact_kept_before: boolean; exact_kept_name?: string } {
+  const exactReplaced = outcomes.replaced_meals.find((m) => exactMealMatch(m, mealName));
+  const exactKept = outcomes.kept_meals.find((m) => exactMealMatch(m, mealName));
 
   let note: string | undefined;
-  if (was_replaced_before) {
-    note = `Last time you replaced something like "${mealName}" — Clara adjusted this pick.`;
-  } else if (similar_kept) {
-    note = `You've kept similar meals before — this fits your household pattern.`;
+  if (exactReplaced) {
+    note = `You replaced "${exactReplaced}" on a previous plan — this is a different pick.`;
+  } else if (exactKept) {
+    note = `You kept "${exactKept}" before — same meal, same call.`;
   }
 
-  return { note, was_replaced_before, similar_kept };
+  return {
+    note,
+    was_replaced_before: !!exactReplaced,
+    exact_kept_before: !!exactKept,
+    exact_kept_name: exactKept,
+  };
 }
 
 export function formatRejectHistoryForAssistant(outcomes: ProcessedOutcomes): string {

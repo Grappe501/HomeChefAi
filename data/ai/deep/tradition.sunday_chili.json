@@ -1,0 +1,22 @@
+{
+  "id": "tradition.sunday_chili",
+  "kind": "tradition",
+  "title": "Sunday Chili",
+  "knowledge_id": "tradition.sunday_chili",
+  "match_keywords": ["sunday chili", "game day chili"],
+  "summary": "American weekend ritual — low simmer while life happens elsewhere.",
+  "origins": "Sunday pot cooking spans Irish stew, Italian gravy, and Southern church suppers. American chili fits the same slot: start mid-morning, feed a crowd by afternoon football. It is less a recipe than a calendar appointment with your Dutch oven.",
+  "history": "Post-WWII suburban life cemented \"Sunday dinner\" as family anchor. Chili powder marketing (Gebhardt, Mexene) made Texas-style stew doable in Ohio kitchens by 1920. Game-day chili cook-offs became charity fundraisers nationwide from the 1970s onward.",
+  "first_known": "Mid-20th century American home ritual",
+  "timeline": [
+    { "when": "1920s", "event": "Chili powder blends nationalize the flavor" },
+    { "when": "1950s", "event": "Sunday family dinner peak in U.S. culture" },
+    { "when": "1970s+", "event": "Charity chili cook-offs spread" }
+  ],
+  "teaching": [
+    "Start early — chili improves with hours of gentle simmer.",
+    "Invite toppings bar: cheese, onion, jalapeño, Fritos — everyone builds their bowl.",
+    "Make double; freeze half. Future-you thinks you're a genius."
+  ],
+  "fun_fact": "Sunday chili is a calendar appointment, not a recipe — the Dutch oven does the work while you watch the game."
+}

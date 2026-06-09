@@ -48,14 +48,18 @@ export function resolveKnowledgeRoot(): string {
   return resolve(DEFAULT_KNOWLEDGE_ROOT.replace(/\\/g, '/'));
 }
 
-function listJsonFiles(dir: string): string[] {
+function listJsonFiles(dir: string, skipDirs = new Set(['deep'])): string[] {
   const out: string[] = [];
   if (!dirExists(dir)) return out;
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry);
     const st = statSync(full);
-    if (st.isDirectory()) out.push(...listJsonFiles(full));
-    else if (entry.endsWith('.json')) out.push(full);
+    if (st.isDirectory()) {
+      if (skipDirs.has(entry)) continue;
+      out.push(...listJsonFiles(full, skipDirs));
+    } else if (entry.endsWith('.json')) {
+      out.push(full);
+    }
   }
   return out;
 }

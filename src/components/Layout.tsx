@@ -1,7 +1,8 @@
-import { NavLink } from 'react-router-dom';
-import { Home, Package, Camera, CalendarDays, ChefHat, MessageCircle, Users, Settings } from 'lucide-react';
+import { Link, NavLink } from 'react-router-dom';
+import { Home, Package, Camera, CalendarDays, ChefHat, MessageCircle, Users, Settings, Globe } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
 import { sousChefLabel } from '@/lib/assistant';
+import { MARKETING_HOME } from '@/lib/siteNav';
 
 const navItems = [
   { to: '/', icon: Home, label: 'Home' },
@@ -18,14 +19,24 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-dvh flex flex-col pb-20">
       <header className="bg-white border-b border-steel px-4 py-3 sticky top-0 z-10">
-        <div className="max-w-lg mx-auto flex items-center justify-between">
-          <div>
+        <div className="max-w-lg mx-auto flex items-center justify-between gap-2">
+          <div className="min-w-0">
             <h1 className="font-sans font-semibold text-lg text-chef tracking-tight">SousChef</h1>
-            <p className="text-xs text-chef-subtle">{sousChefLabel(profile?.assistant_name)}</p>
+            <p className="text-xs text-chef-subtle truncate">{sousChefLabel(profile?.assistant_name)}</p>
           </div>
-          <NavLink to="/settings" className="btn-icon text-steel-dark hover:text-chef hover:bg-stainless-100">
-            <Settings size={20} />
-          </NavLink>
+          <div className="flex items-center gap-1 shrink-0">
+            <Link
+              to={MARKETING_HOME}
+              className="btn-icon text-steel-dark hover:text-chef hover:bg-stainless-100 flex items-center gap-1 px-2 min-w-[44px]"
+              title="Website — platform, pricing, learn"
+            >
+              <Globe size={18} />
+              <span className="text-[10px] font-semibold hidden sm:inline">Site</span>
+            </Link>
+            <NavLink to="/settings" className="btn-icon text-steel-dark hover:text-chef hover:bg-stainless-100">
+              <Settings size={20} />
+            </NavLink>
+          </div>
         </div>
       </header>
 

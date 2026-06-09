@@ -1,0 +1,21 @@
+{
+  "id": "dish.quinoa_bowl",
+  "kind": "dish",
+  "title": "Grain Bowl",
+  "match_keywords": ["quinoa bowl", "grain bowl", "power bowl", "buddha bowl"],
+  "summary": "2000s café format — ancient grains meet modern macro bowls.",
+  "origins": "The composed grain bowl as a restaurant category exploded in U.S. coastal cities circa 2010–2015 (Sweetgreen, Dig, local café culture). Its DNA is older: Japanese donburi, Korean bibimbap, Hawaiian poke bowls, and Andean quinoa plates all stack starch + protein + vegetables + sauce.",
+  "history": "Instagram-era food photography made bowls visual shorthand for \"healthy.\" Quinoa bowls specifically rode the 2013 UN Year of Quinoa and wellness trend. Home versions are essentially intentional leftovers — a format, not a fixed recipe.",
+  "first_known": "Café trend ~2010s; antecedents thousands of years old",
+  "timeline": [
+    { "when": "Ancient", "event": "Donburi, bibimbap, Andean grain plates" },
+    { "when": "2010s", "event": "Fast-casual grain bowl chains scale" },
+    { "when": "2013", "event": "Quinoa wellness wave peaks" }
+  ],
+  "teaching": [
+    "Warm the base — cold grain kills the eating experience.",
+    "Sauce is the personality; season each layer, not just the top.",
+    "Crunch last: nuts, seeds, or pickled veg on top."
+  ],
+  "fun_fact": "Bowl meals became a thing because everything tastes better when the fork path is shorter."
+}

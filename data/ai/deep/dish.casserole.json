@@ -1,0 +1,21 @@
+{
+  "id": "dish.casserole",
+  "kind": "dish",
+  "title": "Casserole",
+  "match_keywords": ["casserole", "hot dish"],
+  "summary": "One-dish baked comfort — French word, Midwest soul.",
+  "origins": "From French cassole (earthenware pot). American casserole culture peaked mid-20th century: Campbell's soup recipes, church potlucks, and freezer-ahead family dinners. Minnesota hot dish is the regional dialect.",
+  "history": "Depression-era and WWII rationing made one-dish meals practical. 1950s freezer marketing cemented tuna noodle and green bean formats. Modern remakes often deconstruct; originals were engineered for cans and convenience.",
+  "first_known": "French vessel tradition; U.S. peak ~1950s–70s",
+  "timeline": [
+    { "when": "1930s", "event": "Depression-era one-dish economy" },
+    { "when": "1955", "event": "Green bean casserole debuts" },
+    { "when": "1970s", "event": "Freezer casserole prep goes mainstream" }
+  ],
+  "teaching": [
+    "Undercook pasta slightly — it finishes in the oven.",
+    "Let rest 10 min after baking — sets the slice and saves your tongue.",
+    "Cover with foil first; uncover last 10 min for golden top."
+  ],
+  "fun_fact": "Casserole comes from the French word for saucepan — one dish, zero drama."
+}

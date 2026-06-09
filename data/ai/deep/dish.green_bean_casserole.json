@@ -1,0 +1,21 @@
+{
+  "id": "dish.green_bean_casserole",
+  "kind": "dish",
+  "title": "Green Bean Casserole",
+  "match_keywords": ["green bean casserole", "bean casserole"],
+  "summary": "1955 Campbell's test kitchen invention — America's Thanksgiving side dish.",
+  "origins": "Created by Dorcas Reilly at Campbell's Soup Company in Camden, New Jersey, using cream of mushroom soup, frozen green beans, and canned fried onions. It was designed for easy holiday prep with pantry staples — not farm-to-table nostalgia.",
+  "history": "The recipe card debuted in 1955 and became a Thanksgiving fixture by the 1960s. Campbell's estimates it appears on roughly 30 million holiday tables. Variations (from-scratch mushroom béchamel, fresh beans) are gentrification; the original is deliberately canned.",
+  "first_known": "1955",
+  "timeline": [
+    { "when": "1955", "event": "Dorcas Reilly creates recipe at Campbell's" },
+    { "when": "1960s", "event": "Becomes Thanksgiving standard nationwide" },
+    { "when": "2000s", "event": "Gourmet remakes vs. classic canned debate" }
+  ],
+  "teaching": [
+    "Mix soup, beans, and half the onions; bake; top with rest for crunch.",
+    "375°F ~25 min — you're reheating and melding, not cooking beans from raw.",
+    "Double the crispy onions. Always double the onions."
+  ],
+  "fun_fact": "Green bean casserole was a 1955 Campbell's test kitchen recipe — engineered for cans, not farms."
+}

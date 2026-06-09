@@ -1,0 +1,40 @@
+/* Marketing site — SousChef v1 */
+
+.marketing-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+.layer-hero-inventory { background: linear-gradient(135deg, #f4f7f4 0%, #eef2ed 100%); }
+.layer-hero-memory { background: linear-gradient(135deg, #f5ede4 0%, #faf6f1 100%); }
+.layer-hero-intelligence { background: linear-gradient(135deg, #111315 0%, #1a1d21 100%); color: white; }
+.layer-hero-growth { background: linear-gradient(135deg, #eef2ed 0%, #e8ebe3 100%); }
+.layer-hero-legacy { background: linear-gradient(135deg, #f3eaec 0%, #faf6f7 100%); }
+
+.mock-phone {
+  @apply rounded-[1.75rem] border-[3px] border-chef/10 bg-white shadow-elevated overflow-hidden;
+}
+
+.mock-statusbar {
+  @apply h-6 bg-stainless-100 flex items-center justify-center;
+}
+
+.mock-statusbar span {
+  @apply w-16 h-1 rounded-full bg-steel;
+}
+
+.stack-connector {
+  @apply w-px h-6 bg-steel mx-auto;
+}
+
+@keyframes marketing-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.marketing-animate-in {
+  animation: marketing-fade-up 0.6s ease-out both;
+}
+
+.marketing-animate-in-delay-1 { animation-delay: 0.08s; }
+.marketing-animate-in-delay-2 { animation-delay: 0.16s; }
+.marketing-animate-in-delay-3 { animation-delay: 0.24s; }

@@ -1,0 +1,22 @@
+{
+  "id": "technique.braise",
+  "kind": "technique",
+  "title": "Braise",
+  "knowledge_id": "technique.braise",
+  "match_keywords": ["braise", "braised", "slow cook"],
+  "summary": "Sear then simmer covered in liquid — transforms tough cuts.",
+  "origins": "French braiser means \"live coals\" — classic peasant technique of cooking in a covered pot buried in embers. Every culture has a version: coq au vin, osso buco, Filipino adobo, Mexican birria.",
+  "history": "Escoffier codified braising in French repertoire; American Dutch oven and slow-cooker adaptations made it weeknight-accessible. Collagen breaks down around 160–180°F over time — the science behind fork-tender pot roast.",
+  "first_known": "Ancient hearth cooking; French codification ~1900s",
+  "timeline": [
+    { "when": "Ancient", "event": "Clay pot simmering worldwide" },
+    { "when": "1900s", "event": "French classical cuisine documents braising" },
+    { "when": "1970s", "event": "Slow cooker enters American homes" }
+  ],
+  "teaching": [
+    "Sear protein first — Maillard flavor survives the long simmer.",
+    "Liquid should come halfway up, not cover — you're steaming + bathing.",
+    "Low oven (300°F) or stovetop bare simmer — never a rolling boil."
+  ],
+  "fun_fact": "Braising is patience chemistry: collagen needs time above 160°F to become silky gelatin."
+}

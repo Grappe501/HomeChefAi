@@ -2,7 +2,6 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useApp } from './hooks/useApp';
 import Layout from './components/Layout';
 import Login from './pages/Login';
-import Landing from './pages/Landing';
 import Onboarding from './pages/Onboarding';
 import Dashboard from './pages/Dashboard';
 import Inventory from './pages/Inventory';
@@ -17,6 +16,46 @@ import Community from './pages/Community';
 import Brain from './pages/Brain';
 import ProductJournal from './pages/ProductJournal';
 import LoadingScreen from './components/LoadingScreen';
+import Landing from './pages/marketing/Landing';
+import ExploreIndex from './pages/marketing/ExploreIndex';
+import ExploreLayer from './pages/marketing/ExploreLayer';
+import ExploreFeature from './pages/marketing/ExploreFeature';
+import HowItWorks from './pages/marketing/HowItWorks';
+import PricingPage from './pages/marketing/PricingPage';
+import StoryPage from './pages/marketing/StoryPage';
+import LearnIndex from './pages/marketing/LearnIndex';
+import LearnEntry from './pages/marketing/LearnEntry';
+import { VisionIndex, VisionTopicPage } from './pages/marketing/VisionPages';
+import ErrorBoundary from './components/ErrorBoundary';
+import Learn from './pages/Learn';
+import LearnDetail from './pages/LearnDetail';
+
+/** Marketing site — always reachable (logged-in users can browse pricing, learn, etc.) */
+function MarketingSiteRoutes() {
+  return (
+    <>
+      <Route path="/landing" element={<Landing />} />
+      <Route path="/explore" element={<ExploreIndex />} />
+      <Route path="/explore/:layerId" element={<ExploreLayer />} />
+      <Route path="/explore/:layerId/:featureId" element={<ExploreFeature />} />
+      <Route path="/how" element={<HowItWorks />} />
+      <Route path="/pricing" element={<PricingPage />} />
+      <Route path="/story" element={<StoryPage />} />
+      <Route path="/vision" element={<VisionIndex />} />
+      <Route path="/vision/:topicId" element={<VisionTopicPage />} />
+    </>
+  );
+}
+
+/** Public Kitchen Academy — when logged out or onboarding (logged-in app uses /learn in Layout) */
+function MarketingLearnRoutes() {
+  return (
+    <>
+      <Route path="/learn" element={<LearnIndex />} />
+      <Route path="/learn/:entryId" element={<LearnEntry />} />
+    </>
+  );
+}
 
 function AuthenticatedRoutes() {
   return (
@@ -33,9 +72,10 @@ function AuthenticatedRoutes() {
         <Route path="/recipes" element={<Navigate to="/" replace />} />
         <Route path="/community" element={<Community />} />
         <Route path="/brain" element={<Brain />} />
+        <Route path="/learn" element={<Learn />} />
+        <Route path="/learn/:entryId" element={<LearnDetail />} />
         <Route path="/admin/journal" element={<ProductJournal />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/landing" element={<Landing />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Layout>
@@ -47,20 +87,28 @@ export default function App() {
 
   if (loading) return <LoadingScreen />;
 
-  return (
-    <Routes>
-      <Route path="/landing" element={<Landing />} />
+  const showPublicLearn = !user || !profile?.onboarding_complete;
 
-      {!user ? (
-        <>
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Navigate to="/landing" replace />} />
-        </>
-      ) : !profile?.onboarding_complete ? (
-        <Route path="*" element={<Onboarding mode="dietary" />} />
-      ) : (
-        <Route path="/*" element={<AuthenticatedRoutes />} />
-      )}
-    </Routes>
+  return (
+    <ErrorBoundary>
+      <Routes>
+        {MarketingSiteRoutes()}
+        {showPublicLearn && MarketingLearnRoutes()}
+
+        {!user ? (
+          <>
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<Navigate to="/landing" replace />} />
+          </>
+        ) : !profile?.onboarding_complete ? (
+          <>
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<Onboarding mode="dietary" />} />
+          </>
+        ) : (
+          <Route path="/*" element={<AuthenticatedRoutes />} />
+        )}
+      </Routes>
+    </ErrorBoundary>
   );
 }

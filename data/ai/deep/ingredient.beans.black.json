@@ -1,0 +1,22 @@
+{
+  "id": "ingredient.beans.black",
+  "kind": "ingredient",
+  "title": "Black Beans",
+  "knowledge_id": "ingredient.beans.black",
+  "match_keywords": ["black bean", "turtle bean"],
+  "summary": "New World legume — backbone of Latin American, Caribbean, and Southern bowls.",
+  "origins": "Native to Central and South America, black beans (Phaseolus vulgaris) were domesticated independently in Mesoamerica and the Andes. Spanish and Portuguese trade spread them across the Atlantic; they became essential in Brazilian feijoada, Cuban moros, and Louisiana red beans.",
+  "history": "Archaeological evidence places bean cultivation at roughly 7,000 years old in the Americas. Enslaved Africans in the Caribbean and American South adapted black beans into rice-and-beans traditions that still define regional identity. Canned black beans only became a pantry staple in the U.S. mid-20th century.",
+  "first_known": "~7000 years ago in the Americas",
+  "timeline": [
+    { "when": "~5000 BCE", "event": "Domestication in Mesoamerica" },
+    { "when": "1500s", "event": "Spread via Columbian exchange" },
+    { "when": "1900s", "event": "Canning makes weeknight beans practical" }
+  ],
+  "teaching": [
+    "Canned beans: rinse to cut sodium; reserve liquid for thinning sauces.",
+    "Dried beans: soak overnight or quick-soak 1 hour — never salt until tender.",
+    "One cup cooked ≈ 15g fiber — pair with rice for complete amino acid coverage."
+  ],
+  "fun_fact": "Black beans are also called turtle beans — same legume, different nickname."
+}

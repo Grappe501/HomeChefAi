@@ -602,6 +602,11 @@ export default function MealPlanner() {
                     {m.description && (
                       <p className="text-xs text-chef-subtle mt-0.5 line-clamp-2">{m.description}</p>
                     )}
+                    {(m.intelligence?.ingredient_trivia ?? intelligenceCache[key]?.ingredient_trivia) && (
+                      <p className="text-[10px] leading-snug text-chef-subtle/70 italic mt-1.5 pr-2">
+                        {m.intelligence?.ingredient_trivia ?? intelligenceCache[key]?.ingredient_trivia}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="flex gap-2 mt-2">
