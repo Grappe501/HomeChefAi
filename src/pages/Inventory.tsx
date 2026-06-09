@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Trash2, Plus, Minus } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Trash2 } from 'lucide-react';
 import { inventoryApi } from '@/lib/api';
 import { LOCATION_EMOJI } from '@/lib/utils';
 import type { InventoryItem } from '@/types';
@@ -19,6 +20,12 @@ export default function Inventory() {
   useEffect(() => { load(); }, []);
 
   const filtered = filter === 'all' ? items : items.filter((i) => i.location === filter);
+
+  const expiring = items.filter((i) => {
+    if (!i.expiration_date) return false;
+    const days = (new Date(i.expiration_date).getTime() - Date.now()) / 86400000;
+    return days >= 0 && days <= 3;
+  });
 
   const adjustQty = async (item: InventoryItem, delta: number) => {
     const newQty = Math.max(0, Number(item.quantity) + delta);
@@ -40,14 +47,23 @@ export default function Inventory() {
 
   return (
     <div className="space-y-4">
-      <h2 className="font-sans font-semibold text-xl text-chef">Your Pantry</h2>
+      <header>
+        <h2 className="font-sans font-semibold text-xl text-chef">Kitchen Inventory</h2>
+        <p className="text-sm text-chef-subtle mt-1">
+          {items.length} ingredient{items.length !== 1 ? 's' : ''} on hand
+          {expiring.length > 0 && (
+            <> · <span className="text-burgundy-600 font-medium">{expiring.length} need attention</span></>
+          )}
+        </p>
+        <Link to="/" className="text-link !min-h-0 text-xs mt-2 inline-flex">← Kitchen Status</Link>
+      </header>
 
       <div className="flex gap-2 overflow-x-auto pb-1">
         {LOCATIONS.map((loc) => (
           <button
             key={loc}
             onClick={() => setFilter(loc)}
-            className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap ${
+            className={`px-4 py-3 rounded-xl text-sm font-medium whitespace-nowrap min-h-[52px] ${
               filter === loc ? 'bg-chef text-white' : 'bg-white border border-steel text-chef-subtle'
             }`}
           >
@@ -56,45 +72,39 @@ export default function Inventory() {
         ))}
       </div>
 
-      {loading ? (
-        <p className="text-chef-subtle text-center py-8">Loading pantry...</p>
-      ) : filtered.length === 0 ? (
-        <div className="card text-center py-8">
-          <p className="text-chef-subtle">No items yet.</p>
-          <p className="text-sm text-steel-dark mt-2">Scan a receipt or use the Pantry Wizard to get started.</p>
+      {loading && <div className="card text-chef-subtle text-sm min-h-[52px] flex items-center">Loading…</div>}
+
+      {!loading && filtered.length === 0 && (
+        <div className="card text-center py-8 text-chef-subtle space-y-3">
+          <p>No ingredients yet.</p>
+          <Link to="/receipt" className="btn-primary inline-flex">Scan a receipt</Link>
         </div>
-      ) : (
-        Object.entries(grouped).map(([category, catItems]) => (
-          <section key={category}>
-            <h3 className="text-sm font-semibold text-chef-subtle uppercase tracking-wide mb-2">{category}</h3>
-            <div className="space-y-2">
-              {catItems.map((item) => (
-                <div key={item.id} className="card flex items-center gap-3">
-                  <span className="text-xl">{LOCATION_EMOJI[item.location] || '📦'}</span>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium truncate">{item.name}</p>
-                    <p className="text-sm text-chef-subtle">
-                      {item.quantity} {item.unit}
-                      {item.expiration_date && ` · exp ${item.expiration_date}`}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <button onClick={() => adjustQty(item, -1)} className="btn-icon bg-stainless-200 text-chef-subtle w-9 h-9">
-                      <Minus size={16} />
-                    </button>
-                    <button onClick={() => adjustQty(item, 1)} className="btn-icon bg-stainless-200 text-chef-subtle w-9 h-9">
-                      <Plus size={16} />
-                    </button>
-                    <button onClick={() => remove(item.id)} className="btn-icon bg-red-50 text-red-500 w-9 h-9">
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        ))
       )}
+
+      {Object.entries(grouped).map(([cat, catItems]) => (
+        <section key={cat} className="space-y-2">
+          <h3 className="section-label capitalize">{cat}</h3>
+          {catItems.map((item) => (
+            <div key={item.id} className="card flex items-center justify-between gap-3 min-h-[52px]">
+              <div className="flex-1 min-w-0">
+                <p className="font-medium truncate">{item.name}</p>
+                <p className="text-xs text-chef-subtle">
+                  {item.quantity} {item.unit}
+                  {item.expiration_date && ` · exp ${item.expiration_date}`}
+                </p>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <button onClick={() => adjustQty(item, -1)} className="btn-icon bg-stainless-200 text-chef font-bold">−</button>
+                <span className="w-8 text-center font-medium tabular-nums">{item.quantity}</span>
+                <button onClick={() => adjustQty(item, 1)} className="btn-icon bg-stainless-200 text-chef font-bold">+</button>
+                <button onClick={() => remove(item.id)} className="btn-icon text-burgundy-600 hover:bg-burgundy-50" aria-label="Remove">
+                  <Trash2 size={18} />
+                </button>
+              </div>
+            </div>
+          ))}
+        </section>
+      ))}
     </div>
   );
 }

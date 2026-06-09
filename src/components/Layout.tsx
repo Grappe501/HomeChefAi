@@ -4,11 +4,11 @@ import { useApp } from '@/hooks/useApp';
 
 const navItems = [
   { to: '/', icon: Home, label: 'Home' },
-  { to: '/inventory', icon: Package, label: 'Pantry' },
+  { to: '/inventory', icon: Package, label: 'Inventory' },
   { to: '/receipt', icon: Camera, label: 'Receipt' },
   { to: '/calendar', icon: CalendarDays, label: 'Calendar' },
   { to: '/community', icon: Users, label: 'Swap' },
-  { to: '/assistant', icon: MessageCircle, label: 'Chef' },
+  { to: '/assistant', icon: MessageCircle, label: 'Clara' },
 ];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -20,7 +20,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="max-w-lg mx-auto flex items-center justify-between">
           <div>
             <h1 className="font-sans font-semibold text-lg text-chef tracking-tight">SousChef</h1>
-            <p className="text-xs text-chef-subtle">{profile?.assistant_name || 'Sous Chef'}</p>
+            <p className="text-xs text-chef-subtle">Sous Chef {profile?.assistant_name || 'Clara'}</p>
           </div>
           <NavLink to="/settings" className="btn-icon text-steel-dark hover:text-chef hover:bg-stainless-100">
             <Settings size={20} />

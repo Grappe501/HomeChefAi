@@ -60,7 +60,7 @@ export default function MealPlanner() {
 
   return (
     <div className="space-y-5">
-      <h2 className="font-sans font-semibold text-xl text-chef">Meal Planner</h2>
+      <h2 className="font-sans font-semibold text-xl text-chef">Meal Planning</h2>
 
       <button onClick={handleWhatCanIMake} disabled={planning} className="btn-secondary w-full">
         <Sparkles size={18} /> What Can I Make Right Now?
@@ -118,7 +118,7 @@ export default function MealPlanner() {
           onSubmit={handlePlan}
         />
         <button onClick={handlePlan} disabled={planning} className="btn-primary w-full">
-          {planning ? 'Planning with AI...' : `Plan ${days} Days of Meals`}
+          {planning ? 'Planning meals…' : `Plan ${days} Days of Meals`}
         </button>
       </section>
 
@@ -136,7 +136,7 @@ export default function MealPlanner() {
           ))}
           {activePlan.plan_data?.shopping_list && activePlan.plan_data.shopping_list.length > 0 && (
             <div className="mt-4 pt-3 border-t border-steel">
-              <h4 className="font-semibold text-sm flex items-center gap-1"><ShoppingCart size={14} /> Shopping List</h4>
+              <h4 className="font-semibold text-sm flex items-center gap-1"><ShoppingCart size={14} /> Kitchen Supply Plan</h4>
               <ul className="mt-2 space-y-1">
                 {activePlan.plan_data.shopping_list.map((s, i) => (
                   <li key={i} className="text-sm flex justify-between">

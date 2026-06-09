@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Camera, Wand2, CalendarDays, Package, ChevronRight } from 'lucide-react';
+import { Camera, Wand2, CalendarDays, Package } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
 import { inventoryApi, mealsApi, brainApi } from '@/lib/api';
 import type { InventoryItem, MealPlan } from '@/types';
@@ -14,6 +14,61 @@ function greeting(): string {
   if (h < 12) return 'morning';
   if (h < 17) return 'afternoon';
   return 'evening';
+}
+
+interface StatusItem {
+  text: string;
+  urgent?: boolean;
+}
+
+function buildStatus(
+  items: InventoryItem[],
+  expiring: InventoryItem[],
+  insights: BrainInsight[],
+  activePlan: MealPlan | undefined,
+): StatusItem[] {
+  const lines: StatusItem[] = [];
+  const lowStock = insights.find((i) => i.memory_type === 'consumption');
+  const waste = insights.find((i) => i.memory_type === 'waste');
+
+  if (lowStock) {
+    lines.push({ text: lowStock.headline.replace(/^Chef,?\s*/i, '') });
+  }
+  if (expiring.length > 0) {
+    lines.push({
+      text: `${expiring.length} ingredient${expiring.length !== 1 ? 's' : ''} need attention`,
+      urgent: true,
+    });
+  }
+  if (waste) {
+    lines.push({ text: waste.headline.replace(/^Chef,?\s*/i, ''), urgent: true });
+  } else if (expiring.length > 0) {
+    lines.push({
+      text: `Waste risk: ${expiring.map((i) => i.name).slice(0, 2).join(', ')}`,
+      urgent: true,
+    });
+  }
+  if (activePlan) {
+    const n = activePlan.plan_data?.meals?.length ?? 0;
+    lines.push({ text: n > 0 ? `${n} meals planned` : 'Active meal plan' });
+  }
+  if (lines.length === 0) {
+    lines.push({
+      text: items.length > 0 ? `${items.length} items in pantry` : 'Pantry empty — scan a receipt to start',
+    });
+  }
+  return lines;
+}
+
+function nextAction(
+  items: InventoryItem[],
+  expiring: InventoryItem[],
+  insights: BrainInsight[],
+): { label: string; to: string } {
+  if (items.length === 0) return { label: 'Scan your first receipt', to: '/receipt' };
+  if (expiring.length > 0) return { label: 'Review items to use soon', to: '/inventory' };
+  if (insights.length === 0) return { label: 'Log a meal — help Clara learn', to: '/cook' };
+  return { label: 'Ask Clara what to cook', to: '/assistant' };
 }
 
 export default function Dashboard() {
@@ -36,43 +91,11 @@ export default function Dashboard() {
     return days >= 0 && days <= 3;
   });
 
-  const lowStockInsight = insights.find((i) => i.memory_type === 'consumption');
-  const wasteInsight = insights.find((i) => i.memory_type === 'waste');
   const activePlan = plans[0];
   const tonightMeals =
     activePlan?.plan_data?.meals?.filter((m) => m.meal_type === 'dinner').slice(0, 3) ?? [];
-
-  const statusLines: { label: string; value: string }[] = [];
-  if (lowStockInsight) {
-    statusLines.push({ label: 'Running low', value: lowStockInsight.headline });
-  }
-  if (expiring.length > 0) {
-    statusLines.push({
-      label: 'Needs attention',
-      value: `${expiring.length} item${expiring.length !== 1 ? 's' : ''} expiring soon`,
-    });
-  }
-  if (activePlan) {
-    const mealCount = activePlan.plan_data?.meals?.length ?? 0;
-    statusLines.push({
-      label: 'Meals planned',
-      value: mealCount > 0 ? `${mealCount} in active plan` : activePlan.title || 'Active plan',
-    });
-  }
-  if (wasteInsight) {
-    statusLines.push({ label: 'Waste risk', value: wasteInsight.headline });
-  } else if (expiring.length > 0) {
-    statusLines.push({
-      label: 'Waste risk',
-      value: expiring.map((i) => i.name).slice(0, 2).join(', '),
-    });
-  }
-  if (statusLines.length === 0) {
-    statusLines.push({
-      label: 'Kitchen status',
-      value: items.length > 0 ? `${items.length} items tracked` : 'Scan a receipt to get started',
-    });
-  }
+  const statusItems = buildStatus(items, expiring, insights, activePlan);
+  const action = nextAction(items, expiring, insights);
 
   return (
     <div className="space-y-6">
@@ -84,34 +107,55 @@ export default function Dashboard() {
       <section className="card">
         <h2 className="section-label mb-4">Kitchen Status</h2>
         <ul className="space-y-3">
-          {statusLines.map(({ label, value }) => (
-            <li key={label} className="flex items-start justify-between gap-4 min-h-[52px]">
-              <span className="text-sm text-chef-subtle shrink-0">{label}</span>
-              <span className="text-sm text-chef font-medium text-right">{value}</span>
+          {statusItems.map((item, i) => (
+            <li
+              key={i}
+              className={`flex items-start gap-3 text-sm min-h-[44px] ${
+                item.urgent ? 'text-burgundy-600 font-medium' : 'text-chef'
+              }`}
+            >
+              <span className="text-chef-subtle mt-0.5 shrink-0">•</span>
+              <span>{item.text}</span>
             </li>
           ))}
         </ul>
+        <Link to={action.to} className="btn-primary w-full mt-5">
+          {action.label}
+        </Link>
       </section>
 
-      {insights.length > 0 && (
-        <section className="space-y-3">
-          <div className="flex items-center justify-between gap-4">
+      <section className="space-y-3">
+        <div className="flex items-center justify-between gap-4">
+          <div>
             <SousChefMark name={assistantName} size="sm" className="!min-h-0" />
-            <Link to="/brain" className="text-link !min-h-0 text-xs">View all</Link>
+            <p className="section-label mt-1">What {assistantName} Has Learned</p>
           </div>
-          <p className="section-label -mt-1">{assistantName}&apos;s Notes</p>
-          {insights.map((insight) => (
+          <Link to="/brain" className="text-link !min-h-0 text-xs">View all</Link>
+        </div>
+        {insights.length > 0 ? (
+          insights.map((insight) => (
             <BrainInsightCard key={insight.id} insight={insight} />
-          ))}
-        </section>
-      )}
+          ))
+        ) : (
+          <div className="card">
+            <p className="text-sm text-chef-subtle leading-relaxed">
+              {assistantName} is still learning your kitchen. Scan receipts and log meals — patterns appear after a few shops.
+            </p>
+            <div className="flex flex-wrap gap-3 mt-4">
+              <Link to="/receipt" className="btn-secondary text-sm flex-1 min-w-[140px]">Scan receipt</Link>
+              <Link to="/cook" className="btn-secondary text-sm flex-1 min-w-[140px]">Log a meal</Link>
+            </div>
+          </div>
+        )}
+      </section>
 
       <section className="card">
         <h2 className="section-label mb-3">Tonight&apos;s Options</h2>
         {tonightMeals.length > 0 ? (
           <ul className="space-y-2">
             {tonightMeals.map((m, i) => (
-              <li key={i} className="text-sm text-chef font-medium min-h-[44px] flex items-center">
+              <li key={i} className="text-sm text-chef font-medium min-h-[44px] flex items-center gap-2">
+                <span className="text-chef-subtle">•</span>
                 {m.name}
               </li>
             ))}
@@ -124,7 +168,7 @@ export default function Dashboard() {
           </div>
         ) : (
           <div className="space-y-3">
-            <p className="text-sm text-chef-subtle">No meals planned yet.</p>
+            <p className="text-sm text-chef-subtle">Nothing planned for tonight.</p>
             <Link to="/meals" className="btn-secondary w-full">Plan meals</Link>
           </div>
         )}
@@ -149,24 +193,10 @@ export default function Dashboard() {
           </Link>
           <Link to="/inventory" className="action-tile">
             <Package className="text-chef" size={24} />
-            <span className="font-medium text-sm">Pantry ({items.length})</span>
+            <span className="font-medium text-sm">Inventory ({items.length})</span>
           </Link>
         </div>
       </section>
-
-      {expiring.length > 0 && (
-        <section className="card border-burgundy-500/30 bg-burgundy-50">
-          <h3 className="font-semibold text-burgundy-600 text-sm">Use Soon</h3>
-          <ul className="mt-3 space-y-2">
-            {expiring.map((i) => (
-              <li key={i.id} className="text-sm text-chef-subtle min-h-[44px] flex items-center gap-2">
-                <ChevronRight size={14} className="text-burgundy-500 shrink-0" />
-                {i.name} — expires {i.expiration_date}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
     </div>
   );
 }

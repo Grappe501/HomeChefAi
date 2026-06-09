@@ -4,7 +4,7 @@ export default function UsageMeter({ billing }: { billing: UsageQuota }) {
   const items = [
     { key: 'receipt_scans', label: 'Receipt scans' },
     { key: 'meal_plans', label: 'Meal plans' },
-    { key: 'assistant_messages', label: 'Assistant messages' },
+    { key: 'assistant_messages', label: 'Sous Chef messages' },
   ] as const;
 
   if (billing.has_pro_access) {

@@ -11,7 +11,6 @@ import MealPlanner from './pages/MealPlanner';
 import CookLog from './pages/CookLog';
 import Assistant from './pages/Assistant';
 import Settings from './pages/Settings';
-import Recipes from './pages/Recipes';
 import Calendar from './pages/Calendar';
 import Community from './pages/Community';
 import Brain from './pages/Brain';
@@ -40,7 +39,7 @@ export default function App() {
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/cook" element={<CookLog />} />
         <Route path="/assistant" element={<Assistant />} />
-        <Route path="/recipes" element={<Recipes />} />
+        <Route path="/recipes" element={<Navigate to="/" replace />} />
         <Route path="/community" element={<Community />} />
         <Route path="/brain" element={<Brain />} />
         <Route path="/admin/journal" element={<ProductJournal />} />

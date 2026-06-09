@@ -40,7 +40,7 @@ export default function ReceiptScan() {
 
   const handleFile = async (file: File) => {
     setScanning(true);
-    const loadId = toast.loading('Scanning receipt with AI...');
+    const loadId = toast.loading('Scanning receipt…');
     try {
       const base64 = await fileToBase64(file);
       const result = await receiptsApi.scan(base64);
@@ -113,7 +113,7 @@ export default function ReceiptScan() {
             disabled={scanning}
             className="btn-primary w-full min-h-[52px]"
           >
-            {scanning ? 'Scanning with AI...' : (
+            {scanning ? 'Scanning receipt…' : (
               <><Camera size={22} /> Take Photo / Upload Receipt</>
             )}
           </button>
