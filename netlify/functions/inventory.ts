@@ -4,6 +4,14 @@ import { withCors, jsonResponse, errorResponse, parseBody, requireAuth } from '.
 import { useDevStore, loadStore, saveStore } from './utils/db.js';
 import { getSupabaseUserClient } from './utils/supabase.js';
 import { awardXpDevStore, awardXpSupabase, XP_AWARDS } from './utils/gamification.js';
+import {
+  recordWasteEventDevStore,
+  recordWasteEventSupabase,
+  runBrainSyncDevStore,
+  runBrainSyncSupabase,
+  getBrainScopeDevStore,
+  getBrainScopeSupabase,
+} from './utils/brain/runBrainSync.js';
 import type { InventoryItem } from '../../src/types/index';
 
 export const handler: Handler = withCors(async (event) => {
@@ -103,6 +111,13 @@ export const handler: Handler = withCors(async (event) => {
 
     if (useDevStore()) {
       const store = loadStore();
+      const item = store.inventory_items.find((i) => i.id === id && i.user_id === userId);
+      if (!item) return errorResponse('Item not found', 404);
+      if (Number(item.quantity) > 0) {
+        const scope = getBrainScopeDevStore(store, userId);
+        recordWasteEventDevStore(store, scope, { id: item.id, name: item.name });
+        runBrainSyncDevStore(store, scope);
+      }
       store.inventory_items = store.inventory_items.filter((i) => !(i.id === id && i.user_id === userId));
       saveStore(store);
       return jsonResponse({ success: true });
@@ -110,8 +125,15 @@ export const handler: Handler = withCors(async (event) => {
 
     if (!user.token) return errorResponse('Missing token', 401);
     const db = getSupabaseUserClient(user.token);
+    const { data: item } = await db.from('inventory_items').select('id, name, quantity').eq('id', id).eq('user_id', userId).single();
+    if (!item) return errorResponse('Item not found', 404);
     const { error } = await db.from('inventory_items').delete().eq('id', id).eq('user_id', userId);
     if (error) return errorResponse(error.message, 500);
+    if (Number(item.quantity) > 0) {
+      const scope = await getBrainScopeSupabase(db, userId);
+      await recordWasteEventSupabase(db, scope, { id: item.id, name: item.name, quantity: Number(item.quantity) });
+      await runBrainSyncSupabase(db, scope);
+    }
     return jsonResponse({ success: true });
   }
 

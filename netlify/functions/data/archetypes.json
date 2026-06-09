@@ -1,0 +1,18 @@
+{
+  "cajun": {
+    "label": "Cajun",
+    "keywords": ["cajun", "gumbo", "jambalaya", "étouffée", "etouffee", "andouille", "crawfish", "po boy", "po'boy", "dirty rice", "boudin"]
+  },
+  "southern": {
+    "label": "Southern",
+    "keywords": ["southern", "biscuit", "grits", "fried chicken", "collard", "mac and cheese", "cornbread", "bbq", "barbecue", "pulled pork", "brisket"]
+  },
+  "mexican": {
+    "label": "Mexican",
+    "keywords": ["mexican", "taco", "tacos", "burrito", "enchilada", "quesadilla", "fajita", "carnitas", "salsa", "tamale", "nachos"]
+  },
+  "italian": {
+    "label": "Italian",
+    "keywords": ["italian", "pasta", "pizza", "risotto", "lasagna", "carbonara", "marinara", "parmesan", "pesto"]
+  }
+}

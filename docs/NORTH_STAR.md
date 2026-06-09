@@ -45,7 +45,17 @@ Not preachy — helpful. Every recommendation, insight, and nudge should gently 
 | **Spend less** | ~$284 saved vs takeout estimate |
 | **Buy & grow local** | Seasonal produce from farmers market; herbs from your garden |
 
-These are reinforcement loops, not lectures. Celebrate progress.
+These are reinforcement loops, not lectures. Celebrate progress — address the user as **Chef**. See `develop_notes/BRAND_GUIDE_1_0.md`.
+
+---
+
+## Engine missions (brand-aligned)
+
+| Engine | Mission |
+|--------|---------|
+| Kitchen Journey | **Develop Better Chefs** — not "teach cooking" |
+| Culture Memory | **Preserve Food Traditions** |
+| Cookbook Social | **Share What Works** |
 
 ---
 
@@ -65,7 +75,18 @@ Inventory → Food Brain → Recommendations → Learning → Creativity → Fam
 
 ---
 
-## Platform stack (8 levels + Success Engine)
+## Platform stack (product pyramid)
+
+Internal roadmap — see `develop_notes/BRAND_FREEZE_1_0.md` for full pyramid.
+
+```
+LEGACY          Culture Memory
+CONNECTION      Dinner Clubs + Community
+GROWTH          Academy · Creativity · Cookbook
+INTELLIGENCE    Recommendations (Brain 1.0B)
+MEMORY          Food Brain (Brain 1.0A)
+FOUNDATION      Inventory Engine
+```
 
 | Level | Name | Purpose |
 |-------|------|---------|
@@ -501,6 +522,10 @@ Most cooking apps focus on food. Few focus on bringing people together around fo
 > This system understands how your family cooks, learns, shops, grows, improves, and creates food over years.
 
 Receipt scanning is table stakes. Longitudinal household food intelligence is not.
+
+**The proprietary asset is the Household Food Graph** — nodes (people, ingredients, recipes, techniques, events, experiences, traditions) and relationships (likes, cooks, wastes, teaches, forks) accumulated over time. See `develop_notes/HOUSEHOLD_FOOD_GRAPH_1_0.md`.
+
+Brain, Journey, Cookbook, Creativity, Culture, and Experience are **views and writers** on the same graph — not separate silos.
 
 ---
 

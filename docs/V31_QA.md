@@ -10,10 +10,19 @@
 | `npm run build` | PASS |
 | `npm run typecheck` | PASS |
 | `npm run lint` | N/A — not configured (skipped per protocol) |
-| Production homepage loads | PASS — no white screen |
-| Functions return 401 (not 502) | PASS |
+| Production homepage loads | PASS — HTTP 200, React root present |
+| Production bundle | PASS — `index-ClgD7fwE.js` served |
+| Functions return 401 (not 502) | PASS — inventory endpoint verified |
+| No `alert()` in src | PASS — grep clean |
+| Last automated run | June 8, 2026 |
 
-## Mobile QA checklist (manual — run on phone or DevTools mobile)
+## Gate before Brain 1.0A
+
+- [ ] Complete mobile checklist below on a **real phone**
+- [ ] Confirm: onboarding → receipts → inventory → cook log → XP → household
+- [ ] Say **"Start Brain 1.0A"** to begin build (`docs/BRAIN_1_0A_SPEC.md`)
+
+---
 
 ### Global
 - [ ] Bottom nav tap targets ≥ 48px

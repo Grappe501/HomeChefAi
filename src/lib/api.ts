@@ -162,3 +162,12 @@ export const householdApi = {
   invite: () =>
     api<{ invite_code: string }>('household', { method: 'POST', body: JSON.stringify({ action: 'invite' }) }),
 };
+
+export const brainApi = {
+  insights: () =>
+    api<{ insights: import('@/types/brain').BrainInsight[]; learning: number }>('brain'),
+  memory: (id: string) =>
+    api<{ memory: import('@/types/brain').BrainInsight }>(`brain?id=${id}`),
+  sync: () =>
+    api<{ synced: boolean; insights_count: number }>('brain', { method: 'POST', body: JSON.stringify({}) }),
+};

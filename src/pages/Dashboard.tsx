@@ -2,18 +2,20 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Camera, Wand2, CalendarDays, Package, Sparkles, Brain } from 'lucide-react';
 import { useApp } from '@/hooks/useApp';
-import { inventoryApi, mealsApi, suggestionsApi } from '@/lib/api';
+import { inventoryApi, mealsApi, brainApi } from '@/lib/api';
 import { getLevelInfo } from '@/lib/utils';
 import { GAMIFICATION_LEVELS } from '@/types';
 import type { InventoryItem, MealPlan } from '@/types';
+import type { BrainInsight } from '@/types/brain';
 import CookTogetherCard from '@/components/CookTogetherCard';
+import BrainInsightCard from '@/components/BrainInsightCard';
 
 export default function Dashboard() {
-  const { profile, user } = useApp();
+  const { profile } = useApp();
   const [items, setItems] = useState<InventoryItem[]>([]);
   const [totalValue, setTotalValue] = useState(0);
   const [plans, setPlans] = useState<MealPlan[]>([]);
-  const [suggestions, setSuggestions] = useState<{ title: string; message: string }[]>([]);
+  const [insights, setInsights] = useState<BrainInsight[]>([]);
   const levelInfo = profile ? getLevelInfo(profile.gamification_xp, profile.gamification_level) : null;
   const currentQuest = GAMIFICATION_LEVELS.find((l) => l.level === (profile?.gamification_level || 1));
 
@@ -23,7 +25,7 @@ export default function Dashboard() {
       setTotalValue((r as { total_value?: number }).total_value ?? 0);
     }).catch(() => {});
     mealsApi.list().then((r) => setPlans(r.plans)).catch(() => {});
-    suggestionsApi.list().then((r) => setSuggestions(r.suggestions)).catch(() => {});
+    brainApi.insights().then((r) => setInsights(r.insights.slice(0, 3))).catch(() => {});
   }, []);
 
   const expiring = items.filter((i) => {
@@ -35,7 +37,7 @@ export default function Dashboard() {
   return (
     <div className="space-y-5">
       <section className="card bg-gradient-to-br from-chef-500 to-chef-600 text-white">
-        <p className="text-chef-100 text-sm">Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 17 ? 'afternoon' : 'evening'}, {user?.name || 'Chef'}!</p>
+        <p className="text-chef-100 text-sm">Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 17 ? 'afternoon' : 'evening'}, Chef!</p>
         <h2 className="font-display text-xl mt-1">What's cooking today?</h2>
         {items.length > 0 && (
           <p className="text-chef-100 text-sm mt-2">Pantry value: ${totalValue.toFixed(2)} · {items.length} items</p>
@@ -48,14 +50,16 @@ export default function Dashboard() {
         )}
       </section>
 
-      {suggestions.length > 0 && (
+      {insights.length > 0 && (
         <section className="space-y-2">
-          <h3 className="font-semibold text-sm text-sage-600 flex items-center gap-1"><Brain size={16} /> Sous Chef says</h3>
-          {suggestions.slice(0, 3).map((s, i) => (
-            <div key={i} className="card border-l-4 border-chef-400 py-3">
-              <p className="font-medium text-chef-800">{s.title}</p>
-              <p className="text-sm text-sage-600 mt-1">{s.message}</p>
-            </div>
+          <div className="flex items-center justify-between">
+            <h3 className="font-semibold text-sm text-sage-600 flex items-center gap-1">
+              <Brain size={16} /> Kitchen Brain
+            </h3>
+            <Link to="/brain" className="text-xs text-chef-600 font-medium">View all →</Link>
+          </div>
+          {insights.map((insight) => (
+            <BrainInsightCard key={insight.id} insight={insight} />
           ))}
         </section>
       )}

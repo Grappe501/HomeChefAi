@@ -5,6 +5,7 @@ import { useDevStore, loadStore, saveStore } from './utils/db.js';
 import { getSupabaseUserClient } from './utils/supabase.js';
 import { checkAndIncrementQuota, quotaErrorResponse } from './utils/quotas.js';
 import { awardXpDevStore, awardXpSupabase, XP_AWARDS } from './utils/gamification.js';
+import { runBrainSyncDevStore, runBrainSyncSupabase, getBrainScopeDevStore, getBrainScopeSupabase } from './utils/brain/runBrainSync.js';
 import type { ReceiptParseResult, InventoryItem } from '../../src/types/index';
 
 async function parseReceiptWithOpenAI(imageBase64: string): Promise<ReceiptParseResult> {
@@ -102,6 +103,8 @@ export const handler: Handler = withCors(async (event) => {
         store.inventory_items.push(...items);
         if (body.items) receipt.raw_parse = { ...receipt.raw_parse, items: body.items } as ReceiptParseResult;
         const xp = awardXpDevStore(store, userId, XP_AWARDS.receipt_verify);
+        const scope = getBrainScopeDevStore(store, userId);
+        runBrainSyncDevStore(store, scope);
         saveStore(store);
         return jsonResponse({ receipt, items_added: items.length, xp_gained: xp?.gained ?? XP_AWARDS.receipt_verify });
       }
@@ -129,6 +132,8 @@ export const handler: Handler = withCors(async (event) => {
       }));
       if (rows.length) await db.from('inventory_items').insert(rows);
       const xp = await awardXpSupabase(db, userId, XP_AWARDS.receipt_verify);
+      const scope = await getBrainScopeSupabase(db, userId);
+      await runBrainSyncSupabase(db, scope);
       return jsonResponse({
         receipt: { ...receipt, verified: true },
         items_added: rows.length,

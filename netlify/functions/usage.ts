@@ -4,6 +4,7 @@ import { withCors, jsonResponse, errorResponse, parseBody, requireAuth } from '.
 import { useDevStore, loadStore, saveStore } from './utils/db.js';
 import { getSupabaseUserClient } from './utils/supabase.js';
 import { awardXpDevStore, awardXpSupabase, XP_AWARDS } from './utils/gamification.js';
+import { runBrainSyncDevStore, runBrainSyncSupabase, getBrainScopeDevStore, getBrainScopeSupabase } from './utils/brain/runBrainSync.js';
 
 export const handler: Handler = withCors(async (event) => {
   const user = await requireAuth(event);
@@ -51,6 +52,8 @@ export const handler: Handler = withCors(async (event) => {
           },
         });
       }
+      const scope = getBrainScopeDevStore(store, userId);
+      runBrainSyncDevStore(store, scope);
       saveStore(store);
       return jsonResponse({ log, inventory_updated: true }, 201);
     }
@@ -93,6 +96,9 @@ export const handler: Handler = withCors(async (event) => {
         items: body.items_used.map((i) => i.name),
       },
     });
+
+    const scope = await getBrainScopeSupabase(db, userId);
+    await runBrainSyncSupabase(db, scope);
 
     let recipe = null;
     if (body.share_recipe && body.meal_name) {

@@ -14,6 +14,7 @@ import Settings from './pages/Settings';
 import Recipes from './pages/Recipes';
 import Calendar from './pages/Calendar';
 import Community from './pages/Community';
+import Brain from './pages/Brain';
 import LoadingScreen from './components/LoadingScreen';
 
 export default function App() {
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="/assistant" element={<Assistant />} />
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/community" element={<Community />} />
+        <Route path="/brain" element={<Brain />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
