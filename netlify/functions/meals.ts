@@ -10,9 +10,10 @@ import type { MealPlanData, InventoryItem, Profile, PlannedMeal, ShoppingItem } 
 type MealCounts = { breakfasts: number; lunches: number; dinners: number; snacks: number };
 
 const SYSTEM_PROMPT = `You are a kitchen sous chef meal planner. Return ONLY valid JSON:
-{"meals":[{"day":1,"meal_type":"breakfast|lunch|dinner|snack","name":"string","description":"string","ingredients":[{"name":"string","quantity":number,"unit":"string","in_inventory":boolean}],"prep_time_minutes":number}],"shopping_list":[{"name":"string","quantity":number,"unit":"string","estimated_price":number}],"estimated_cost":number,"uses_inventory":["string"]}
-Prioritize inventory. Respect dietary restrictions. Keep descriptions short.
-Plan ONLY the meal counts requested — do not add extra meals.`;
+{"meals":[{"day":1,"meal_type":"breakfast|lunch|dinner|snack","name":"string","description":"string","ingredients":[{"name":"string","quantity":number,"unit":"string","in_inventory":boolean}],"prep_time_minutes":number}],"shopping_list":[{"name":"string","quantity":number,"unit":"string","estimated_price":number,"supply_group":"breakfast|lunch|dinner|snack|staple"}],"estimated_cost":number,"uses_inventory":["string"]}
+Prioritize inventory. Respect dietary restrictions. Keep breakfast/lunch entries concise.
+Plan ONLY the meal counts requested — do not add extra meals.
+Tag each shopping_list item with supply_group for the meal type that needs it; items used across meals use "staple".`;
 
 function normalizeProfile(prof: Partial<Profile> | null | undefined, userId: string): Profile {
   return {
@@ -133,33 +134,78 @@ function resolveMealCounts(
   };
 }
 
+function buildRealismPrompt(planningGoal: string | undefined, counts: MealCounts): string {
+  if (planningGoal === 'variety') {
+    return 'Chef requested maximum variety — unique meals across the plan where practical.';
+  }
+  const lines = ['Household realism (default):'];
+  if (counts.breakfasts > 0) {
+    lines.push('- Breakfasts: rotate 2–4 simple repeat options (e.g. oatmeal, eggs, toast). Do NOT invent a unique breakfast for every day unless fewer than 4 breakfasts total.');
+  }
+  if (counts.lunches > 0) {
+    lines.push('- Lunches: at least half must be leftovers from a prior dinner in this plan. Prefix the name with "Leftover" (e.g. "Leftover BBQ chicken bowl").');
+  }
+  if (counts.dinners > 0) {
+    lines.push('- Dinners: vary proteins and cuisines across the week.');
+  }
+  lines.push('- Scale ingredient quantities for the household size given.');
+  return lines.join('\n');
+}
+
+function maxTokensForChunk(chunkMeals: number, chunkCounts: MealCounts): number {
+  const lightMeals = chunkCounts.breakfasts + chunkCounts.lunches + chunkCounts.snacks;
+  const perMeal = lightMeals > 0 && chunkCounts.dinners === 0 ? 75 : 100;
+  const cap = chunkMeals > 10 ? 1100 : 1600;
+  return Math.min(320 + chunkMeals * perMeal, cap);
+}
+
 function mergePlanChunks(chunks: MealPlanData[]): MealPlanData {
   const meals: PlannedMeal[] = [];
   const shoppingMap = new Map<string, ShoppingItem>();
+  const itemGroups = new Map<string, Set<string>>();
   let estimatedCost = 0;
   const uses = new Set<string>();
 
   for (const chunk of chunks) {
     meals.push(...(chunk.meals ?? []));
     for (const item of chunk.shopping_list ?? []) {
-      const key = item.name.toLowerCase();
+      const group = item.supply_group ?? 'staple';
+      const nameKey = item.name.toLowerCase();
+      const groups = itemGroups.get(nameKey) ?? new Set();
+      groups.add(group);
+      itemGroups.set(nameKey, groups);
+
+      const key = `${nameKey}::${group}`;
       const existing = shoppingMap.get(key);
       if (existing) {
         existing.quantity = Number(existing.quantity) + Number(item.quantity);
       } else {
-        shoppingMap.set(key, { ...item });
+        shoppingMap.set(key, { ...item, supply_group: group as ShoppingItem['supply_group'] });
       }
     }
     estimatedCost += chunk.estimated_cost ?? 0;
     for (const u of chunk.uses_inventory ?? []) uses.add(u);
   }
 
+  const shopping_list = [...shoppingMap.values()].map((item) => {
+    const groups = itemGroups.get(item.name.toLowerCase());
+    if (groups && groups.size > 1) return { ...item, supply_group: 'staple' as const };
+    return item;
+  });
+
+  meals.sort((a, b) => a.day - b.day || mealTypeOrder(a.meal_type) - mealTypeOrder(b.meal_type));
+
   return {
     meals,
-    shopping_list: [...shoppingMap.values()],
+    shopping_list,
     estimated_cost: Math.round(estimatedCost * 100) / 100,
     uses_inventory: [...uses],
   };
+}
+
+function mealTypeOrder(type: string): number {
+  const order: Record<string, number> = { breakfast: 0, lunch: 1, dinner: 2, snack: 3 };
+  return order[type] ?? 9;
 }
 
 async function callOpenAiMealPlan(userContent: string, maxTokens: number): Promise<MealPlanData> {
@@ -213,7 +259,7 @@ async function callOpenAiMealPlan(userContent: string, maxTokens: number): Promi
     return JSON.parse(data.choices[0].message.content) as MealPlanData;
   } catch (err) {
     if (err instanceof Error && err.name === 'AbortError') {
-      throw new Error('Meal planning timed out — try fewer days or dinner-only.');
+      throw new Error('Meal planning timed out — try fewer days or dinners-only.');
     }
     throw err;
   } finally {
@@ -234,34 +280,117 @@ async function generateMealPlanChunk(
     message?: string;
     planningGoal?: string;
     includeShoppingList?: boolean;
+    fullPlanCounts?: MealCounts;
   },
 ): Promise<MealPlanData> {
   const inventoryList = formatInventoryList(inventory);
   const mealScope = buildMealScopePrompt(params.mealCounts, params.startDay, params.dayCount, params.planDays);
   const goalLine = planningGoalPrompt(params.planningGoal);
+  const realismLine = buildRealismPrompt(params.planningGoal, params.fullPlanCounts ?? params.mealCounts);
+  const people = params.people || profile.household_size;
 
   const shoppingNote = params.includeShoppingList
-    ? 'Include a consolidated shopping_list for missing ingredients.'
+    ? 'Include shopping_list for missing ingredients with supply_group tags (breakfast/lunch/dinner/snack/staple).'
     : 'Return meals only — use an empty shopping_list [].';
 
   const chunkCounts = chunkMealCounts(params.mealCounts, params.startDay, params.dayCount, params.planDays);
   const chunkMeals = totalMeals(chunkCounts);
 
   const userContent = `${mealScope}
-People: ${params.people || profile.household_size}
+Household: Plan all portions for exactly ${people} people.
 Budget: $${params.budget ?? 'flexible'}
 Dietary: ${profile.dietary_restrictions.join(', ') || 'none'}
 Cuisines: ${profile.cuisine_preferences.join(', ') || 'any'}
 Allergies: ${profile.allergies.join(', ') || 'none'}
 ${goalLine ? `Planning goal: ${goalLine}` : ''}
+${realismLine}
 Inventory:
 ${inventoryList}
 ${params.message ? `Chef request: ${params.message}` : ''}
 ${shoppingNote}
 Use "day" field values ${params.startDay} through ${params.startDay + params.dayCount - 1}.`;
 
-  const maxTokens = Math.min(400 + chunkMeals * 140, 2000);
+  const maxTokens = maxTokensForChunk(chunkMeals, chunkCounts);
   return callOpenAiMealPlan(userContent, maxTokens);
+}
+
+async function generateHeavyMealPlan(
+  inventory: InventoryItem[],
+  profile: Profile,
+  params: {
+    days: number;
+    mealCounts: MealCounts;
+    budget?: number;
+    people?: number;
+    message?: string;
+    planning_goal?: string;
+  },
+): Promise<MealPlanData> {
+  const { days, mealCounts } = params;
+  const tasks: Promise<MealPlanData>[] = [];
+  const shared = {
+    budget: params.budget,
+    people: params.people,
+    message: params.message,
+    planningGoal: params.planning_goal,
+    fullPlanCounts: mealCounts,
+  };
+
+  if (mealCounts.breakfasts > 0) {
+    tasks.push(generateMealPlanChunk(inventory, profile, {
+      ...shared,
+      startDay: 1,
+      dayCount: days,
+      planDays: days,
+      mealCounts: { breakfasts: mealCounts.breakfasts, lunches: 0, dinners: 0, snacks: 0 },
+      includeShoppingList: true,
+    }));
+  }
+  if (mealCounts.lunches > 0) {
+    tasks.push(generateMealPlanChunk(inventory, profile, {
+      ...shared,
+      startDay: 1,
+      dayCount: days,
+      planDays: days,
+      mealCounts: { breakfasts: 0, lunches: mealCounts.lunches, dinners: 0, snacks: 0 },
+      includeShoppingList: true,
+    }));
+  }
+  if (mealCounts.snacks > 0) {
+    tasks.push(generateMealPlanChunk(inventory, profile, {
+      ...shared,
+      startDay: 1,
+      dayCount: days,
+      planDays: days,
+      mealCounts: { breakfasts: 0, lunches: 0, dinners: 0, snacks: mealCounts.snacks },
+      includeShoppingList: true,
+    }));
+  }
+  if (mealCounts.dinners > 0) {
+    const chunkSize = 3;
+    for (let start = 1; start <= days; start += chunkSize) {
+      const dayCount = Math.min(chunkSize, days - start + 1);
+      const dinnerSlice: MealCounts = {
+        breakfasts: 0,
+        lunches: 0,
+        dinners: chunkMealCounts(mealCounts, start, dayCount, days).dinners,
+        snacks: 0,
+      };
+      if (dinnerSlice.dinners > 0) {
+        tasks.push(generateMealPlanChunk(inventory, profile, {
+          ...shared,
+          startDay: start,
+          dayCount,
+          planDays: days,
+          mealCounts: dinnerSlice,
+          includeShoppingList: true,
+        }));
+      }
+    }
+  }
+
+  const results = await Promise.all(tasks);
+  return mergePlanChunks(results);
 }
 
 async function generateMealPlan(
@@ -281,6 +410,11 @@ async function generateMealPlan(
 ): Promise<MealPlanData> {
   const days = Math.min(Math.max(params.days, 1), 14);
   const mealCounts = resolveMealCounts(days, params);
+
+  if (totalMeals(mealCounts) > 12) {
+    return generateHeavyMealPlan(inventory, profile, { ...params, days, mealCounts });
+  }
+
   const chunkSize = Math.min(chunkSizeForCoverage(mealCounts, days), days);
   const chunks: Promise<MealPlanData>[] = [];
 
@@ -296,6 +430,7 @@ async function generateMealPlan(
       message: params.message,
       planningGoal: params.planning_goal,
       includeShoppingList: start === 1,
+      fullPlanCounts: mealCounts,
     }));
   }
 

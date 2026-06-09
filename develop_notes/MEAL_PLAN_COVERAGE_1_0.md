@@ -40,16 +40,34 @@ Defaults to dinners only; one tap expands coverage without forcing detail.
 - [x] 7-day plan does not automatically mean dinner-only without Chef choosing it  
 - [x] OpenAI prompt includes meal counts per chunk  
 - [x] UI shows `Planning: 7 dinners` or full coverage summary  
-- [x] Kitchen Supply Plan derives from generated meals (unchanged merge logic)  
+- [x] Kitchen Supply Plan derives from generated meals  
 - [x] Coverage metadata stored on `plan_data.coverage`  
+- [x] Full-day warning: "Full-day plans take a little longer…"  
+- [x] Heavy plans (>12 meals) split by meal type to control token cost  
+- [x] Supply list grouped: Breakfast · Lunch · Dinner · Shared staples  
+- [x] Realism prompt: rotating breakfasts, leftover lunches, varied dinners (unless Variety goal)  
+- [x] Generated plan shows **Planned for N people** prominently  
+
+---
+
+## Manual test matrix
+
+| Scenario | Expected |
+|----------|----------|
+| 7 dinners | 7 dinner entries, dinner-grouped supply |
+| 7 breakfasts + 7 dinners | Rotating breakfasts, varied dinners |
+| 7 B + 7 L + 7 D | Full-day warning, grouped supply, leftover lunches |
+| Custom 3B / 5L / 7D / 2 snacks | Counts honored in prompt |
 
 ---
 
 ## Backend notes
 
 - Removed `dinnersOnly = days >= 4` auto rule  
-- Chunk size scales down when meals/day is high (1-day chunks for B+L+D)  
-- `planning_goal` and `snacks` passed through POST body  
+- Chunk size scales down when meals/day is high  
+- `totalMeals > 12`: separate API calls for breakfasts, lunches, snacks; dinners chunked by 3 days  
+- `supply_group` on shopping items; cross-meal items promoted to `staple`  
+- `planning_goal=variety` disables repetition defaults  
 
 ---
 

@@ -12,12 +12,15 @@ import {
   PLANNING_GOALS,
   countsForPreset,
   formatCoverageSummary,
+  formatPlannedFor,
   formatPlanningLabel,
+  shouldWarnHeavyPlan,
   totalMeals,
   type CoveragePreset,
   type MealCounts,
   type PlanningGoalId,
 } from '@/types/mealPlanCoverage';
+import { groupSupplyList, SUPPLY_GROUP_ORDER } from '@/lib/supplyPlan';
 
 function MealCountStepper({
   label,
@@ -153,6 +156,13 @@ export default function MealPlanner() {
   const showAddMealsHint =
     preset === 'dinners_only' && counts.breakfasts === 0 && counts.lunches === 0;
 
+  const showHeavyPlanWarning = shouldWarnHeavyPlan(counts);
+
+  const planPeople = activePlan?.plan_data?.coverage?.people;
+  const groupedSupply = activePlan?.plan_data?.shopping_list
+    ? groupSupplyList(activePlan.plan_data.shopping_list)
+    : null;
+
   return (
     <div className="space-y-5">
       <h2 className="font-sans font-semibold text-xl text-chef">Meal Planning</h2>
@@ -227,6 +237,7 @@ export default function MealPlanner() {
 
         <div className="rounded-lg bg-stainless-200 px-3 py-2">
           <p className="text-sm font-medium text-chef">{formatPlanningLabel(counts)}</p>
+          <p className="text-xs text-chef-subtle mt-1">{formatPlannedFor(people)}</p>
           {showAddMealsHint && (
             <div className="mt-2 flex flex-wrap gap-2">
               <span className="text-xs text-chef-subtle">Add breakfasts or lunches?</span>
@@ -247,6 +258,12 @@ export default function MealPlanner() {
             </div>
           )}
         </div>
+
+        {showHeavyPlanWarning && (
+          <p className="text-xs text-chef-subtle border-l-2 border-chef-muted pl-3">
+            Full-day plans take a little longer because Clara is planning more meals.
+          </p>
+        )}
 
         <div>
           <label className="text-sm text-chef-subtle">How many people should I plan for?</label>
@@ -315,12 +332,12 @@ export default function MealPlanner() {
         <section className="card space-y-3">
           <div>
             <h3 className="font-semibold">{activePlan.title}</h3>
+            {planPeople != null && (
+              <p className="text-sm font-medium text-chef mt-2">{formatPlannedFor(planPeople)}</p>
+            )}
             {activePlan.plan_data?.coverage && (
               <p className="text-xs text-chef-subtle mt-1">
                 {formatCoverageSummary(activePlan.plan_data.coverage)}
-                {activePlan.plan_data.coverage.people
-                  ? ` · ${activePlan.plan_data.coverage.people} people`
-                  : ''}
               </p>
             )}
           </div>
@@ -328,30 +345,49 @@ export default function MealPlanner() {
             <div key={i} className="flex justify-between items-start border-b border-steel pb-2">
               <div>
                 <p className="text-xs text-chef-subtle">Day {m.day} · {m.meal_type}</p>
-                <p className="font-medium">{m.name}</p>
+                <p className="font-medium">
+                  {m.name}
+                  {m.name.toLowerCase().startsWith('leftover') && (
+                    <span className="ml-2 text-xs font-normal text-chef-subtle">· uses prior dinner</span>
+                  )}
+                </p>
+                {m.description && (
+                  <p className="text-xs text-chef-subtle mt-0.5">{m.description}</p>
+                )}
                 {m.prep_time_minutes != null && (
                   <p className="text-xs text-steel-dark">{m.prep_time_minutes} min</p>
                 )}
               </div>
             </div>
           ))}
-          {activePlan.plan_data?.shopping_list && activePlan.plan_data.shopping_list.length > 0 && (
+          {groupedSupply && activePlan.plan_data?.shopping_list && activePlan.plan_data.shopping_list.length > 0 && (
             <div className="mt-4 pt-3 border-t border-steel">
               <h4 className="font-semibold text-sm flex items-center gap-1">
                 <ShoppingCart size={14} /> Kitchen Supply Plan
               </h4>
-              <ul className="mt-2 space-y-1">
-                {activePlan.plan_data.shopping_list.map((s, i) => (
-                  <li key={i} className="text-sm flex justify-between">
-                    <span>{s.name} — {s.quantity} {s.unit}</span>
-                    {s.estimated_price != null && (
-                      <span className="text-chef-subtle">${s.estimated_price.toFixed(2)}</span>
-                    )}
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-3 space-y-4">
+                {SUPPLY_GROUP_ORDER.map(({ id, label }) => {
+                  const items = groupedSupply[id];
+                  if (!items.length) return null;
+                  return (
+                    <div key={id}>
+                      <p className="text-xs font-semibold text-chef-subtle uppercase tracking-wide mb-1">{label}</p>
+                      <ul className="space-y-1">
+                        {items.map((s, i) => (
+                          <li key={i} className="text-sm flex justify-between">
+                            <span>{s.name} — {s.quantity} {s.unit}</span>
+                            {s.estimated_price != null && (
+                              <span className="text-chef-subtle">${s.estimated_price.toFixed(2)}</span>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </div>
               {activePlan.plan_data.estimated_cost != null && (
-                <p className="text-sm font-semibold mt-2 text-chef">
+                <p className="text-sm font-semibold mt-3 text-chef">
                   Est. total: ${activePlan.plan_data.estimated_cost.toFixed(2)}
                 </p>
               )}

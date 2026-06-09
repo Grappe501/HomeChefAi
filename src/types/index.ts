@@ -117,6 +117,8 @@ export interface ShoppingItem {
   quantity: number;
   unit: string;
   estimated_price?: number;
+  /** Kitchen Supply Plan grouping */
+  supply_group?: 'breakfast' | 'lunch' | 'dinner' | 'snack' | 'staple';
 }
 
 export interface UsageLog {

@@ -69,6 +69,20 @@ export function totalMeals(counts: MealCounts): number {
   return counts.breakfasts + counts.lunches + counts.dinners + counts.snacks;
 }
 
+/** Full-day coverage: breakfast + lunch + dinner all requested */
+export function isFullDayCoverage(counts: MealCounts): boolean {
+  return counts.breakfasts > 0 && counts.lunches > 0 && counts.dinners > 0;
+}
+
+/** Show UI warning — many meals or full-day plan */
+export function shouldWarnHeavyPlan(counts: MealCounts): boolean {
+  return isFullDayCoverage(counts) || totalMeals(counts) >= 14;
+}
+
+export function formatPlannedFor(people: number): string {
+  return `Planned for ${people} ${people === 1 ? 'person' : 'people'}`;
+}
+
 export function formatCoverageSummary(counts: MealCounts): string {
   const parts: string[] = [];
   if (counts.breakfasts) parts.push(`${counts.breakfasts} breakfast${counts.breakfasts === 1 ? '' : 's'}`);
