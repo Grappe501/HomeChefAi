@@ -9,7 +9,7 @@ import {
   normalizeTier,
   legacyActionToCredit,
   isBasicAssistantMessage,
-} from '../../src/types/credits.js';
+} from '../../../src/types/credits.js';
 
 const FREE_LIMITS = { receipt_scans: 5, meal_plans: 3, assistant_messages: 50 } as const;
 
@@ -253,4 +253,4 @@ export function quotaErrorResponse(
   };
 }
 
-export { isBasicAssistantMessage, chargeCredits };
+export { isBasicAssistantMessage };
