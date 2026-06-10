@@ -1,28 +1,41 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, Sparkles, CheckCircle2, Camera, BookOpen, Wrench, Zap, Library } from 'lucide-react';
+import { ArrowRight, Sparkles, CheckCircle2, Camera, BookOpen, Wrench, Library, Brain } from 'lucide-react';
 import { MarketingLayout, DrillCard } from '@/components/marketing/MarketingLayout';
-import { ProductMock, SiteStatsStrip, Brain4Strip } from '@/components/marketing/MarketingBlocks';
+import {
+  ProductMock,
+  SiteStatsStrip,
+  Brain4Strip,
+  RecipeLibraryBanner,
+  KlePillarsStrip,
+} from '@/components/marketing/MarketingBlocks';
 import { PageMeta } from '@/components/marketing/PageMeta';
 import { MarketingFAQ } from '@/components/marketing/MarketingFAQ';
 import { TrustStrip } from '@/components/marketing/TrustStrip';
 import { StickyMobileCTA } from '@/components/marketing/StickyMobileCTA';
 import { DEEP_CATALOG } from '@/lib/deepCatalog';
-import { BRAIN_PILLARS, MARKETING_FAQ, TESTIMONIALS, SITE_VERSION, SITE_STATS } from '@/content/marketingContent';
+import {
+  BRAIN_PILLARS,
+  MARKETING_FAQ,
+  TESTIMONIALS,
+  SITE_VERSION,
+  SITE_STATS,
+  PRODUCT_VERSION,
+} from '@/content/marketingContent';
 import { useApp } from '@/hooks/useApp';
 
 const VALUE_PROPS = [
-  `${SITE_STATS.recipeCount} recipes across ${SITE_STATS.cuisines} cuisines — matched to your pantry at zero credits`,
+  `${SITE_STATS.recipeCountExact} structured recipes — ${SITE_STATS.cuisines} cuisines, pantry match at zero credits`,
+  `Kitchen Learning Engine v${PRODUCT_VERSION} — taste, rhythm, skills, and household identity`,
   'Training Kitchen — techniques, taste profiles, and local food sourcing',
   'Nine Clara tools — graph and library lookups before GPT',
   'Multi-course dinner plans with per-slot drill-down',
-  'Proactive cards — expiring food, staples, inline directions',
 ];
 
 const PILLAR_ICONS = {
   'recipe-library': Library,
+  'kle-engine': Brain,
   'tool-router': Wrench,
   'training-kitchen': BookOpen,
-  'ai-impact': Zap,
   'pantry-vision': Camera,
 } as const;
 
@@ -35,7 +48,7 @@ export default function Landing() {
     <MarketingLayout dark>
       <PageMeta
         title="SousChef — Your Kitchen Has A Memory"
-        description={`Household Food Operating System — Brain ${SITE_VERSION}, ${SITE_STATS.recipeCount} recipe library, nine-tool Clara, multi-course planning, and AI Impact Suite. Start free.`}
+        description={`Household Food Operating System — v${PRODUCT_VERSION} KLE, ${SITE_STATS.recipeCountExact} recipe library, nine-tool Clara, multi-course planning, and AI Impact Suite. Start free.`}
         path="/landing"
         faq={MARKETING_FAQ.map((f) => ({ question: f.question, answer: f.answer }))}
       />
@@ -46,14 +59,14 @@ export default function Landing() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 relative z-[1]">
           <div className="marketing-animate-in">
             <p className="marketing-eyebrow text-copper-400/90">
-              Brain {SITE_VERSION} · Household Food OS
+              SousChef v{PRODUCT_VERSION} · {SITE_STATS.recipeCountCompact} recipes · Brain {SITE_VERSION}
             </p>
             <h1 className="font-display mt-4 text-[clamp(2.35rem,6.5vw,4rem)] leading-[1.04] tracking-tight text-white">
-              Your kitchen remembers.<br className="hidden sm:block" /> Clara connects it all.
+              {SITE_STATS.recipeCountCompact} recipes.<br className="hidden sm:block" /> One kitchen that remembers.
             </h1>
             <p className="mt-5 text-base md:text-lg text-white/70 leading-relaxed max-w-lg">
-              SousChef learns how you shop, cook, and repeat — then surfaces what to do next from a
-              {` ${SITE_STATS.recipeCount} recipe library`}, household memories, and nine deterministic tools before any GPT call.
+              SousChef learns how you shop, cook, and repeat — then surfaces what to do next from a live corpus of
+              {` ${SITE_STATS.recipeCountExact} structured recipes`}, household memories, and nine deterministic tools before any GPT call.
             </p>
             <ul className="mt-6 space-y-2.5">
               {VALUE_PROPS.map((v) => (
@@ -76,7 +89,7 @@ export default function Landing() {
                 to="/explore/intelligence/recipe-library"
                 className="inline-flex items-center rounded-full border border-white/25 px-6 py-3.5 text-sm font-medium text-white/90 hover:bg-white/8 min-h-[52px] transition"
               >
-                See Brain {SITE_VERSION}
+                Browse {SITE_STATS.recipeCountCompact} recipes
               </Link>
             </div>
             <p className="mt-8 text-sm text-white/40">
@@ -101,7 +114,27 @@ export default function Landing() {
         <SiteStatsStrip dark />
       </section>
 
-      {/* Brain 5 pillars */}
+      <section className="mx-auto max-w-5xl px-5 pb-16">
+        <RecipeLibraryBanner dark />
+      </section>
+
+      {/* KLE */}
+      <section className="mx-auto max-w-5xl px-5 pb-16">
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
+          <div>
+            <p className="marketing-eyebrow text-copper-400/80">Kitchen Learning Engine · v{PRODUCT_VERSION}</p>
+            <h2 className="font-display text-2xl md:text-3xl text-white mt-2 tracking-tight">
+              Four learners that compound every cook
+            </h2>
+          </div>
+          <Link to="/explore/memory" className="text-sm font-semibold text-copper-300 hover:text-copper-200">
+            Kitchen Memory →
+          </Link>
+        </div>
+        <KlePillarsStrip dark />
+      </section>
+
+      {/* Brain pillars */}
       <section className="mx-auto max-w-5xl px-5 pb-16">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
           <div>
@@ -143,14 +176,14 @@ export default function Landing() {
       <section className="mx-auto max-w-5xl px-5 pb-20">
         <p className="marketing-eyebrow text-white/35 mb-5">Choose your path</p>
         <div className="grid gap-4 md:grid-cols-3">
-          <DrillCard dark to="/explore" badge="What" title="The Kitchen Stack" subtitle={`Five layers. Every live feature mapped — including Brain ${SITE_VERSION}.`} />
-          <DrillCard dark to="/how" badge="How" title="Capture → Remember → Act" subtitle={`Receipt, photo, ${SITE_STATS.recipeCount} recipes, Training Kitchen, nine Clara tools.`} />
+          <DrillCard dark to="/explore" badge="What" title="The Kitchen Stack" subtitle={`Five layers. Every live feature mapped — including v${PRODUCT_VERSION} KLE.`} />
+          <DrillCard dark to="/how" badge="How" title="Capture → Remember → Act" subtitle={`Receipt, photo, ${SITE_STATS.recipeCountCompact} recipes, Training Kitchen, nine Clara tools.`} />
           <DrillCard dark to="/learn" badge="Learn" title="Kitchen Academy" subtitle={`Origins, timelines, teach-me — ${DEEP_CATALOG.length}+ deep dives.`} />
         </div>
 
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           <DrillCard dark to="/vision" badge="Deep" title="Vision & Roadmap" subtitle="Smart kitchen, social cookbook, famous styles — honest status." />
-          <DrillCard dark to="/explore/intelligence/recipe-library" badge="Live" title="Recipe Ideas" subtitle={`${SITE_STATS.recipeCount} recipes across ${SITE_STATS.cuisines} cuisines — in the app today.`} />
+          <DrillCard dark to="/explore/intelligence/recipe-library" badge="Live" title="Recipe Ideas" subtitle={`${SITE_STATS.recipeCountExact} recipes across ${SITE_STATS.cuisines} cuisines — in the app today.`} />
         </div>
 
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/12 bg-white/[0.04] backdrop-blur-sm px-6 py-5">
@@ -158,7 +191,7 @@ export default function Landing() {
             <Sparkles className="text-copper-400" size={22} aria-hidden />
             <div>
               <p className="text-sm font-semibold text-white">Plus $9 · Family $18</p>
-              <p className="text-xs text-white/45">Recipe library + proactive Brain free at zero credits.</p>
+              <p className="text-xs text-white/45">{SITE_STATS.recipeCountCompact} recipe library + proactive Brain free at zero credits.</p>
             </div>
           </div>
           <Link to="/pricing" className="text-sm font-semibold text-copper-300 hover:text-copper-200 min-h-[44px] inline-flex items-center">
@@ -171,7 +204,9 @@ export default function Landing() {
 
       <section className="mx-auto max-w-5xl px-5 pb-24 md:pb-16 text-center">
         <h2 className="font-display text-2xl md:text-3xl text-white tracking-tight">Ready when you are, Chef.</h2>
-        <p className="text-white/55 mt-2 text-sm max-w-md mx-auto">Scan a receipt. Browse {SITE_STATS.recipeCount} recipes. Learn in Kitchen Academy.</p>
+        <p className="text-white/55 mt-2 text-sm max-w-md mx-auto">
+          Scan a receipt. Browse {SITE_STATS.recipeCountExact} recipes. Learn in Kitchen Academy.
+        </p>
         <button
           type="button"
           onClick={cta}

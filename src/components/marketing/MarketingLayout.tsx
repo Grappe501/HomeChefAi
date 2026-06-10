@@ -4,7 +4,7 @@ import { Menu, Search, X } from 'lucide-react';
 import { SiteSearch, useSiteSearchShortcut } from '@/components/marketing/SiteSearch';
 import { useApp } from '@/hooks/useApp';
 import { PLATFORM_LAYERS } from '@/content/siteContent';
-import { SUPPORT_EMAIL, SITE_VERSION, LEGAL_VERSION } from '@/content/marketingContent';
+import { SUPPORT_EMAIL, SITE_VERSION, PRODUCT_VERSION, LEGAL_VERSION } from '@/content/marketingContent';
 import { appEntryPath } from '@/lib/siteNav';
 import '@/styles/marketing.css';
 
@@ -73,7 +73,7 @@ export function MarketingLayout({ children, crumbs = EMPTY_CRUMBS, dark = false 
           <Link to="/landing" className={`font-display text-xl tracking-tight ${dark ? 'text-white' : 'text-chef'}`}>
             SousChef
             <span className={`ml-2 text-[10px] font-sans font-bold uppercase tracking-wider align-middle ${dark ? 'text-copper-400/80' : 'text-copper-600'}`}>
-              v{SITE_VERSION}
+              v{PRODUCT_VERSION}
             </span>
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -237,7 +237,7 @@ export function MarketingLayout({ children, crumbs = EMPTY_CRUMBS, dark = false 
             </div>
           </div>
           <p className={`mt-10 text-[11px] ${dark ? 'text-white/30' : 'text-chef-subtle/80'}`}>
-            © {new Date().getFullYear()} HomeChef AI · SousChef v{SITE_VERSION} · Legal v{LEGAL_VERSION}
+            © {new Date().getFullYear()} HomeChef AI · SousChef v{PRODUCT_VERSION} · Brain {SITE_VERSION} · Legal v{LEGAL_VERSION}
           </p>
         </div>
       </footer>

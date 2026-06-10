@@ -1,38 +1,74 @@
-/** Production marketing content — FAQ, trust, site config · v5.2 */
+/** Production marketing content — FAQ, trust, site config · v7.4 */
+import { CORPUS_STATS } from './siteStats.generated.js';
 
 export const SITE_URL =
   (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL) ||
   'https://home-chef-ai.netlify.app';
 export const SITE_NAME = 'SousChef';
 export const SITE_TAGLINE = 'Your kitchen has a memory.';
+export const PRODUCT_VERSION = '7.4';
 export const SITE_VERSION = '5.2';
-export const LEGAL_VERSION = '2.6';
+export const LEGAL_VERSION = '2.7';
 export const SUPPORT_EMAIL = 'hello@homechef.ai';
 export const LEGAL_ENTITY = 'HomeChef AI';
 
-/** Single source of truth for marketing stats — update here only */
+/** Single source of truth for marketing stats — synced from dish-manifest at build */
 export const SITE_STATS = {
-  recipeCount: '280,000+',
-  cuisines: '48',
+  recipeCount: CORPUS_STATS.recipeCountFormatted,
+  recipeCountCompact: CORPUS_STATS.recipeCountCompact,
+  recipeCountExact: CORPUS_STATS.recipeCountExact,
+  recipeTotal: CORPUS_STATS.recipeTotal,
+  cuisines: String(CORPUS_STATS.cuisines),
+  courses: String(CORPUS_STATS.courses),
   knowledgeNodes: '400+',
   platformLayers: '5',
   liveFunctions: '22',
   visionTopics: '8',
-  deepDives: '150+',
-  techniques: '53+',
-  flavorProfiles: '18',
-  foodSources: '21',
+  deepDives: `${CORPUS_STATS.deepDives}+`,
+  techniques: `${CORPUS_STATS.techniques}+`,
+  flavorProfiles: String(CORPUS_STATS.flavorProfiles),
+  foodSources: String(CORPUS_STATS.foodSources),
   claraTools: '9',
   academyPaths: '3',
-  brainVersion: '5.2',
+  klePillars: '4',
+  brainVersion: SITE_VERSION,
   agentSuite: 'v6 Phase 4',
+  productVersion: PRODUCT_VERSION,
 } as const;
+
+export const KLE_PILLARS = [
+  {
+    id: 'taste',
+    title: 'Taste & Preference',
+    summary: 'Learns what your household loves — cuisines, spice tolerance, and repeat winners from cook logs and ratings.',
+  },
+  {
+    id: 'rhythm',
+    title: 'Behavior & Rhythm',
+    summary: 'Detects when you cook, how long you have, and nudges meals that fit your real weeknight cadence.',
+  },
+  {
+    id: 'skills',
+    title: 'Skill Growth',
+    summary: 'Tracks techniques you practice, comfort levels, and coaches the next skill to unlock in Kitchen Academy.',
+  },
+  {
+    id: 'identity',
+    title: 'Household Identity',
+    summary: 'Unifies your food story — traditions, dietary lines, and who cooks what — into one kitchen brain.',
+  },
+] as const;
 
 export const BRAIN_PILLARS = [
   {
     id: 'recipe-library',
-    title: '280,000+ Recipe Library',
-    summary: '48 cuisines · 10 course types — combinatorial corpus matched to your pantry at zero credits.',
+    title: `${SITE_STATS.recipeCountCompact} Recipe Library`,
+    summary: `${SITE_STATS.cuisines} cuisines · ${SITE_STATS.courses} course types — combinatorial corpus matched to your pantry at zero credits.`,
+  },
+  {
+    id: 'kle-engine',
+    title: 'Kitchen Learning Engine',
+    summary: `SousChef v${PRODUCT_VERSION} — four live learners (taste, rhythm, skills, identity) that compound with every cook, receipt, and rating.`,
   },
   {
     id: 'tool-router',
@@ -42,12 +78,7 @@ export const BRAIN_PILLARS = [
   {
     id: 'training-kitchen',
     title: 'Kitchen Academy',
-    summary: '53+ techniques, 18 taste profiles, 48 cuisines, 3 featured pathways (Executive Chef, Master Baker, Game Show Kitchen) with pantry-matched practice.',
-  },
-  {
-    id: 'ai-impact',
-    title: 'AI Impact Suite',
-    summary: 'Unified household intelligence — memories, ledger learning, and patterns feed every planner and Clara call.',
+    summary: `${SITE_STATS.techniques} techniques, ${SITE_STATS.flavorProfiles} taste profiles, ${SITE_STATS.cuisines} cuisines, 3 featured pathways with pantry-matched practice.`,
   },
   {
     id: 'pantry-vision',
@@ -70,25 +101,31 @@ export const MARKETING_FAQ: FaqItem[] = [
     id: 'what-is',
     question: 'What is SousChef?',
     answer:
-      'SousChef is a Household Food Operating System — not a recipe app. It tracks your pantry, learns your cooking patterns, plans multi-course meals from what you actually have, and builds a kitchen memory that compounds over time. Brain 5.2 adds Agent Suite v6 Phase 4 (shard search, streaming synthesis), Kitchen Academy featured pathways, and a 280,000+ recipe library.',
+      `SousChef is a Household Food Operating System — not a recipe app. It tracks your pantry, learns your cooking patterns, plans multi-course meals from what you actually have, and builds a kitchen memory that compounds over time. v${PRODUCT_VERSION} adds the Kitchen Learning Engine (taste, rhythm, skills, identity), Agent Suite v6 Phase 4, Kitchen Academy featured pathways, and a ${SITE_STATS.recipeCount} recipe library.`,
   },
   {
     id: 'brain-5',
-    question: 'What is Brain 5.1?',
+    question: `What is Brain ${SITE_VERSION}?`,
     answer:
-      'Brain 5.2 connects everything: a 280,000+ structured recipe library across 48 cuisines; Kitchen Academy with three featured career paths; Agent Suite v6 Phase 4 — pre-built embedding shards, streaming expert synthesis, and agent telemetry; AI Impact Suite; proactive cards; multi-course meal planning; and graph-first cook log at zero credits.',
+      `Brain ${SITE_VERSION} connects everything: a ${SITE_STATS.recipeCount} structured recipe library across ${SITE_STATS.cuisines} cuisines; Kitchen Academy with three featured career paths; Agent Suite v6 Phase 4 — pre-built embedding shards, streaming expert synthesis, and agent telemetry; AI Impact Suite; proactive cards; multi-course meal planning; and graph-first cook log at zero credits.`,
+  },
+  {
+    id: 'kle',
+    question: 'What is the Kitchen Learning Engine?',
+    answer:
+      `KLE v${PRODUCT_VERSION} is four live learning pillars: Taste & Preference (what you love), Behavior & Rhythm (when and how you cook), Skill Growth (technique comfort and coaching), and Household Identity (traditions and dietary lines). Each pillar refreshes from cook logs, receipts, ratings, and Academy progress — so Clara and your dashboard get smarter without extra prompts.`,
   },
   {
     id: 'recipes',
     question: 'How big is the recipe library?',
     answer:
-      'Over 280,000 structured recipes across 48 world cuisines and 10 course types — mains, appetizers, soups, salads, sides, desserts, breads, breakfast, snacks, and beverages. Recipe Ideas at /recipes filters by course and matches to your pantry. Browsing matched recipes uses zero AI credits.',
+      `Over ${SITE_STATS.recipeCountExact} structured recipes (${SITE_STATS.recipeCount} marketed) across ${SITE_STATS.cuisines} world cuisines and ${SITE_STATS.courses} course types — mains, appetizers, soups, salads, sides, desserts, breads, breakfast, snacks, and beverages. Recipe Ideas at /recipes filters by course and matches to your pantry. Browsing matched recipes uses zero AI credits.`,
   },
   {
     id: 'training-kitchen',
     question: 'What is the Training Kitchen?',
     answer:
-      'Training Kitchen is our culinary education layer: 45+ cooking techniques with micro-lessons and steps, 18 taste profiles that teach salt/acid/fat/heat balance, 48 cultural cuisine nodes, 21 food source nodes (Walmart, Kroger, Whole Foods, farmers markets, CSAs, butchers, and more), and 150+ Kitchen Academy deep dives — including three featured pathways (Amateur to Executive Chef, Master Baker, and Game Show Kitchen) with leveled modules and pantry-matched practice recipes. Skill coaching and Academy browse use zero credits.',
+      `Training Kitchen is our culinary education layer: ${SITE_STATS.techniques} cooking techniques with micro-lessons and steps, ${SITE_STATS.flavorProfiles} taste profiles that teach salt/acid/fat/heat balance, ${SITE_STATS.cuisines} cultural cuisine nodes, ${SITE_STATS.foodSources} food source nodes (Walmart, Kroger, Whole Foods, farmers markets, CSAs, butchers, and more), and ${SITE_STATS.deepDives} Kitchen Academy deep dives — including three featured pathways (Amateur to Executive Chef, Master Baker, and Game Show Kitchen) with leveled modules and pantry-matched practice recipes. Skill coaching and Academy browse use zero credits.`,
   },
   {
     id: 'local-food',
@@ -142,7 +179,7 @@ export const MARKETING_FAQ: FaqItem[] = [
     id: 'clara',
     question: 'Who is Clara?',
     answer:
-      'Clara is your Sous Chef — Brain 5.1 routes every message through nine deterministic tools first (pantry, dish library, knowledge lookup, skill coach, local sourcing, ledger, brain memories, substitutions, directions, proactive signals), then synthesizes expert advisors when the question is complex. Recipe lookups, Academy browse, and basic pantry Q&A use zero credits.',
+      `Clara is your Sous Chef — Brain ${SITE_VERSION} routes every message through nine deterministic tools first (pantry, dish library, knowledge lookup, skill coach, local sourcing, ledger, brain memories, substitutions, directions, proactive signals), then synthesizes expert advisors when the question is complex. Recipe lookups, Academy browse, and basic pantry Q&A use zero credits.`,
   },
   {
     id: 'multi-course',
@@ -166,12 +203,12 @@ export interface Testimonial {
 
 export const TESTIMONIALS: Testimonial[] = [
   {
-    quote: 'Two hundred eighty thousand recipes sounds impossible — until Recipe Ideas matched six appetizers to what I already had.',
+    quote: `${SITE_STATS.recipeCountCompact} recipes sounded like marketing — until Recipe Ideas matched six appetizers to what I already had.`,
     name: 'Early beta household',
     context: 'Austin, TX · family of 4',
   },
   {
-    quote: 'Kitchen Academy finally explained why my braises tasted flat — acid at the finish, not more salt.',
+    quote: 'The Skill Growth card finally explained why my braises tasted flat — acid at the finish, not more salt.',
     name: 'Beta tester',
     context: 'Growing home cook',
   },
@@ -183,8 +220,8 @@ export const TESTIMONIALS: Testimonial[] = [
 ];
 
 export const TRUST_PILLARS = [
-  { label: '280k+ recipes', detail: '48 cuisines · 10 courses' },
-  { label: 'Training Kitchen', detail: '45 techniques · 18 taste profiles' },
-  { label: 'Tools before GPT', detail: '9 Clara tools · graph-first' },
+  { label: `${SITE_STATS.recipeCountCompact} recipes`, detail: `${SITE_STATS.cuisines} cuisines · ${SITE_STATS.courses} courses` },
+  { label: 'Kitchen Learning Engine', detail: `Taste · rhythm · skills · identity` },
+  { label: 'Training Kitchen', detail: `${SITE_STATS.techniques} techniques · ${SITE_STATS.flavorProfiles} taste profiles` },
   { label: 'Your data stays yours', detail: 'No selling food habits' },
 ];

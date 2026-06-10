@@ -98,7 +98,7 @@ function cultureNode(cuisine) {
       ],
       cultural_notes: [
         `Respect ${cuisine.label} food as living tradition — learn context, not just copycat recipes.`,
-        'Ask Clara for dish matches from our 280k+ recipe corpus filtered to this cuisine.',
+        'Ask Clara for dish matches from our 284k+ recipe corpus filtered to this cuisine.',
       ],
       cuisine_tags: [cuisine.key, cuisine.region],
     },

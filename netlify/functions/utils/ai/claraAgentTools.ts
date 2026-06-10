@@ -73,7 +73,7 @@ export const CLARA_AGENT_TOOLS = [
     type: 'function' as const,
     function: {
       name: 'search_dishes',
-      description: 'Hybrid BM25 + semantic search over 280k+ recipe library; re-ranks by pantry match. Use for recipe ideas and mood queries.',
+      description: 'Hybrid BM25 + semantic search over 284k+ recipe library; re-ranks by pantry match. Use for recipe ideas and mood queries.',
       parameters: {
         type: 'object',
         properties: {

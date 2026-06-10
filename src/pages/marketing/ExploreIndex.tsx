@@ -8,6 +8,7 @@ import {
 import { StackDiagram, SiteStatsStrip } from '@/components/marketing/MarketingBlocks';
 import { PageMeta } from '@/components/marketing/PageMeta';
 import { PLATFORM_LAYERS } from '@/content/siteContent';
+import { SITE_STATS } from '@/content/marketingContent';
 
 export default function ExploreIndex() {
   return (
@@ -18,7 +19,7 @@ export default function ExploreIndex() {
         path="/explore"
       />
       <PageHeader
-        eyebrow="The platform · Brain 5.1"
+        eyebrow={`The platform · SousChef v${SITE_STATS.productVersion}`}
         title="Five layers. One kitchen that gets smarter."
         lead="22 live functions mapped with honest status badges — including proactive Brain, pantry vision, and Hosting Studio."
       />

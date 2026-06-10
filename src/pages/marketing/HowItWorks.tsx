@@ -3,6 +3,7 @@ import { MarketingLayout, PageHeader, DrillCard } from '@/components/marketing/M
 import { StackDiagram } from '@/components/marketing/MarketingBlocks';
 import { PageMeta } from '@/components/marketing/PageMeta';
 import { HOW_IT_WORKS, PLATFORM_LAYERS } from '@/content/siteContent';
+import { SITE_STATS } from '@/content/marketingContent';
 
 export default function HowItWorks() {
   return (
@@ -14,7 +15,7 @@ export default function HowItWorks() {
       />
       <div className="marketing-hero-light border-b border-steel/60">
         <PageHeader
-          eyebrow="Our approach · Brain 5.1"
+          eyebrow={`Our approach · v${SITE_STATS.productVersion}`}
           title="Capture. Remember. Act."
           lead="Photo the pantry. Let Brain predict. Clara runs tools — then speaks."
         />

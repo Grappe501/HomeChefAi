@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Library, Globe, ChefHat, Brain } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { SITE_STATS, BRAIN_4_PILLARS } from '@/content/marketingContent';
+import { SITE_STATS, BRAIN_4_PILLARS, KLE_PILLARS } from '@/content/marketingContent';
 
 export type MockVariant =
   | 'pantry'
@@ -196,9 +196,9 @@ export const FEATURE_MOCKS: Record<string, MockVariant> = {
 
 export function SiteStatsStrip({ dark }: { dark?: boolean }) {
   const stats = [
-    { n: SITE_STATS.recipeCount, l: 'Recipe library' },
+    { n: SITE_STATS.recipeCountExact, l: 'Structured recipes' },
     { n: SITE_STATS.cuisines, l: 'World cuisines' },
-    { n: `Brain ${SITE_STATS.brainVersion}`, l: 'AI Impact Suite' },
+    { n: `v${SITE_STATS.productVersion}`, l: 'Kitchen Learning Engine' },
     { n: SITE_STATS.claraTools, l: 'Clara tools' },
   ];
   return (
@@ -215,6 +215,87 @@ export function SiteStatsStrip({ dark }: { dark?: boolean }) {
           <p className={`font-display text-2xl md:text-[1.65rem] ${dark ? 'text-white' : 'text-chef'}`}>{s.n}</p>
           <p className={`text-[11px] mt-1 uppercase tracking-wide font-medium ${dark ? 'text-white/45' : 'text-chef-subtle'}`}>
             {s.l}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function RecipeLibraryBanner({ dark }: { dark?: boolean }) {
+  return (
+    <section
+      className={`marketing-recipe-banner rounded-3xl border overflow-hidden ${
+        dark ? 'border-white/12 bg-white/[0.04]' : 'border-steel/70 bg-white shadow-card'
+      }`}
+      aria-label="Recipe library scale"
+    >
+      <div className="grid lg:grid-cols-[1.1fr_1fr] gap-0">
+        <div className={`p-8 md:p-10 ${dark ? 'text-white' : 'text-chef'}`}>
+          <p className={`marketing-eyebrow ${dark ? 'text-copper-400/90' : 'text-copper-600'}`}>
+            Live corpus · synced at build
+          </p>
+          <p className="font-display text-[clamp(2.5rem,7vw,4.5rem)] leading-none tracking-tight mt-3">
+            {SITE_STATS.recipeCountExact}
+          </p>
+          <p className={`text-lg mt-2 font-medium ${dark ? 'text-white/80' : 'text-chef-muted'}`}>
+            structured recipes — not scraped blog posts
+          </p>
+          <p className={`text-sm mt-4 leading-relaxed max-w-md ${dark ? 'text-white/55' : 'text-chef-subtle'}`}>
+            Combinatorial corpus across {SITE_STATS.cuisines} cuisines and {SITE_STATS.courses} course types.
+            Pantry-matched browsing uses zero AI credits — the library doubled since our first public launch.
+          </p>
+          <Link
+            to="/explore/intelligence/recipe-library"
+            className={`inline-flex items-center gap-2 mt-6 text-sm font-semibold min-h-[44px] ${
+              dark ? 'text-copper-300 hover:text-copper-200' : 'text-copper-600 hover:text-copper-700'
+            }`}
+          >
+            <Library size={16} aria-hidden />
+            Explore Recipe Ideas →
+          </Link>
+        </div>
+        <div className={`grid grid-cols-2 gap-px ${dark ? 'bg-white/10' : 'bg-steel/40'}`}>
+          {[
+            { icon: Globe, n: SITE_STATS.cuisines, l: 'Cuisines' },
+            { icon: ChefHat, n: SITE_STATS.courses, l: 'Course types' },
+            { icon: Sparkles, n: SITE_STATS.techniques, l: 'Techniques' },
+            { icon: Brain, n: SITE_STATS.klePillars, l: 'KLE pillars' },
+          ].map(({ icon: Icon, n, l }) => (
+            <div
+              key={l}
+              className={`flex flex-col items-center justify-center p-6 text-center ${
+                dark ? 'bg-chef/40' : 'bg-stainless-50'
+              }`}
+            >
+              <Icon size={20} className={dark ? 'text-copper-400' : 'text-copper-600'} aria-hidden />
+              <p className={`font-display text-2xl mt-2 ${dark ? 'text-white' : 'text-chef'}`}>{n}</p>
+              <p className={`text-[11px] uppercase tracking-wide mt-1 ${dark ? 'text-white/45' : 'text-chef-subtle'}`}>
+                {l}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function KlePillarsStrip({ dark }: { dark?: boolean }) {
+  return (
+    <div className="grid gap-4 sm:grid-cols-2">
+      {KLE_PILLARS.map((p, i) => (
+        <div
+          key={p.id}
+          className={`marketing-pillar marketing-animate-in ${dark ? 'marketing-pillar-dark' : 'marketing-pillar-light'}`}
+          style={{ animationDelay: `${0.08 + i * 0.06}s` }}
+        >
+          <Brain size={20} className={dark ? 'text-copper-400' : 'text-copper-600'} aria-hidden />
+          <h3 className={`font-display text-lg mt-3 tracking-tight ${dark ? 'text-white' : 'text-chef'}`}>
+            {p.title}
+          </h3>
+          <p className={`mt-2 text-sm leading-relaxed ${dark ? 'text-white/60' : 'text-chef-subtle'}`}>
+            {p.summary}
           </p>
         </div>
       ))}

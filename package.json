@@ -6,8 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/dish-corpus/build-search-pack.mjs && tsx scripts/build-search-index.ts && tsx scripts/build-sitemap.ts && vite build",
-    "search:index": "tsx scripts/build-search-index.ts",
+    "build": "node scripts/build-marketing-stats.mjs && node scripts/dish-corpus/build-search-pack.mjs && tsx scripts/build-search-index.ts && tsx scripts/build-sitemap.ts && vite build",
+    "search:index": "node scripts/build-marketing-stats.mjs && tsx scripts/build-search-index.ts",
+    "build:marketing-stats": "node scripts/build-marketing-stats.mjs",
     "sitemap": "tsx scripts/build-sitemap.ts",
     "preview": "vite preview",
     "netlify:dev": "netlify dev",

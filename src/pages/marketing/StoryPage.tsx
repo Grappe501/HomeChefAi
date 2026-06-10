@@ -36,7 +36,7 @@ export default function StoryPage() {
         <section>
           <h2 className="font-display text-xl text-chef mb-3">Brain {SITE_VERSION} — Everything connected</h2>
           <p className="text-chef-subtle">
-            Brain {SITE_VERSION} is the AI Impact Suite: a {SITE_STATS.recipeCount} recipe library across {SITE_STATS.cuisines} cuisines,
+            Brain {SITE_VERSION} is the AI Impact Suite: {SITE_STATS.recipeCountExact} structured recipes ({SITE_STATS.recipeCount} marketed) across {SITE_STATS.cuisines} cuisines,
             Training Kitchen ({SITE_STATS.techniques} techniques, {SITE_STATS.flavorProfiles} taste profiles, {SITE_STATS.foodSources} food sources),
             nine Clara tools that run before GPT, household memories and ledger learning injected into every planner call,
             proactive cards with inline recipe directions, and multi-course meal planning with per-slot drill-down — all grounded in evidence you can read.

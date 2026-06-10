@@ -11,6 +11,10 @@ import {
   Trophy,
   Utensils,
 } from 'lucide-react';
+import { SITE_STATS } from './marketingContent.js';
+
+const R = SITE_STATS.recipeCount;
+const RC = SITE_STATS.recipeCountCompact;
 
 export type FeatureStatus = 'live' | 'beta' | 'vision';
 
@@ -232,13 +236,13 @@ export const PLATFORM_LAYERS: PlatformLayer[] = [
     icon: Sparkles,
     status: 'live',
     intro:
-      'Brain 5.2 Clara — nine tools first, expert council when needed. 280,000+ recipe library, Training Kitchen, multi-course plans, and proactive cards on your dashboard.',
+      `Brain ${SITE_STATS.brainVersion} Clara — nine tools first, expert council when needed. ${R} recipe library, Training Kitchen, multi-course plans, and proactive cards on your dashboard.`,
     features: [
       {
         id: 'recipe-library',
         title: 'Recipe Ideas Library',
         status: 'live',
-        summary: '280,000+ structured recipes across 48 cuisines and 10 course types — matched to your pantry at zero credits.',
+        summary: `${R} structured recipes across ${SITE_STATS.cuisines} cuisines and ${SITE_STATS.courses} course types — matched to your pantry at zero credits.`,
         details: [
           'Filter by course: mains, appetizers, soups, salads, sides, desserts, breads, breakfast, snacks, beverages',
           'Occasion tags: weeknight, holiday, game day, date night, and more',
@@ -539,7 +543,7 @@ export const HOW_IT_WORKS = [
   {
     step: '03',
     title: 'Act',
-    body: 'Browse 280k recipes matched to your pantry. Learn techniques in Kitchen Academy. Clara runs nine tools first. Plan multi-course meals with Why this?. Host with timelines.',
+    body: `Browse ${RC} recipes matched to your pantry. Learn techniques in Kitchen Academy. Clara runs nine tools first. Plan multi-course meals with Why this?. Host with timelines.`,
   },
 ];
 
@@ -558,7 +562,7 @@ export const VISION_TOPICS: VisionTopic[] = [
       },
       {
         heading: 'Shipped (Brain 5.2)',
-        body: 'Training Kitchen — 53+ techniques, 18 taste profiles, 48 cultural cuisines, 21 food sources, 150+ Academy deep dives. AI Impact Suite, 280,000+ recipe library (48 cuisines), Agent Suite v6 Phase 4, multi-course meal planning, proactive inline directions, inventory unit normalization, PWA install prompt.',
+        body: `Training Kitchen — ${SITE_STATS.techniques} techniques, ${SITE_STATS.flavorProfiles} taste profiles, ${SITE_STATS.cuisines} cultural cuisines, ${SITE_STATS.foodSources} food sources, ${SITE_STATS.deepDives} Academy deep dives. AI Impact Suite, ${R} recipe library (${SITE_STATS.cuisines} cuisines), Agent Suite v6 Phase 4, KLE v${SITE_STATS.productVersion}, multi-course meal planning, proactive inline directions, inventory unit normalization, PWA install prompt.`,
       },
       {
         heading: 'Shipped (Brain 5.0)',
@@ -711,7 +715,7 @@ export const VISION_TOPICS: VisionTopic[] = [
     sections: [
       {
         heading: 'Live today',
-        body: 'Recipe Ideas at /recipes — 280,000+ library with pantry match. Recipes from cook log, like/save API, neighbor swap by zip. Social feed UI on roadmap.',
+        body: `Recipe Ideas at /recipes — ${R} library with pantry match. Recipes from cook log, like/save API, neighbor swap by zip. Social feed UI on roadmap.`,
       },
       {
         heading: 'Vision',
@@ -728,14 +732,14 @@ export const VISION_TOPICS: VisionTopic[] = [
   {
     id: 'knowledge',
     title: 'Knowledge Graph Expansion',
-    tagline: '400+ nodes + 280,000 recipes — culinary database today.',
+    tagline: `${SITE_STATS.knowledgeNodes} nodes + ${SITE_STATS.recipeCountExact} recipes — culinary database today.`,
     icon: Brain,
     audience: 'Technical readers, moat believers',
     summary: 'Structured JSON knowledge nodes plus partitioned dish corpus — the legal KB and recipe library Clara queries.',
     sections: [
       {
         heading: 'Live directories',
-        bullets: ['ingredients', 'techniques (53+)', 'cuisines & culture (48)', 'flavor_profiles (18)', 'food_sources (21 chains + local)', 'substitutions', 'hosting', 'traditions', 'food_science', 'meal_patterns', 'nutrition', 'dishes/corpus — 280,000+ recipes across 48 cuisines'],
+        bullets: ['ingredients', `techniques (${SITE_STATS.techniques}+)`, `cuisines & culture (${SITE_STATS.cuisines})`, `flavor_profiles (${SITE_STATS.flavorProfiles})`, `food_sources (${SITE_STATS.foodSources} chains + local)`, 'substitutions', 'hosting', 'traditions', 'food_science', 'meal_patterns', 'nutrition', `dishes/corpus — ${R} recipes across ${SITE_STATS.cuisines} cuisines`],
       },
       {
         heading: 'Planned directories',
@@ -822,7 +826,7 @@ export const FEATURE_IN_APP: Record<string, string> = {
 };
 
 export const ROADMAP_PHASES = [
-  { phase: 'Shipped', status: 'live' as const, items: ['Brain 5.2 — Training Kitchen (45 techniques, 18 flavors, 48 cultures, 21 food sources, 150+ Academy)', '280k recipe library · Agent Suite v6 Phase 4', 'Multi-course meal planning + slot drill-down', 'Proactive inline directions + kitchen staple predictions', 'Inventory unit normalization · PWA install prompt', 'Knowledge graph (400+ nodes) + unified AI credits (30/150/300)'] },
+  { phase: 'Shipped', status: 'live' as const, items: [`SousChef v${SITE_STATS.productVersion} — KLE (taste, rhythm, skills, identity)`, `Brain ${SITE_STATS.brainVersion} — Training Kitchen (${SITE_STATS.techniques} techniques, ${SITE_STATS.flavorProfiles} flavors, ${SITE_STATS.cuisines} cultures, ${SITE_STATS.foodSources} food sources, ${SITE_STATS.deepDives} Academy)`, `${RC} recipe library · Agent Suite v6 Phase 4`, 'Multi-course meal planning + slot drill-down', 'Proactive inline directions + kitchen staple predictions', 'Inventory unit normalization · PWA install prompt', `Knowledge graph (${SITE_STATS.knowledgeNodes} nodes) + unified AI credits (30/150/300)`] },
   { phase: 'Phase 10', status: 'beta' as const, items: ['Stripe billing launch', 'Cookbook social feed UI', 'Brain 1.0B optional phrasing', 'Full offline PWA service worker', 'Grocery price APIs'] },
   { phase: 'Phase 11', status: 'vision' as const, items: ['Famous style layer', 'Plate Score / challenges', 'Video Academy modules'] },
   { phase: 'Phase 12', status: 'vision' as const, items: ['Cookbook social feed', 'Dinner Club', 'Culture engine'] },

@@ -4,7 +4,7 @@ import { PageMeta } from '@/components/marketing/PageMeta';
 import { MarketingFAQ } from '@/components/marketing/MarketingFAQ';
 import { StickyMobileCTA } from '@/components/marketing/StickyMobileCTA';
 import { PRICING_COMPARISON } from '@/content/siteContent';
-import { MARKETING_FAQ } from '@/content/marketingContent';
+import { MARKETING_FAQ, SITE_STATS } from '@/content/marketingContent';
 import { useApp } from '@/hooks/useApp';
 
 const TIERS = [
@@ -55,7 +55,7 @@ export default function PricingPage() {
       <StickyMobileCTA label={user ? 'Open app' : 'Start free'} />
 
       <PageHeader
-        eyebrow="Pricing · Brain 5.1"
+        eyebrow={`Pricing · v${SITE_STATS.productVersion}`}
         title="Clean prices. No surprise AI bills."
         lead="Proactive Brain, graph substitutions, and pantry always work — even at zero credits."
       />
