@@ -60,13 +60,22 @@ async function loadFromStatic(): Promise<DishSearchDoc[]> {
   return cachedPack.docs;
 }
 
-/** Load search pack once — local disk in dev, static CDN in production. */
+function loadAcademyPackFromDisk(): DishSearchDoc[] | null {
+  const path = join(resolveKnowledgeRoot(), 'search', 'academy-search-pack.json');
+  if (!existsSync(path)) return null;
+  cachedPack = JSON.parse(readFileSync(path, 'utf8')) as SearchPack;
+  return cachedPack.docs;
+}
+
+/** Load search pack once — local disk in dev, bundled academy subset on Netlify, static CDN fallback. */
 export async function ensureSearchPack(): Promise<DishSearchDoc[]> {
   if (cachedPack?.docs.length) return cachedPack.docs;
   if (!loadPromise) {
     loadPromise = (async () => {
       const local = loadFromDisk();
       if (local?.length) return local;
+      const academy = loadAcademyPackFromDisk();
+      if (academy?.length) return academy;
       const remote = await loadFromStatic();
       return remote;
     })();

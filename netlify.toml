@@ -17,6 +17,7 @@
   # Knowledge graph only — dish search pack (~169MB) served from /data/ai/search/ at runtime
   included_files = [
     "data/ai/dish-manifest.json",
+    "data/ai/search/academy-search-pack.json",
     "data/ai/deep/**",
     "data/ai/techniques/**",
     "data/ai/flavor_profiles/**",

@@ -224,13 +224,16 @@ function ModuleCard({
           {practice.loading && <p className={`text-sm animate-pulse ${muted}`}>Finding recipes for this module…</p>}
           {practice.error && <p className="text-sm text-red-600">{practice.error}</p>}
           {!practice.loading && practice.dishes.length === 0 && !practice.error && (
-            <p className={`text-sm ${muted}`}>Add pantry items to unlock matched practice dishes.</p>
+            <p className={`text-sm ${muted}`}>
+              No matched recipes yet — try adding pantry items or ask Clara to coach this module.
+            </p>
           )}
           {practice.dishes.map((d) => (
             <div key={d.id} className={`text-sm ${text} rounded-lg border border-steel/40 p-3`}>
               <p className="font-semibold">{d.title}</p>
               <p className={`text-xs ${muted} mt-0.5`}>
-                {d.cuisine_label} · {Math.round(d.pantry_match * 100)}% pantry match
+                {d.cuisine_label}
+                {d.pantry_match > 0 ? ` · ${Math.round(d.pantry_match)}% pantry match` : ' · curriculum match'}
               </p>
             </div>
           ))}

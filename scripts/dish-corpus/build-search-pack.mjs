@@ -70,12 +70,22 @@ function main() {
     docs,
   };
   writeFileSync(join(OUT, 'dish-bm25-pack.json'), JSON.stringify(pack));
+
+  // Bundled subset for Netlify functions — full pack is served from static CDN only.
+  const ACADEMY_CAP = 12000;
+  const step = Math.max(1, Math.ceil(docs.length / ACADEMY_CAP));
+  const academyDocs = docs.filter((_, i) => i % step === 0).slice(0, ACADEMY_CAP);
+  const academyPack = { version: 1, generated_at: pack.generated_at, total: academyDocs.length, docs: academyDocs };
+  writeFileSync(join(OUT, 'academy-search-pack.json'), JSON.stringify(academyPack));
+
   console.log(`Wrote dish-bm25-pack.json — ${docs.length} docs, ${(JSON.stringify(pack).length / 1024 / 1024).toFixed(1)} MB`);
+  console.log(`Wrote academy-search-pack.json — ${academyDocs.length} docs, ${(JSON.stringify(academyPack).length / 1024 / 1024).toFixed(1)} MB`);
 
   mkdirSync(join(PUBLIC, 'dishes', 'corpus'), { recursive: true });
   mkdirSync(join(PUBLIC, 'search'), { recursive: true });
   cpSync(CORPUS, join(PUBLIC, 'dishes', 'corpus'), { recursive: true });
   cpSync(join(OUT, 'dish-bm25-pack.json'), join(PUBLIC, 'search', 'dish-bm25-pack.json'));
+  cpSync(join(OUT, 'academy-search-pack.json'), join(PUBLIC, 'search', 'academy-search-pack.json'));
   cpSync(join(AI, 'dish-manifest.json'), join(PUBLIC, 'dish-manifest.json'));
   console.log('Copied corpus + search pack to public/data/ai for static serving');
 }
