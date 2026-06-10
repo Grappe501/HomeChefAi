@@ -8,6 +8,8 @@ import { runBrainSyncDevStore, runBrainSyncSupabase, getBrainScopeDevStore, getB
 import { inferTechniquesFromText } from './utils/ai/skills.js';
 import { recordSkillPractice } from './utils/ai/skillJourneyStore.js';
 import { buildBehaviorProfileForUser } from './utils/learning/behaviorStore.js';
+import { buildSkillProfileForUser } from './utils/learning/skillStore.js';
+import { buildIdentityProfileForUser } from './utils/learning/identityStore.js';
 
 async function incrementRecipeServeCount(
   db: import('@supabase/supabase-js').SupabaseClient,
@@ -110,6 +112,8 @@ export const handler: Handler = withCors(async (event) => {
       incrementRecipeServeCountDevStore(store, userId, body.meal_name);
       saveStore(store);
       await buildBehaviorProfileForUser(userId, undefined);
+      await buildSkillProfileForUser(userId, undefined);
+      await buildIdentityProfileForUser(userId, undefined);
       return jsonResponse({ log, inventory_updated: true, xp_gained: XP_AWARDS.cook_log }, 201);
     }
 
@@ -159,6 +163,8 @@ export const handler: Handler = withCors(async (event) => {
     await recordSkillPractice(userId, user.token, inferredTechniques);
     await incrementRecipeServeCount(db, userId, body.meal_name);
     await buildBehaviorProfileForUser(userId, user.token);
+    await buildSkillProfileForUser(userId, user.token);
+    await buildIdentityProfileForUser(userId, user.token);
 
     let recipe = null;
     if (body.share_recipe && body.meal_name) {

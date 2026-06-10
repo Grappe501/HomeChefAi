@@ -11,6 +11,15 @@ import {
   getRhythmBundle,
   updateTimeBudget,
 } from './utils/learning/behaviorStore.js';
+import {
+  buildSkillProfileForUser,
+  getSkillGrowthBundle,
+} from './utils/learning/skillStore.js';
+import {
+  buildIdentityProfileForUser,
+  getIdentityBundle,
+} from './utils/learning/identityStore.js';
+import { formatSkillProfileForPrompt } from './utils/learning/skillProfileEngine.js';
 import type { MealOutcomeRating, PendingPreference, PreferenceKind } from '../../src/types/tasteLearning.js';
 import { formatTasteProfileForPrompt } from './utils/learning/tasteProfileEngine.js';
 
@@ -36,17 +45,35 @@ export const handler: Handler = withCors(async (event) => {
       return jsonResponse(bundle);
     }
 
+    if (action === 'skills') {
+      const bundle = await getSkillGrowthBundle(user.id, user.token);
+      return jsonResponse(bundle);
+    }
+
+    if (action === 'identity') {
+      const bundle = await getIdentityBundle(user.id, user.token);
+      return jsonResponse(bundle);
+    }
+
     if (action === 'full') {
-      const [taste_profile, rhythm] = await Promise.all([
+      const [taste_profile, rhythm, skills, identity] = await Promise.all([
         getTasteProfileSummary(user.id, user.token),
         getRhythmBundle(user.id, user.token),
+        getSkillGrowthBundle(user.id, user.token),
+        getIdentityBundle(user.id, user.token),
       ]);
       return jsonResponse({
         taste_profile,
         taste_summary: formatTasteProfileForPrompt(taste_profile),
         behavior_profile: rhythm.behavior_profile,
         rhythm_summary: rhythm.summary,
-        nudges: rhythm.nudges,
+        rhythm_nudges: rhythm.nudges,
+        skill_profile: skills.skill_profile,
+        skill_summary: skills.summary,
+        skill_nudges: skills.nudges,
+        identity_profile: identity.identity_profile,
+        identity_summary: identity.summary,
+        identity_nudges: identity.nudges,
       });
     }
 
@@ -102,6 +129,8 @@ export const handler: Handler = withCors(async (event) => {
         notes: body.notes,
       });
       await buildBehaviorProfileForUser(user.id, user.token);
+      await buildSkillProfileForUser(user.id, user.token);
+      await buildIdentityProfileForUser(user.id, user.token);
       return jsonResponse(result, 201);
     }
 
@@ -114,6 +143,18 @@ export const handler: Handler = withCors(async (event) => {
       const behavior_profile = await buildBehaviorProfileForUser(user.id, user.token);
       const bundle = await getRhythmBundle(user.id, user.token);
       return jsonResponse({ behavior_profile, ...bundle });
+    }
+
+    if (action === 'refresh-skills') {
+      const skill_profile = await buildSkillProfileForUser(user.id, user.token);
+      const bundle = await getSkillGrowthBundle(user.id, user.token);
+      return jsonResponse({ skill_profile, ...bundle });
+    }
+
+    if (action === 'refresh-identity') {
+      const identity_profile = await buildIdentityProfileForUser(user.id, user.token);
+      const bundle = await getIdentityBundle(user.id, user.token);
+      return jsonResponse({ identity_profile, ...bundle });
     }
 
     if (action === 'set-time-budget') {

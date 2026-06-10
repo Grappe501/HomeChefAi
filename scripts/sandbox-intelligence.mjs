@@ -62,6 +62,78 @@ await check('behavior profile engine', async () => {
   assert.ok(Array.isArray(buildRhythmNudges(profile)));
 });
 
+await check('skill profile engine', async () => {
+  const { inferSkillProfile, formatSkillProfileForPrompt, buildSkillGrowthNudges } = await import(
+    '../netlify/functions/utils/learning/skillProfileEngine.js'
+  );
+  const profile = inferSkillProfile({
+    profile: { user_id: 'test', dietary_restrictions: [], cuisine_preferences: [], allergies: [], household_size: 2, preferred_store: 'Walmart', gamification_level: 1, gamification_xp: 0, onboarding_complete: true, assistant_name: 'Clara', last_meal_memory: {} },
+    progressRows: [
+      { id: '1', user_id: 'test', technique_id: 'technique.saute', practice_count: 4, comfort_level: 'intermediate', last_practiced_at: new Date().toISOString(), milestones_unlocked: [], updated_at: new Date().toISOString() },
+    ],
+    usageLogs: [
+      { id: '1', meal_name: 'Stir fry', technique_ids: ['technique.stir_fry'], created_at: new Date().toISOString() },
+      { id: '2', meal_name: 'Braise', technique_ids: ['technique.braise'], created_at: new Date(Date.now() - 86400000).toISOString() },
+    ],
+    mealOutcomes: [{ id: 'o1', user_id: 'test', meal_name: 'Hollandaise eggs', rating: 'too_hard', created_at: new Date().toISOString() }],
+  });
+  assert.ok(profile.techniques_practiced >= 2);
+  assert.ok(formatSkillProfileForPrompt(profile).includes('Kitchen skills'));
+  assert.ok(Array.isArray(buildSkillGrowthNudges(profile)));
+});
+
+await check('identity profile engine', async () => {
+  const { inferIdentityProfile, formatIdentityProfileForPrompt, buildIdentityNudges } = await import(
+    '../netlify/functions/utils/learning/identityProfileEngine.js'
+  );
+  const profile = inferIdentityProfile({
+    profile: {
+      user_id: 'test',
+      dietary_restrictions: [],
+      cuisine_preferences: ['Southern', 'Comfort Food'],
+      allergies: [],
+      household_size: 4,
+      preferred_store: 'Walmart',
+      gamification_level: 1,
+      gamification_xp: 0,
+      onboarding_complete: true,
+      assistant_name: 'Clara',
+      last_meal_memory: {},
+      household_display_name: 'Smith Kitchen',
+      culinary_profile: { cooks_with: ['kids', 'family'], priorities: ['feed_family'] },
+    },
+    graphEdges: [{ edge_type: 'COOKED', from_key: 'household', to_key: 'gumbo', weight: 2, evidence: ['log:1'] }],
+    patterns: [],
+    ledgerEntries: [],
+    tasteProfile: {
+      version: 1,
+      taste_vector: { spicy: 0.4, rich: 0.7, acidic: 0.5, fresh_light: 0.4, adventurous: 0.3, kid_friendly: 0.8, comfort: 0.75, quick_weeknight: 0.6 },
+      preferences: [],
+      updated_at: new Date().toISOString(),
+    },
+    behaviorProfile: {
+      version: 1,
+      cook_nights: [],
+      leftover_style: 'batch_cooker',
+      time_budget: { weeknight_max_minutes: 45, weekend_project_ok: true },
+      updated_at: new Date().toISOString(),
+    },
+    skillProfile: {
+      version: 1,
+      overall_confidence: 'intermediate',
+      techniques_practiced: 3,
+      strong_techniques: [],
+      building_techniques: [],
+      stretch_techniques: [],
+      milestones: [],
+      updated_at: new Date().toISOString(),
+    },
+  });
+  assert.ok(profile.archetype_label.length > 0);
+  assert.ok(formatIdentityProfileForPrompt(profile).includes('Household kitchen identity'));
+  assert.ok(Array.isArray(buildIdentityNudges(profile)));
+});
+
 await check('inventory steward engine', async () => {
   const { buildStewardPreview, findLowStock } = await import('../netlify/functions/utils/inventory/stewardEngine.js');
   const items = [
@@ -79,6 +151,8 @@ await check('clara agent tools registry', async () => {
   for (const required of [
     'get_taste_profile',
     'get_kitchen_rhythm',
+    'get_skill_profile',
+    'get_household_identity',
     'remember_preference',
     'reconcile_inventory',
     'audit_pantry',

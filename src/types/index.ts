@@ -31,6 +31,10 @@ export interface Profile {
   taste_profile?: import('./tasteLearning').TasteProfile;
   /** KLE v7 Pillar 2 — cook rhythm, shop day, budget, time budget */
   behavior_profile?: import('./behaviorLearning').BehaviorProfile;
+  /** KLE v7 Pillar 3 — technique comfort, milestones, growth edges */
+  skill_profile?: import('./skillLearning').SkillProfile;
+  /** KLE v7 Pillar 4 — unified household kitchen identity */
+  identity_profile?: import('./identityLearning').IdentityProfile;
 }
 
 export interface InventoryItem {

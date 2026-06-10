@@ -8,11 +8,15 @@ import type { BrainInsight } from '@/types/brain';
 import type { KitchenPrediction } from '@/types/kitchenPredictions';
 import type { RunningSupplyList } from '@/types/supplyList';
 import type { BehaviorProfile, KitchenRhythmNudge } from '@/types/behaviorLearning';
+import type { SkillGrowthNudge, SkillProfile } from '@/types/skillLearning';
+import type { IdentityNudge, IdentityProfile } from '@/types/identityLearning';
 import { supplyProgress } from '@/lib/supplyListOps';
 import CookTogetherCard from '@/components/CookTogetherCard';
 import BrainInsightCard from '@/components/BrainInsightCard';
 import ProactiveKitchenCards from '@/components/ProactiveKitchenCards';
 import KitchenRhythmCard from '@/components/KitchenRhythmCard';
+import SkillGrowthCard from '@/components/SkillGrowthCard';
+import HouseholdIdentityCard from '@/components/HouseholdIdentityCard';
 import SousChefMark from '@/components/SousChefMark';
 import { assistantFirstName } from '@/lib/assistant';
 
@@ -89,6 +93,12 @@ export default function Dashboard() {
   const [behaviorProfile, setBehaviorProfile] = useState<BehaviorProfile | null>(null);
   const [rhythmNudges, setRhythmNudges] = useState<KitchenRhythmNudge[]>([]);
   const [rhythmLoading, setRhythmLoading] = useState(true);
+  const [skillProfile, setSkillProfile] = useState<SkillProfile | null>(null);
+  const [skillNudges, setSkillNudges] = useState<SkillGrowthNudge[]>([]);
+  const [skillLoading, setSkillLoading] = useState(true);
+  const [identityProfile, setIdentityProfile] = useState<IdentityProfile | null>(null);
+  const [identityNudges, setIdentityNudges] = useState<IdentityNudge[]>([]);
+  const [identityLoading, setIdentityLoading] = useState(true);
   const assistantName = assistantFirstName(profile?.assistant_name);
   const kitchenName = profile?.household_display_name || 'Your Kitchen';
 
@@ -110,6 +120,22 @@ export default function Dashboard() {
       })
       .catch(() => {})
       .finally(() => setRhythmLoading(false));
+    learningApi
+      .skills()
+      .then((r) => {
+        setSkillProfile(r.skill_profile);
+        setSkillNudges(r.nudges);
+      })
+      .catch(() => {})
+      .finally(() => setSkillLoading(false));
+    learningApi
+      .identity()
+      .then((r) => {
+        setIdentityProfile(r.identity_profile);
+        setIdentityNudges(r.nudges);
+      })
+      .catch(() => {})
+      .finally(() => setIdentityLoading(false));
   }, []);
 
   const expiring = items.filter((i) => {
@@ -156,6 +182,10 @@ export default function Dashboard() {
       <ProactiveKitchenCards predictions={predictions} loading={predictionsLoading} />
 
       <KitchenRhythmCard profile={behaviorProfile} nudges={rhythmNudges} loading={rhythmLoading} />
+
+      <SkillGrowthCard profile={skillProfile} nudges={skillNudges} loading={skillLoading} />
+
+      <HouseholdIdentityCard profile={identityProfile} nudges={identityNudges} loading={identityLoading} />
 
       <section className="card border-copper-200/80 bg-copper-50/20">
         <div className="flex items-start justify-between gap-3">

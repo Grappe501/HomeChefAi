@@ -17,6 +17,9 @@ import { getDeepByKnowledgeId, searchDeep } from './deepLoader.js';
 import { getTasteProfileSummary } from '../learning/tasteStore.js';
 import { formatTasteProfileForPrompt } from '../learning/tasteProfileEngine.js';
 import { getRhythmBundle } from '../learning/behaviorStore.js';
+import { getSkillGrowthBundle } from '../learning/skillStore.js';
+import { getIdentityBundle } from '../learning/identityStore.js';
+import { techniqueComfortMap } from '../learning/skillProfileEngine.js';
 import { ensureSearchPack } from './dishSearchPack.js';
 import type { PendingPreference, PreferenceKind } from '../../../../src/types/tasteLearning.js';
 import type { InventoryDelta, PendingInventoryDelta } from '../../../../src/types/inventorySteward.js';
@@ -34,6 +37,8 @@ export type AgentToolName =
   | 'get_taste_profile'
   | 'remember_preference'
   | 'get_kitchen_rhythm'
+  | 'get_skill_profile'
+  | 'get_household_identity'
   | 'reconcile_inventory'
   | 'audit_pantry'
   | 'apply_inventory_delta';
@@ -171,6 +176,24 @@ export const CLARA_AGENT_TOOLS = [
       name: 'get_kitchen_rhythm',
       description:
         'Read learned household rhythm — cook nights, shop day, leftover style, budget band, weeknight time budget.',
+      parameters: { type: 'object', properties: {}, additionalProperties: false },
+    },
+  },
+  {
+    type: 'function' as const,
+    function: {
+      name: 'get_skill_profile',
+      description:
+        'Read learned cooking skill profile — strong techniques, building skills, stretch edges, milestones, growth focus.',
+      parameters: { type: 'object', properties: {}, additionalProperties: false },
+    },
+  },
+  {
+    type: 'function' as const,
+    function: {
+      name: 'get_household_identity',
+      description:
+        'Read unified household kitchen identity — cooking style, archetype, taste/rhythm traits, priorities, who cooks together.',
       parameters: { type: 'object', properties: {}, additionalProperties: false },
     },
   },
@@ -323,9 +346,17 @@ export async function executeAgentTool(
     }
 
     case 'skill_coach': {
-      const coach = buildSkillCoaching(ctx.message, ctx.inventory.map((i) => i.name));
+      const bundle = await getSkillGrowthBundle(ctx.userId, ctx.token);
+      const levels = techniqueComfortMap(bundle.skill_profile);
+      const coach = buildSkillCoaching(
+        ctx.message,
+        ctx.inventory.map((i) => i.name),
+        bundle.skill_profile.overall_confidence,
+        levels,
+      );
       const text = coach.tips.map((t) => `${t.technique_name}: ${t.micro_lesson}`).join(' | ');
-      return { tool: name, output: text || 'No technique tips.', evidence: coach.inferred_technique_ids };
+      evidence.push('skill_profile:v7', ...coach.inferred_technique_ids.slice(0, 3));
+      return { tool: name, output: text || 'No technique tips.', evidence };
     }
 
     case 'local_sourcing': {
@@ -386,6 +417,38 @@ export async function executeAgentTool(
       return {
         tool: name,
         output: bundle.summary || 'No rhythm profile yet — cook logs and receipts will build it over time.',
+        evidence,
+      };
+    }
+
+    case 'get_skill_profile': {
+      const bundle = await getSkillGrowthBundle(ctx.userId, ctx.token);
+      evidence.push('skill_profile:v7');
+      if (bundle.skill_profile.strong_techniques[0]) {
+        evidence.push(`technique:${bundle.skill_profile.strong_techniques[0].technique_id}`);
+      }
+      if (bundle.skill_profile.next_focus) {
+        evidence.push(`focus:${bundle.skill_profile.next_focus.technique_id}`);
+      }
+      return {
+        tool: name,
+        output: bundle.summary || 'No skill profile yet — cook logs and technique practice will build it over time.',
+        evidence,
+      };
+    }
+
+    case 'get_household_identity': {
+      const bundle = await getIdentityBundle(ctx.userId, ctx.token);
+      evidence.push('identity_profile:v7');
+      if (bundle.identity_profile.primary_style) {
+        evidence.push(`style:${bundle.identity_profile.primary_style}`);
+      }
+      if (bundle.identity_profile.archetype_label) {
+        evidence.push(`archetype:${bundle.identity_profile.archetype_label.slice(0, 40)}`);
+      }
+      return {
+        tool: name,
+        output: bundle.summary || 'No identity profile yet — cook logs and preferences will shape your kitchen style over time.',
         evidence,
       };
     }

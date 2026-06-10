@@ -7,6 +7,8 @@ import {
   listTechniquesWithLessons,
   inferTechniquesFromText,
 } from './utils/ai/skills.js';
+import { getSkillProfileSummary } from './utils/learning/skillStore.js';
+import { techniqueComfortMap } from './utils/learning/skillProfileEngine.js';
 import type { ConfidenceLevel } from '../../src/types/platform';
 
 export const handler: Handler = withCors(async (event) => {
@@ -26,16 +28,22 @@ export const handler: Handler = withCors(async (event) => {
     if (!meal.trim()) return errorResponse('meal or q required', 400);
 
     let skillLevel: ConfidenceLevel = 'beginner';
-    if (useDevStore()) {
-      const profile = loadStore().profiles.find((p) => p.user_id === user.id);
-      skillLevel = (profile?.culinary_profile?.confidence as ConfidenceLevel) ?? 'beginner';
-    } else if (user.token) {
-      const db = getSupabaseUserClient(user.token);
-      const { data: profile } = await db.from('profiles').select('culinary_profile').eq('user_id', user.id).single();
-      skillLevel = (profile?.culinary_profile as { confidence?: ConfidenceLevel })?.confidence ?? 'beginner';
+    let techniqueLevels: Record<string, ConfidenceLevel> | undefined;
+    const skillProfile = await getSkillProfileSummary(user.id, user.token);
+    skillLevel = skillProfile.overall_confidence;
+    techniqueLevels = techniqueComfortMap(skillProfile);
+    if (!techniqueLevels || !Object.keys(techniqueLevels).length) {
+      if (useDevStore()) {
+        const profile = loadStore().profiles.find((p) => p.user_id === user.id);
+        skillLevel = (profile?.culinary_profile?.confidence as ConfidenceLevel) ?? 'beginner';
+      } else if (user.token) {
+        const db = getSupabaseUserClient(user.token);
+        const { data: profile } = await db.from('profiles').select('culinary_profile').eq('user_id', user.id).single();
+        skillLevel = (profile?.culinary_profile as { confidence?: ConfidenceLevel })?.confidence ?? 'beginner';
+      }
     }
 
-    const coaching = buildSkillCoaching(meal, ingredients, skillLevel);
+    const coaching = buildSkillCoaching(meal, ingredients, skillLevel, techniqueLevels);
     return jsonResponse(coaching);
   }
 

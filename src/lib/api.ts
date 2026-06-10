@@ -316,13 +316,31 @@ export const learningApi = {
       summary: string;
       nudges: import('@/types/behaviorLearning').KitchenRhythmNudge[];
     }>('learning?action=rhythm'),
+  skills: () =>
+    api<{
+      skill_profile: import('@/types/skillLearning').SkillProfile;
+      summary: string;
+      nudges: import('@/types/skillLearning').SkillGrowthNudge[];
+    }>('learning?action=skills'),
+  identity: () =>
+    api<{
+      identity_profile: import('@/types/identityLearning').IdentityProfile;
+      summary: string;
+      nudges: import('@/types/identityLearning').IdentityNudge[];
+    }>('learning?action=identity'),
   full: () =>
     api<{
       taste_profile: import('@/types/tasteLearning').TasteProfile;
       taste_summary: string;
       behavior_profile: import('@/types/behaviorLearning').BehaviorProfile;
       rhythm_summary: string;
-      nudges: import('@/types/behaviorLearning').KitchenRhythmNudge[];
+      rhythm_nudges: import('@/types/behaviorLearning').KitchenRhythmNudge[];
+      skill_profile: import('@/types/skillLearning').SkillProfile;
+      skill_summary: string;
+      skill_nudges: import('@/types/skillLearning').SkillGrowthNudge[];
+      identity_profile: import('@/types/identityLearning').IdentityProfile;
+      identity_summary: string;
+      identity_nudges: import('@/types/identityLearning').IdentityNudge[];
     }>('learning?action=full'),
   refreshRhythm: () =>
     api<{
@@ -330,6 +348,18 @@ export const learningApi = {
       summary: string;
       nudges: import('@/types/behaviorLearning').KitchenRhythmNudge[];
     }>('learning', { method: 'POST', body: JSON.stringify({ action: 'refresh-rhythm' }) }),
+  refreshSkills: () =>
+    api<{
+      skill_profile: import('@/types/skillLearning').SkillProfile;
+      summary: string;
+      nudges: import('@/types/skillLearning').SkillGrowthNudge[];
+    }>('learning', { method: 'POST', body: JSON.stringify({ action: 'refresh-skills' }) }),
+  refreshIdentity: () =>
+    api<{
+      identity_profile: import('@/types/identityLearning').IdentityProfile;
+      summary: string;
+      nudges: import('@/types/identityLearning').IdentityNudge[];
+    }>('learning', { method: 'POST', body: JSON.stringify({ action: 'refresh-identity' }) }),
   setTimeBudget: (data: {
     weeknight_max_minutes?: number;
     weekend_project_ok?: boolean;

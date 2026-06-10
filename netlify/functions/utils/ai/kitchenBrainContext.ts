@@ -17,6 +17,10 @@ import { formatTasteProfileForPrompt } from '../learning/tasteProfileEngine.js';
 import { getTasteProfileSummary } from '../learning/tasteStore.js';
 import { getBehaviorProfileSummary } from '../learning/behaviorStore.js';
 import { formatBehaviorProfileForPrompt } from '../learning/behaviorProfileEngine.js';
+import { getSkillProfileSummary } from '../learning/skillStore.js';
+import { formatSkillProfileForPrompt } from '../learning/skillProfileEngine.js';
+import { getIdentityProfileSummary } from '../learning/identityStore.js';
+import { formatIdentityProfileForPrompt } from '../learning/identityProfileEngine.js';
 
 export interface KitchenBrainContext {
   memory_lines: string[];
@@ -24,6 +28,8 @@ export interface KitchenBrainContext {
   pattern_lines: string[];
   taste_lines: string[];
   rhythm_lines: string[];
+  skill_lines: string[];
+  identity_lines: string[];
   prefers_tags: string[];
   avoids_tags: string[];
   evidence: string[];
@@ -115,12 +121,20 @@ export async function buildKitchenBrainContext(
   const rhythmBlock = formatBehaviorProfileForPrompt(behaviorProfile);
   const rhythm_lines = rhythmBlock ? [rhythmBlock] : [];
 
+  const skillProfile = await getSkillProfileSummary(userId, token);
+  const skillBlock = formatSkillProfileForPrompt(skillProfile);
+  const skill_lines = skillBlock ? [skillBlock] : [];
+
+  const identityProfile = await getIdentityProfileSummary(userId, token);
+  const identityBlock = formatIdentityProfileForPrompt(identityProfile);
+  const identity_lines = identityBlock ? [identityBlock] : [];
+
   const memory_lines = memories.map(
     (m) => `Memory (${m.memory_type}): ${m.headline ?? m.content?.slice(0, 120) ?? m.id}`,
   );
 
-  if (profile?.inferred_cooking_style?.primary_label) {
-    memory_lines.unshift(`Kitchen identity: ${profile.inferred_cooking_style.primary_label}.`);
+  if (profile?.household_display_name && !identity_lines.length) {
+    memory_lines.unshift(`Kitchen: ${profile.household_display_name}.`);
   }
 
   const ledger_lines: string[] = [];
@@ -149,6 +163,8 @@ export async function buildKitchenBrainContext(
     ...outcomes.ledger_evidence.slice(0, 4),
     ...(taste_lines.length ? ['taste_profile:v7'] : []),
     ...(rhythm_lines.length ? ['behavior_profile:v7'] : []),
+    ...(skill_lines.length ? ['skill_profile:v7'] : []),
+    ...(identity_lines.length ? ['identity_profile:v7'] : []),
   ];
 
   return {
@@ -157,6 +173,8 @@ export async function buildKitchenBrainContext(
     pattern_lines,
     taste_lines,
     rhythm_lines,
+    skill_lines,
+    identity_lines,
     prefers_tags: [...new Set([...outcomes.prefers_tags, ...prefOutcomes.prefers_tags])],
     avoids_tags: [...new Set([...outcomes.avoids_tags, ...prefOutcomes.avoids_tags])],
     evidence,
@@ -168,6 +186,8 @@ export function formatKitchenBrainContextForPrompt(ctx: KitchenBrainContext): st
     ...ctx.memory_lines,
     ...ctx.taste_lines,
     ...ctx.rhythm_lines,
+    ...ctx.skill_lines,
+    ...ctx.identity_lines,
     ...ctx.ledger_lines,
     ...ctx.pattern_lines,
   ].filter(Boolean);
@@ -188,6 +208,12 @@ export function formatPlannerTagDirectives(ctx: KitchenBrainContext): string {
   }
   if (ctx.rhythm_lines.length) {
     parts.push(ctx.rhythm_lines.join(' '));
+  }
+  if (ctx.skill_lines.length) {
+    parts.push(ctx.skill_lines.join(' '));
+  }
+  if (ctx.identity_lines.length) {
+    parts.push(ctx.identity_lines.join(' '));
   }
   return parts.join('\n');
 }

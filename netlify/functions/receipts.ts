@@ -9,6 +9,7 @@ import { runBrainSyncDevStore, runBrainSyncSupabase, getBrainScopeDevStore, getB
 import type { ReceiptParseResult, InventoryItem } from '../../src/types/index';
 import { normalizeScanItem } from './utils/inventoryNormalize.js';
 import { buildBehaviorProfileForUser } from './utils/learning/behaviorStore.js';
+import { buildIdentityProfileForUser } from './utils/learning/identityStore.js';
 
 async function parseReceiptWithOpenAI(imageBase64: string): Promise<ReceiptParseResult> {
   const apiKey = process.env.OPENAI_API_KEY;
@@ -120,6 +121,7 @@ export const handler: Handler = withCors(async (event) => {
         runBrainSyncDevStore(store, scope);
         saveStore(store);
         await buildBehaviorProfileForUser(userId, undefined);
+        await buildIdentityProfileForUser(userId, undefined);
         return jsonResponse({ receipt, items_added: items.length, xp_gained: xp?.gained ?? XP_AWARDS.receipt_verify });
       }
       if (!user.token) return errorResponse('Missing token', 401);
@@ -160,6 +162,7 @@ export const handler: Handler = withCors(async (event) => {
       const scope = await getBrainScopeSupabase(db, userId);
       await runBrainSyncSupabase(db, scope);
       await buildBehaviorProfileForUser(userId, user.token);
+      await buildIdentityProfileForUser(userId, user.token);
       return jsonResponse({
         receipt: { ...receipt, verified: true },
         items_added: rows.length,

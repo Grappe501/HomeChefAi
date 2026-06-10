@@ -37,7 +37,7 @@ Infers household cooking rhythm from cook logs, receipts, and meal outcomes — 
 
 ### Next pillars (v7.x)
 
-- Pillar 3: Skill & Growth Learner
+- Pillar 3: Skill & Growth Learner — **shipped in v7.3.0** (`KLE_V7_PILLAR3.md`)
 - Pillar 4: Household Identity Learner
 - Pillar 5: Outcome & Success Learner
 - Pillar 6: Proactive Experience Orchestrator

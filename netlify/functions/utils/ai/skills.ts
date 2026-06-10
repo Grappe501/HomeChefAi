@@ -106,10 +106,11 @@ export function buildSkillCoaching(
   mealText: string,
   ingredientNames: string[] = [],
   skillLevel: ConfidenceLevel = 'beginner',
+  techniqueLevels?: Record<string, ConfidenceLevel>,
 ): SkillCoachingResult {
   const inferred = inferTechniquesFromText(mealText, ingredientNames);
   const tips = inferred
-    .map((id) => getMicroLesson(id, skillLevel))
+    .map((id) => getMicroLesson(id, techniqueLevels?.[id] ?? skillLevel))
     .filter((t): t is TechniqueCoachTip => !!t);
 
   return { tips, inferred_technique_ids: inferred };
