@@ -1,0 +1,36 @@
+{
+  "id": "directory.competition_studio",
+  "kind": "directory",
+  "title": "Competition & Television Studio",
+  "summary": "Train like the shows — quickfire timing, replication drills, brigade wars, and iron-chef style basket cooking under the clock.",
+  "knowledge_id": "directory.competition_studio",
+  "match_keywords": [
+    "directory competition_studio",
+    "competition & television studio",
+    "culinary school",
+    "degree",
+    "directory",
+    "speed, replication, and pressure-cooker performance"
+  ],
+  "origins": "Competition & Television Studio — Speed, replication, and pressure-cooker performance. Kitchen Academy degree programs with leveled modules and pantry-matched practice.",
+  "history": "Train like the shows — quickfire timing, replication drills, brigade wars, and iron-chef style basket cooking under the clock.",
+  "teaching": [
+    "Each program links to a leveled track with practice modules.",
+    "Browse degree requirements before starting a track.",
+    "Practice recipes match module techniques to your pantry at zero credits."
+  ],
+  "related_ids": [
+    "track.game_show"
+  ],
+  "programs": [
+    {
+      "track_id": "track.game_show",
+      "degree_type": "certificate",
+      "degree_label": "Competition Kitchen Certificate",
+      "credential": "CKC",
+      "estimated_hours": 360
+    }
+  ],
+  "tagline": "Speed, replication, and pressure-cooker performance",
+  "location": "Studio kitchen · Timed stations"
+}

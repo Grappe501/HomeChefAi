@@ -5,7 +5,9 @@ import { MarketingLayout, PageHeader } from '@/components/marketing/MarketingLay
 import { PageMeta } from '@/components/marketing/PageMeta';
 import { DEEP_CATALOG, DEEP_KIND_LABEL, listDeepCatalog, searchDeepCatalog } from '@/lib/deepCatalog';
 import AcademyFeaturedHub from '@/components/AcademyFeaturedHub';
+import AcademyDirectoryHub from '@/components/AcademyDirectoryHub';
 import { FEATURED_ACADEMY_TRACK_IDS } from '@/lib/academyTracks';
+import { listAcademyDirectories, totalAcademyModules } from '@/lib/academyManifest';
 import type { DeepEntryKind } from '@/types/knowledgeDeep';
 
 const KINDS: (DeepEntryKind | 'all')[] = [
@@ -15,6 +17,7 @@ const KINDS: (DeepEntryKind | 'all')[] = [
   'flavor_profile',
   'culture',
   'food_source',
+  'directory',
   'path',
   'dish',
   'style',
@@ -29,8 +32,9 @@ export default function LearnIndexPage() {
 
   const entries = useMemo(() => {
     const featured = new Set<string>(FEATURED_ACADEMY_TRACK_IDS);
+    const directoryIds = new Set(listAcademyDirectories().map((d) => d.id));
     const base = q.trim() ? searchDeepCatalog(q.trim()) : listDeepCatalog(kind === 'all' ? undefined : kind);
-    return base.filter((e) => !featured.has(e.id));
+    return base.filter((e) => !featured.has(e.id) && !directoryIds.has(e.id));
   }, [kind, q]);
 
   return (
@@ -47,7 +51,7 @@ export default function LearnIndexPage() {
         <PageHeader
           dark
           title="Kitchen Academy"
-          lead={`${DEEP_CATALOG.length}+ deep dives — techniques, taste profiles, 48 cuisines, grocery & local sourcing, and teach-me moments from the knowledge graph.`}
+          lead={`${DEEP_CATALOG.length}+ deep dives — ${totalAcademyModules()} practice modules across culinary school degree tracks, 48 cuisines, and teach-me moments from the knowledge graph.`}
         />
 
         <div className="relative max-w-md mb-6">
@@ -96,7 +100,8 @@ export default function LearnIndexPage() {
         </div>
 
         {!q && (
-          <div className="mb-10">
+          <div className="mb-10 space-y-10">
+            <AcademyDirectoryHub dark />
             <AcademyFeaturedHub dark />
           </div>
         )}

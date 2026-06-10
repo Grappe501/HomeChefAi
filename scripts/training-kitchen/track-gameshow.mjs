@@ -8,6 +8,8 @@ export const TRACK_GAME_SHOW = {
   summary: 'Six competition modules inspired by Top Chef, Hell\'s Kitchen, MasterChef, Restaurant Wars, Iron Chef, and GBBO — speed, replication, and nerves of steel.',
   track_type: 'competition',
   featured: true,
+  directory_id: 'directory.competition_studio',
+  degree_label: 'Competition Kitchen Certificate',
   levels: [
     level('level.quickfire', 1, 'Top Chef Quickfire', 'Creativity under the clock — one hero ingredient, no recipe, pure instinct.', [
       mod('mod.quickfire.pantry_raid', 'Pantry Raid Challenge', 'Build a composed bite from mystery basket staples in 20 minutes.', {

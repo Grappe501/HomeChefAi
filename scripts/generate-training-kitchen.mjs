@@ -12,6 +12,7 @@ import { TRAINING_FLAVORS } from './training-kitchen/flavors.mjs';
 import { GROCERY_CHAINS, LOCAL_FOOD_SOURCES } from './training-kitchen/food-sources.mjs';
 import { ACADEMY_PATHS } from './training-kitchen/academy-paths.mjs';
 import { ACADEMY_FEATURED_TRACKS } from './training-kitchen/academy-tracks.mjs';
+import { ACADEMY_DIRECTORIES } from './training-kitchen/academy-directories.mjs';
 import { CUISINES } from './dish-corpus/cuisines.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -249,6 +250,35 @@ function pathDeep(path) {
   };
 }
 
+function directoryDeep(dir) {
+  return {
+    id: dir.id,
+    kind: 'directory',
+    title: dir.title,
+    summary: dir.summary,
+    knowledge_id: dir.id,
+    match_keywords: [
+      dir.id.replace(/\./g, ' '),
+      dir.title.toLowerCase(),
+      'culinary school',
+      'degree',
+      'directory',
+      dir.tagline.toLowerCase(),
+    ],
+    origins: `${dir.title} — ${dir.tagline}. Kitchen Academy degree programs with leveled modules and pantry-matched practice.`,
+    history: dir.summary,
+    teaching: [
+      'Each program links to a leveled track with practice modules.',
+      'Browse degree requirements before starting a track.',
+      'Practice recipes match module techniques to your pantry at zero credits.',
+    ],
+    related_ids: dir.programs.map((p) => p.track_id),
+    programs: dir.programs,
+    tagline: dir.tagline,
+    location: dir.location,
+  };
+}
+
 function trackDeep(track) {
   const related_ids = [];
   const teaching = [];
@@ -283,7 +313,34 @@ function trackDeep(track) {
     track_type: track.track_type,
     featured: track.featured,
     levels: track.levels,
+    ...(track.directory_id ? { directory_id: track.directory_id } : {}),
+    ...(track.degree_label ? { degree_label: track.degree_label } : {}),
     ...(shows.size ? { shows_referenced: [...shows] } : {}),
+  };
+}
+
+function buildAcademyManifest(tracks) {
+  const trackMeta = {};
+  for (const track of tracks) {
+    const levelCount = track.levels?.length ?? 0;
+    const moduleCount = (track.levels ?? []).reduce((n, l) => n + (l.modules?.length ?? 0), 0);
+    trackMeta[track.id] = {
+      title: track.title,
+      summary: track.summary,
+      track_type: track.track_type,
+      directory_id: track.directory_id ?? null,
+      degree_label: track.degree_label ?? null,
+      level_count: levelCount,
+      module_count: moduleCount,
+    };
+  }
+
+  return {
+    version: 1,
+    generated_at: new Date().toISOString(),
+    directories: ACADEMY_DIRECTORIES,
+    featured_track_ids: tracks.filter((t) => t.featured).map((t) => t.id),
+    tracks: trackMeta,
   };
 }
 
@@ -332,12 +389,20 @@ function main() {
     stats.deep++;
   }
 
+  for (const dir of ACADEMY_DIRECTORIES) {
+    writeJson(join(AI, 'deep', `${dir.id.replace(/\./g, '_')}.json`), directoryDeep(dir));
+    stats.deep++;
+  }
+
+  writeJson(join(AI, 'academy-manifest.json'), buildAcademyManifest(ACADEMY_FEATURED_TRACKS));
+
   console.log('Training Kitchen generated:');
   console.log(`  techniques:    ${stats.techniques}`);
   console.log(`  flavors:       ${stats.flavors}`);
   console.log(`  cultures:      ${stats.cultures}`);
   console.log(`  food_sources:  ${stats.food_sources}`);
-  console.log(`  deep entries:  ${stats.deep} (includes paths)`);
+  console.log(`  deep entries:  ${stats.deep} (includes paths, tracks, directories)`);
+  console.log(`  academy:       ${ACADEMY_DIRECTORIES.length} schools · ${ACADEMY_FEATURED_TRACKS.length} degree tracks`);
 }
 
 main();

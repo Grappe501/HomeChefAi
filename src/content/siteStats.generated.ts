@@ -8,7 +8,7 @@ export const CORPUS_STATS = {
   cuisines: 48,
   courses: 10,
   techniques: 53,
-  deepDives: 161,
+  deepDives: 170,
   flavorProfiles: 18,
   foodSources: 21,
 } as const;

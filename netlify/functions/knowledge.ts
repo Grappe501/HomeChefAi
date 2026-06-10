@@ -26,7 +26,7 @@ import type { KnowledgeNodeType, SubstitutionReason } from '../../src/types/know
 import { SUBSTITUTION_REASONS } from '../../src/types/knowledge.js';
 import { getDeepEntry, listDeepEntries, searchDeep } from './utils/ai/deepLoader.js';
 import { matchDishesForPantry } from './utils/ai/dishMatcher.js';
-import { listFeaturedAcademyTracks, suggestAcademyPractice } from './utils/ai/academyPractice.js';
+import { listFeaturedAcademyTracks, listAcademyDirectories, suggestAcademyPractice } from './utils/ai/academyPractice.js';
 import { useDevStore, loadStore } from './utils/db.js';
 import { getSupabaseUserClient } from './utils/supabase.js';
 import type { InventoryItem, Profile } from '../../src/types/index.js';
@@ -57,6 +57,10 @@ export const handler: Handler = withCors(async (event) => {
 
   if (action === 'academy_tracks') {
     return jsonResponse({ tracks: listFeaturedAcademyTracks() });
+  }
+
+  if (action === 'academy_directories') {
+    return jsonResponse({ directories: listAcademyDirectories() });
   }
 
   if (action === 'academy_practice') {

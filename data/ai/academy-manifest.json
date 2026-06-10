@@ -1,0 +1,174 @@
+{
+  "version": 1,
+  "generated_at": "2026-06-10T01:15:45.825Z",
+  "directories": [
+    {
+      "id": "directory.classical_culinary",
+      "title": "Classical Culinary Institute",
+      "tagline": "Brigade training from first sear to executive pass",
+      "summary": "The flagship school — French technique, station discipline, and the career ladder from home cook to executive chef, plus garde manger cold kitchen mastery.",
+      "location": "Main campus · Hot & cold kitchens",
+      "programs": [
+        {
+          "track_id": "track.amateur_to_executive",
+          "degree_type": "associate",
+          "degree_label": "Associate in Culinary Arts",
+          "credential": "ACA",
+          "estimated_hours": 1200
+        },
+        {
+          "track_id": "track.garde_manger",
+          "degree_type": "certificate",
+          "degree_label": "Certificate in Garde Manger",
+          "credential": "CGM",
+          "estimated_hours": 480
+        }
+      ]
+    },
+    {
+      "id": "directory.pastry_arts",
+      "title": "Pastry & Baking Academy",
+      "tagline": "Precision, lamination, and pastry leadership",
+      "summary": "Dedicated baking campus — measure by weight, master fermentation, laminated dough, chocolate, and the pastry chef mindset.",
+      "location": "Baking lab · Pastry studio",
+      "programs": [
+        {
+          "track_id": "track.master_baker",
+          "degree_type": "diploma",
+          "degree_label": "Diploma in Pastry Arts",
+          "credential": "DPA",
+          "estimated_hours": 960
+        }
+      ]
+    },
+    {
+      "id": "directory.competition_studio",
+      "title": "Competition & Television Studio",
+      "tagline": "Speed, replication, and pressure-cooker performance",
+      "summary": "Train like the shows — quickfire timing, replication drills, brigade wars, and iron-chef style basket cooking under the clock.",
+      "location": "Studio kitchen · Timed stations",
+      "programs": [
+        {
+          "track_id": "track.game_show",
+          "degree_type": "certificate",
+          "degree_label": "Competition Kitchen Certificate",
+          "credential": "CKC",
+          "estimated_hours": 360
+        }
+      ]
+    },
+    {
+      "id": "directory.plant_hospitality",
+      "title": "Plant-Forward & Hospitality School",
+      "tagline": "Vegetable-first cooking and service leadership",
+      "summary": "Modern culinary education — plant-based technique without compromise, plus hospitality, hosting, and kitchen leadership for service-minded cooks.",
+      "location": "Teaching restaurant · Event studio",
+      "programs": [
+        {
+          "track_id": "track.plant_forward",
+          "degree_type": "certificate",
+          "degree_label": "Plant-Based Culinary Certificate",
+          "credential": "PBC",
+          "estimated_hours": 520
+        },
+        {
+          "track_id": "track.hospitality",
+          "degree_type": "certificate",
+          "degree_label": "Hospitality Leadership Certificate",
+          "credential": "HLC",
+          "estimated_hours": 400
+        }
+      ]
+    },
+    {
+      "id": "directory.world_studies",
+      "title": "Global Cuisine Institute",
+      "tagline": "Six regions, one passport kitchen",
+      "summary": "Regional deep dives across Asia, Mediterranean, Latin America, Middle East, Africa, and a fusion capstone — aromatics, staples, and signature dishes per culture.",
+      "location": "World kitchens wing",
+      "programs": [
+        {
+          "track_id": "track.global_cuisines",
+          "degree_type": "diploma",
+          "degree_label": "World Cuisines Diploma",
+          "credential": "WCD",
+          "estimated_hours": 720
+        }
+      ]
+    }
+  ],
+  "featured_track_ids": [
+    "track.amateur_to_executive",
+    "track.master_baker",
+    "track.game_show",
+    "track.plant_forward",
+    "track.garde_manger",
+    "track.hospitality",
+    "track.global_cuisines"
+  ],
+  "tracks": {
+    "track.amateur_to_executive": {
+      "title": "Amateur to Executive Chef",
+      "summary": "Eight-level career ladder from first sear to leading a kitchen — techniques, flavors, and leadership at every station.",
+      "track_type": "career_ladder",
+      "directory_id": "directory.classical_culinary",
+      "degree_label": "Associate in Culinary Arts",
+      "level_count": 8,
+      "module_count": 24
+    },
+    "track.master_baker": {
+      "title": "Master Baker",
+      "summary": "Six-level baking path from first loaf to laminated pastry, chocolate work, and pastry leadership.",
+      "track_type": "baking",
+      "directory_id": "directory.pastry_arts",
+      "degree_label": "Diploma in Pastry Arts",
+      "level_count": 6,
+      "module_count": 18
+    },
+    "track.game_show": {
+      "title": "Game Show Kitchen",
+      "summary": "Six competition modules inspired by Top Chef, Hell's Kitchen, MasterChef, Restaurant Wars, Iron Chef, and GBBO — speed, replication, and nerves of steel.",
+      "track_type": "competition",
+      "directory_id": "directory.competition_studio",
+      "degree_label": "Competition Kitchen Certificate",
+      "level_count": 6,
+      "module_count": 18
+    },
+    "track.plant_forward": {
+      "title": "Plant-Forward Culinary Arts",
+      "summary": "Four-level certificate from vegetable fundamentals to composed plant-based menus — flavor, texture, and protein without compromise.",
+      "track_type": "certificate",
+      "directory_id": "directory.plant_hospitality",
+      "degree_label": "Plant-Based Culinary Certificate",
+      "level_count": 4,
+      "module_count": 12
+    },
+    "track.garde_manger": {
+      "title": "Garde Manger & Charcuterie",
+      "summary": "Four-level cold kitchen certificate — salads, charcuterie, preservation, and buffet platters with classical garde manger discipline.",
+      "track_type": "certificate",
+      "directory_id": "directory.classical_culinary",
+      "degree_label": "Certificate in Garde Manger",
+      "level_count": 4,
+      "module_count": 12
+    },
+    "track.hospitality": {
+      "title": "Hospitality & Service Leadership",
+      "summary": "Four-level certificate in service fundamentals, menu engineering, event hosting, and kitchen leadership for front- and back-of-house thinkers.",
+      "track_type": "certificate",
+      "directory_id": "directory.plant_hospitality",
+      "degree_label": "Hospitality Leadership Certificate",
+      "level_count": 4,
+      "module_count": 12
+    },
+    "track.global_cuisines": {
+      "title": "World Cuisines Diploma",
+      "summary": "Six-level regional diploma — Asia, Mediterranean, Latin America, Middle East, Africa, and a fusion capstone with pantry-matched practice per culture.",
+      "track_type": "diploma",
+      "directory_id": "directory.world_studies",
+      "degree_label": "World Cuisines Diploma",
+      "level_count": 6,
+      "module_count": 18
+    }
+  }
+}

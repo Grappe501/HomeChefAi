@@ -6,6 +6,7 @@ import type { InventoryItem, Profile } from '../../../../src/types/index.js';
 import type { DishMatch } from '../../../../src/types/dish.js';
 import type { AcademyModule } from '../../../../src/types/knowledgeDeep.js';
 import { getDeepEntry } from './deepLoader.js';
+import { listFeaturedTrackIdsServer, listAcademyDirectoriesServer } from './academyManifest.js';
 import { searchDishes } from './dishSearch.js';
 import { getKnowledgeNode } from './knowledgeLoader.js';
 import { ensureSearchPack } from './dishSearchPack.js';
@@ -239,15 +240,13 @@ export function listFeaturedAcademyTracks(): {
   title: string;
   summary: string;
   track_type?: string;
+  degree_label?: string;
+  directory_id?: string;
   level_count: number;
   module_count: number;
 }[] {
-  const featuredIds = [
-    'track.amateur_to_executive',
-    'track.master_baker',
-    'track.game_show',
-  ];
-  return featuredIds
+  const manifest = listFeaturedTrackIdsServer();
+  return manifest
     .map((id) => {
       const track = getDeepEntry(id);
       if (!track) return null;
@@ -258,9 +257,15 @@ export function listFeaturedAcademyTracks(): {
         title: track.title,
         summary: track.summary,
         track_type: track.track_type,
+        degree_label: track.degree_label,
+        directory_id: track.directory_id,
         level_count: levels.length,
         module_count,
       };
     })
     .filter(Boolean) as ReturnType<typeof listFeaturedAcademyTracks>;
+}
+
+export function listAcademyDirectories() {
+  return listAcademyDirectoriesServer();
 }

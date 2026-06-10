@@ -1,0 +1,36 @@
+{
+  "id": "directory.world_studies",
+  "kind": "directory",
+  "title": "Global Cuisine Institute",
+  "summary": "Regional deep dives across Asia, Mediterranean, Latin America, Middle East, Africa, and a fusion capstone — aromatics, staples, and signature dishes per culture.",
+  "knowledge_id": "directory.world_studies",
+  "match_keywords": [
+    "directory world_studies",
+    "global cuisine institute",
+    "culinary school",
+    "degree",
+    "directory",
+    "six regions, one passport kitchen"
+  ],
+  "origins": "Global Cuisine Institute — Six regions, one passport kitchen. Kitchen Academy degree programs with leveled modules and pantry-matched practice.",
+  "history": "Regional deep dives across Asia, Mediterranean, Latin America, Middle East, Africa, and a fusion capstone — aromatics, staples, and signature dishes per culture.",
+  "teaching": [
+    "Each program links to a leveled track with practice modules.",
+    "Browse degree requirements before starting a track.",
+    "Practice recipes match module techniques to your pantry at zero credits."
+  ],
+  "related_ids": [
+    "track.global_cuisines"
+  ],
+  "programs": [
+    {
+      "track_id": "track.global_cuisines",
+      "degree_type": "diploma",
+      "degree_label": "World Cuisines Diploma",
+      "credential": "WCD",
+      "estimated_hours": 720
+    }
+  ],
+  "tagline": "Six regions, one passport kitchen",
+  "location": "World kitchens wing"
+}

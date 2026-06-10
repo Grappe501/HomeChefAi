@@ -1,0 +1,479 @@
+{
+  "id": "track.plant_forward",
+  "kind": "path",
+  "title": "Plant-Forward Culinary Arts",
+  "summary": "Four-level certificate from vegetable fundamentals to composed plant-based menus — flavor, texture, and protein without compromise.",
+  "knowledge_id": "track.plant_forward",
+  "match_keywords": [
+    "track plant_forward",
+    "plant-forward culinary arts",
+    "certificate",
+    "career",
+    "ladder"
+  ],
+  "origins": "Kitchen Academy featured tracks — structured career ladders and competition paths with leveled modules.",
+  "history": "Four-level certificate from vegetable fundamentals to composed plant-based menus — flavor, texture, and protein without compromise.",
+  "teaching": [
+    "Cut denser vegetables smaller than tender ones for even cooking.",
+    "Oil and salt before heat — seasoning sticks to cut surfaces.",
+    "High-heat roasting concentrates sweetness better than boiling.",
+    "Soak or quick-soak dried beans for even texture.",
+    "Toast spices in oil before adding liquid — blooms flavor.",
+    "Acid at the finish brightens heavy legume dishes.",
+    "Dry surfaces roast; wet surfaces steam — pat vegetables dry.",
+    "Char adds bitterness — balance with fat and acid.",
+    "Finish with fresh herbs off heat for brightness.",
+    "Reduce mushroom stock slowly for natural glutamates.",
+    "Miso goes in off heat — boiling kills complexity.",
+    "Layer umami: dried mushrooms + fresh + fermented."
+  ],
+  "related_ids": [
+    "technique.knife_skills",
+    "technique.layer_season",
+    "flavor_profile.fresh_light",
+    "culture.vegetarian",
+    "culture.mediterranean",
+    "technique.simmer",
+    "technique.saute",
+    "flavor_profile.earthy",
+    "flavor_profile.umami",
+    "culture.indian",
+    "culture.middle_eastern",
+    "technique.roast",
+    "technique.grill",
+    "flavor_profile.maillard",
+    "flavor_profile.smoky",
+    "culture.vegan",
+    "technique.reduce",
+    "technique.deglaze",
+    "flavor_profile.rich_creamy",
+    "culture.japanese",
+    "technique.puree",
+    "technique.emulsify",
+    "flavor_profile.nutty",
+    "technique.stir_fry"
+  ],
+  "track_type": "certificate",
+  "featured": true,
+  "levels": [
+    {
+      "id": "level.plant.foundations",
+      "rank": 1,
+      "title": "Vegetable Foundations",
+      "description": "Knife skills, legumes, and roasting — build flavor without animal protein.",
+      "modules": [
+        {
+          "id": "mod.plant.knife_veg",
+          "title": "Vegetable Knife Work",
+          "summary": "Uniform cuts for even roasting and faster sauté times.",
+          "techniques": [
+            "technique.knife_skills",
+            "technique.layer_season"
+          ],
+          "flavors": [
+            "flavor_profile.fresh_light"
+          ],
+          "ingredients": [
+            "ingredient.carrot",
+            "ingredient.onion",
+            "ingredient.zucchini"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.black_pepper"
+          ],
+          "cultures": [
+            "culture.vegetarian",
+            "culture.mediterranean"
+          ],
+          "practice_query": "roasted root vegetable medley with herbs",
+          "teaching": [
+            "Cut denser vegetables smaller than tender ones for even cooking.",
+            "Oil and salt before heat — seasoning sticks to cut surfaces.",
+            "High-heat roasting concentrates sweetness better than boiling."
+          ]
+        },
+        {
+          "id": "mod.plant.legume_bases",
+          "title": "Legume & Grain Bases",
+          "summary": "Beans, lentils, and grains as satisfying center-of-plate anchors.",
+          "techniques": [
+            "technique.simmer",
+            "technique.saute"
+          ],
+          "flavors": [
+            "flavor_profile.earthy",
+            "flavor_profile.umami"
+          ],
+          "ingredients": [
+            "ingredient.beans.black",
+            "ingredient.lentils",
+            "ingredient.rice"
+          ],
+          "spices": [
+            "ingredient.cumin",
+            "ingredient.garlic"
+          ],
+          "cultures": [
+            "culture.indian",
+            "culture.middle_eastern"
+          ],
+          "practice_query": "spiced lentil stew with rice",
+          "teaching": [
+            "Soak or quick-soak dried beans for even texture.",
+            "Toast spices in oil before adding liquid — blooms flavor.",
+            "Acid at the finish brightens heavy legume dishes."
+          ]
+        },
+        {
+          "id": "mod.plant.roast_char",
+          "title": "Roast & Char Vegetables",
+          "summary": "Blistered peppers, charred cauliflower, and caramelized onions.",
+          "techniques": [
+            "technique.roast",
+            "technique.grill"
+          ],
+          "flavors": [
+            "flavor_profile.maillard",
+            "flavor_profile.smoky"
+          ],
+          "ingredients": [
+            "ingredient.cauliflower",
+            "ingredient.bell_pepper",
+            "ingredient.olive_oil"
+          ],
+          "spices": [
+            "ingredient.smoked_paprika",
+            "ingredient.salt"
+          ],
+          "cultures": [
+            "culture.vegan",
+            "culture.mediterranean"
+          ],
+          "practice_query": "charred cauliflower steaks with tahini",
+          "teaching": [
+            "Dry surfaces roast; wet surfaces steam — pat vegetables dry.",
+            "Char adds bitterness — balance with fat and acid.",
+            "Finish with fresh herbs off heat for brightness."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.plant.flavor",
+      "rank": 2,
+      "title": "Plant Flavor Building",
+      "description": "Sauces, spice blends, and umami without meat.",
+      "modules": [
+        {
+          "id": "mod.plant.umami_sauce",
+          "title": "Umami Sauces & Pastes",
+          "summary": "Miso, tamari, nutritional yeast, and mushroom depth.",
+          "techniques": [
+            "technique.reduce",
+            "technique.deglaze"
+          ],
+          "flavors": [
+            "flavor_profile.umami",
+            "flavor_profile.rich_creamy"
+          ],
+          "ingredients": [
+            "ingredient.mushroom",
+            "ingredient.soy_sauce",
+            "ingredient.tomato"
+          ],
+          "spices": [
+            "ingredient.garlic",
+            "ingredient.ginger"
+          ],
+          "cultures": [
+            "culture.japanese",
+            "culture.vegan"
+          ],
+          "practice_query": "mushroom miso gravy over grains",
+          "teaching": [
+            "Reduce mushroom stock slowly for natural glutamates.",
+            "Miso goes in off heat — boiling kills complexity.",
+            "Layer umami: dried mushrooms + fresh + fermented."
+          ]
+        },
+        {
+          "id": "mod.plant.nut_cream",
+          "title": "Nuts, Seeds & Creamy Bases",
+          "summary": "Cashew cream, tahini, and coconut — fat carries flavor on plants.",
+          "techniques": [
+            "technique.puree",
+            "technique.emulsify"
+          ],
+          "flavors": [
+            "flavor_profile.rich_creamy",
+            "flavor_profile.nutty"
+          ],
+          "ingredients": [
+            "ingredient.coconut_milk",
+            "ingredient.lemon"
+          ],
+          "spices": [
+            "ingredient.turmeric",
+            "ingredient.salt"
+          ],
+          "cultures": [
+            "culture.indian",
+            "culture.middle_eastern"
+          ],
+          "practice_query": "creamy coconut curry with chickpeas",
+          "teaching": [
+            "Blend soaked cashews until completely smooth for sauce body.",
+            "Tahini splits with cold liquid — temper with warm stock.",
+            "Fat is not optional on plants — it carries spice and salt."
+          ]
+        },
+        {
+          "id": "mod.plant.spice_world",
+          "title": "Global Spice Palettes",
+          "summary": "Berbere, garam masala, and Latin sofrito on vegetables.",
+          "techniques": [
+            "technique.saute",
+            "technique.stir_fry"
+          ],
+          "flavors": [
+            "flavor_profile.spicy_heat",
+            "flavor_profile.herbaceous"
+          ],
+          "ingredients": [
+            "ingredient.onion",
+            "ingredient.garlic",
+            "ingredient.tomato"
+          ],
+          "spices": [
+            "ingredient.cumin",
+            "ingredient.coriander",
+            "ingredient.chili_powder"
+          ],
+          "cultures": [
+            "culture.ethiopian",
+            "culture.mexican",
+            "culture.indian"
+          ],
+          "practice_query": "berbere spiced roasted vegetables",
+          "teaching": [
+            "Bloom ground spices in fat 30–60 seconds — never burn.",
+            "Each cuisine has a base pattern; swap the protein, keep the technique.",
+            "Cooling agents: yogurt substitute, lime, or cucumber for heat balance."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.plant.advanced",
+      "rank": 3,
+      "title": "Advanced Plant Technique",
+      "description": "Fermentation, tofu/tempeh, and composed plates.",
+      "modules": [
+        {
+          "id": "mod.plant.ferment",
+          "title": "Fermentation & Pickling",
+          "summary": "Quick pickles, kimchi logic, and preserved brightness.",
+          "techniques": [
+            "technique.brine",
+            "technique.pickling"
+          ],
+          "flavors": [
+            "flavor_profile.bright_acid",
+            "flavor_profile.umami"
+          ],
+          "ingredients": [
+            "ingredient.cabbage",
+            "ingredient.cucumber",
+            "ingredient.vinegar"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.dill"
+          ],
+          "cultures": [
+            "culture.korean",
+            "culture.german"
+          ],
+          "practice_query": "quick pickled vegetables for grain bowls",
+          "teaching": [
+            "Salt percentage controls fermentation speed — weigh when possible.",
+            "Quick pickles need acid; ferments need time and salt.",
+            "Acid and crunch reset rich plant plates."
+          ]
+        },
+        {
+          "id": "mod.plant.protein_alt",
+          "title": "Tofu, Tempeh & Seitan",
+          "summary": "Press, marinate, and sear plant proteins for real texture.",
+          "techniques": [
+            "technique.sear",
+            "technique.marinate"
+          ],
+          "flavors": [
+            "flavor_profile.umami",
+            "flavor_profile.maillard"
+          ],
+          "ingredients": [
+            "ingredient.tofu",
+            "ingredient.soy_sauce"
+          ],
+          "spices": [
+            "ingredient.garlic",
+            "ingredient.ginger"
+          ],
+          "cultures": [
+            "culture.chinese",
+            "culture.vegan"
+          ],
+          "practice_query": "crispy marinated tofu with stir-fried vegetables",
+          "teaching": [
+            "Press tofu 20+ minutes — moisture blocks browning.",
+            "Cornstarch dust before sear = shatter crust.",
+            "Marinate after press, not before — surface needs to be dry first."
+          ]
+        },
+        {
+          "id": "mod.plant.plated",
+          "title": "Composed Plant Plates",
+          "summary": "Three components: base, center, garnish — restaurant logic on plants.",
+          "techniques": [
+            "technique.layer_season",
+            "technique.mount_butter"
+          ],
+          "flavors": [
+            "flavor_profile.fresh_light",
+            "flavor_profile.bright_acid"
+          ],
+          "ingredients": [
+            "ingredient.quinoa",
+            "ingredient.lemon",
+            "ingredient.herbs"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.olive_oil"
+          ],
+          "cultures": [
+            "culture.vegetarian",
+            "culture.californian"
+          ],
+          "practice_query": "composed grain bowl with roasted vegetables and herb sauce",
+          "teaching": [
+            "Odd numbers on plate look intentional — three or five elements.",
+            "Height comes from stacking, not piling.",
+            "Micro-green or herb finish signals \"done\" to the eye."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.plant.chef",
+      "rank": 4,
+      "title": "Plant-Forward Chef",
+      "description": "Menu planning, batch cooking, and hospitality-scale veg.",
+      "modules": [
+        {
+          "id": "mod.plant.batch",
+          "title": "Batch Cooking & Meal Prep",
+          "summary": "Cook once, compose all week — plant food that scales.",
+          "techniques": [
+            "technique.roast",
+            "technique.simmer"
+          ],
+          "flavors": [
+            "flavor_profile.earthy"
+          ],
+          "ingredients": [
+            "ingredient.sweet_potato",
+            "ingredient.chickpeas",
+            "ingredient.rice"
+          ],
+          "spices": [
+            "ingredient.cumin",
+            "ingredient.paprika"
+          ],
+          "cultures": [
+            "culture.vegan",
+            "culture.mediterranean"
+          ],
+          "practice_query": "batch roasted vegetables and grain prep bowls",
+          "teaching": [
+            "Roast trays by density — roots together, tender veg separate.",
+            "Store components, not finished plates — texture lasts longer.",
+            "Sauce on the side prevents soggy reheats."
+          ]
+        },
+        {
+          "id": "mod.plant.menu",
+          "title": "Plant-Based Menu Design",
+          "summary": "Balance protein, fat, acid, and crunch across a multi-dish menu.",
+          "techniques": [
+            "technique.plan_menu"
+          ],
+          "flavors": [
+            "flavor_profile.fresh_light",
+            "flavor_profile.rich_creamy"
+          ],
+          "ingredients": [
+            "ingredient.lentils",
+            "ingredient.greens",
+            "ingredient.lemon"
+          ],
+          "spices": [],
+          "cultures": [
+            "culture.vegetarian"
+          ],
+          "practice_query": "three-course vegetarian dinner menu",
+          "teaching": [
+            "One rich dish demands two lighter companions.",
+            "Repeat one ingredient three ways — cohesive without boring.",
+            "Always plan a crunchy element — plants need texture contrast."
+          ]
+        },
+        {
+          "id": "mod.plant.capstone",
+          "title": "Capstone: Plant Chef Tasting",
+          "summary": "Five small plates demonstrating technique range under time pressure.",
+          "techniques": [
+            "technique.knife_skills",
+            "technique.sear",
+            "technique.puree"
+          ],
+          "flavors": [
+            "flavor_profile.umami",
+            "flavor_profile.bright_acid"
+          ],
+          "ingredients": [
+            "ingredient.mushroom",
+            "ingredient.tofu",
+            "ingredient.beets"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.black_pepper"
+          ],
+          "cultures": [
+            "culture.vegan",
+            "culture.french"
+          ],
+          "practice_query": "plant-based tasting menu small plates",
+          "teaching": [
+            "Prep all five components before any final cook.",
+            "Reuse one sauce two ways — efficiency is chef skill.",
+            "Taste every component before plating — plants vary by season."
+          ],
+          "time_limit_minutes": 90,
+          "judge_criteria": [
+            "Technique range",
+            "Flavor balance",
+            "Plate composition",
+            "Time management"
+          ]
+        }
+      ]
+    }
+  ],
+  "directory_id": "directory.plant_hospitality",
+  "degree_label": "Plant-Based Culinary Certificate"
+}

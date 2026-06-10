@@ -1,0 +1,44 @@
+{
+  "id": "directory.plant_hospitality",
+  "kind": "directory",
+  "title": "Plant-Forward & Hospitality School",
+  "summary": "Modern culinary education — plant-based technique without compromise, plus hospitality, hosting, and kitchen leadership for service-minded cooks.",
+  "knowledge_id": "directory.plant_hospitality",
+  "match_keywords": [
+    "directory plant_hospitality",
+    "plant-forward & hospitality school",
+    "culinary school",
+    "degree",
+    "directory",
+    "vegetable-first cooking and service leadership"
+  ],
+  "origins": "Plant-Forward & Hospitality School — Vegetable-first cooking and service leadership. Kitchen Academy degree programs with leveled modules and pantry-matched practice.",
+  "history": "Modern culinary education — plant-based technique without compromise, plus hospitality, hosting, and kitchen leadership for service-minded cooks.",
+  "teaching": [
+    "Each program links to a leveled track with practice modules.",
+    "Browse degree requirements before starting a track.",
+    "Practice recipes match module techniques to your pantry at zero credits."
+  ],
+  "related_ids": [
+    "track.plant_forward",
+    "track.hospitality"
+  ],
+  "programs": [
+    {
+      "track_id": "track.plant_forward",
+      "degree_type": "certificate",
+      "degree_label": "Plant-Based Culinary Certificate",
+      "credential": "PBC",
+      "estimated_hours": 520
+    },
+    {
+      "track_id": "track.hospitality",
+      "degree_type": "certificate",
+      "degree_label": "Hospitality Leadership Certificate",
+      "credential": "HLC",
+      "estimated_hours": 400
+    }
+  ],
+  "tagline": "Vegetable-first cooking and service leadership",
+  "location": "Teaching restaurant · Event studio"
+}

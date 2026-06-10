@@ -9,14 +9,34 @@ export type DeepEntryKind =
   | 'flavor_profile'
   | 'culture'
   | 'food_source'
-  | 'path';
+  | 'path'
+  | 'directory';
+
+export type AcademyDegreeType = 'certificate' | 'diploma' | 'associate';
+
+export interface AcademyDegreeProgram {
+  track_id: string;
+  degree_type: AcademyDegreeType;
+  degree_label: string;
+  credential: string;
+  estimated_hours?: number;
+}
+
+export interface AcademyDirectory {
+  id: string;
+  title: string;
+  tagline: string;
+  summary: string;
+  location?: string;
+  programs: AcademyDegreeProgram[];
+}
 
 export interface DeepTimelineEvent {
   when: string;
   event: string;
 }
 
-export type AcademyTrackType = 'career_ladder' | 'competition' | 'baking';
+export type AcademyTrackType = 'career_ladder' | 'competition' | 'baking' | 'certificate' | 'diploma';
 
 export interface AcademyModule {
   id: string;
@@ -60,8 +80,14 @@ export interface DeepKnowledgeEntry {
   /** Kitchen Academy featured track metadata */
   track_type?: AcademyTrackType;
   featured?: boolean;
+  directory_id?: string;
+  degree_label?: string;
   levels?: AcademyLevel[];
   shows_referenced?: string[];
+  /** Directory entry — degree programs at this school */
+  programs?: AcademyDegreeProgram[];
+  tagline?: string;
+  location?: string;
 }
 
 export interface IngredientDeepDive {

@@ -1,0 +1,467 @@
+{
+  "id": "track.garde_manger",
+  "kind": "path",
+  "title": "Garde Manger & Charcuterie",
+  "summary": "Four-level cold kitchen certificate — salads, charcuterie, preservation, and buffet platters with classical garde manger discipline.",
+  "knowledge_id": "track.garde_manger",
+  "match_keywords": [
+    "track garde_manger",
+    "garde manger & charcuterie",
+    "certificate",
+    "career",
+    "ladder"
+  ],
+  "origins": "Kitchen Academy featured tracks — structured career ladders and competition paths with leveled modules.",
+  "history": "Four-level cold kitchen certificate — salads, charcuterie, preservation, and buffet platters with classical garde manger discipline.",
+  "teaching": [
+    "Dry greens completely — water dilutes dressing.",
+    "3:1 oil to acid is a starting ratio; taste and adjust.",
+    "Salt the greens lightly before dressing for even flavor.",
+    "Mustard helps emulsify — start with a dab in the bowl.",
+    "Whisk oil in slowly for stable emulsion.",
+    "Season vinaigrette separately, then dress lightly.",
+    "Julienne and batonnet for even dip pickup.",
+    "Ice bath keeps cut vegetables crisp for service.",
+    "Odd-number grouping looks deliberate on platters.",
+    "Season aggressively — cold mutes flavor.",
+    "Chill until firm enough to slice cleanly.",
+    "Accompaniments: cornichons, mustard, crusty bread."
+  ],
+  "related_ids": [
+    "technique.knife_skills",
+    "technique.emulsify",
+    "flavor_profile.bright_acid",
+    "flavor_profile.rich_creamy",
+    "culture.french",
+    "culture.american",
+    "technique.whisk",
+    "flavor_profile.herbaceous",
+    "culture.mediterranean",
+    "technique.blanch_shock",
+    "flavor_profile.fresh_light",
+    "technique.puree",
+    "technique.slow_cook",
+    "flavor_profile.umami",
+    "technique.layer",
+    "technique.poach",
+    "technique.plan_menu",
+    "flavor_profile.sweet_savory",
+    "flavor_profile.nutty",
+    "technique.pickling",
+    "technique.brine",
+    "culture.german",
+    "technique.confit",
+    "technique.smoke"
+  ],
+  "track_type": "certificate",
+  "featured": true,
+  "levels": [
+    {
+      "id": "level.garde.cold_prep",
+      "rank": 1,
+      "title": "Cold Prep Foundations",
+      "description": "Knife work for salads, emulsified dressings, and food safety for cold service.",
+      "modules": [
+        {
+          "id": "mod.garde.salad_classic",
+          "title": "Classical Salads",
+          "summary": "Caesar logic, vinaigrette ratios, and washed-dried greens.",
+          "techniques": [
+            "technique.knife_skills",
+            "technique.emulsify"
+          ],
+          "flavors": [
+            "flavor_profile.bright_acid",
+            "flavor_profile.rich_creamy"
+          ],
+          "ingredients": [
+            "ingredient.lettuce",
+            "ingredient.lemon",
+            "ingredient.eggs"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.black_pepper"
+          ],
+          "cultures": [
+            "culture.french",
+            "culture.american"
+          ],
+          "practice_query": "classic caesar salad with emulsified dressing",
+          "teaching": [
+            "Dry greens completely — water dilutes dressing.",
+            "3:1 oil to acid is a starting ratio; taste and adjust.",
+            "Salt the greens lightly before dressing for even flavor."
+          ]
+        },
+        {
+          "id": "mod.garde.vinaigrette",
+          "title": "Vinaigrettes & Emulsions",
+          "summary": "Temporary and permanent emulsions for cold kitchen.",
+          "techniques": [
+            "technique.emulsify",
+            "technique.whisk"
+          ],
+          "flavors": [
+            "flavor_profile.bright_acid",
+            "flavor_profile.herbaceous"
+          ],
+          "ingredients": [
+            "ingredient.olive_oil",
+            "ingredient.vinegar",
+            "ingredient.mustard"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.garlic"
+          ],
+          "cultures": [
+            "culture.french",
+            "culture.mediterranean"
+          ],
+          "practice_query": "herb vinaigrette for composed salad",
+          "teaching": [
+            "Mustard helps emulsify — start with a dab in the bowl.",
+            "Whisk oil in slowly for stable emulsion.",
+            "Season vinaigrette separately, then dress lightly."
+          ]
+        },
+        {
+          "id": "mod.garde.crudite",
+          "title": "Crudité & Cold Platters",
+          "summary": "Uniform cuts, ice baths, and visual composition for raw service.",
+          "techniques": [
+            "technique.knife_skills",
+            "technique.blanch_shock"
+          ],
+          "flavors": [
+            "flavor_profile.fresh_light"
+          ],
+          "ingredients": [
+            "ingredient.carrot",
+            "ingredient.celery",
+            "ingredient.cucumber"
+          ],
+          "spices": [
+            "ingredient.salt"
+          ],
+          "cultures": [
+            "culture.french"
+          ],
+          "practice_query": "crudité platter with dip",
+          "teaching": [
+            "Julienne and batonnet for even dip pickup.",
+            "Ice bath keeps cut vegetables crisp for service.",
+            "Odd-number grouping looks deliberate on platters."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.garde.charcuterie",
+      "rank": 2,
+      "title": "Charcuterie Basics",
+      "description": "Pâté logic, terrines, and cured flavor without a smokehouse.",
+      "modules": [
+        {
+          "id": "mod.garde.pate",
+          "title": "Pâté & Rillettes Logic",
+          "summary": "Fat, protein, and seasoning ratios for spreadable charcuterie.",
+          "techniques": [
+            "technique.puree",
+            "technique.slow_cook"
+          ],
+          "flavors": [
+            "flavor_profile.rich_creamy",
+            "flavor_profile.umami"
+          ],
+          "ingredients": [
+            "ingredient.pork",
+            "ingredient.butter",
+            "ingredient.onion"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.thyme"
+          ],
+          "cultures": [
+            "culture.french"
+          ],
+          "practice_query": "chicken liver pate or mushroom pate",
+          "teaching": [
+            "Season aggressively — cold mutes flavor.",
+            "Chill until firm enough to slice cleanly.",
+            "Accompaniments: cornichons, mustard, crusty bread."
+          ]
+        },
+        {
+          "id": "mod.garde.terrine",
+          "title": "Terrines & Galantines",
+          "summary": "Layered forcemeats and vegetable terrines for slicing.",
+          "techniques": [
+            "technique.layer",
+            "technique.poach"
+          ],
+          "flavors": [
+            "flavor_profile.herbaceous"
+          ],
+          "ingredients": [
+            "ingredient.ground_beef",
+            "ingredient.eggs",
+            "ingredient.herbs"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.black_pepper"
+          ],
+          "cultures": [
+            "culture.french"
+          ],
+          "practice_query": "vegetable terrine layered with goat cheese",
+          "teaching": [
+            "Pack layers firmly to avoid air pockets when slicing.",
+            "Rest overnight — flavor melds and sets.",
+            "Slice with hot dry knife for clean faces."
+          ]
+        },
+        {
+          "id": "mod.garde.board",
+          "title": "Charcuterie Board Design",
+          "summary": "Salt, fat, acid, crunch balance on a shared board.",
+          "techniques": [
+            "technique.plan_menu"
+          ],
+          "flavors": [
+            "flavor_profile.sweet_savory",
+            "flavor_profile.nutty"
+          ],
+          "ingredients": [
+            "ingredient.cheese",
+            "ingredient.crackers",
+            "ingredient.fruit"
+          ],
+          "spices": [
+            "ingredient.honey"
+          ],
+          "cultures": [
+            "culture.french",
+            "culture.american"
+          ],
+          "practice_query": "charcuterie and cheese board for six",
+          "teaching": [
+            "Three cheeses: soft, firm, blue — variety over quantity.",
+            "Fold meats; pile cheeses; scatter pickles for height.",
+            "One sweet element (honey, jam) ties salty components."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.garde.preserve",
+      "rank": 3,
+      "title": "Preservation & Cure",
+      "description": "Pickle, brine, smoke, and confit for garde manger shelf life.",
+      "modules": [
+        {
+          "id": "mod.garde.pickling",
+          "title": "Pickling & Brining",
+          "summary": "Quick and overnight pickles for acidity and crunch.",
+          "techniques": [
+            "technique.pickling",
+            "technique.brine"
+          ],
+          "flavors": [
+            "flavor_profile.bright_acid"
+          ],
+          "ingredients": [
+            "ingredient.cucumber",
+            "ingredient.vinegar",
+            "ingredient.sugar"
+          ],
+          "spices": [
+            "ingredient.dill",
+            "ingredient.salt"
+          ],
+          "cultures": [
+            "culture.american",
+            "culture.german"
+          ],
+          "practice_query": "bread and butter pickles or quick pickled onions",
+          "teaching": [
+            "Hot brine for speed; cold brine for crisp texture.",
+            "Balance sugar and acid — taste the brine before pouring.",
+            "Refrigerator pickles are garde manger bread and butter."
+          ]
+        },
+        {
+          "id": "mod.garde.confit",
+          "title": "Confit & Fat Preservation",
+          "summary": "Low-temperature cooking submerged in fat for tenderness.",
+          "techniques": [
+            "technique.confit",
+            "technique.slow_cook"
+          ],
+          "flavors": [
+            "flavor_profile.rich_creamy",
+            "flavor_profile.umami"
+          ],
+          "ingredients": [
+            "ingredient.duck",
+            "ingredient.olive_oil",
+            "ingredient.garlic"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.thyme"
+          ],
+          "cultures": [
+            "culture.french"
+          ],
+          "practice_query": "garlic confit or olive oil poached fish",
+          "teaching": [
+            "Low steady heat — oil should shimmer, never roil.",
+            "Season before cooking; fat carries flavor inward.",
+            "Confit garlic transforms any cold preparation."
+          ]
+        },
+        {
+          "id": "mod.garde.smoke_cure",
+          "title": "Smoke & Cure Introduction",
+          "summary": "Dry rubs, cure ratios, and cold-smoke flavor at home.",
+          "techniques": [
+            "technique.smoke",
+            "technique.cure"
+          ],
+          "flavors": [
+            "flavor_profile.smoky",
+            "flavor_profile.umami"
+          ],
+          "ingredients": [
+            "ingredient.salmon",
+            "ingredient.salt",
+            "ingredient.sugar"
+          ],
+          "spices": [
+            "ingredient.black_pepper",
+            "ingredient.dill"
+          ],
+          "cultures": [
+            "culture.scandinavian",
+            "culture.american"
+          ],
+          "practice_query": "cured salmon gravlax or smoked trout",
+          "teaching": [
+            "Cure = salt + sugar + time; weigh fish for safety.",
+            "Smoke is flavor, not always cooking — know your method.",
+            "Slice paper-thin against the grain for cured fish."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "level.garde.chef",
+      "rank": 4,
+      "title": "Garde Manger Chef",
+      "description": "Buffet service, banquet platters, and cold kitchen leadership.",
+      "modules": [
+        {
+          "id": "mod.garde.buffet",
+          "title": "Buffet & Banquet Service",
+          "summary": "Replenishment rhythm, holding temps, and display at scale.",
+          "techniques": [
+            "technique.plan_menu",
+            "technique.hold_serve"
+          ],
+          "flavors": [
+            "flavor_profile.fresh_light"
+          ],
+          "ingredients": [
+            "ingredient.greens",
+            "ingredient.cheese",
+            "ingredient.bread"
+          ],
+          "spices": [],
+          "cultures": [
+            "culture.french",
+            "culture.american"
+          ],
+          "practice_query": "cold buffet platter for twenty guests",
+          "teaching": [
+            "Two-thirds full looks abundant; empty gaps look scarce.",
+            "Ice under cold items — garde manger is temperature discipline.",
+            "Par levels: know refill rate before service starts."
+          ]
+        },
+        {
+          "id": "mod.garde.platter",
+          "title": "Show Platters & Centerpieces",
+          "summary": "Whole fish display, ice sculptures logic, and height on platters.",
+          "techniques": [
+            "technique.knife_skills",
+            "technique.garnish"
+          ],
+          "flavors": [
+            "flavor_profile.fresh_light",
+            "flavor_profile.bright_acid"
+          ],
+          "ingredients": [
+            "ingredient.salmon",
+            "ingredient.lemon",
+            "ingredient.herbs"
+          ],
+          "spices": [],
+          "cultures": [
+            "culture.french"
+          ],
+          "practice_query": "whole poached salmon platter with herb garnish",
+          "teaching": [
+            "Garnish must be edible or clearly decorative — never misleading.",
+            "Height at center, lower at edges — natural eye flow.",
+            "Wipe platter rims — garde manger is visual precision."
+          ]
+        },
+        {
+          "id": "mod.garde.capstone",
+          "title": "Capstone: Cold Kitchen Tasting",
+          "summary": "Four cold courses under service timeline — garde manger exam.",
+          "techniques": [
+            "technique.emulsify",
+            "technique.pickling",
+            "technique.knife_skills"
+          ],
+          "flavors": [
+            "flavor_profile.bright_acid",
+            "flavor_profile.rich_creamy"
+          ],
+          "ingredients": [
+            "ingredient.lettuce",
+            "ingredient.salmon",
+            "ingredient.cheese"
+          ],
+          "spices": [
+            "ingredient.salt",
+            "ingredient.dill"
+          ],
+          "cultures": [
+            "culture.french"
+          ],
+          "practice_query": "four course cold tasting menu",
+          "teaching": [
+            "Timeline backward from service — cold food waits better than hot.",
+            "Every plate passes the rim wipe test.",
+            "Label allergens on banquet cards — garde manger leads safety."
+          ],
+          "time_limit_minutes": 120,
+          "judge_criteria": [
+            "Food safety temps",
+            "Knife uniformity",
+            "Plate clarity",
+            "Service timing"
+          ]
+        }
+      ]
+    }
+  ],
+  "directory_id": "directory.classical_culinary",
+  "degree_label": "Certificate in Garde Manger"
+}

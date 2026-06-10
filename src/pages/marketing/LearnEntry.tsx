@@ -4,6 +4,7 @@ import { MarketingLayout, GoDeeperCTA } from '@/components/marketing/MarketingLa
 import { PageMeta } from '@/components/marketing/PageMeta';
 import { getDeepById, DEEP_KIND_LABEL } from '@/lib/deepCatalog';
 import AcademyTrackPanel from '@/components/AcademyTrackPanel';
+import { directoryForTrack } from '@/lib/academyManifest';
 
 export default function LearnEntryPage() {
   const { entryId } = useParams<{ entryId: string }>();
@@ -25,6 +26,18 @@ export default function LearnEntryPage() {
           {DEEP_KIND_LABEL[entry.kind]}
         </p>
         <h1 className="font-display text-3xl sm:text-4xl text-white mt-2 tracking-tight">{entry.title}</h1>
+
+        {entry.degree_label && (
+          <p className="text-sm text-copper-300 mt-3 font-medium">{entry.degree_label}</p>
+        )}
+        {entry.directory_id && directoryForTrack(entry.id) && (
+          <Link
+            to={`/learn/schools/${entry.directory_id}`}
+            className="text-xs text-white/50 hover:text-white/75 mt-1 inline-block"
+          >
+            {directoryForTrack(entry.id)?.title} →
+          </Link>
+        )}
 
         {entry.first_known && (
           <p className="text-sm text-white/50 mt-4 flex items-center gap-2">

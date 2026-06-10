@@ -29,7 +29,7 @@ export const SITE_STATS = {
   flavorProfiles: String(CORPUS_STATS.flavorProfiles),
   foodSources: String(CORPUS_STATS.foodSources),
   claraTools: '9',
-  academyPaths: '3',
+  academyPaths: '7',
   klePillars: '4',
   brainVersion: SITE_VERSION,
   agentSuite: 'v6 Phase 4',
@@ -78,7 +78,7 @@ export const BRAIN_PILLARS = [
   {
     id: 'training-kitchen',
     title: 'Kitchen Academy',
-    summary: `${SITE_STATS.techniques} techniques, ${SITE_STATS.flavorProfiles} taste profiles, ${SITE_STATS.cuisines} cuisines, 3 featured pathways with pantry-matched practice.`,
+    summary: `${SITE_STATS.techniques} techniques, ${SITE_STATS.flavorProfiles} taste profiles, ${SITE_STATS.cuisines} cuisines, ${SITE_STATS.academyPaths} degree tracks across culinary school directories with pantry-matched practice.`,
   },
   {
     id: 'pantry-vision',
@@ -107,7 +107,7 @@ export const MARKETING_FAQ: FaqItem[] = [
     id: 'brain-5',
     question: `What is Brain ${SITE_VERSION}?`,
     answer:
-      `Brain ${SITE_VERSION} connects everything: a ${SITE_STATS.recipeCount} structured recipe library across ${SITE_STATS.cuisines} cuisines; Kitchen Academy with three featured career paths; Agent Suite v6 Phase 4 — pre-built embedding shards, streaming expert synthesis, and agent telemetry; AI Impact Suite; proactive cards; multi-course meal planning; and graph-first cook log at zero credits.`,
+      `Brain ${SITE_VERSION} connects everything: a ${SITE_STATS.recipeCount} structured recipe library across ${SITE_STATS.cuisines} cuisines; Kitchen Academy with ${SITE_STATS.academyPaths} degree tracks across five culinary schools; Agent Suite v6 Phase 4 — pre-built embedding shards, streaming expert synthesis, and agent telemetry; AI Impact Suite; proactive cards; multi-course meal planning; and graph-first cook log at zero credits.`,
   },
   {
     id: 'kle',
@@ -125,7 +125,7 @@ export const MARKETING_FAQ: FaqItem[] = [
     id: 'training-kitchen',
     question: 'What is the Training Kitchen?',
     answer:
-      `Training Kitchen is our culinary education layer: ${SITE_STATS.techniques} cooking techniques with micro-lessons and steps, ${SITE_STATS.flavorProfiles} taste profiles that teach salt/acid/fat/heat balance, ${SITE_STATS.cuisines} cultural cuisine nodes, ${SITE_STATS.foodSources} food source nodes (Walmart, Kroger, Whole Foods, farmers markets, CSAs, butchers, and more), and ${SITE_STATS.deepDives} Kitchen Academy deep dives — including three featured pathways (Amateur to Executive Chef, Master Baker, and Game Show Kitchen) with leveled modules and pantry-matched practice recipes. Skill coaching and Academy browse use zero credits.`,
+      `Training Kitchen is our culinary education layer: ${SITE_STATS.techniques} cooking techniques with micro-lessons and steps, ${SITE_STATS.flavorProfiles} taste profiles that teach salt/acid/fat/heat balance, ${SITE_STATS.cuisines} cultural cuisine nodes, ${SITE_STATS.foodSources} food source nodes (Walmart, Kroger, Whole Foods, farmers markets, CSAs, butchers, and more), and ${SITE_STATS.deepDives} Kitchen Academy deep dives — including ${SITE_STATS.academyPaths} degree tracks across five culinary school directories with leveled modules and pantry-matched practice recipes. Skill coaching and Academy browse use zero credits.`,
   },
   {
     id: 'local-food',

@@ -8,6 +8,8 @@ export const TRACK_AMATEUR_TO_EXECUTIVE = {
   summary: 'Eight-level career ladder from first sear to leading a kitchen — techniques, flavors, and leadership at every station.',
   track_type: 'career_ladder',
   featured: true,
+  directory_id: 'directory.classical_culinary',
+  degree_label: 'Associate in Culinary Arts',
   levels: [
     level('level.amateur', 1, 'Amateur Cook', 'Learn knife safety, basic seasoning, and your first hot-pan skills.', [
       mod('mod.amateur.knife_basics', 'Knife & Prep Foundations', 'Uniform cuts and safe handling before heat ever hits the pan.', {

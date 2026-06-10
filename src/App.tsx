@@ -30,6 +30,7 @@ import PricingPage from './pages/marketing/PricingPage';
 import StoryPage from './pages/marketing/StoryPage';
 import LearnIndex from './pages/marketing/LearnIndex';
 import LearnEntry from './pages/marketing/LearnEntry';
+import { LearnSchoolsIndexPage, LearnSchoolDetailPage } from './pages/marketing/LearnSchools';
 import { VisionIndex, VisionTopicPage } from './pages/marketing/VisionPages';
 import ErrorBoundary from './components/ErrorBoundary';
 import Learn from './pages/Learn';
@@ -58,6 +59,8 @@ function MarketingLearnRoutes() {
   return (
     <>
       <Route path="/learn" element={<LearnIndex />} />
+      <Route path="/learn/schools" element={<LearnSchoolsIndexPage />} />
+      <Route path="/learn/schools/:directoryId" element={<LearnSchoolDetailPage />} />
       <Route path="/learn/:entryId" element={<LearnEntry />} />
     </>
   );
@@ -83,6 +86,8 @@ function AuthenticatedRoutes() {
         <Route path="/community" element={<Community />} />
         <Route path="/brain" element={<Brain />} />
         <Route path="/learn" element={<Learn />} />
+        <Route path="/learn/schools" element={<LearnSchoolsIndexPage />} />
+        <Route path="/learn/schools/:directoryId" element={<LearnSchoolDetailPage />} />
         <Route path="/learn/:entryId" element={<LearnDetail />} />
         <Route path="/admin/journal" element={<ProductJournal />} />
         <Route path="/settings" element={<Settings />} />

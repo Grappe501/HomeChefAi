@@ -7,7 +7,7 @@
   "match_keywords": [
     "track master_baker",
     "master baker",
-    "career_ladder",
+    "baking",
     "career",
     "ladder"
   ],
@@ -53,7 +53,7 @@
     "technique.laminate",
     "technique.ferment"
   ],
-  "track_type": "career_ladder",
+  "track_type": "baking",
   "featured": true,
   "levels": [
     {
@@ -659,5 +659,7 @@
         }
       ]
     }
-  ]
+  ],
+  "directory_id": "directory.pastry_arts",
+  "degree_label": "Diploma in Pastry Arts"
 }

@@ -4,6 +4,7 @@ import { ArrowLeft, Clock, GraduationCap, MapPin } from 'lucide-react';
 import { knowledgeApi } from '@/lib/api';
 import { DEEP_KIND_LABEL } from '@/lib/deepCatalog';
 import AcademyTrackPanel from '@/components/AcademyTrackPanel';
+import { directoryForTrack } from '@/lib/academyManifest';
 import type { DeepKnowledgeEntry } from '@/types/knowledgeDeep';
 
 export default function LearnDetailPage() {
@@ -40,6 +41,14 @@ export default function LearnDetailPage() {
           {DEEP_KIND_LABEL[entry.kind]}
         </p>
         <h1 className="text-2xl font-semibold text-chef mt-1">{entry.title}</h1>
+        {entry.degree_label && (
+          <p className="text-sm text-copper-600 mt-2 font-medium">{entry.degree_label}</p>
+        )}
+        {entry.directory_id && directoryForTrack(entry.id) && (
+          <Link to={`/learn/schools/${entry.directory_id}`} className="text-xs text-chef-subtle hover:text-chef mt-1 inline-block">
+            {directoryForTrack(entry.id)?.title} →
+          </Link>
+        )}
         {entry.first_known && (
           <p className="text-sm text-chef-subtle mt-2 flex items-center gap-1">
             <Clock size={14} /> Known for {entry.first_known}

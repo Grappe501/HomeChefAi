@@ -1,0 +1,121 @@
+/** Kitchen Academy — Hospitality & Service Leadership */
+
+import { mod, level } from './helpers.mjs';
+
+export const TRACK_HOSPITALITY = {
+  id: 'track.hospitality',
+  title: 'Hospitality & Service Leadership',
+  summary: 'Four-level certificate in service fundamentals, menu engineering, event hosting, and kitchen leadership for front- and back-of-house thinkers.',
+  track_type: 'certificate',
+  featured: true,
+  directory_id: 'directory.plant_hospitality',
+  degree_label: 'Hospitality Leadership Certificate',
+  levels: [
+    level('level.host.service', 1, 'Service Fundamentals', 'Timing, communication, and the guest experience from kitchen to table.', [
+      mod('mod.host.timing', 'Service Timing & Courses', 'Fire times, coursing, and when the kitchen says "pick up".', {
+        techniques: ['technique.plan_timeline'],
+        flavors: ['flavor_profile.fresh_light'],
+        ingredients: ['ingredient.chicken.breast', 'ingredient.greens', 'ingredient.potato'],
+        cultures: ['culture.french', 'culture.american'],
+        practice_query: 'three course dinner timing plan',
+        teaching: ['Longest cook item sets the clock — work backward.', 'Cold apps fire first; hot apps need landing zone on pass.', 'Communicate "two minutes" only when plates are truly two minutes out.'],
+      }),
+      mod('mod.host.menu_read', 'Reading a Menu Like a Manager', 'Food cost awareness, descriptive language, and upselling with integrity.', {
+        techniques: ['technique.plan_menu'],
+        flavors: ['flavor_profile.rich_creamy'],
+        ingredients: ['ingredient.beef', 'ingredient.potato', 'ingredient.butter'],
+        cultures: ['culture.american'],
+        practice_query: 'seasonal bistro menu with descriptions',
+        teaching: ['Menu descriptions sell texture and method, not adjectives.', 'Stars and dogs — know which dishes carry margin.', 'Limit choices — decision fatigue kills guest satisfaction.'],
+      }),
+      mod('mod.host.allergy', 'Allergies & Dietary Service', 'Cross-contact, substitutions, and clear guest communication.', {
+        techniques: ['technique.substitute'],
+        flavors: ['flavor_profile.fresh_light'],
+        ingredients: ['ingredient.gluten_free_pasta', 'ingredient.nuts', 'ingredient.dairy'],
+        cultures: ['culture.american'],
+        practice_query: 'dairy-free dinner menu with allergen notes',
+        teaching: ['When in doubt, say you will check with the kitchen — never guess.', 'Separate boards and knives for allergen-free prep.', 'Document substitutions on the ticket every time.'],
+      }),
+    ]),
+    level('level.host.events', 2, 'Hosting & Events', 'Dinner parties, timelines, and Clara-powered hosting studio logic.', [
+      mod('mod.host.party_plan', 'Dinner Party Planning', 'Guest count, oven real estate, and make-ahead strategy.', {
+        techniques: ['technique.plan_timeline', 'technique.plan_menu'],
+        flavors: ['flavor_profile.crowd_favorite'],
+        ingredients: ['ingredient.chicken', 'ingredient.rice', 'ingredient.vegetables'],
+        cultures: ['culture.american', 'culture.mediterranean'],
+        practice_query: 'dinner party menu for eight with timeline',
+        teaching: ['One stovetop dish max during service — oven does the rest.', 'Guests remember the first and last bites — invest there.', 'Prep lists beat recipes for party day.'],
+      }),
+      mod('mod.host.beverage', 'Beverage Pairing Basics', 'Acid, tannin, and weight matching without sommelier jargon.', {
+        techniques: ['technique.pair'],
+        flavors: ['flavor_profile.bright_acid', 'flavor_profile.rich_creamy'],
+        ingredients: ['ingredient.lemon', 'ingredient.butter', 'ingredient.wine'],
+        cultures: ['culture.french', 'culture.italian'],
+        practice_query: 'wine pairing suggestions for roasted chicken dinner',
+        teaching: ['Match weight: heavy food, heavier wine.', 'Acid in food loves acid in glass — lemon and Sauvignon logic.', 'When unsure, sparkling water and a crisp white rarely offend.'],
+      }),
+      mod('mod.host.studio', 'Hosting Studio Workflow', 'SousChef timelines, shopping lists, and delegation to household members.', {
+        techniques: ['technique.plan_timeline'],
+        flavors: ['flavor_profile.fresh_light'],
+        ingredients: ['ingredient.onion', 'ingredient.garlic', 'ingredient.olive_oil'],
+        cultures: ['culture.american'],
+        practice_query: 'hosting timeline for holiday dinner six guests',
+        teaching: ['-48h shop, -24h prep, -2h set table — standard hosting cadence.', 'Assign one dish per helper — ownership beats micromanaging.', 'Use Clara hosting mode for shopping grouped by store aisle.'],
+      }),
+    ]),
+    level('level.host.menu_eng', 3, 'Menu Engineering', 'Cost, margin, and narrative across seasons.', [
+      mod('mod.host.seasonal', 'Seasonal Menu Rotation', 'Peak produce, limited specials, and story-driven LTOs.', {
+        techniques: ['technique.plan_menu'],
+        flavors: ['flavor_profile.fresh_light', 'flavor_profile.earthy'],
+        ingredients: ['ingredient.tomato', 'ingredient.squash', 'ingredient.greens'],
+        cultures: ['culture.american', 'culture.french'],
+        practice_query: 'seasonal fall menu three mains',
+        teaching: ['Two seasonal heroes beat six mediocre out-of-season items.', 'Farmers market price swings belong in your menu math.', 'Name the farm when you can — story sells.'],
+      }),
+      mod('mod.host.cost', 'Food Cost & Portion Control', 'Yield tests, standard recipes, and waste as a metric.', {
+        techniques: ['technique.portion'],
+        flavors: ['flavor_profile.umami'],
+        ingredients: ['ingredient.chicken.breast', 'ingredient.rice', 'ingredient.beans'],
+        cultures: ['culture.american'],
+        practice_query: 'standardized recipe card with yields',
+        teaching: ['Weigh portions once, serve by sight forever after.', 'Trim loss is real — buy price is not plate cost.', 'Track waste weekly; Brain shows patterns before you feel them.'],
+      }),
+      mod('mod.host.feedback', 'Guest Feedback & Iteration', 'Turn cook logs and ratings into menu changes.', {
+        techniques: ['technique.reflect'],
+        flavors: ['flavor_profile.fresh_light'],
+        ingredients: ['ingredient.pasta', 'ingredient.tomato', 'ingredient.basil'],
+        cultures: ['culture.italian'],
+        practice_query: 'family favorite pasta dish iteration',
+        teaching: ['Repeat winners get promoted to permanent menu status.', 'One tweak per iteration — you need to know what changed.', 'Kids honest feedback is menu R&D gold.'],
+      }),
+    ]),
+    level('level.host.leadership', 4, 'Kitchen Leadership', 'Brigade communication, training others, and leading service night.', [
+      mod('mod.host.brigade', 'Brigade Communication', 'Call backs, all-day counts, and clean pass discipline.', {
+        techniques: ['technique.lead_line'],
+        flavors: ['flavor_profile.umami'],
+        ingredients: ['ingredient.onion', 'ingredient.chicken_stock', 'ingredient.butter'],
+        cultures: ['culture.french'],
+        practice_query: 'multi-course brigade-style prep list',
+        teaching: ['"Heard" means acknowledged — silence is not agreement.', 'All-day = running inventory on the line.', 'Clean as you go — clutter slows the pass.'],
+      }),
+      mod('mod.host.train', 'Training & Mentoring Cooks', 'Demonstrate once, watch twice, correct gently.', {
+        techniques: ['technique.teach', 'technique.knife_skills'],
+        flavors: ['flavor_profile.fresh_light'],
+        ingredients: ['ingredient.carrot', 'ingredient.onion', 'ingredient.celery'],
+        cultures: ['culture.american'],
+        practice_query: 'teaching mirepoix prep to a beginner',
+        teaching: ['Teach one skill per session — overload kills retention.', 'Praise specific technique, not generic "good job".', 'Let them fix their own plate before you intervene.'],
+      }),
+      mod('mod.host.capstone', 'Capstone: Service Night Lead', 'Plan, delegate, and execute a full service for six — hospitality exam.', {
+        techniques: ['technique.plan_timeline', 'technique.plan_menu', 'technique.lead_line'],
+        flavors: ['flavor_profile.crowd_favorite'],
+        ingredients: ['ingredient.beef', 'ingredient.potato', 'ingredient.salad_greens'],
+        cultures: ['culture.american', 'culture.french'],
+        practice_query: 'full dinner service menu with timeline for six',
+        time_limit_minutes: 180,
+        judge_criteria: ['Timeline adherence', 'Guest experience', 'Kitchen communication', 'Clean pass'],
+        teaching: ['Brief the team before prep — everyone knows the clock.', 'First course out sets the tone; recover fast if late.', 'Thank the team at pass — leadership is culture.'],
+      }),
+    ]),
+  ],
+};

@@ -588,8 +588,21 @@ export const knowledgeApi = {
       `knowledge?action=deep&id=${encodeURIComponent(id)}`,
     ),
   academyTracks: () =>
-    api<{ tracks: { id: string; title: string; summary: string; track_type?: string; level_count: number; module_count: number }[] }>(
-      'knowledge?action=academy_tracks',
+    api<{
+      tracks: {
+        id: string;
+        title: string;
+        summary: string;
+        track_type?: string;
+        degree_label?: string;
+        directory_id?: string;
+        level_count: number;
+        module_count: number;
+      }[];
+    }>('knowledge?action=academy_tracks'),
+  academyDirectories: () =>
+    api<{ directories: import('@/types/knowledgeDeep').AcademyDirectory[] }>(
+      'knowledge?action=academy_directories',
     ),
   academyPractice: (trackId: string, levelId: string, moduleId: string) =>
     api<{

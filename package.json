@@ -1,8 +1,8 @@
 {
   "name": "homechef-ai",
-  "version": "7.5.0",
+  "version": "7.6.0",
   "private": true,
-  "description": "SousChef v7.5 — 568K recipe corpus v4 (signature variants) + manifest-synced marketing.",
+  "description": "SousChef v7.6 — Kitchen Academy culinary school directories + 7 degree tracks.",
   "type": "module",
   "scripts": {
     "dev": "vite",

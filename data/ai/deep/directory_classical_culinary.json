@@ -1,0 +1,44 @@
+{
+  "id": "directory.classical_culinary",
+  "kind": "directory",
+  "title": "Classical Culinary Institute",
+  "summary": "The flagship school — French technique, station discipline, and the career ladder from home cook to executive chef, plus garde manger cold kitchen mastery.",
+  "knowledge_id": "directory.classical_culinary",
+  "match_keywords": [
+    "directory classical_culinary",
+    "classical culinary institute",
+    "culinary school",
+    "degree",
+    "directory",
+    "brigade training from first sear to executive pass"
+  ],
+  "origins": "Classical Culinary Institute — Brigade training from first sear to executive pass. Kitchen Academy degree programs with leveled modules and pantry-matched practice.",
+  "history": "The flagship school — French technique, station discipline, and the career ladder from home cook to executive chef, plus garde manger cold kitchen mastery.",
+  "teaching": [
+    "Each program links to a leveled track with practice modules.",
+    "Browse degree requirements before starting a track.",
+    "Practice recipes match module techniques to your pantry at zero credits."
+  ],
+  "related_ids": [
+    "track.amateur_to_executive",
+    "track.garde_manger"
+  ],
+  "programs": [
+    {
+      "track_id": "track.amateur_to_executive",
+      "degree_type": "associate",
+      "degree_label": "Associate in Culinary Arts",
+      "credential": "ACA",
+      "estimated_hours": 1200
+    },
+    {
+      "track_id": "track.garde_manger",
+      "degree_type": "certificate",
+      "degree_label": "Certificate in Garde Manger",
+      "credential": "CGM",
+      "estimated_hours": 480
+    }
+  ],
+  "tagline": "Brigade training from first sear to executive pass",
+  "location": "Main campus · Hot & cold kitchens"
+}

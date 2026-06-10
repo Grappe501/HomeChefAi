@@ -6,8 +6,10 @@ export const TRACK_MASTER_BAKER = {
   id: 'track.master_baker',
   title: 'Master Baker',
   summary: 'Six-level baking path from first loaf to laminated pastry, chocolate work, and pastry leadership.',
-  track_type: 'career_ladder',
+  track_type: 'baking',
   featured: true,
+  directory_id: 'directory.pastry_arts',
+  degree_label: 'Diploma in Pastry Arts',
   levels: [
     level('level.baker_beginner', 1, 'Beginner Baker', 'Measure accurately, knead with confidence, and proof your first dough.', [
       mod('mod.baker_begin.measure_mix', 'Measure & Mix', 'Weight over volume — flour hydration starts with accurate scaling.', {

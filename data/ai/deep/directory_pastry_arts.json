@@ -1,0 +1,36 @@
+{
+  "id": "directory.pastry_arts",
+  "kind": "directory",
+  "title": "Pastry & Baking Academy",
+  "summary": "Dedicated baking campus — measure by weight, master fermentation, laminated dough, chocolate, and the pastry chef mindset.",
+  "knowledge_id": "directory.pastry_arts",
+  "match_keywords": [
+    "directory pastry_arts",
+    "pastry & baking academy",
+    "culinary school",
+    "degree",
+    "directory",
+    "precision, lamination, and pastry leadership"
+  ],
+  "origins": "Pastry & Baking Academy — Precision, lamination, and pastry leadership. Kitchen Academy degree programs with leveled modules and pantry-matched practice.",
+  "history": "Dedicated baking campus — measure by weight, master fermentation, laminated dough, chocolate, and the pastry chef mindset.",
+  "teaching": [
+    "Each program links to a leveled track with practice modules.",
+    "Browse degree requirements before starting a track.",
+    "Practice recipes match module techniques to your pantry at zero credits."
+  ],
+  "related_ids": [
+    "track.master_baker"
+  ],
+  "programs": [
+    {
+      "track_id": "track.master_baker",
+      "degree_type": "diploma",
+      "degree_label": "Diploma in Pastry Arts",
+      "credential": "DPA",
+      "estimated_hours": 960
+    }
+  ],
+  "tagline": "Precision, lamination, and pastry leadership",
+  "location": "Baking lab · Pastry studio"
+}

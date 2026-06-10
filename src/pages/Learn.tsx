@@ -6,9 +6,11 @@ import { DEEP_KIND_LABEL } from '@/lib/deepCatalog';
 import type { DeepEntryKind, DeepKnowledgeEntry } from '@/types/knowledgeDeep';
 import SousChefMark from '@/components/SousChefMark';
 import AcademyFeaturedHub from '@/components/AcademyFeaturedHub';
+import AcademyDirectoryHub from '@/components/AcademyDirectoryHub';
 import { useApp } from '@/hooks/useApp';
 import { assistantFirstName } from '@/lib/assistant';
 import { FEATURED_ACADEMY_TRACK_IDS } from '@/lib/academyTracks';
+import { listAcademyDirectories } from '@/lib/academyManifest';
 
 const KINDS: (DeepEntryKind | 'all')[] = [
   'all',
@@ -18,6 +20,7 @@ const KINDS: (DeepEntryKind | 'all')[] = [
   'culture',
   'food_source',
   'path',
+  'directory',
   'dish',
   'style',
   'tradition',
@@ -62,7 +65,8 @@ export default function LearnPage() {
 
   const grouped = useMemo(() => {
     const featured = new Set<string>(FEATURED_ACADEMY_TRACK_IDS);
-    const filtered = entries.filter((e) => !featured.has(e.id));
+    const directoryIds = new Set(listAcademyDirectories().map((d) => d.id));
+    const filtered = entries.filter((e) => !featured.has(e.id) && !directoryIds.has(e.id));
     const map = new Map<DeepEntryKind, DeepKnowledgeEntry[]>();
     for (const e of filtered) {
       const list = map.get(e.kind) ?? [];
@@ -85,7 +89,12 @@ export default function LearnPage() {
         </p>
       </header>
 
-      {!q && <AcademyFeaturedHub />}
+      {!q && (
+        <div className="space-y-6">
+          <AcademyDirectoryHub />
+          <AcademyFeaturedHub />
+        </div>
+      )}
 
       <div className="relative">
         <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-chef-subtle" />
