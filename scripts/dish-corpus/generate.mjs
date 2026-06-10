@@ -1,5 +1,5 @@
 /**
- * Dish Corpus v3 — combinatorial depth for all courses (matches main-course cardinality)
+ * Dish Corpus v4 — combinatorial depth + signature style variants (~2× cardinality → 500k+)
  * Run: npm run knowledge:dishes
  */
 
@@ -196,7 +196,7 @@ function buildDish(cuisine, course, title, extra = {}) {
       required_staples: extra.staples ?? [],
       steps: extra.steps ?? stepsFor(course, title, cuisine),
     },
-    sources: ['corpus_v3'],
+    sources: ['corpus_v4'],
   };
 }
 
@@ -274,8 +274,32 @@ function generateCourseCombo(cuisine, course, bases, techniques, defaultTags = [
   return dishes;
 }
 
+function expandStyleVariants(dishes) {
+  const expanded = [];
+  for (const dish of dishes) {
+    expanded.push(dish);
+    expanded.push({
+      ...dish,
+      id: `${dish.id}.signature`,
+      display_name: `${dish.display_name} Signature`,
+      description: `${dish.description} Signature house preparation.`,
+      attributes: {
+        ...dish.attributes,
+        tags: [...new Set([...(dish.attributes.tags ?? []), 'signature', 'house_favorite'])],
+        prep_time_minutes: Math.max(15, (dish.attributes.prep_time_minutes ?? 30) - 5),
+        match_keywords: [
+          ...(dish.attributes.match_keywords ?? []),
+          'signature',
+          `${dish.display_name.toLowerCase()} signature`,
+        ],
+      },
+    });
+  }
+  return expanded;
+}
+
 function generateCuisineCorpus(cuisine) {
-  const dishes = [
+  const dishes = expandStyleVariants([
     ...generateMains(cuisine),
     ...generateCourseCombo(cuisine, 'appetizer', APPETIZERS, APPETIZER_TECHNIQUES, ['dinner_party']),
     ...generateCourseCombo(cuisine, 'soup', SOUPS, SOUP_TECHNIQUES, ['leftovers_friendly']),
@@ -286,7 +310,7 @@ function generateCuisineCorpus(cuisine) {
     ...generateCourseCombo(cuisine, 'breakfast', BREAKFASTS, BREAKFAST_TECHNIQUES, ['30_minutes']),
     ...generateCourseCombo(cuisine, 'snack', SNACKS, SNACK_TECHNIQUES, ['easy_night']),
     ...generateCourseCombo(cuisine, 'beverage', BEVERAGES, BEVERAGE_TECHNIQUES, ['easy_night']),
-  ];
+  ]);
 
   const seen = new Set();
   return dishes.filter((d) => {
@@ -310,7 +334,7 @@ function writeCuisineNode(cuisine) {
       signature_spice: cuisine.spice,
       signature_starch: cuisine.starch,
     },
-    sources: ['corpus_v3'],
+    sources: ['corpus_v4'],
   };
   writeFileSync(path, JSON.stringify(node, null, 2) + '\n', 'utf8');
 }
@@ -325,7 +349,7 @@ if (existsSync(LEGACY_DIR)) {
 if (!existsSync(CORPUS_DIR)) mkdirSync(CORPUS_DIR, { recursive: true });
 
 const manifest = {
-  version: 3,
+  version: 4,
   generated_at: new Date().toISOString(),
   total: 0,
   by_cuisine: {},
